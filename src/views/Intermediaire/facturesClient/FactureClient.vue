@@ -525,10 +525,10 @@ export default {
       .then((res) => {
         this.$store.dispatch("Get_EtatFacture", res.data);
         this.livrer = res.data
-          .filter((el) => el.etatDemande == "Livrer")
+          .filter((el) => el.etatDemande == "Livré")
           .map((el) => el.idEtatDemande)[0];
         this.achever = res.data
-          .filter((el) => el.etatDemande == "Achever")
+          .filter((el) => el.etatDemande == "Achevé")
           .map((el) => el.idEtatDemande)[0];
       });
     await axios
@@ -607,7 +607,7 @@ export default {
       return prix;
     },
     GetEtatAccepter() {
-      return this.ListeEtatOffres.filter((el) => el.etat == "Accepter").map(
+      return this.ListeEtatOffres.filter((el) => el.etat == "Accepté").map(
         (el) => el.idEtat
       )[0];
     },

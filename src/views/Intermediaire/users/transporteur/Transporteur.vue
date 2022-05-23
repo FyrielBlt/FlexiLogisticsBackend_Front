@@ -829,6 +829,7 @@ export default {
          this.$swal({
           position: "top-end",
           icon: "success",
+         
           toast: true,
           title: "Transporteur Ajouter",
           showConfirmButton: false,

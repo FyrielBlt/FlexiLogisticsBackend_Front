@@ -529,13 +529,7 @@ export default {
     this.$store.dispatch("Get_Ville");
   },
   methods: {
-    // startAlert() {
-    //   this.success = true;
-    //   this.timeout = setTimeout(() => {
-    //     clearTimeout(this.timeout);
-    //     this.success = false;
-    //   }, 2000);
-    // },
+    
     Ajouter() {
       this.open = true;
       console.log(this.open);

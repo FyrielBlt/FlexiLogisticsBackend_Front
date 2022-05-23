@@ -2,7 +2,6 @@
   <!-- Breadcrumb -->
   <!-- <Breadcrumb breadcrumb="Demandes" /> -->
 
-
   <div
     :class="`modal ${
       !open && 'opacity-0 pointer-events-none'
@@ -23,9 +22,8 @@
         rounded
         shadow-lg
         modal-container
-        
       "
-      style="width: 681px;"
+      style="width: 681px"
     >
       <div
         class="
@@ -77,12 +75,19 @@
         </div>
 
         <!--Body-->
-        <div class="px-5 py-6 text-gray-700 bg-gray-200 border-b grid grid-cols-2 gap-2">
-          
-
+        <div
+          class="
+            px-5
+            py-6
+            text-gray-700
+            bg-gray-200
+            border-b
+            grid grid-cols-2
+            gap-2
+          "
+        >
           <div class="relative mt-2 rounded-md shadow-sm">
             <label class="text-xs">Description</label>
-       
 
             <textarea
               class="
@@ -99,11 +104,9 @@
             />
           </div>
 
-     
-
           <div class="relative mt-2 rounded-md shadow-sm">
-                 <label class="text-xs">Adresse depart</label>
-       
+            <label class="text-xs">Adresse depart</label>
+
             <select
               name=""
               class="
@@ -129,11 +132,8 @@
             </select>
           </div>
 
-        
-
           <div class="relative mt-2 rounded-md shadow-sm">
-              <label class="text-xs">Adresse arrive</label>
-       
+            <label class="text-xs">Adresse arrive</label>
 
             <select
               name=""
@@ -159,11 +159,9 @@
               </option>
             </select>
           </div>
-          
 
           <div class="relative mt-2 rounded-md shadow-sm">
             <label class="text-xs">Poids</label>
-       
 
             <input
               class="
@@ -180,11 +178,9 @@
               v-model="poids"
             />
           </div>
-  
 
           <div class="relative mt-2 rounded-md shadow-sm">
-                    <label class="text-xs">Largeur</label>
-       
+            <label class="text-xs">Largeur</label>
 
             <input
               class="
@@ -201,11 +197,9 @@
               v-model="largeur"
             />
           </div>
-         
 
           <div class="relative mt-2 rounded-md shadow-sm">
-             <label class="text-xs">Hauteur</label>
-       
+            <label class="text-xs">Hauteur</label>
 
             <input
               class="
@@ -222,11 +216,9 @@
               v-model="hauteur"
             />
           </div>
-      
 
           <div class="relative mt-2 rounded-md shadow-sm">
-                <label class="text-xs">Date</label>
-       
+            <label class="text-xs">Date</label>
 
             <input
               class="
@@ -240,6 +232,7 @@
                 focus:ring focus:ring-opacity-40 focus:ring-indigo-500
               "
               type="date"
+              :min="this.today"
               v-model="datedemande"
             />
           </div>
@@ -526,7 +519,10 @@
               </td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                 <div class="flex justify-around">
-                  <span class="text-yellow-500 flex justify-center">
+                  <span
+                    class="text-yellow-500 flex justify-center"
+                    v-if="u.offre.length == 0"
+                  >
                     <button
                       @click="updateinputdisable = false"
                       :hidden="!updateinputdisable"
@@ -587,6 +583,27 @@
                       </svg>
                     </button>
                   </span>
+                  <div  v-else>
+    <button
+                    class="
+                      bg-white
+                      hover:bg-green-100
+                      text-green-800
+                      font-semibold
+                      py-2
+                      px-4
+                      border border-green-400
+                      rounded
+                      shadow
+                    "
+                    @click="livrer(u)"
+                   v-if="u.idEtatdemande!=livre"
+                  >
+
+                    Livrer
+                  </button>
+                  </div>
+              
                 </div>
               </td>
             </tr>
@@ -632,7 +649,6 @@
         "
       >
         Demande Livraison
-        
       </button>
     </div>
   </div>
@@ -671,11 +687,19 @@ import $ from 'jquery';
       perpage: 5,
       departfilter:'',
       arrivefilter:'',
+      today:new Date().toISOString().split("T")[0],
+     
       }
     },
   
     created(){
-  
+   axios
+      .get(
+        "http://localhost:5000/api/EtatDemandeLivraisons/check?etat=livre" 
+          )
+      .then((response) =>{
+        this.livre= response.data.idEtatDemande;
+      }),
          axios
       .get( "http://localhost:5000/api/demandelivraisons/client/"+localStorage.getItem("iduser"))
       .then((response) =>{
@@ -707,6 +731,31 @@ import $ from 'jquery';
             this.demandes = resp.data;
           });
       
+    },
+    livrer(u){
+axios.put(
+            "http://localhost:5000/api/demandelivraisons/" + u.idDemande,
+            {
+              idDemande: u.idDemande,
+              description: u.description,
+              datecreation: u.datecreation,
+              adressdepart: u.adressdepart,
+              adressarrive: u.adressarrive,
+              date: u.date,
+              poids: u.poids,
+              largeur: u.largeur,
+              hauteur: u.hauteur,
+              idEtatdemande: this.livre,
+              idclient: u.idclient,
+              file: u.file,
+            }
+          ).then(()=>{
+           Swal.fire(
+      'Updated!',
+      'Your offer has been updated.',
+      'success'
+    )
+          });
     },
   updatedemande(id,index){
 axios.put('http://localhost:5000/api/demandelivraisons/'+id,{

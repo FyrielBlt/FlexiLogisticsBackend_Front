@@ -192,7 +192,7 @@ export default {
         "http://localhost:5000/api/EtatDemandeDevis/EtatDemandeDevis?etat=Accepte" 
           )
       .then((response) =>{
-        this.accepte= response.data;
+        this.accepte= response.data.idEtat;
       }),
 
   //get etatoffre where etat=en cours
@@ -201,7 +201,7 @@ export default {
         "http://localhost:5000/api/EtatOffres/offre?offre=Nontraite" 
           )
       .then((response) =>{
-        this.encours= response.data;
+        this.encours= response.data.idEtat;
       }),
 
     //les trajets de cet transport
@@ -241,7 +241,7 @@ export default {
               description: this.description,
               date: this.offre.date,
               heurdepart:this.offre.heurdepart      ,
-              idEtat:this.encours.idEtat,
+              idEtat:this.encours,
               prix: this.prix,
               prixFinale: null,
               idTransporteur: localStorage.getItem("idtransporteur"),
@@ -255,7 +255,7 @@ export default {
                idIntermediaire:this.tabledemande.idIntermediaire,
                idDemande:this.tabledemande.idDemande,
                idTransporteur:this.tabledemande.idTransporteur,
-               idEtat:this.accepte.idEtat
+               idEtat:this.accepte
               }) 
               
               this.close()

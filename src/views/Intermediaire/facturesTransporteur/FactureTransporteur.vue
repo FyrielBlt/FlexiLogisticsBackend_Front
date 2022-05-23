@@ -583,7 +583,7 @@ export default {
       return prix;
     },
     GetEtatAccepter() {
-      return this.ListeEtatOffres.filter((el) => el.etat == "Accepter").map(
+      return this.ListeEtatOffres.filter((el) => el.etat == "Accepté").map(
         (el) => el.idEtat
       )[0];
     },

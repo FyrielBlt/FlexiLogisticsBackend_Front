@@ -272,20 +272,23 @@ export default defineComponent({
   created() {},
   methods: {
     logout() {
-       Swal.fire({
-  icon: 'success',
-  title: 'GoodBye '+localStorage.getItem("nom") +" "+localStorage.getItem("prenom"),
- 
-})
+  
       localStorage.removeItem("token");
       localStorage.removeItem("type");
       localStorage.removeItem("email");
       localStorage.removeItem("name");
+       localStorage.removeItem("nom");
       localStorage.removeItem("prenom");
       localStorage.removeItem("societe");
       localStorage.removeItem("image");
       localStorage.removeItem("iduser");
       localStorage.removeItem("jwt");
+      localStorage.removeItem("jwtt");
+      localStorage.removeItem("jwtc");
+      localStorage.removeItem("clientid");
+      localStorage.removeItem("id");
+      localStorage.removeItem("idtransporteur");
+      localStorage.removeItem("idRole");
       router.push("/");
        
     },

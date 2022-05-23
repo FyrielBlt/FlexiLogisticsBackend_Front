@@ -40,8 +40,8 @@ export default {
     //etatdemandelivraison
     GetEtatFacture(state, value) {
 
-      state.livrer = value.filter(el => el.etatDemande == "Livrer").map(el => el.idEtatDemande)[0];
-      state.achever = value.filter(el => el.etatDemande == "Achever").map(el => el.idEtatDemande)[0];
+      state.livrer = value.filter(el => el.etatDemande == "Livré").map(el => el.idEtatDemande)[0];
+      state.achever = value.filter(el => el.etatDemande == "Achevé").map(el => el.idEtatDemande)[0];
 
     },
 

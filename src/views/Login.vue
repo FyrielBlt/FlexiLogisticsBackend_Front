@@ -159,6 +159,12 @@ export default defineComponent({
             console.log(localStorage.getItem("jwt"));
 
             this.$router.push({ name: "Intermediaire" });
+             Swal.fire({
+  icon: 'success',
+  title: 'Hello '+response.data.validUser.nom +" "+response.data.validUser.prenom,
+  text: 'Welcome',
+ 
+})
           } else if (localStorage.getItem("type") == "transporteur") {
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("idtransporteur", response.data.validUser.transporteur[0].idTransporteur);
@@ -168,7 +174,14 @@ export default defineComponent({
             localStorage.setItem("email", response.data.validUser.email);
             localStorage.setItem("societe", response.data.validUser.societe);
             localStorage.setItem("image", response.data.validUser.image);
+            localStorage.setItem("jwtt", 't');
             this.$router.push({ name: "DashboardTransporteur" });
+             Swal.fire({
+  icon: 'success',
+  title: 'Hello '+response.data.validUser.nom +" "+response.data.validUser.prenom,
+  text: 'Welcome',
+ 
+})
           } else if (localStorage.getItem("type") == "") {
             this.$router.push({ name: "Login" });
           } else {
@@ -180,6 +193,7 @@ export default defineComponent({
             localStorage.setItem("societe", response.data.validUser.societe);
             localStorage.setItem("image", response.data.validUser.image);
             localStorage.setItem("clientid", response.data.validUser.client[0].idclient);
+            localStorage.setItem("jwtc", 'c');
             this.$router.push({ name: "DashboardClient" });
             Swal.fire({
   icon: 'success',

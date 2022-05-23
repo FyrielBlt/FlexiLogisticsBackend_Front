@@ -1,40 +1,7 @@
 <template>
   <!-- Breadcrumb -->
   <!-- <Breadcrumb breadcrumb="Offre Récu" /> -->
-    <div
-    class="
-      inline-flex
-      w-full
-      max-w-sm
-      ml-3
-      overflow-hidden
-      bg-white
-      rounded-lg
-      shadow-md
-    "
-    style="position: absolute; right: 50px"
-    v-if="success"
-    @click="success = false"
-  >
-    <div class="flex items-center justify-center w-12 bg-green-500">
-      <svg
-        class="w-6 h-6 text-white fill-current"
-        viewBox="0 0 40 40"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z"
-        />
-      </svg>
-    </div>
 
-    <div class="px-4 py-2 -mx-3">
-      <div class="mx-3">
-        <span class="font-semibold text-green-500">Succée</span>
-        <p class="text-sm text-gray-600">Offre modifié avec succée</p>
-      </div>
-    </div>
-  </div>
   <div class="mt-6">
     <h2 class="text-xl font-semibold leading-tight text-gray-700">Offres</h2>
           <div class="flex justify-center">
@@ -354,7 +321,7 @@
                 <a style="color: red; font-weight: bold" v-else> No File</a>
               </td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                <p class="text-gray-900 whitespace-nowrap">{{ u.prix }}DT</p>
+                <p class="text-gray-900 whitespace-nowrap">{{ u.prixFinale }}DT</p>
               </td>
 
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
@@ -390,7 +357,7 @@
                         shadow
                       "
                       @click="accepter(u)"
-                      v-if="u.idEtat == 2"
+                      v-if="u.idEtat == encdt"
                     >
                       Accepter
                     </button>
@@ -407,10 +374,11 @@
                         shadow
                       "
                       @click="annuler(u)"
-                      v-if="u.idEtat > 2"
+                      v-if="u.idEtat == att"
                     >
                       Annuler
                     </button>
+                   
                   </span>
                 </div>
               </td>
@@ -469,9 +437,41 @@ export default defineComponent({
       villes: [],
       depart: "",
       arrive: "",
+      nt:"",
+      att:"",
+      encdt:"",
+      acc:"",
     };
   },
   created() {
+     axios
+      .get(
+        "http://localhost:5000/api/EtatOffres/offre?offre=attente" 
+          )
+      .then((response) =>{
+        this.att= response.data.idEtat;
+      }),
+       axios
+      .get(
+        "http://localhost:5000/api/EtatOffres/offre?offre=Accepte" 
+          )
+      .then((response) =>{
+        this.acc= response.data.idEtat;
+      }),
+      axios
+      .get(
+        "http://localhost:5000/api/EtatOffres/offre?offre=Encours" 
+          )
+      .then((response) =>{
+        this.encdt= response.data.idEtat;
+      }),
+     axios
+      .get(
+        "http://localhost:5000/api/EtatOffres/offre?offre=Nontraite" 
+          )
+      .then((response) =>{
+        this.nt= response.data.idEtat;
+      }),
     axios
       .get("http://localhost:5000/api/villes")
       .then((resp) => (this.villes = resp.data));
@@ -487,6 +487,7 @@ export default defineComponent({
       .then((resp) => {
         this.offres = resp.data;
       });
+      
   },
 
   methods: {
@@ -547,8 +548,9 @@ export default defineComponent({
           idOffre: offre.idOffre,
           description: offre.description,
           date: offre.date,
-          idEtat: 3,
+          idEtat: this.att,
           prix: offre.prix,
+          prixFinale: offre.prixFinale,
           idTransporteur: offre.idTransporteur,
           idDemande: offre.idDemande,
           recu: offre.recu,
@@ -570,13 +572,16 @@ export default defineComponent({
               poids: offre.idDemandeNavigation.poids,
               largeur: offre.idDemandeNavigation.largeur,
               hauteur: offre.idDemandeNavigation.hauteur,
-              idEtatdemande: 3,
+              idEtatdemande: offre.idDemandeNavigation.idEtatdemande,
               idclient: offre.idDemandeNavigation.idclientNavigation.idclient,
               file: offre.idDemandeNavigation.file,
             }
           ).then(()=>{
-            this.open = false;
-        this.success = true;
+           Swal.fire(
+      'Updated!',
+      'Your offer has been updated.',
+      'success'
+    )
           });
           axios
             .get(
@@ -594,8 +599,9 @@ export default defineComponent({
           idOffre: offre.idOffre,
           description: offre.description,
           date: offre.date,
-          idEtat: 2,
+          idEtat: this.encdt,
           prix: offre.prix,
+          prixFinale: offre.prixFinale,
           idTransporteur: offre.idTransporteur,
           idDemande: offre.idDemande,
           recu: offre.recu,
@@ -616,13 +622,16 @@ export default defineComponent({
               poids: offre.idDemandeNavigation.poids,
               largeur: offre.idDemandeNavigation.largeur,
               hauteur: offre.idDemandeNavigation.hauteur,
-              idEtatdemande: 2,
+              idEtatdemande: offre.idDemandeNavigation.idEtatdemande,
               idclient: offre.idDemandeNavigation.idclientNavigation.idclient,
               file: offre.idDemandeNavigation.file,
             }
           ).then(()=>{
-            this.open = false;
-        this.success = true;
+           Swal.fire(
+      'Updated!',
+      'Your offer has been updated.',
+      'success'
+    )
           });
           axios
             .get(

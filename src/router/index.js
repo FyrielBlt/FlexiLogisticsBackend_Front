@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 //middleware
 import auth from '../middleware/auth'
 import log from '../middleware/log'
+import autht from '../middleware/autht'
+import authc from '../middleware/authc'
 //login
 import Login from '../views/Login.vue'
 //client
@@ -162,6 +164,9 @@ const routes = [{
     {
         path: '/dashboard',
         component: MenuClient,
+        meta: {
+          middleware: [authc, log],
+      },
         children: [{
                 path: 'dashboardClient',
                 name: 'DashboardClient',
@@ -194,6 +199,9 @@ const routes = [{
     {
         path: '/dashboard',
         component: MenuTransporteur,
+        meta: {
+          middleware: [autht, log],
+      },
         children: [{
                 path: 'dashboardTransporteur',
                 name: 'DashboardTransporteur',
@@ -332,7 +340,7 @@ const routes = [{
         name: 'Blank',
         component: Blank,
     },
-    { path: '/:pathMatch(.*)*', component: NotFound },
+    { path: '/:pathMatch(.*)*',name:'NotFound', component: NotFound },
 ]
 
 const router = createRouter({

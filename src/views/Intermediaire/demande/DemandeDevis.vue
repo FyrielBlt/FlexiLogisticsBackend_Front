@@ -518,7 +518,7 @@
         </div>
       </div>
     </div>
-    <!-- {{ transporteur }} -->
+    {{ checkedTransporteurId }}
     <!-- {{ GetEtatDemande() }} -->
     <br />
     <!-- {{$route.params.id}} -->
@@ -526,7 +526,7 @@
     <!-- {{ ChercherVille1 }} kkk{{ ChercherVille2 }} -->
     <!-- {{ checkedTransporteurId.length }} -->
     <br />
-    <!-- {{ checkedTransporteur }} -->
+    {{ checkedTransporteur }}
     <!-- {{ ListeDemacheckedTransporteurIdndeDevis }} -->
   </div>
   <!-- </div> -->
@@ -626,7 +626,7 @@ export default {
     },
     GetEtatDemande() {
       return this.ListeEtatDemandeLivraisons.filter(
-        (el) => el.etatDemande == "En cours de traitemment"
+        (el) => el.etatDemande == "En cours de traitement"
       ).map((el) => el.idEtatDemande)[0];
     },
     GetEtatDemandeModifier() {
