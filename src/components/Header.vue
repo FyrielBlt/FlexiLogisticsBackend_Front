@@ -272,6 +272,11 @@ export default defineComponent({
   created() {},
   methods: {
     logout() {
+       Swal.fire({
+  icon: 'success',
+  title: 'GoodBye '+localStorage.getItem("nom") +" "+localStorage.getItem("prenom"),
+ 
+})
       localStorage.removeItem("token");
       localStorage.removeItem("type");
       localStorage.removeItem("email");
@@ -282,6 +287,7 @@ export default defineComponent({
       localStorage.removeItem("iduser");
       localStorage.removeItem("jwt");
       router.push("/");
+       
     },
   },
 });

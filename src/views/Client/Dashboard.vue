@@ -7,7 +7,7 @@
       <div v-if="type == 'client'" class="flex flex-wrap -mx-6">
         <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
           <div
-            class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
+            class="transition ease-in-out hover:-translate-y-1 hover:scale-110 flex items-center px-5 py-6 bg-white rounded-md shadow-sm "
           >
             <div class="p-3 bg-indigo-600 bg-opacity-75 rounded-full">
               <svg
@@ -54,7 +54,7 @@
 
         <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
           <div
-            class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
+            class="transition ease-in-out hover:-translate-y-1 hover:scale-110 flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
           >
             <div class="p-3 bg-blue-600 bg-opacity-75 rounded-full">
               <svg
@@ -89,7 +89,7 @@
 
         <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 xl:mt-0">
           <div
-            class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
+            class="transition ease-in-out hover:-translate-y-1 hover:scale-110 flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
           >
             <div class="p-3 bg-pink-600 bg-opacity-75 rounded-full">
               <svg
@@ -230,7 +230,7 @@
             <tbody class="bg-white">
               <tr v-for="(u, index) in offres" :key="index">
                 <td
-                  class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
+                  class="px-6 py-4 border-b border-gray-200 whitespace-nowrap "
                 >
                   <div class="flex items-center">
                     <div class="ml-4">
@@ -285,7 +285,7 @@
                       bg-red-100
                       rounded-full
                     "
-                    v-if="u.idEtat==1"
+                    v-if="u.idEtatNavigation.etat=='Refusé'"
                     >{{ u.idEtatNavigation.etat }}</span
                   >
                     <span

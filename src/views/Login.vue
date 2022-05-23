@@ -179,7 +179,14 @@ export default defineComponent({
             localStorage.setItem("email", response.data.validUser.email);
             localStorage.setItem("societe", response.data.validUser.societe);
             localStorage.setItem("image", response.data.validUser.image);
+            localStorage.setItem("clientid", response.data.validUser.client[0].idclient);
             this.$router.push({ name: "DashboardClient" });
+            Swal.fire({
+  icon: 'success',
+  title: 'Hello '+response.data.validUser.nom +" "+response.data.validUser.prenom,
+  text: 'Welcome',
+ 
+})
           }
 
           //  console.log(localStorage.getItem("type"));
@@ -191,6 +198,13 @@ export default defineComponent({
         //   }
           
         //  console.log(localStorage.getItem("type"));
+         }).catch(()=>{
+           Swal.fire({
+  icon: 'error',
+  title: 'Oops...',
+  text: 'Something went wrong!',
+ 
+})
          });
     },
   },

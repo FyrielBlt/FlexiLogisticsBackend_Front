@@ -1,11 +1,43 @@
 <template>
   <!-- Breadcrumb -->
   <!-- <Breadcrumb breadcrumb="Offre Récu" /> -->
+    <div
+    class="
+      inline-flex
+      w-full
+      max-w-sm
+      ml-3
+      overflow-hidden
+      bg-white
+      rounded-lg
+      shadow-md
+    "
+    style="position: absolute; right: 50px"
+    v-if="success"
+    @click="success = false"
+  >
+    <div class="flex items-center justify-center w-12 bg-green-500">
+      <svg
+        class="w-6 h-6 text-white fill-current"
+        viewBox="0 0 40 40"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z"
+        />
+      </svg>
+    </div>
+
+    <div class="px-4 py-2 -mx-3">
+      <div class="mx-3">
+        <span class="font-semibold text-green-500">Succée</span>
+        <p class="text-sm text-gray-600">Offre modifié avec succée</p>
+      </div>
+    </div>
+  </div>
   <div class="mt-6">
     <h2 class="text-xl font-semibold leading-tight text-gray-700">Offres</h2>
-    <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
-      <div class="inline-block min-w-full overflow-hidden rounded-lg shadow">
-        <div class="flex justify-center">
+          <div class="flex justify-center">
           <h4 class="font-semibold p-3">Per Page :</h4>
           <div class="mb-3 p-3">
             <select
@@ -109,6 +141,9 @@
             </select>
           </div>
         </div>
+    <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
+      <div class="inline-block min-w-full overflow-hidden rounded-lg shadow">
+  
         <table class="min-w-full leading-normal" id="myTable">
           <thead>
             <tr>
@@ -398,7 +433,7 @@
             <!-- PAGINATION -->
             <pagination-vue
               :current="page"
-              :total="this.offres.length + 1 + perpage"
+              :total="this.offres.length "
               :per-page="perpage"
               @page-changed="ChangePage"
             ></pagination-vue>
@@ -411,6 +446,8 @@
 </template>
 <script>
 import { defineComponent } from "vue";
+import { ref } from 'vue'
+
 //import Breadcrumb from "../../partials/Breadcrumb.vue";
 import axios from "axios";
 import PaginationVue from "../../components/Intermediaire/pagination/PaginationVue.vue";
@@ -423,6 +460,8 @@ export default defineComponent({
   },
   data() {
     return {
+       open : ref(false),
+      success:false,
       offres: [],
       page: 1,
       perpage: 5,
@@ -514,6 +553,9 @@ export default defineComponent({
           idDemande: offre.idDemande,
           recu: offre.recu,
           file: offre.file,
+          heurdepart:offre.heurdepart,
+          idCamion:offre.idCamion,
+
         })
         .then(() => {
           axios.put(
@@ -524,11 +566,18 @@ export default defineComponent({
               datecreation: offre.idDemandeNavigation.datecreation,
               adressdepart: offre.idDemandeNavigation.adressdepart,
               adressarrive: offre.idDemandeNavigation.adressarrive,
+              date: offre.idDemandeNavigation.date,
+              poids: offre.idDemandeNavigation.poids,
+              largeur: offre.idDemandeNavigation.largeur,
+              hauteur: offre.idDemandeNavigation.hauteur,
               idEtatdemande: 3,
               idclient: offre.idDemandeNavigation.idclientNavigation.idclient,
               file: offre.idDemandeNavigation.file,
             }
-          );
+          ).then(()=>{
+            this.open = false;
+        this.success = true;
+          });
           axios
             .get(
               "http://localhost:5000/api/offres/client/" +
@@ -551,6 +600,8 @@ export default defineComponent({
           idDemande: offre.idDemande,
           recu: offre.recu,
           file: offre.file,
+          heurdepart:offre.heurdepart,
+          idCamion:offre.idCamion,
         })
         .then(() => {
           axios.put(
@@ -561,11 +612,18 @@ export default defineComponent({
               datecreation: offre.idDemandeNavigation.datecreation,
               adressdepart: offre.idDemandeNavigation.adressdepart,
               adressarrive: offre.idDemandeNavigation.adressarrive,
+               date: offre.idDemandeNavigation.date,
+              poids: offre.idDemandeNavigation.poids,
+              largeur: offre.idDemandeNavigation.largeur,
+              hauteur: offre.idDemandeNavigation.hauteur,
               idEtatdemande: 2,
               idclient: offre.idDemandeNavigation.idclientNavigation.idclient,
               file: offre.idDemandeNavigation.file,
             }
-          );
+          ).then(()=>{
+            this.open = false;
+        this.success = true;
+          });
           axios
             .get(
               "http://localhost:5000/api/offres/client/" +

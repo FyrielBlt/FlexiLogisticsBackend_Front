@@ -6,11 +6,12 @@ import log from '../middleware/log'
 //login
 import Login from '../views/Login.vue'
 //client
-import MenuClient from '../views/Client/MenuClient.vue'
-import Client from '../views/Client/Personnels.vue'
-import Demande from '../views/Client/demande.vue'
-import Offres from '../views/Client/offresrecu.vue'
-import DashboardClient from '../views/Client/Dashboard.vue'
+import MenuClient from "../views/Client/MenuClient.vue";
+import Client from "../views/Client/Personnels.vue";
+import Demande from "../views/Client/demande.vue";
+import Offres from "../views/Client/offresrecu.vue";
+import DashboardClient from "../views/Client/Dashboard.vue";
+import Profile from "../views/Client/Profile.vue";
 // fin client
 //transporteur
 import DashboardTransporteur from "../views/Transporteur/Users/Dashboard.vue";
@@ -180,6 +181,11 @@ const routes = [{
                 path: 'offres',
                 name: 'Offres',
                 component: Offres,
+            },
+            {
+              path: "profile",
+              name: "Profile",
+              component:Profile,
             },
         ],
     },

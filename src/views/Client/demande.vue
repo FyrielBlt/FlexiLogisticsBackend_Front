@@ -2,40 +2,7 @@
   <!-- Breadcrumb -->
   <!-- <Breadcrumb breadcrumb="Demandes" /> -->
 
-  <div
-    class="
-      inline-flex
-      w-full
-      max-w-sm
-      ml-3
-      overflow-hidden
-      bg-white
-      rounded-lg
-      shadow-md
-    "
-    style="position: absolute; right: 50px"
-    v-if="success"
-    @click="success = false"
-  >
-    <div class="flex items-center justify-center w-12 bg-green-500">
-      <svg
-        class="w-6 h-6 text-white fill-current"
-        viewBox="0 0 40 40"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z"
-        />
-      </svg>
-    </div>
 
-    <div class="px-4 py-2 -mx-3">
-      <div class="mx-3">
-        <span class="font-semibold text-green-500">Succée</span>
-        <p class="text-sm text-gray-600">Demande envoyé avec succée</p>
-      </div>
-    </div>
-  </div>
   <div
     :class="`modal ${
       !open && 'opacity-0 pointer-events-none'
@@ -56,8 +23,9 @@
         rounded
         shadow-lg
         modal-container
-        md:max-w-md
+        
       "
+      style="width: 681px;"
     >
       <div
         class="
@@ -109,38 +77,14 @@
         </div>
 
         <!--Body-->
-        <div class="px-5 py-6 text-gray-700 bg-gray-200 border-b">
-          <label class="text-xs">Description</label>
+        <div class="px-5 py-6 text-gray-700 bg-gray-200 border-b grid grid-cols-2 gap-2">
+          
 
           <div class="relative mt-2 rounded-md shadow-sm">
-            <span
-              class="
-                absolute
-                inset-y-0
-                left-0
-                flex
-                items-center
-                pl-3
-                text-gray-600
-              "
-            >
-              <svg
-                class="w-6 h-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"
-                />
-              </svg>
-            </span>
+            <label class="text-xs">Description</label>
+       
 
             <textarea
-              type="text"
               class="
                 w-full
                 px-12
@@ -149,42 +93,17 @@
                 rounded-md
                 appearance-none
                 focus:border-indigo-600
-                focus:ring
-                focus:ring-opacity-40
-                focus:ring-indigo-500
+                focus:ring focus:ring-opacity-40 focus:ring-indigo-500
               "
               v-model="description"
             />
           </div>
 
-          <label class="text-xs">Adresse depart</label>
+     
 
           <div class="relative mt-2 rounded-md shadow-sm">
-            <span
-              class="
-                absolute
-                inset-y-0
-                left-0
-                flex
-                items-center
-                pl-3
-                text-gray-600
-              "
-            >
-              <svg
-                class="w-6 h-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"
-                />
-              </svg>
-            </span>
+                 <label class="text-xs">Adresse depart</label>
+       
             <select
               name=""
               class="
@@ -195,9 +114,7 @@
                 rounded-md
                 appearance-none
                 focus:border-indigo-600
-                focus:ring
-                focus:ring-opacity-40
-                focus:ring-indigo-500
+                focus:ring focus:ring-opacity-40 focus:ring-indigo-500
               "
               id=""
               v-model="depart"
@@ -212,34 +129,11 @@
             </select>
           </div>
 
-          <label class="text-xs">Adresse arrive</label>
+        
 
           <div class="relative mt-2 rounded-md shadow-sm">
-            <span
-              class="
-                absolute
-                inset-y-0
-                left-0
-                flex
-                items-center
-                pl-3
-                text-gray-600
-              "
-            >
-              <svg
-                class="w-6 h-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"
-                />
-              </svg>
-            </span>
+              <label class="text-xs">Adresse arrive</label>
+       
 
             <select
               name=""
@@ -251,9 +145,7 @@
                 rounded-md
                 appearance-none
                 focus:border-indigo-600
-                focus:ring
-                focus:ring-opacity-40
-                focus:ring-indigo-500
+                focus:ring focus:ring-opacity-40 focus:ring-indigo-500
               "
               id=""
               v-model="arrive"
@@ -266,6 +158,90 @@
                 {{ ville.nomVille }}
               </option>
             </select>
+          </div>
+          
+
+          <div class="relative mt-2 rounded-md shadow-sm">
+            <label class="text-xs">Poids</label>
+       
+
+            <input
+              class="
+                w-full
+                px-12
+                py-2
+                border-transparent
+                rounded-md
+                appearance-none
+                focus:border-indigo-600
+                focus:ring focus:ring-opacity-40 focus:ring-indigo-500
+              "
+              type="number"
+              v-model="poids"
+            />
+          </div>
+  
+
+          <div class="relative mt-2 rounded-md shadow-sm">
+                    <label class="text-xs">Largeur</label>
+       
+
+            <input
+              class="
+                w-full
+                px-12
+                py-2
+                border-transparent
+                rounded-md
+                appearance-none
+                focus:border-indigo-600
+                focus:ring focus:ring-opacity-40 focus:ring-indigo-500
+              "
+              type="number"
+              v-model="largeur"
+            />
+          </div>
+         
+
+          <div class="relative mt-2 rounded-md shadow-sm">
+             <label class="text-xs">Hauteur</label>
+       
+
+            <input
+              class="
+                w-full
+                px-12
+                py-2
+                border-transparent
+                rounded-md
+                appearance-none
+                focus:border-indigo-600
+                focus:ring focus:ring-opacity-40 focus:ring-indigo-500
+              "
+              type="number"
+              v-model="hauteur"
+            />
+          </div>
+      
+
+          <div class="relative mt-2 rounded-md shadow-sm">
+                <label class="text-xs">Date</label>
+       
+
+            <input
+              class="
+                w-full
+                px-12
+                py-2
+                border-transparent
+                rounded-md
+                appearance-none
+                focus:border-indigo-600
+                focus:ring focus:ring-opacity-40 focus:ring-indigo-500
+              "
+              type="date"
+              v-model="datedemande"
+            />
           </div>
         </div>
 
@@ -281,7 +257,8 @@
               text-indigo-500
               bg-transparent
               rounded-lg
-              hover:bg-gray-100 hover:text-indigo-400
+              hover:bg-gray-100
+              hover:text-indigo-400
               focus:outline-none
             "
           >
@@ -309,6 +286,110 @@
   </div>
   <div class="mt-6">
     <h2 class="text-xl font-semibold leading-tight text-gray-700">Demandes</h2>
+    <div class="flex justify-center">
+      <h4 class="font-semibold p-3">Per Page :</h4>
+      <div class="mb-3 p-3">
+        <select
+          v-model="perpage"
+          @change="ChangePage(page)"
+          class="
+            form-select
+            appearance-none
+            block
+            w-full
+            px-3
+            py-1.5
+            text-base
+            font-normal
+            text-gray-700
+            bg-white bg-clip-padding bg-no-repeat
+            border border-solid border-gray-300
+            rounded
+            transition
+            ease-in-out
+            m-0
+            focus:text-gray-700
+            focus:bg-white
+            focus:border-blue-600
+            focus:outline-none
+          "
+          aria-label="Default select example"
+        >
+          <option :value="2">2</option>
+          <option :value="5">5</option>
+          <option :value="10">10</option>
+        </select>
+      </div>
+
+      <h4 class="font-semibold p-3">Depart :</h4>
+      <div class="mb-3 xl:w-96 p-3">
+        <select
+          v-model="departfilter"
+          @change="ChangePage(page)"
+          class="
+            form-select
+            appearance-none
+            block
+            w-full
+            px-3
+            py-1.5
+            text-base
+            font-semibold
+            text-gray-700
+            bg-white bg-clip-padding bg-no-repeat
+            border border-solid border-gray-300
+            rounded
+            transition
+            ease-in-out
+            m-0
+            focus:text-gray-700
+            focus:bg-white
+            focus:border-blue-600
+            focus:outline-none
+          "
+          aria-label="Default select example"
+        >
+          <option value="" class="font-semibold" selected>--Vide--</option>
+          <option v-for="v in villes" :key="v" :value="v.nomVille">
+            --{{ v.nomVille }}--
+          </option>
+        </select>
+      </div>
+      <h4 class="font-semibold p-3">Arrive :</h4>
+      <div class="mb-3 xl:w-96 p-3">
+        <select
+          v-model="arrivefilter"
+          @change="ChangePage(page)"
+          class="
+            form-select
+            appearance-none
+            block
+            w-full
+            px-3
+            py-1.5
+            text-base
+            font-semibold
+            text-gray-700
+            bg-white bg-clip-padding bg-no-repeat
+            border border-solid border-gray-300
+            rounded
+            transition
+            ease-in-out
+            m-0
+            focus:text-gray-700
+            focus:bg-white
+            focus:border-blue-600
+            focus:outline-none
+          "
+          aria-label="Default select example"
+        >
+          <option value="" class="font-semibold" selected>--Vide--</option>
+          <option v-for="v in villes" :key="v" :value="v.nomVille">
+            --{{ v.nomVille }}--
+          </option>
+        </select>
+      </div>
+    </div>
     <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
       <div class="inline-block min-w-full overflow-hidden rounded-lg shadow">
         <table class="divide-y divide-gray-300" style="width: 100%">
@@ -322,6 +403,10 @@
               </th>
               <th class="px-6 py-2 text-xs text-gray-500">ADRESSE DEPART</th>
               <th class="px-6 py-2 text-xs text-gray-500">ADRESSE ARRIVE</th>
+              <th class="px-6 py-2 text-xs text-gray-500">PONDS(KG)</th>
+              <th class="px-6 py-2 text-xs text-gray-500">LARGEUR(CM)</th>
+              <th class="px-6 py-2 text-xs text-gray-500">HAUTEUR(CM)</th>
+              <th class="px-6 py-2 text-xs text-gray-500">DATE</th>
               <th class="px-6 py-2 text-xs text-gray-500">FILE</th>
               <th class="px-6 py-2 text-xs text-gray-500">ETAT</th>
               <th class="px-6 py-2 text-xs text-gray-500">SETTINGS</th>
@@ -334,7 +419,7 @@
               :key="index"
             >
               <td
-                class="px-5 py-5 text-sm bg-white border-b border-gray-200"
+                class="text-sm bg-white border-b border-gray-200"
                 style="padding: 30px 49px"
               >
                 <div class="flex items-center">
@@ -350,7 +435,7 @@
                   </div>
                 </div>
               </td>
-              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+              <td class="text-sm bg-white border-b border-gray-200">
                 <input
                   class="bg-white"
                   type="text"
@@ -358,13 +443,50 @@
                   :disabled="updateinputdisable"
                 />
               </td>
-              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+              <td class="text-sm bg-white border-b border-gray-200">
                 <input
                   class="bg-white"
                   type="text"
                   v-model="u.adressarrive"
                   :disabled="updateinputdisable"
                 />
+              </td>
+              <td class="text-sm bg-white border-b border-gray-200">
+                <input
+                  style="text-align: center"
+                  class="bg-white"
+                  type="number"
+                  v-model="u.poids"
+                  :disabled="updateinputdisable"
+                />
+              </td>
+              <td class="text-sm bg-white border-b border-gray-200">
+                <input
+                  style="text-align: center"
+                  class="bg-white"
+                  type="number"
+                  v-model="u.largeur"
+                  :disabled="updateinputdisable"
+                />
+              </td>
+              <td class="text-sm bg-white border-b border-gray-200">
+                <input
+                  style="text-align: center"
+                  class="bg-white"
+                  type="number"
+                  v-model="u.hauteur"
+                  :disabled="updateinputdisable"
+                />
+              </td>
+              <td class="text-sm bg-white border-b border-gray-200">
+                <input
+                  style="text-align: center"
+                  class="bg-white"
+                  type="date"
+                  v-model="u.date"
+                  :hidden="updateinputdisable"
+                />
+                <span :hidden="!updateinputdisable">{{ u.date }}</span>
               </td>
               <td
                 class="px-5 py-5 text-sm bg-white border-b border-gray-200"
@@ -470,7 +592,30 @@
             </tr>
           </tbody>
         </table>
+        <div
+          class="
+            flex flex-col
+            items-center
+            px-2
+            py-2
+            bg-white
+            border-t
+            xs:flex-row
+            xs:justify-between
+          "
+        >
+          <div class="inline-flex xs:mt-0">
+            <!-- PAGINATION -->
+            <pagination-vue
+              :current="page"
+              :total="this.demandes.length"
+              :per-page="perpage"
+              @page-changed="ChangePage"
+            ></pagination-vue>
+          </div>
+        </div>
       </div>
+
       <button
         @click="open = true"
         class="
@@ -496,25 +641,36 @@
 // import Breadcrumb from "../../partials/Breadcrumb.vue";
 import { ref } from 'vue'
 import axios from "axios";
+import PaginationVue from "../../components/Intermediaire/pagination/PaginationVue.vue";
 import $ from 'jquery'; 
    export default {
       components: {
    // Breadcrumb,
+   PaginationVue
   },
          data () {
       return {
       demandes:[],
       open : ref(false),
+      success:false,
       description:'',
       depart:'',
       arrive:'',
-      success:false,
+      
       villes: [],
       updateinputdisable:true,
       update:true,
       descupdate:"",
       departupdate:"",
-      arriveupdate:""
+      arriveupdate:"",
+      poids:"",
+      largeur:"",
+      hauteur:"",
+      datedemande:"",
+      page: 1,
+      perpage: 5,
+      departfilter:'',
+      arrivefilter:'',
       }
     },
   
@@ -531,12 +687,37 @@ import $ from 'jquery';
       
     },
     methods:{
+       ChangePage(NumPage) {
+      this.page = NumPage;
+ 
+        axios
+          .get(
+            "http://localhost:5000/api/demandelivraisons/client/" +
+              localStorage.getItem("iduser") +
+              "?page=" +
+              this.page +
+              "&quantityPage=" +
+              this.perpage +
+              "&depart=" +
+              this.departfilter +
+              "&arrive=" +
+              this.arrivefilter
+          )
+          .then((resp) => {
+            this.demandes = resp.data;
+          });
+      
+    },
   updatedemande(id,index){
 axios.put('http://localhost:5000/api/demandelivraisons/'+id,{
     "idDemande": id,
     "description": this.demandes[index].description,
     "datecreation": this.demandes[index].datecreation,
     "adressdepart": this.demandes[index].adressdepart,
+    "poids":this.demandes[index].poids,
+    "largeur":this.demandes[index].largeur,
+    "hauteur":this.demandes[index].hauteur,
+    "date":this.demandes[index].date,
     "adressarrive": this.demandes[index].adressarrive,
     "idEtatdemande": this.demandes[index].idEtatdemande,
     "idclient": this.demandes[index].idclient,
@@ -552,8 +733,12 @@ this.open = false;
           "datecreation":date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate(),
           "adressdepart":this.depart,
           "adressarrive":this.arrive,
+        "poids":this.poids,
+        "largeur":this.largeur,
+        "hauteur":this.hauteur,
+        "date":this.datedemande,
           "idEtatdemande":2002,
-          "idclient":this.demandes[0].idclient
+          "idclient":parseInt(localStorage.getItem("clientid"))
         }).then((r)=>{
     axios
       .get( "http://localhost:5000/api/demandelivraisons/client/"+localStorage.getItem("iduser"))
@@ -562,13 +747,28 @@ this.open = false;
       })
 
  this.open = false;
-        this.success = true;
+      Swal.fire(
+      'Ajouté!',
+      'Demande Ajouté Avec Succée',
+      'success'
+    )
       
       })
       .catch((error) => console.log(error))
       },
+
       supprimer(id){
-        axios.delete('http://localhost:5000/api/demandelivraisons/'+id)
+        Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+     axios.delete('http://localhost:5000/api/demandelivraisons/'+id)
         .then(()=>{
        axios
       .get( "http://localhost:5000/api/demandelivraisons/client/"+localStorage.getItem("iduser"))
@@ -576,6 +776,14 @@ this.open = false;
       this.demandes= response.data
       })
         })
+    Swal.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )
+  }
+})
+       
       }
     }
    }
