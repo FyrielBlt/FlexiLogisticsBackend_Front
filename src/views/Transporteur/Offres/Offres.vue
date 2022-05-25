@@ -544,27 +544,7 @@
               </td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                 <div class="flex justify-around">
-                  <span class="text-green-700 flex justify-center">
-                    <modal-layout-offre-update   :table="u" v-if=" u.idEtatNavigation.etat == 'Non traité'"></modal-layout-offre-update>
-                    <button
-                      class="
-                        bg-white
-                        hover:bg-red-100
-                        text-red-800
-                        font-semibold
-                        py-2
-                        px-4
-                        border border-red-400
-                        rounded
-                        shadow
-                      "
-                      @click="annuler(u.idOffre)"
-                      v-if="u.idEtatNavigation.etat =='Non traité'"
-                    >
-                      Annuler
-                    </button>
-                    
-                  </span>
+                  
                 </div>
               </td>
             </tr>
@@ -601,7 +581,6 @@ import { defineComponent } from "vue";
 import axios from "axios";
 import PaginationVue from "/src/components/Intermediaire/pagination/PaginationVue.vue";
 import ModalLayoutOffreUpdate from "/src/views/Transporteur/Offres/ModalLayoutOffreUpdate.vue";
-
 export default defineComponent({
   components: {// Breadcrumb 
    ModalLayoutOffreUpdate,
@@ -610,6 +589,7 @@ export default defineComponent({
   data() {
     return {
       offres: [],
+      valide:'',
     villes:[],
        currentPage:1,
        searchby:'',
@@ -619,11 +599,25 @@ export default defineComponent({
       long:'',
       depart:'',
       arrive:'',
-       etat:''
+       etat:'',
+       nondispo:''
     };
   },
- 
   created() {
+     axios
+      .get(
+        "http://localhost:5000/api/EtatOffres/offre?offre=Nontraite" 
+          )
+      .then((response) =>{
+        this.nondispo= response.data;
+      })
+      axios
+      .get(
+        "http://localhost:5000/api/EtatOffres/offre?offre=Accepte" 
+          )
+      .then((response) =>{
+        this.valide= response.data;
+      })
      axios
       .get("http://localhost:5000/api/villes")
       .then((resp) => (this.villes = resp.data));
@@ -640,33 +634,20 @@ export default defineComponent({
         this.long = resp.data.length;
       });
       })
-        axios
-      .get(
-        "http://localhost:5000/api/Transporteurs/" +
-          localStorage.getItem("iduser") +
-          "/iduser"
-      )
-      .then((response) => {
+       
     axios
-      .get("http://localhost:5000/api/offres/" +response.data.idTransporteur+"/offrestransporteur"
+      .get("http://localhost:5000/api/offres/" +localStorage.getItem('idtransporteur')+"/offrestransporteur"
       +"?page="+this.currentPage+"&quantityPage="+this.perPage
       )
       .then((resp) => {
         this.offres = resp.data;
       });
-      })
+      
   },
   methods: {
-    searchfunction(mot){
-       axios
-      .get(
-        "http://localhost:5000/api/Transporteurs/" +
-          localStorage.getItem("iduser") +
-          "/iduser"
-      )
-      .then((response) => {
+    searchfunction(mot){    
     axios
-      .get("http://localhost:5000/api/offres/" +response.data.idTransporteur+"/offrestransporteur"
+      .get("http://localhost:5000/api/offres/" +localStorage.getItem('idtransporteur')+"/offrestransporteur"
       +"?page="+this.currentPage+"&quantityPage="+this.perPage
       +"&&depart="+this.depart
       +"&arrive="+this.arrive +"&date="+this.date+"&etat="+this.etat
@@ -675,20 +656,12 @@ export default defineComponent({
       .then((resp) => {
         this.offres = resp.data;
       });
-      })
     },
      ChangePage(NumPage) {
         this.currentPage=NumPage;
-        this.perPage=this.perPage;
-         axios
-      .get(
-        "http://localhost:5000/api/Transporteurs/" +
-          localStorage.getItem("iduser") +
-          "/iduser"
-      )
-      .then((response) => {
+        this.perPage=this.perPage; 
     axios
-      .get("http://localhost:5000/api/offres/" +response.data.idTransporteur+"/offrestransporteur"
+      .get("http://localhost:5000/api/offres/" +localStorage.getItem('idtransporteur')+"/offrestransporteur"
       +"?page="+this.currentPage+"&quantityPage="+this.perPage
       +"&&depart="+this.depart
       +"&arrive="+this.arrive +"&date="+this.date+"&etat="+this.etat
@@ -696,90 +669,26 @@ export default defineComponent({
       .then((resp) => {
         this.offres = resp.data;
       });
-      })
      },
-    accepter(id) {
-      axios
-        .put("http://localhost:5000/api/offres/" + id, {
-          id: id,
-          description: "eesfgdgdsf gfhbxdvbf",
-          date: "2022-04-12T00:00:00",
-          idEtat: 2,
-          prix: "120",
-          idTransporteur: 1,
-          idDemande: 1,
-          recu: 1,
-        })
-        .then(() => {
-          axios
-            .get(
-              "http://localhost:5000/api/offres/" +
-                localStorage.getItem("iduser")
-            )
-            .then((resp) => {
-              this.offres = resp.data;
-            });
-        });
-    },
-    annuler(id) {
-this.$swal({
-        title: "Voulez vous annuler l'offre?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#36c6d3",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Oui",
-        cancelButtonText: "Non",
-      }).then((result) => {
-        if (result.value) {
-         axios.delete('http://localhost:5000/api/Offres/'+id)
-        .then(()=>{
-    axios
-      .get("http://localhost:5000/api/villes")
-      .then((resp) => (this.villes = resp.data));
-     axios
-      .get(
-        "http://localhost:5000/api/Transporteurs/" +
-          localStorage.getItem("iduser") +
-          "/iduser"
-      )
-      .then((response) => {
-    axios
-      .get("http://localhost:5000/api/offres/" +response.data.idTransporteur+"/offrestransporteur")
-      .then((resp) => {
-        this.long = resp.data.length;
-      });
-      })
-        axios
-      .get(
-        "http://localhost:5000/api/Transporteurs/" +
-          localStorage.getItem("iduser") +
-          "/iduser"
-      )
-      .then((response) => {
-    axios
-      .get("http://localhost:5000/api/offres/" +response.data.idTransporteur+"/offrestransporteur"
-      +"?page="+this.currentPage+"&quantityPage="+this.perPage
-      )
-      .then((resp) => {
-        this.offres = resp.data;
-      });
-      }) 
-        })
-
-          this.$swal(
-            "Annulation!",
-            "Offre annulé",
-            "reussi"
-          );
-        } 
-      });
-    
-      
-              
-
-       
-    }}}
+    valider(table) {
+      if (result.value) {
+        axios.put("http://localhost:5000/api/Offres/"+table.idOffre, {
+              idOffre:table.idOffre,
+              description:table.description,
+              date: table.date,
+              heurearrive:table.heurearrive,
+              datecreation:table.datecreation,
+              idEtat:this.valide.idEtat,
+              prix:table.prix,
+              prixFinale:table.prixFinale,
+              idTransporteur:localStorage.getItem("idtransporteur"),
+              idDemande:table.idDemande,
+            }).then(()=>{ 
+              this.close()
+            })
+    }
+    },   
+    }}
 );
 </script>
 
