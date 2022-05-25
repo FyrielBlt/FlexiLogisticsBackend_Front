@@ -490,7 +490,7 @@
                   v-model="u.date"
                   :hidden="updateinputdisable"
                 />
-                <span :hidden="!updateinputdisable">{{ u.date }}</span>
+                <span :hidden="!updateinputdisable">{{ u.date.substr(0,10) }}</span>
               </td>
               <td
                 class="px-5 py-5 text-sm bg-white border-b border-gray-200"

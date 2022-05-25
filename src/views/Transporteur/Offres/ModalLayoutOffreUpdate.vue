@@ -79,34 +79,9 @@
                       class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
                       type="text"
                       :value="table.date.substr(0,10)+' ' +table.heurdepart"
-                      disabled 
                     />
                   </div>
-                <div>
-                  <label class="text-gray-700" for="passwordConfirmation">
-                     Autre date disponible
-                  </label>
-                  <select
-                    v-model="offre"
-                    class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                  >
-                    <option
-                      v-for="column in this.trajets"
-                      :key="column"
-                      :value="column.date+column.heurdepart"
-                      required
-                  >
-                      {{
-                        " DEPART:" +
-                        column.date.substr(0,10)   + 
-                         ":" +
-                        column.heurdepart.substr(0,5)  +
-                          " TYPE:" +
-                        column.idCamionNavigation.idtypeNavigation.description               
-                      }}
-                    </option>
-                  </select>
-                </div>
+                
                 
                <div class="flex justify-end mt-4">
                   <button
@@ -160,7 +135,6 @@ export default {
       i: 0,
       description: "",
       prix: "",
-      trajets: [],
       offre: "",
       encours:'',
       accepte:'',
@@ -183,22 +157,9 @@ export default {
           )
       .then((response) =>{
         this.encours= response.data;
-      }),
+      })
 
-    //les trajets de cet transport
-
-        axios 
-          .get(
-            "http://localhost:5000/api/Trajets/" + localStorage.getItem("idtransporteur")
-            + "/idtransporteur"
-            +"?&depart="+this.table.idDemandeNavigation.adressdepart
-              +"&arrive="+this.table.idDemandeNavigation.adressarrive 
-               +"&date="+new Date().toISOString()
-          )  
-          .then((response) => {
-            this.trajets = response.data;
-          })
-          .catch((error) => console.log(error));
+    
      
   },
   methods: {

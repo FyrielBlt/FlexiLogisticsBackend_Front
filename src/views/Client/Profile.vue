@@ -453,11 +453,7 @@ async created() {
 }).then((result) => {
   if (result.isConfirmed) {
     this.Modifier();
-    Swal.fire(
-      'Updated!',
-      'Your account has been updated.',
-      'success'
-    )
+  
   }
 })
     },
@@ -483,6 +479,11 @@ async created() {
           this.imageFile = "";
           this.password = "";
           this.cpassword = "";
+            Swal.fire(
+      'Updated!',
+      'Your account has been updated.',
+      'success'
+    )
         });
     },
   },

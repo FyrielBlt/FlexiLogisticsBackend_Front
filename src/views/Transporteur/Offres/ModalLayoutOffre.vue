@@ -192,7 +192,8 @@ export default {
               idDemande: this.demandeid,
               notificationIntermediaire:1,
               notificationClient:null,
-              notificationTransporteur:null
+              notificationTransporteur:null,
+              datecreation:new Date().getFullYear()+"-0"+(new Date().getMonth()+1)+"-"+new Date().getDate()
 
             }).then(()=>{
                axios
