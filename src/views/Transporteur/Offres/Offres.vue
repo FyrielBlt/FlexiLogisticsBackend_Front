@@ -732,8 +732,10 @@ this.$swal({
         cancelButtonText: "Non",
       }).then((result) => {
         if (result.value) {
+         console.log(demandetable)
+       
          axios.delete('http://localhost:5000/api/Offres/'+id)
-        .then(()=>{
+        .then(()=>{ 
     axios
       .get("http://localhost:5000/api/villes")
       .then((resp) => (this.villes = resp.data));

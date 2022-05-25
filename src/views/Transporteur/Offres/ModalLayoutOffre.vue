@@ -83,39 +83,17 @@
                 
                 <div>
                   <label class="text-gray-700" for="passwordConfirmation">
-                    Date disponible
+                    Date de livraison
                   </label>
-                  <select
+                   <input
+                    type="datetime-local"
+                    width="300px"
                     v-model="offre"
-                    class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                  >
-                    <option
-                      v-for="column in this.trajets"
-                      :key="column"
-                      :value="column"
-                      required
-                  >
-                      {{
-                        " DEPART:" +
-                        column.date.substr(0,10)   + 
-                         ":" +
-                        column.heurdepart.substr(0,5)  +
-                          " TYPE:" +
-                        column.idCamionNavigation.idtypeNavigation.description               
-                      }}
-                    </option>
-                  </select>
+                     :min="this.today"
+                    requied
+                  />
+                 
                 </div>
-                 <label class="text-gray-700" for="passwordConfirmation">
-                    Ajouter un autre trajet
-                  </label>
-                <modal-trajet-add
-                  :prix="this.prix"
-                  :demandeid2="this.demid"
-                  :tabledemande2="this.tabledemande"
-                  :desc="this.description"
-                  :add="false"
-                ></modal-trajet-add>
                <div class="flex justify-end mt-4">
                   <button
                     class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
@@ -124,25 +102,7 @@
                   </button>
                 </div>
                   </form>
-              </div>
-               
-
-                <div v-if="this.error == true" class="px-4 py-2 -mx-3">
-                  <div class="mx-3">
-                    <span class="font-semibold text-red-500"
-                      >Merci de remplir tout les champs</span
-                    >
-                    <p class="text-sm text-gray-600">error!</p>
-                  </div>
-                </div>
-                <div v-if="this.sucess == true" class="px-4 py-2 -mx-3">
-                  <div class="mx-3">
-                    <span class="font-semibold text-green-500"
-                      >Offre envoyé</span
-                    >
-                    <p class="text-sm text-gray-600">réussi!</p>
-                  </div>
-                </div>
+              </div> 
               </div>
             </div>
           </div>
@@ -179,10 +139,10 @@ export default {
       i: 0,
       description: "",
       prix: "",
-      trajets: [],
       offre: "",
       encours:'',
       accepte:'',
+       today:new Date().toISOString().substr(0,10)+"T00:00:00.000",
     };
   },
   created() {
@@ -202,23 +162,7 @@ export default {
           )
       .then((response) =>{
         this.encours= response.data.idEtat;
-      }),
-
-    //les trajets de cet transport
-
-        axios 
-          .get(
-            "http://localhost:5000/api/Trajets/" + localStorage.getItem("idtransporteur")
-            + "/idtransporteur"
-            +"?&depart="+this.tabledemande.idDemandeNavigation.adressdepart
-              +"&arrive="+this.tabledemande.idDemandeNavigation.adressarrive 
-               +"&date="+new Date().toISOString()
-          )  
-          .then((response) => {
-            this.trajets = response.data;
-          })
-          .catch((error) => console.log(error));
-     
+      })     
   },
   methods: {
     close() {
@@ -239,14 +183,17 @@ export default {
         }).then(()=>{
           axios.post("http://localhost:5000/api/Offres", {
               description: this.description,
-              date: this.offre.date,
-              heurdepart:this.offre.heurdepart      ,
+              date: this.offre.toString().substr(0, 10),
+              heurearrive:this.offre.toString().substr(11, 16),
               idEtat:this.encours,
               prix: this.prix,
               prixFinale: null,
               idTransporteur: localStorage.getItem("idtransporteur"),
               idDemande: this.demandeid,
-              idCamion:this.offre.idCamionNavigation.idcamion
+              notificationIntermediaire:1,
+              notificationClient:null,
+              notificationTransporteur:null
+
             }).then(()=>{
                axios
               .put("http://localhost:5000/api/DemandeDevis/"+this.tabledemande.idDemandeDevis, {
@@ -258,7 +205,7 @@ export default {
                idEtat:this.accepte
               }) 
               
-              this.close()
+             this.close()
 
             })
         
