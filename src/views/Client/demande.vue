@@ -1,5 +1,8 @@
 <template>
   <!-- Breadcrumb -->
+  <bread-crumb>
+    <template v-slot:bread1> Demandes </template>
+  </bread-crumb>
   <!-- <Breadcrumb breadcrumb="Demandes" /> -->
 
   <div
@@ -22,6 +25,7 @@
         rounded
         shadow-lg
         modal-container
+        animate__animated animate__fadeInDown
       "
       style="width: 681px"
     >
@@ -277,8 +281,7 @@
       </div>
     </div>
   </div>
-  <div class="mt-6">
-    <h2 class="text-xl font-semibold leading-tight text-gray-700">Demandes</h2>
+  <div class="mt-6 animate__animated animate__fadeInDown">
     <div class="flex justify-center">
       <h4 class="font-semibold p-3">Per Page :</h4>
       <div class="mb-3 p-3">
@@ -396,9 +399,9 @@
               </th>
               <th class="px-6 py-2 text-xs text-gray-500">ADRESSE DEPART</th>
               <th class="px-6 py-2 text-xs text-gray-500">ADRESSE ARRIVE</th>
-              <th class="px-6 py-2 text-xs text-gray-500">PONDS(KG)</th>
-              <th class="px-6 py-2 text-xs text-gray-500">LARGEUR(CM)</th>
-              <th class="px-6 py-2 text-xs text-gray-500">HAUTEUR(CM)</th>
+              <th class="px-6 py-2 text-xs text-gray-500">
+                PONDS(KG)/DIMENSION(CM)
+              </th>
               <th class="px-6 py-2 text-xs text-gray-500">DATE</th>
               <th class="px-6 py-2 text-xs text-gray-500">FILE</th>
               <th class="px-6 py-2 text-xs text-gray-500">ETAT</th>
@@ -429,42 +432,50 @@
                 </div>
               </td>
               <td class="text-sm bg-white border-b border-gray-200">
-                <input
-                  class="bg-white"
-                  type="text"
-                  v-model="u.adressdepart"
-                  :disabled="updateinputdisable"
-                />
+               <span :hidden="!updateinputdisable">{{ u.adressdepart }}</span>
+                <select v-model="u.adressdepart" :hidden="updateinputdisable">
+                  <option
+                    v-for="ville in villes"
+                    :key="ville"
+                    :value="ville.nomVille"
+                  >
+                    {{ ville.nomVille }}
+                  </option>
+                </select>
               </td>
               <td class="text-sm bg-white border-b border-gray-200">
-                <input
-                  class="bg-white"
-                  type="text"
-                  v-model="u.adressarrive"
-                  :disabled="updateinputdisable"
-                />
+                <span :hidden="!updateinputdisable">{{u.adressarrive}}</span>
+                <select v-model="u.adressarrive" :hidden="updateinputdisable">
+                  <option
+                    v-for="ville in villes"
+                    :key="ville"
+                    :value="ville.nomVille"
+                  >
+                    {{ ville.nomVille }}
+                  </option>
+                </select>
               </td>
               <td class="text-sm bg-white border-b border-gray-200">
+                P :
                 <input
-                  style="text-align: center"
+                  style="text-align: center; width: 33px"
                   class="bg-white"
                   type="number"
                   v-model="u.poids"
                   :disabled="updateinputdisable"
                 />
-              </td>
-              <td class="text-sm bg-white border-b border-gray-200">
+
+                L :
                 <input
-                  style="text-align: center"
+                  style="text-align: center; width: 33px"
                   class="bg-white"
                   type="number"
                   v-model="u.largeur"
                   :disabled="updateinputdisable"
                 />
-              </td>
-              <td class="text-sm bg-white border-b border-gray-200">
-                <input
-                  style="text-align: center"
+
+                H :<input
+                  style="text-align: center; width: 33px"
                   class="bg-white"
                   type="number"
                   v-model="u.hauteur"
@@ -583,27 +594,25 @@
                       </svg>
                     </button>
                   </span>
-                  <div  v-else>
-    <button
-                    class="
-                      bg-white
-                      hover:bg-green-100
-                      text-green-800
-                      font-semibold
-                      py-2
-                      px-4
-                      border border-green-400
-                      rounded
-                      shadow
-                    "
-                    @click="livrer(u)"
-                   v-if="u.idEtatdemande!=livre"
-                  >
-
-                    Livrer
-                  </button>
+                  <div v-else>
+                    <button
+                      class="
+                        bg-white
+                        hover:bg-green-100
+                        text-green-800
+                        font-semibold
+                        py-2
+                        px-4
+                        border border-green-400
+                        rounded
+                        shadow
+                      "
+                      @click="livrer(u)"
+                      v-if="u.idEtatdemande != livre"
+                    >
+                      Livrer
+                    </button>
                   </div>
-              
                 </div>
               </td>
             </tr>
@@ -654,14 +663,14 @@
   </div>
 </template>
 <script lang="js">
-// import Breadcrumb from "../../partials/Breadcrumb.vue";
+import BreadCrumb from "../../components/Intermediaire/BreadCrumb.vue";
 import { ref } from 'vue'
 import axios from "axios";
 import PaginationVue from "../../components/Intermediaire/pagination/PaginationVue.vue";
 import $ from 'jquery'; 
    export default {
       components: {
-   // Breadcrumb,
+   BreadCrumb,
    PaginationVue
   },
          data () {
@@ -750,11 +759,17 @@ axios.put(
               file: u.file,
             }
           ).then(()=>{
-           Swal.fire(
+              axios
+      .get( "http://localhost:5000/api/demandelivraisons/client/"+localStorage.getItem("iduser"))
+      .then((response) =>{
+      this.demandes= response.data
+       Swal.fire(
       'Updated!',
       'Your offer has been updated.',
       'success'
     )
+      })
+          
           });
     },
   updatedemande(id,index){
@@ -771,8 +786,7 @@ axios.put('http://localhost:5000/api/demandelivraisons/'+id,{
     "idEtatdemande": this.demandes[index].idEtatdemande,
     "idclient": this.demandes[index].idclient,
 }).then(()=>{
-this.open = false;
-        this.success = true;
+this.updateinputdisable = !this.updateinputdisable
 })
   },
       demandelivraisons(){

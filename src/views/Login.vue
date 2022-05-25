@@ -199,7 +199,8 @@ export default defineComponent({
   icon: 'success',
   title: 'Hello '+response.data.validUser.nom +" "+response.data.validUser.prenom,
   text: 'Welcome',
- 
+  showConfirmButton: false,
+ timer: 800
 })
           }
 

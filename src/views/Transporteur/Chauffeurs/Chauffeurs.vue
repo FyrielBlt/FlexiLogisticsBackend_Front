@@ -137,7 +137,7 @@
     <Breadcrumb breadcrumb="Blank" />
     <div class="mt-8">
       <div class="mt-6">
-        <div class="flex flex-col mt-3 text-center sm:flex-row">
+        <div class="flex flex-col mt-3 text-center sm:flex-row animate__animated animate__fadeInDown">
           <div class="flex">
             <div class="relative">
               <select
@@ -186,7 +186,7 @@
             />
           </div>
         </div>
-        <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
+        <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8 animate__animated animate__fadeInUp">
           <div
             class="inline-block min-w-full overflow-hidden rounded-lg shadow"
           >
