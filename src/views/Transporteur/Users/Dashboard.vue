@@ -5,7 +5,7 @@
     <!-- <Banner /> -->
     <div class="mt-4">
       <div   class="flex flex-wrap -mx-6">
-        <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
+        <div class="w-full px-6 sm:w-1/2 xl:w-1/3 animate__animated animate__bounceIn">
           <div
             class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
           >
@@ -52,7 +52,7 @@
           </div>
         </div>
 
-        <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
+        <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 sm:mt-0 animate__animated animate__bounceIn">
           <div
             class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
           >
@@ -81,7 +81,7 @@
           </div>
         </div>
 
-        <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 xl:mt-0">
+        <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 xl:mt-0 animate__animated animate__bounceIn">
           <div
             class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
           >
@@ -121,7 +121,7 @@
     <div class="mt-8"></div>
 
     <div class="flex flex-col mt-8">
-      <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 animate__animated animate__fadeInDown">
         <div
           class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg"
         >
@@ -247,25 +247,7 @@
               </tr>
             </tbody>
           </table>
-          <table class="table table-hover table-bordered" id="example">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Job Title</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr >
-        <td>hh</td>
-        <td>hh</td>
-        <td>hh</td>
-        <td>hh</td>
-      </tr>
-      
-    </tbody>
-  </table>
+       
         </div>
       </div>
     </div>

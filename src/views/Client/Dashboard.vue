@@ -1,11 +1,14 @@
 <template>
   <div>
     <!-- <Breadcrumb breadcrumb="" /> -->
+     <bread-crumb>
+      <template v-slot:bread1> Dashboard </template>
+    </bread-crumb>
     <!--Banner get you to github repo-->
     <!-- <Banner /> -->
     <div class="mt-4">
       <div v-if="type == 'client'" class="flex flex-wrap -mx-6">
-        <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
+        <div class="w-full px-6 sm:w-1/2 xl:w-1/3 animate__animated animate__bounceIn" >
           <div
             class="transition ease-in-out hover:-translate-y-1 hover:scale-110 flex items-center px-5 py-6 bg-white rounded-md shadow-sm "
           >
@@ -52,7 +55,7 @@
           </div>
         </div>
 
-        <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
+        <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 sm:mt-0 animate__animated animate__bounceIn">
           <div
             class="transition ease-in-out hover:-translate-y-1 hover:scale-110 flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
           >
@@ -87,7 +90,7 @@
           </div>
         </div>
 
-        <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 xl:mt-0">
+        <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 xl:mt-0 animate__animated animate__bounceIn">
           <div
             class="transition ease-in-out hover:-translate-y-1 hover:scale-110 flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
           >
@@ -127,7 +130,7 @@
     <div class="mt-8"></div>
 
     <div class="flex flex-col mt-8">
-      <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 animate__animated animate__fadeInDown">
         <div
           class="
             inline-block
@@ -223,7 +226,7 @@
                 >
                   Transporteur
                 </th>
-                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+               
               </tr>
             </thead>
 
@@ -318,56 +321,7 @@
               {{ u.idTransporteurNavigation.idUserNavigation.nom }} {{ u.idTransporteurNavigation.idUserNavigation.prenom }}
                 </td>
 
-                <td
-                  class="
-                    px-6
-                    py-4
-                    text-sm
-                    font-medium
-                    leading-5
-                    text-right
-                    border-b border-gray-200
-                    whitespace-nowrap
-                  "
-                >
-                  <div class="flex justify-around">
-                    <span class="text-yellow-500 flex justify-center">
-                      <a href="#" class="mx-2 px-2 rounded-md"
-                        ><svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="h-5 w-5 text-green-700"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
-                          />
-                          <path
-                            fill-rule="evenodd"
-                            d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
-                      </a>
-                      <form method="POST">
-                        <button class="mx-2 px-2 rounded-md">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 text-red-700"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          >
-                            <path
-                              fill-rule="evenodd"
-                              d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                              clip-rule="evenodd"
-                            />
-                          </svg>
-                        </button>
-                      </form>
-                    </span>
-                  </div>
-                </td>
+            
               </tr>
             </tbody>
           </table>
@@ -381,11 +335,11 @@
 import axios from "axios";
 //import { ref } from "vue";
 //import Banner from "../../partials/Banner.vue";
-//import Breadcrumb from "../../partials/Breadcrumb.vue";
+import BreadCrumb from "../../components/Intermediaire/BreadCrumb.vue";
 export default {
   components: {
     //  Banner,
-    //  Breadcrumb,
+    BreadCrumb,
   },
   data() {
     return {

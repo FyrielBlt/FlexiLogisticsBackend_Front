@@ -1,9 +1,13 @@
 <template>
   <!-- Breadcrumb -->
+   <bread-crumb>
+      <template v-slot:bread1> Demandes </template>
+      <template v-slot:bread> Offres recus </template>
+    </bread-crumb>
   <!-- <Breadcrumb breadcrumb="Offre Récu" /> -->
 
-  <div class="mt-6">
-    <h2 class="text-xl font-semibold leading-tight text-gray-700">Offres</h2>
+  <div class="mt-6 animate__animated animate__fadeInDown">
+   
           <div class="flex justify-center">
           <h4 class="font-semibold p-3">Per Page :</h4>
           <div class="mb-3 p-3">
@@ -415,8 +419,7 @@
 <script>
 import { defineComponent } from "vue";
 import { ref } from 'vue'
-
-//import Breadcrumb from "../../partials/Breadcrumb.vue";
+import BreadCrumb from "../../components/Intermediaire/BreadCrumb.vue";
 import axios from "axios";
 import PaginationVue from "../../components/Intermediaire/pagination/PaginationVue.vue";
 
@@ -424,7 +427,7 @@ import PaginationVue from "../../components/Intermediaire/pagination/PaginationV
 export default defineComponent({
   // components: { Breadcrumb },
   components: {
-    PaginationVue,
+    PaginationVue,BreadCrumb
   },
   data() {
     return {

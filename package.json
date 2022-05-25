@@ -10,6 +10,7 @@
     "dependencies": {
         "@grafikri/vue-middleware": "^1.0.0",
         "@popperjs/core": "^2.11.5",
+        "animate.css": "^4.1.1",
         "apexcharts": "^3.35.0",
         "autoprefixer": "^10",
         "axios": "^0.26.1",

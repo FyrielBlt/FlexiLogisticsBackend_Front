@@ -1,15 +1,14 @@
 <template>
   <div>
     <!-- Breadcrumb -->
-    <!-- <Breadcrumb breadcrumb="Profil" /> -->
-    <bread-crumb>
+     <bread-crumb>
       <template v-slot:bread1> Profil </template>
-      <template v-slot:bread> {{ role }} </template>
     </bread-crumb>
+    <!-- <Breadcrumb breadcrumb="Profil" /> -->
     <div class="grid grid-flow-col gap-3">
-      <div class="row-span-3">
+      <div class="row-span-3 animate__animated animate__bounceInLeft">
         <!-- <h4 class="text-gray-700">Profil</h4> -->
-        <div class="max-w-sm overflow-hidden bg-white rounded shadow-lg">
+        <div class="max-w-sm overflow-hidden bg-white rounded shadow-lg ">
                  <input
                   class="
                     w-full
@@ -28,9 +27,9 @@
                   style="display:none;"
                 />
                 <label for="image">
-          <img class="w-auto" :src="image" alt="Image Profil"/>
+          <img class="w-auto " :src="image" alt="Image Profil"/>
                 </label>
-          <div class="px-6 py-4">
+          <div class="px-6 py-4 ">
             <div class="mb-2 text-xl text-center font-bold text-gray-900">
               {{ user.nom }}
               {{ user.prenom }}
@@ -57,7 +56,7 @@
         </div>
       </div>
 
-      <div class="col-span-2 col-span-2">
+      <div class="col-span-2 animate__animated animate__fadeInDown">
         <!-- <h4 class="text-gray-600">Modifier :</h4> -->
         <div>
           <div class="p-6 bg-white rounded-md shadow-md">
@@ -403,7 +402,11 @@
 
 <script>
 import axios from "axios";
+import BreadCrumb from "../../components/Intermediaire/BreadCrumb.vue";
 export default {
+   components: {
+  BreadCrumb
+  },
     data() {
     return {
       Profil: [],

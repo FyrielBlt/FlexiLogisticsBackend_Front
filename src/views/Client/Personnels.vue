@@ -1,8 +1,11 @@
 <template>
   <!-- Breadcrumb -->
+   <bread-crumb>
+      <template v-slot:bread1> Personnels </template>
+    </bread-crumb>
   <!-- <Breadcrumb breadcrumb="Personnels" /> -->
-  <div class="mt-6">
-    <h2 class="text-xl font-semibold leading-tight text-gray-700">Users</h2>
+  <div class="mt-6 animate__animated animate__fadeInDown">
+
 
     <div class="flex flex-col mt-3 sm:flex-row">
       <div class="flex">
@@ -190,10 +193,10 @@
 </template>
 <script>
 import axios from "axios";
-//import Breadcrumb from "../../partials/Breadcrumb.vue";
+import BreadCrumb from "../../components/Intermediaire/BreadCrumb.vue";
 export default {
   components: {
-   // Breadcrumb,
+  BreadCrumb
   },
   data() {
     return {
