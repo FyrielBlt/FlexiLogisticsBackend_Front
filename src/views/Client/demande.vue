@@ -4,7 +4,27 @@
     <template v-slot:bread1> Demandes </template>
   </bread-crumb>
   <!-- <Breadcrumb breadcrumb="Demandes" /> -->
-
+ <button
+        @click="open = true"
+        class="
+          px-6
+          py-2
+          mt-3
+          font-medium
+          tracking-wide
+          text-white
+          bg-indigo-600
+          hover:bg-indigo-900
+          focus:outline-none
+           animate__animated animate__shakeX animate__delay-1s
+        "
+        style="position: absolute;
+    right: 545px;
+    top: 40px;
+    height: 62px;"
+      >
+        Demande Livraison
+      </button>
   <div
     :class="`modal ${
       !open && 'opacity-0 pointer-events-none'
@@ -107,7 +127,24 @@
               v-model="description"
             />
           </div>
+     <div class="relative mt-2 rounded-md shadow-sm">
+            <label class="text-xs">Poids</label>
 
+            <input
+              class="
+                w-full
+                px-12
+                py-2
+                border-transparent
+                rounded-md
+                appearance-none
+                focus:border-indigo-600
+                focus:ring focus:ring-opacity-40 focus:ring-indigo-500
+              "
+              type="number"
+              v-model="poids"
+            />
+          </div>
           <div class="relative mt-2 rounded-md shadow-sm">
             <label class="text-xs">Adresse depart</label>
 
@@ -164,24 +201,7 @@
             </select>
           </div>
 
-          <div class="relative mt-2 rounded-md shadow-sm">
-            <label class="text-xs">Poids</label>
-
-            <input
-              class="
-                w-full
-                px-12
-                py-2
-                border-transparent
-                rounded-md
-                appearance-none
-                focus:border-indigo-600
-                focus:ring focus:ring-opacity-40 focus:ring-indigo-500
-              "
-              type="number"
-              v-model="poids"
-            />
-          </div>
+     
 
           <div class="relative mt-2 rounded-md shadow-sm">
             <label class="text-xs">Largeur</label>
@@ -387,6 +407,7 @@
       </div>
     </div>
     <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
+      
       <div class="inline-block min-w-full overflow-hidden rounded-lg shadow">
         <table class="divide-y divide-gray-300" style="width: 100%">
           <thead class="bg-gray-100">
@@ -642,23 +663,7 @@
         </div>
       </div>
 
-      <button
-        @click="open = true"
-        class="
-          px-6
-          py-2
-          mt-3
-          font-medium
-          tracking-wide
-          text-white
-          bg-indigo-600
-          rounded-md
-          hover:bg-indigo-500
-          focus:outline-none
-        "
-      >
-        Demande Livraison
-      </button>
+     
     </div>
   </div>
 </template>

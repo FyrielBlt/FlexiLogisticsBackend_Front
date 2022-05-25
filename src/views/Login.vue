@@ -195,13 +195,6 @@ export default defineComponent({
             localStorage.setItem("clientid", response.data.validUser.client[0].idclient);
             localStorage.setItem("jwtc", 'c');
             this.$router.push({ name: "DashboardClient" });
-            Swal.fire({
-  icon: 'success',
-  title: 'Hello '+response.data.validUser.nom +" "+response.data.validUser.prenom,
-  text: 'Welcome',
-  showConfirmButton: false,
- timer: 800
-})
           }
 
           //  console.log(localStorage.getItem("type"));
