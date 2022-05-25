@@ -23,6 +23,7 @@ import Transporteurs from "../views/Transporteur/Users/Transporteurs.vue";
 import Camions from "../views/Transporteur/Camions/Camions.vue";
 import Trajetcamion from "../views/Transporteur/Trajets/Tarjet.vue";
 import Trajets from "../views/Transporteur/Trajets/Trajets.vue";
+import Itetiaires from "../views/Transporteur/Trajets/Itetiaires.vue";
 import Chauffeurs from "../views/Transporteur/Chauffeurs/Chauffeurs.vue";
 import Demandechauffeur from "../views/Transporteur/Demandes/Demande.vue";
 import Demandefile from "../views/Transporteur/Demandes/DemandeFile.vue";
@@ -238,6 +239,11 @@ const routes = [{
                 name: 'Chauffeurs',
                 component: Chauffeurs,
             },
+            {
+                path: 'itetiaires',
+                name: 'itetiaires',
+                component: Itetiaires,
+            },
 
             {
                 path: 'camions',
@@ -272,23 +278,19 @@ const routes = [{
         path: '/forms',
         name: 'Forms',
         component: Forms,
-    },
-    {
+    }, {
         path: '/cards',
         name: 'Cards',
         component: Card,
-    },
-    {
+    }, {
         path: '/tables',
         name: 'Tables',
         component: Tables,
-    },
-    {
+    }, {
         path: '/ui-elements',
         name: 'UIElements',
         component: UIElements,
-    },
-    {
+    }, {
         path: '/modal',
         name: 'Modal',
         component: Modal,
@@ -314,23 +316,19 @@ const routes = [{
         path: '/forms',
         name: 'Forms',
         component: Forms,
-    },
-    {
+    }, {
         path: '/cards',
         name: 'Cards',
         component: Card,
-    },
-    {
+    }, {
         path: '/tables',
         name: 'Tables',
         component: Tables,
-    },
-    {
+    }, {
         path: '/ui-elements',
         name: 'UIElements',
         component: UIElements,
-    },
-    {
+    }, {
         path: '/modal',
         name: 'Modal',
         component: Modal,
@@ -344,8 +342,7 @@ const routes = [{
         path: '/blank',
         name: 'Blank',
         component: Blank,
-    },
-    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
+    }, { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 ]
 
 const router = createRouter({
