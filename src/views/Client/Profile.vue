@@ -323,25 +323,7 @@ export default {
       this.imageFile = event.target.files[0];
       console.log(this.imageFile);
     },
-    Modifieralert() {
-      Swal.fire({
-        title: 'Are you sure?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, update it!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.Modifier();
-          Swal.fire(
-            'Updated!',
-            'Your account has been updated.',
-            'success'
-          )
-        }
-      })
-    },
+   
     Modifier() {
       Swal.fire({
         title: 'Entrer Ancien mot de passe pour continuer',
