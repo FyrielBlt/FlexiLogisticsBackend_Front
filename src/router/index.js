@@ -26,7 +26,6 @@ import Trajets from "../views/Transporteur/Trajets/Trajets.vue";
 import Itetiaires from "../views/Transporteur/Trajets/Itetiaires.vue";
 import Chauffeurs from "../views/Transporteur/Chauffeurs/Chauffeurs.vue";
 import Demandechauffeur from "../views/Transporteur/Demandes/Demande.vue";
-import Demandefile from "../views/Transporteur/Demandes/DemandeFile.vue";
 import ModalLayoutHistoriqueDemande from "../views/Transporteur/Demandes/ModalLayoutHistoriqueDemande.vue";
 import Offreschauffeur from "../views/Transporteur/Offres/Offres.vue";
 import ModalOffre from "../views/Transporteur/Offres/ModalLayoutOffre.vue";
@@ -219,11 +218,7 @@ const routes = [{
                 name: 'Offreschauffeur',
                 component: Offreschauffeur,
             },
-            {
-                path: 'demandeFile',
-                name: 'DemandeFile',
-                component: Demandefile,
-            },
+
             {
                 path: 'trajets',
                 name: 'Trajets',

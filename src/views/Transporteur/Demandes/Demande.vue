@@ -284,11 +284,40 @@
                 </svg>
               </div>
              </div>
+             <div class="relative">
+              <input
+              v-model="num"
+              placeholder="numéro demande"
+              class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+              @keyup="searchfunction(this.searchby)"
+            />
+             
+              <div
+                class="
+                  absolute
+                  inset-y-0
+                  right-0
+                  flex
+                  items-center
+                  px-2
+                  text-gray-700
+                  pointer-events-none
+                "
+              >
+               
+              </div>
+              
+            </div>
         </div>
         
             <table id="example" class="min-w-full leading-normal">
               <thead>
                 <tr>
+                   <th
+                    class="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200"
+                  >
+                    Numero
+                  </th>
                   <th
                     class="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200"
                   >
@@ -328,6 +357,15 @@
               </thead>
               <tbody>
                 <tr v-for="(demande, index) in demandes" :key="index">
+                  <td
+                    class="px-5 py-5 text-sm bg-white border-b border-gray-200"
+                  >
+                    <div class="flex items-center">
+                      <div class="ml-3">
+                        {{ demande.idDemandeNavigation.idDemande }}
+                      </div>
+                    </div>
+                  </td>
                   <td
                     class="px-5 py-5 text-sm bg-white border-b border-gray-200"
                   >
@@ -481,6 +519,7 @@ export default {
     return {
       demandes: [],
       datedemande:'',
+      num:'',
       today:new Date().getFullYear()+"-0"+(new Date().getMonth()+1)+"-"+new Date().getDate(),
       open: ref(false),
       description: "",
@@ -490,10 +529,8 @@ export default {
       success: false,
       villes:[],
        currentPage:1,
-       searchby:'',
        date:'',
       perPage:5,
-      searchby:'',
       total:'',
       refus:'',
     };
@@ -550,8 +587,11 @@ export default {
           .get(
             "http://localhost:5000/api/DemandeDevis/" +
               localStorage.getItem("idtransporteur") +
-              "/transporteur"+"?page="+this.currentPage+"&quantityPage="+this.perPage+"&&depart="+this.depart
+              "/transporteur"+"?page="+this.currentPage+"&quantityPage="+this.perPage
+               +"&search="+this.num
+              +"&depart="+this.depart
               +"&arrive="+this.arrive +"&date="+this.date+"&today="+this.datedemande
+              
               
           )
           .then((response) => {
@@ -561,6 +601,23 @@ export default {
           .catch((error) => console.log(error));
       
      },
+      searchfunction(mot) {
+axios
+          .get(
+            "http://localhost:5000/api/DemandeDevis/" +
+              localStorage.getItem("idtransporteur") +
+              "/transporteur"+"?page="+this.currentPage+"&quantityPage="+this.perPage
+               +"&search="+this.num
+             
+              
+              
+          )
+          .then((response) => {
+            
+            this.demandes = response.data;
+          })
+          .catch((error) => console.log(error));
+      },
    refuserdemande(demande) {
  this.$swal({
         title: "Voulez vous réfusé cette demande?",

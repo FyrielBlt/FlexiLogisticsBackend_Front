@@ -60,49 +60,56 @@
               <div class="p-6 bg-white rounded-md shadow-md">
                 <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                   <form @submit.prevent="ajouterOffre">
-                  <div>
-                    <label class="text-gray-700" for="username"
-                      >Description</label
-                    >
-                    <textarea
-                      class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                      type="text"
-                      v-model="description"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label class="text-gray-700" for="username">Prix</label>
-                    <input
-                      class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                      type="number"
-                      v-model="prix"
-                      required
-                    />
-                  </div>
-                
-                <div>
-                  <label class="text-gray-700" for="passwordConfirmation">
-                    Date de livraison
-                  </label>
-                   <input
-                    type="datetime-local"
-                    width="300px"
-                    v-model="offre"
-                     :min="this.today"
-                    requied
-                  />
-                 
-                </div>
-               <div class="flex justify-end mt-4">
-                  <button
-                    class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
-                  >
-                    Save
-                  </button>
-                </div>
+                    <div>
+                      <label class="text-gray-700" for="username"
+                        >Description</label
+                      >
+                      <textarea
+                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+                        type="text"
+                        v-model="description"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label class="text-gray-700" for="username">Prix</label>
+                      <input
+                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+                        type="number"
+                        v-model="prix"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label class="text-gray-700" for="passwordConfirmation">
+                        Date de livraison
+                      </label>
+                      <input
+                        type="datetime-local"
+                        width="300px"
+                        v-model="offre"
+                        :min="this.today"
+                        requied
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="file"
+                        id="image"
+                        multiple="multiple"
+                        @change="FileSelected($event)"
+                      />
+                    </div>
+                    <div class="flex justify-end mt-4">
+                      <button
+                        class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+                      >
+                        Save
+                      </button>
+                    </div>
                   </form>
-              </div> 
+                </div>
               </div>
             </div>
           </div>
@@ -110,18 +117,13 @@
       </div>
     </div>
   </div>
-  
 </template>
 <script>
 import axios from "axios";
 
-
-import ModalTrajetAdd from "/src/views/Transporteur/Trajets/ModalTrajetAdd .vue";
 export default {
-  props: ["demandeid" ,"tabledemande"],
-  components: {
-    ModalTrajetAdd,
-  },
+  props: ["demandeid", "tabledemande"],
+
   data() {
     return {
       demid: this.demandeid,
@@ -130,6 +132,7 @@ export default {
       statut: "",
       open: false,
       cinchauffeur: "",
+      imageFile: null,
       chauffeur: "",
       sucess: false,
       error: false,
@@ -140,29 +143,26 @@ export default {
       description: "",
       prix: "",
       offre: "",
-      encours:'',
-      accepte:'',
-       today:new Date().toISOString().substr(0,10)+"T00:00:00.000",
+      encours: "",
+      accepte: "",
+      today: new Date().toISOString().substr(0, 10) + "T00:00:00.000",
     };
   },
   created() {
-//get etatdemandedevis where etat=accepte
- axios
+    //get etatdemandedevis where etat=accepte
+    axios
       .get(
-        "http://localhost:5000/api/EtatDemandeDevis/EtatDemandeDevis?etat=Accepte" 
-          )
-      .then((response) =>{
-        this.accepte= response.data.idEtat;
+        "http://localhost:5000/api/EtatDemandeDevis/EtatDemandeDevis?etat=Accepte"
+      )
+      .then((response) => {
+        this.accepte = response.data.idEtat;
       }),
-
-  //get etatoffre where etat=en cours
- axios
-      .get(
-        "http://localhost:5000/api/EtatOffres/offre?offre=Nontraite" 
-          )
-      .then((response) =>{
-        this.encours= response.data.idEtat;
-      })     
+      //get etatoffre where etat=en cours
+      axios
+        .get("http://localhost:5000/api/EtatOffres/offre?offre=Nontraite")
+        .then((response) => {
+          this.encours = response.data.idEtat;
+        });
   },
   methods: {
     close() {
@@ -171,54 +171,75 @@ export default {
       this.open = false;
       location.replace("demandechauffeur");
     },
+    FileSelected(event) {
+     
+      this.imageFile = event.target.files;
+      console.log(this.imageFile[0]);
+            console.log(this.imageFile[1]);
+
+    },
     ajouterOffre() {
       if (this.description != "" && this.prix != "" && this.offre != "") {
-                 this.$swal({
+        this.$swal({
           position: "top-end",
           icon: "success",
           toast: true,
           title: "Offre ajouté",
           showConfirmButton: false,
           timer: 2000,
-        }).then(()=>{
-          axios.post("http://localhost:5000/api/Offres", {
+        }).then(() => {
+          axios
+            .post("http://localhost:5000/api/Offres", {
               description: this.description,
               date: this.offre.toString().substr(0, 10),
-              heurearrive:this.offre.toString().substr(11, 16),
-              idEtat:this.encours,
+              heurearrive: this.offre.toString().substr(11, 16),
+              idEtat: this.encours,
               prix: this.prix,
               prixFinale: null,
               idTransporteur: localStorage.getItem("idtransporteur"),
               idDemande: this.demandeid,
-              notificationIntermediaire:1,
-              notificationClient:null,
-              notificationTransporteur:null,
-              datecreation:new Date().getFullYear()+"-0"+(new Date().getMonth()+1)+"-"+new Date().getDate()
-
-            }).then(()=>{
-               axios
-              .put("http://localhost:5000/api/DemandeDevis/"+this.tabledemande.idDemandeDevis, {
-               idDemandeDevis:this.tabledemande.idDemandeDevis,
-               dateEnvoit:this.tabledemande.dateEnvoit,
-               idIntermediaire:this.tabledemande.idIntermediaire,
-               idDemande:this.tabledemande.idDemande,
-               idTransporteur:this.tabledemande.idTransporteur,
-               idEtat:this.accepte
-              }) 
-              
-             this.close()
-
+              notificationIntermediaire: 1,
+              notificationClient: null,
+              notificationTransporteur: null,
+              datecreation:
+                new Date().getFullYear() +
+                "-0" +
+                (new Date().getMonth() + 1) +
+                "-" +
+                new Date().getDate(),
             })
-        
-      })
-            
-  
-}
-    }
-  }
-}
-</script>
+            .then((resp) => {
+             for (let i = 0; i < this.imageFile.length; i++) {
+              let user = new FormData();
+              user.append("idOffre", resp.data.idOffre);
+              user.append("nomFile", "");
+              user.append("imageFile", this.imageFile[i]);
+              user.append("srcOffreFile", "");
+              axios.post("http://localhost:5000/api/FileOffres", user)
+             }
+              axios.put(
+                "http://localhost:5000/api/DemandeDevis/" +
+                  this.tabledemande.idDemandeDevis,
+                {
+                  idDemandeDevis: this.tabledemande.idDemandeDevis,
+                  dateEnvoit: this.tabledemande.dateEnvoit,
+                  idIntermediaire: this.tabledemande.idIntermediaire,
+                  idDemande: this.tabledemande.idDemande,
+                  idTransporteur: this.tabledemande.idTransporteur,
+                  idEtat: this.accepte,
+                }
+              );
 
+              this.close()
+
+             
+            });
+        });
+      }
+    },
+  },
+};
+</script>
 
 <style>
 .modal {

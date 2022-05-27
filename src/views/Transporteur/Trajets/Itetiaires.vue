@@ -59,10 +59,11 @@
                   <form @submit.prevent="ajouterTrajet">
                     <div>
                       <label class="text-gray-700" for="passwordConfirmation"
-                        >ville
+                        >ctr+c pour selection multiple
                       </label>
                       <select
                         v-model="ville"
+                        multiple
                         class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
                       >
                         <option
@@ -142,7 +143,7 @@
                     class="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200"
                   >
                     <form
-                      @submit.prevent="supprimervilles(u)"
+                      @submit.prevent="supprimerville(u)"
                       v-if="this.checked != ''"
                     >
                       <span class="text-yellow-500 flex justify-center">
@@ -348,22 +349,17 @@ export default {
     },
     ajouterTrajet() {
       if (this.ville != "") {
-        axios
+        this.ville.forEach(element => {
+           axios
           .post("http://localhost:5000/api/Itineraires", {
-            idVille: this.ville.idVille,
+            idVille: element.idVille,
             idTransporteur: localStorage.getItem("idtransporteur"),
           })
-          .then(() => {
-            this.$swal({
-              position: "top-end",
-              icon: "success",
-              toast: true,
-              title: "Ville ajouté",
-              showConfirmButton: false,
-              timer: 2000,
-            });
+        })
+       
+          
             this.reload();
-          });
+          
       }
     },
   },
