@@ -141,7 +141,7 @@
 <script>
 import axios from "axios";
 export default {
-  props: ["chauffeurid", "iduserchauff", "userss"],
+  props: ["userss"],
   data() {
     return {
       idchauffeur: "",

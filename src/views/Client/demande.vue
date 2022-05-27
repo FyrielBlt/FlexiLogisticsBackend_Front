@@ -193,6 +193,10 @@
                 focus:ring focus:ring-opacity-40 focus:ring-indigo-500
               " type="date" :min="this.today" v-model="datedemande" />
           </div>
+          <div class="relative mt-2 rounded-md shadow-sm">
+            <label class="text-xs">Fchiers</label>
+            <input type="file" name="file" id="file" @change="FileSelected($event)" multiple>
+          </div>
         </div>
 
         <!--Footer-->
@@ -391,26 +395,10 @@
                 <span :hidden="!updateinputdisable">{{ u.date.substr(0, 10) }}</span>
               </td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200" style="padding: 30px 49px">
-                <a class="
-                    bg-blue-500
-                    hover:bg-blue-700
-                    text-white
-                    font-bold
-                    py-2
-                    px-4
-                    rounded
-                  " :href="u.file" v-if="u.file">Download File</a>
-                <a class="
-                    bg-red-500
-                    hover:bg-red-700
-                    text-white
-                    font-bold
-                    py-2
-                    px-4
-                    rounded
-                  " v-else>
-                  No File</a>
+                <files-modal :u="u"></files-modal>
+
               </td>
+
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                 {{ u.idEtatdemandeNavigation.etatDemande }}
               </td>
@@ -493,11 +481,13 @@ import BreadCrumb from "../../components/Intermediaire/BreadCrumb.vue";
 import { ref } from 'vue'
 import axios from "axios";
 import PaginationVue from "../../components/Intermediaire/pagination/PaginationVue.vue";
-import $ from 'jquery';
+import FilesModal from "./FilesModal.vue";
+
 export default {
   components: {
     BreadCrumb,
-    PaginationVue
+    PaginationVue,
+    FilesModal
   },
   data() {
     return {
@@ -523,7 +513,7 @@ export default {
       departfilter: '',
       arrivefilter: '',
       today: new Date().toISOString().split("T")[0],
-
+      Files: null,
     }
   },
 
@@ -546,6 +536,10 @@ export default {
 
   },
   methods: {
+    FileSelected(event) {
+      this.Files = event.target.files;
+      console.log(this.Files);
+    },
     ChangePage(NumPage) {
       this.page = NumPage;
 
@@ -584,7 +578,6 @@ export default {
           hauteur: u.hauteur,
           idEtatdemande: this.livre,
           idclient: u.idclient,
-          file: u.file,
         }
       ).then(() => {
         axios
@@ -619,42 +612,53 @@ export default {
     },
     demandelivraisons() {
       const date = new Date();
-      if(this.depart==this.arrive){
-      Swal.fire({
-  icon: 'error',
-  title: 'Oops...',
-  text: 'Adresse depart et arrivé doit etre different',
-})
-      }else{
-             axios.post('http://localhost:5000/api/demandelivraisons', {
-        "description": this.description,
-        "datecreation": date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate(),
-        "adressdepart": this.depart,
-        "adressarrive": this.arrive,
-        "poids": this.poids,
-        "largeur": this.largeur,
-        "hauteur": this.hauteur,
-        "date": this.datedemande,
-        "idEtatdemande": 2002,
-        "idclient": parseInt(localStorage.getItem("clientid"))
-      }).then((r) => {
-        axios
-          .get("http://localhost:5000/api/demandelivraisons/client/" + localStorage.getItem("iduser"))
-          .then((response) => {
-            this.demandes = response.data
-          })
+      if (this.depart == this.arrive) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Adresse depart et arrivé doit etre different',
+        })
+      } else {
 
-        this.open = false;
-        Swal.fire(
-          'Ajouté!',
-          'Demande Ajouté Avec Succée',
-          'success'
-        )
 
-      })
-        .catch((error) => console.log(error))
+        axios.post('http://localhost:5000/api/demandelivraisons', {
+          "description": this.description,
+          "datecreation": date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate(),
+          "adressdepart": this.depart,
+          "adressarrive": this.arrive,
+          "poids": this.poids,
+          "largeur": this.largeur,
+          "hauteur": this.hauteur,
+          "date": this.datedemande,
+          "idEtatdemande": 2002,
+          "idclient": parseInt(localStorage.getItem("clientid"))
+        }).then((r) => {
+      for (let i = 0; i < this.Files.length; i++) {
+            let filedemande = new FormData();
+            filedemande.append("idDemande", r.data.idDemande);
+            filedemande.append("File", this.Files[i]);
+            axios.post("http://localhost:5000/api/filedemandelivraisons/", filedemande)
       }
- 
+
+
+
+          axios
+            .get("http://localhost:5000/api/demandelivraisons/client/" + localStorage.getItem("iduser"))
+            .then((response) => {
+              this.demandes = response.data
+            })
+
+          this.open = false;
+          Swal.fire(
+            'Ajouté!',
+            'Demande Ajouté Avec Succée',
+            'success'
+          )
+
+        })
+          .catch((error) => console.log(error))
+      }
+
     },
 
     supprimer(id) {
@@ -676,11 +680,14 @@ export default {
                   this.demandes = response.data
                 })
             })
-          Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-          )
+
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Your file has been deleted.',
+            showConfirmButton: false,
+            timer: 800
+          })
         }
       })
 
