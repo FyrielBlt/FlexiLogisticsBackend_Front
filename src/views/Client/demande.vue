@@ -619,7 +619,14 @@ export default {
     },
     demandelivraisons() {
       const date = new Date();
-      axios.post('http://localhost:5000/api/demandelivraisons', {
+      if(this.depart==this.arrive){
+      Swal.fire({
+  icon: 'error',
+  title: 'Oops...',
+  text: 'Adresse depart et arrivé doit etre different',
+})
+      }else{
+             axios.post('http://localhost:5000/api/demandelivraisons', {
         "description": this.description,
         "datecreation": date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate(),
         "adressdepart": this.depart,
@@ -646,6 +653,8 @@ export default {
 
       })
         .catch((error) => console.log(error))
+      }
+ 
     },
 
     supprimer(id) {
