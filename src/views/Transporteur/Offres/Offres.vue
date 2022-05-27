@@ -293,7 +293,7 @@
 
             <input
             v-model="searchby"
-              placeholder="Chercher par prix"
+              placeholder="prix/num offre/num demande"
               class="
                 block
                 w-full
@@ -320,7 +320,7 @@
         <table  id="example" class="min-w-full leading-normal">
           <thead>
             <tr>
-              <th
+               <th
                 class="
                   px-5
                   py-3
@@ -333,7 +333,7 @@
                   border-b-2 border-gray-200
                 "
               >
-                Demande
+                numéro offre
               </th>
               <th
                 class="
@@ -350,6 +350,22 @@
               >
                 Description
               </th>
+              <th
+                class="
+                  px-5
+                  py-3
+                  text-xs
+                  font-semibold
+                  tracking-wider
+                  text-left text-gray-600
+                  uppercase
+                  bg-gray-100
+                  border-b-2 border-gray-200
+                "
+              >
+                Demande
+              </th>
+            
               <th
                 class="
                   px-5
@@ -463,6 +479,15 @@
                 <div class="flex items-center">
                   <div class="ml-3">
                     <p class="text-gray-900 whitespace-nowrap">
+                      {{ u.idOffre}}
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                <div class="flex items-center">
+                  <div class="ml-3">
+                    <p class="text-gray-900 whitespace-nowrap">
                       {{ u.idDemandeNavigation.description }}
                     </p>
                   </div>
@@ -496,8 +521,10 @@
                 class="px-5 py-5 text-sm bg-white border-b border-gray-200"
                 style="padding: 30px 49px"
               >
-                <a
-                  class="
+             
+                <a id="myLink" title="Click to do something"
+                                  v-if="u.fileOffre.length>0"
+                                   class="
                     bg-blue-500
                     hover:bg-blue-700
                     text-white
@@ -506,10 +533,7 @@
                     px-4
                     rounded
                   "
-                  :href="u.file"
-                  v-if="u.file"
-                  >Download</a
-                >
+              href="" @click="mesfichiers(u.fileOffre)">fichiers</a>
                 <a
                   class="
                     bg-red-500
@@ -520,9 +544,10 @@
                     px-4
                     rounded
                   "
+                  
                   v-else
                 >
-                  No File</a
+                  Aucun fichier</a
                 >
               </td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
@@ -600,10 +625,13 @@ export default defineComponent({
       depart:'',
       arrive:'',
        etat:'',
-       nondispo:''
+       nondispo:'',
+       hrefa:''
     };
   },
   created() {
+
+   
      axios
       .get(
         "http://localhost:5000/api/EtatOffres/offre?offre=Nontraite" 
@@ -645,6 +673,17 @@ export default defineComponent({
       
   },
   methods: {
+    mesfichiers(table){
+      for (let i = 0; i < table.length; i++) {
+         axios
+      .get(
+        "http://localhost:5000/api/FileOffres/"+table[i].idFile
+          )
+      .then((response) =>{
+         window.open( response.data.srcOffreFile);
+      }) 
+      }
+    },
     searchfunction(mot){    
     axios
       .get("http://localhost:5000/api/offres/" +localStorage.getItem('idtransporteur')+"/offrestransporteur"

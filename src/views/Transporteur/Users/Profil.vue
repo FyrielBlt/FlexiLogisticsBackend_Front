@@ -10,15 +10,24 @@
       <div class="row-span-3 animate__animated animate__bounceInLeft">
         <!-- <h4 class="text-gray-700">Profil</h4> -->
         <div class="max-w-sm overflow-hidden bg-white rounded shadow-lg">
-          <input type="file" name="pic1" id="pic1" style="display:none;"
-                  @change="FileSelected($event)"
-          />
-          <center>
-<label for="pic1">
-<img  width="250"  height="150" :src="image" alt="photode profile"  
-          />
-</label>
-          </center>
+          <input class="
+                    w-full
+                    mt-2
+                    border-gray-200
+                    rounded-md
+                    focus:border-indigo-600
+                    focus:ring
+                    focus:ring-opacity-40
+                    focus:ring-indigo-500
+                  " id="image" name="image" type="file" @change="FileSelected($event)" style="display:none;" />
+          <label for="image" class="relative group">
+            <img class="w-auto " :src="image" alt="Image Profil" />
+            <div
+              class="opacity-0 group-hover:opacity-70 duration-300 absolute inset-x-0 bottom-0 flex justify-center items-end text-xl bg-black text-white font-semibold"
+              style="height: 419px;
+    padding-bottom: 169px;">Cliquez ici pour changer l'image</div>
+
+          </label>
              
             
           <div class="px-6 py-4">
