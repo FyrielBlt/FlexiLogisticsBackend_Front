@@ -70,24 +70,7 @@
         </label>
 
         <div class="flex items-center justify-between mt-4">
-          <!-- <div>
-            <label class="inline-flex items-center">
-              <input
-                type="checkbox"
-                class="
-                  text-indigo-600
-                  border-gray-200
-                  rounded-md
-                  focus:border-indigo-600
-                  focus:ring
-                  focus:ring-opacity-40
-                  focus:ring-indigo-500
-                "
-              />
-              <span class="mx-2 text-sm text-gray-600">Remember me</span>
-            </label>
-          </div> -->
-
+         
           <div>
             <a
               class="block text-sm text-indigo-700 fontme hover:underline"
@@ -138,10 +121,7 @@ export default defineComponent({
           Motdepasse: this.password,
         })
         .then((response) => {
-          //console.log(response.data);
-
           localStorage.setItem("type", response.data.type);
-
           if (localStorage.getItem("type") == "intermediaire") {
             localStorage.setItem("token", response.data.type.token);
             localStorage.setItem(
@@ -165,6 +145,7 @@ export default defineComponent({
   text: 'Welcome',
  
 })
+// login Transporteur
           } else if (localStorage.getItem("type") == "transporteur") {
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("idtransporteur", response.data.validUser.transporteur[0].idTransporteur);
@@ -176,12 +157,7 @@ export default defineComponent({
             localStorage.setItem("image", response.data.validUser.image);
             localStorage.setItem("jwtt", 't');
             this.$router.push({ name: "DashboardTransporteur" });
-             Swal.fire({
-  icon: 'success',
-  title: 'Hello '+response.data.validUser.nom +" "+response.data.validUser.prenom,
-  text: 'Welcome',
- 
-})
+            
           } else if (localStorage.getItem("type") == "") {
             this.$router.push({ name: "Login" });
           } else {

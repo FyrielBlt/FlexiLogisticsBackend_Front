@@ -1,7 +1,6 @@
 <template>
   <div>
     <!-- Breadcrumb -->
-    <Breadcrumb breadcrumb="Modal" />
     <button @click="open = true" class="mx-2 px-2 rounded-md">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -147,7 +146,7 @@ export default {
     return {
       idchauffeur: "",
       codevehicule: "",
-      open: false,
+      open:false,
       cinchauffeur: "",
       nextpage: 1,
       cetransporteur: "",
@@ -168,7 +167,7 @@ export default {
   },
   methods: {
     close() {
-      this.open = false;
+      this.open=false
       location.replace("chauffeurs");
     },
      FileSelected(event) {

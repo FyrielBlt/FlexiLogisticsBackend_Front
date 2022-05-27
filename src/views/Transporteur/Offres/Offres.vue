@@ -681,6 +681,7 @@ export default defineComponent({
           )
       .then((response) =>{
          window.open( response.data.srcOffreFile);
+
       }) 
       }
     },

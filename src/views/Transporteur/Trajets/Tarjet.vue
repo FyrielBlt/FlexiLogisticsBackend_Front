@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <!-- Ajouter Trajet -->
     <button @click="open = true">
       <svg
@@ -58,74 +57,71 @@
             <div class="mt-4">
               <div class="p-6 bg-white rounded-md shadow-md">
                 <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-                  <form @submit.prevent="ajouterTrajet" >
-                       <div>
-                    <label class="text-gray-700" for="username"
-                      >Code Véhicule</label
-                    >
-                    <input
-                      disabled
-                      class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                      type="text"
-                      v-model="this.codevehicule"
-                    />
-                  </div>
- <div>
-                  <label class="text-gray-700" for="passwordConfirmation"
-                    >ville départ
-                  </label>
-                  <select
-                    v-model="depart"
-                    class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                  >
-                    <option v-for="column in this.villes" :key="column">
-                      {{ column.nomVille }}
-                    </option>
-                  </select>
-                </div>
-                 <div>
-                  <label class="text-gray-700" for="passwordConfirmation"
-                    >Destination 
-                  </label>
-                  <select
-                    v-model="Destination"
-                    class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                  >
-                    <option v-for="column in this.villes" :key="column">
-                      {{ column.nomVille }}
-                    </option>
-                  </select>
-                </div>
-                <div>
-                  <label class="text-gray-700" for="passwordConfirmation"
-                    >Date/heure
-                  </label>
-                  <br />
-                  <input
-                    type="datetime-local"
-                    width="300px"  
-                    v-model="dateheure"
-                    :min="this.today"
-                  />
-                </div>
-                <div class="flex justify-end mt-4">
-                  <button
-                    class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
-                  >
-                    Save
-                  </button>
-                </div>
+                  <form @submit.prevent="ajouterTrajet">
+                    <div>
+                      <label class="text-gray-700" for="username"
+                        >Code Véhicule</label
+                      >
+                      <input
+                        disabled
+                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+                        type="text"
+                        v-model="this.codevehicule"
+                      />
+                    </div>
+                    <div>
+                      <label class="text-gray-700" for="passwordConfirmation"
+                        >ville départ
+                      </label>
+                      <select
+                        v-model="depart"
+                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+                      >
+                        <option v-for="column in this.villes" :key="column">
+                          {{ column.nomVille }}
+                        </option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="text-gray-700" for="passwordConfirmation"
+                        >Destination
+                      </label>
+                      <select
+                        v-model="Destination"
+                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+                      >
+                        <option v-for="column in this.villes" :key="column">
+                          {{ column.nomVille }}
+                        </option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="text-gray-700" for="passwordConfirmation"
+                        >Date/heure
+                      </label>
+                      <br />
+                      <input
+                        type="datetime-local"
+                        width="300px"
+                        v-model="dateheure"
+                        :min="this.today"
+                      />
+                    </div>
+                    <div class="flex justify-end mt-4">
+                      <button
+                        class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+                      >
+                        Save
+                      </button>
+                    </div>
                   </form>
-                 
-               
                 </div>
-                <div  class="px-4 py-2 -mx-3">
+                <div class="px-4 py-2 -mx-3">
                   <div class="mx-3">
-                    <span class="font-semibold text-red-500"
-                      >{{this.error}}</span
-                    >
+                    <span class="font-semibold text-red-500">{{
+                      this.error
+                    }}</span>
                   </div>
-              
                 </div>
                 <div v-if="this.sucess == true" class="px-4 py-2 -mx-3">
                   <div class="mx-3">
@@ -135,16 +131,14 @@
                     <p class="text-sm text-gray-600">Ajout réussi!</p>
                   </div>
                 </div>
-               
               </div>
             </div>
-            
           </div>
         </div>
       </div>
     </div>
     <Breadcrumb breadcrumb="Blank" />
-    <div class="mt-8">
+    <div class="mt-8 ">
       <div class="mt-6">
         <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
           <div
@@ -184,7 +178,6 @@
                     class="form-select appearance-none block w-full px-3 py-1.5 text-base font-semibold text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     aria-label="Default select example"
                   >
-
                     <option value="" class="font-semibold" selected>
                       depart
                     </option>
@@ -280,7 +273,7 @@
                   >
                     Date départ
                   </th>
-                   <th
+                  <th
                     class="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200"
                   >
                     Heure départ
@@ -318,10 +311,10 @@
                     class="px-5 py-5 text-sm bg-white border-b border-gray-200"
                   >
                     <p class="text-gray-900 whitespace-nowrap">
-                      {{ u.date.substr(0,10) }}
+                      {{ u.date.substr(0, 10) }}
                     </p>
                   </td>
- <td
+                  <td
                     class="px-5 py-5 text-sm bg-white border-b border-gray-200"
                   >
                     <p class="text-gray-900 whitespace-nowrap">
@@ -331,29 +324,25 @@
                   <td
                     class="px-5 py-5 text-sm bg-white border-b border-gray-200"
                   >
-                   <modal-trajet-update :trajettable="u"></modal-trajet-update>
-                  <form @submit.prevent="supprimertrajet(u.idTrajet)">
-                    <span class="text-yellow-500 flex justify-center">
-                      <button
-                        class="mx-2 px-2 rounded-md"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="h-5 w-5 text-red-700"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
-                      </button>
-                    </span>
+                    <modal-trajet-update :trajettable="u"></modal-trajet-update>
+                    <form @submit.prevent="supprimertrajet(u.idTrajet)">
+                      <span class="text-yellow-500 flex justify-center">
+                        <button class="mx-2 px-2 rounded-md">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5 text-red-700"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                              clip-rule="evenodd"
+                            />
+                          </svg>
+                        </button>
+                      </span>
                     </form>
-                   
-
                   </td>
                 </tr>
               </tbody>
@@ -387,13 +376,13 @@ export default {
   components: {
     ModalTrajetAdd,
     PaginationVue,
-    ModalTrajetUpdate
+    ModalTrajetUpdate,
   },
   props: ["tarjettable"],
   data() {
     return {
-      pass:"",
-      error:'',
+      pass: "",
+      error: "",
       open: false,
       codevehicule: localStorage.getItem("moncamion"),
       trajets: [],
@@ -403,14 +392,14 @@ export default {
       perPage: 5,
       searchby: "",
       total: "",
-      exists:[],
+      exists: [],
       depart: "",
       arrive: "",
       villes: [],
       date: "",
-      long:'',
-      dateheure:'',
-      today:new Date().toISOString().substr(0,10)+"T00:00:00.000",
+      long: "",
+      dateheure: "",
+      today: new Date().toISOString().substr(0, 10) + "T00:00:00.000",
     };
   },
   created() {
@@ -434,14 +423,17 @@ export default {
       .get(
         "http://localhost:5000/api/Trajets/" +
           localStorage.getItem("moncamion") +
-          "/camion"+"?page="+this.currentPage+
-            "&quantityPage="+this.perPage
+          "/camion" +
+          "?page=" +
+          this.currentPage +
+          "&quantityPage=" +
+          this.perPage
       )
       .then((response) => {
         this.trajets = response.data;
       })
       .catch((error) => console.log(error));
-       axios
+    axios
       .get(
         "http://localhost:5000/api/Trajets/" +
           localStorage.getItem("moncamion") +
@@ -479,7 +471,7 @@ export default {
         .catch((error) => console.log(error));
     },
     supprimertrajet(id) {
-        this.$swal({
+      this.$swal({
         title: "Supprission trajet",
         type: "warning",
         showCancelButton: true,
@@ -489,47 +481,40 @@ export default {
         cancelButtonText: "Annuler",
       }).then((result) => {
         if (result.value) {
-        
- // renvoyer l'offre correspondant a cette camion a supprimer
-            axios.get("http://localhost:5000/api/Offres/"+ id+"/idcamion").then((response)=>{
+          // renvoyer l'offre correspondant a cette camion a supprimer
+          axios
+            .get("http://localhost:5000/api/Offres/" + id + "/idcamion")
+            .then((response) => {
               // puis on va modifier cette offre idcamion=null
-               response.data.forEach(element => {
-              axios.put("http://localhost:5000/api/Offres/"+element.idOffre, { 
-              idOffre:element.idOffre,
-              description:element.description,
-              date:element.date,
-              heurdepart:element.heurdepart,
-              idEtat:element.idEtat,
-              prix:element.prix,
-              prixFinale: null,
-              idTransporteur: localStorage.getItem("idtransporteur"),
-              idDemande:element.idDemande,
-              idCamion:null
-            }) 
-                })
-             axios.delete("http://localhost:5000/api/Trajets/" + id).then(() => {
-        this.reload();
-      });
-     
-       
-            
-      
-            })
-          this.$swal(
-            "supprimer!",
-            "Trajet supprimé diffinitivement",
-            "reussi"
-          );
+              response.data.forEach((element) => {
+                axios.put(
+                  "http://localhost:5000/api/Offres/" + element.idOffre,
+                  {
+                    idOffre: element.idOffre,
+                    description: element.description,
+                    date: element.date,
+                    heurdepart: element.heurdepart,
+                    idEtat: element.idEtat,
+                    prix: element.prix,
+                    prixFinale: null,
+                    idTransporteur: localStorage.getItem("idtransporteur"),
+                    idDemande: element.idDemande,
+                    idCamion: null,
+                  }
+                );
+              });
+              axios
+                .delete("http://localhost:5000/api/Trajets/" + id)
+                .then(() => {
+                  this.reload();
+                });
+            });
+          this.$swal("supprimer!", "Trajet supprimé diffinitivement", "reussi");
         } else if (result.dismiss == "cancel") {
           this.$swal("Cancelled", "Your imaginary file is safe :)", "error");
           console.log("cancel");
         }
       });
-      
-
-
-      
-     
     },
     reload() {
       //get etatdemandedevis where etat=accepte
@@ -552,118 +537,110 @@ export default {
         .get(
           "http://localhost:5000/api/Trajets/" +
             localStorage.getItem("moncamion") +
-            "/camion"
-            +   "?page=" +
+            "/camion" +
+            "?page=" +
             this.currentPage +
             "&quantityPage=" +
-            this.perPage 
+            this.perPage
         )
         .then((response) => {
           this.trajets = response.data;
         })
         .catch((error) => console.log(error));
-          axios
-      .get(
-        "http://localhost:5000/api/Trajets/" +
-          localStorage.getItem("moncamion") +
-          "/camion"
-      )
-      .then((response) => {
-        this.long = response.data.length;
-      })
-      .catch((error) => console.log(error));
+      axios
+        .get(
+          "http://localhost:5000/api/Trajets/" +
+            localStorage.getItem("moncamion") +
+            "/camion"
+        )
+        .then((response) => {
+          this.long = response.data.length;
+        })
+        .catch((error) => console.log(error));
     },
     ajouterTrajet() {
-       axios
+      axios
         .get(
           "http://localhost:5000/api/Trajets/" +
             localStorage.getItem("moncamion") +
             "/camion" +
             "?date=" +
-            this.dateheure.toString().substr(0,10)
-            )
+            this.dateheure.toString().substr(0, 10)
+        )
         .then((resp) => {
-          console.log(resp.data)
-            this.exists=resp.data.length
- if(this.exists!=0){
-            this.sucess=false
-                              this.$swal({
-          position: "top-end",
-          icon: "error",
-          toast: true,
-          title: "Camion occupé dans ce date",
-          showConfirmButton: false,
-          timer: 2000,
-        })
-        }
-     else {
-           if (
-        this.depart != "" &&
-        this.Destination != "" &&
-        this.depart != this.Destination &&
-        this.dateheure != "" &&
-        this.dateheure>=this.today
-      ) {
-        axios
-          .get("http://localhost:5000/api/Villes/" + this.depart + "/ville")
-          .then((response) => {
-            this.iddepart = response.data.idVille;
-            axios
-              .get(
-                "http://localhost:5000/api/Villes/" + this.Destination + "/ville"
-              )
-              .then((response) => {
-                this.iddestination = response.data.idVille;
-                axios
-                  .post("http://localhost:5000/api/Trajets", {
-                    idVille1: this.iddepart,
-                    idVille2: this.iddestination,
-                    idCamion: localStorage.getItem("moncamion"),
-                    date: this.dateheure.toString().substr(0,10),
-                    heurdepart:this.dateheure.toString().substr(11,16)
-                  })
-                  .then(() => {
-                     this.$swal({
-          position: "top-end",
-          icon: "success",
-          toast: true,
-          title: "Trajet ajouté pour ce camion",
-          showConfirmButton: false,
-          timer: 2000,
-        });
-                    this.reload();
-                  });
+          console.log(resp.data);
+          this.exists = resp.data.length;
+          if (this.exists != 0) {
+            this.sucess = false;
+            this.$swal({
+              position: "top-end",
+              icon: "error",
+              toast: true,
+              title: "Camion occupé dans ce date",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          } else {
+            if (
+              this.depart != "" &&
+              this.Destination != "" &&
+              this.depart != this.Destination &&
+              this.dateheure != "" &&
+              this.dateheure >= this.today
+            ) {
+              axios
+                .get(
+                  "http://localhost:5000/api/Villes/" + this.depart + "/ville"
+                )
+                .then((response) => {
+                  this.iddepart = response.data.idVille;
+                  axios
+                    .get(
+                      "http://localhost:5000/api/Villes/" +
+                        this.Destination +
+                        "/ville"
+                    )
+                    .then((response) => {
+                      this.iddestination = response.data.idVille;
+                      axios
+                        .post("http://localhost:5000/api/Trajets", {
+                          idVille1: this.iddepart,
+                          idVille2: this.iddestination,
+                          idCamion: localStorage.getItem("moncamion"),
+                          date: this.dateheure.toString().substr(0, 10),
+                          heurdepart: this.dateheure.toString().substr(11, 16),
+                        })
+                        .then(() => {
+                          this.$swal({
+                            position: "top-end",
+                            icon: "success",
+                            toast: true,
+                            title: "Trajet ajouté pour ce camion",
+                            showConfirmButton: false,
+                            timer: 2000,
+                          });
+                          this.reload();
+                        });
+                    });
+                });
+            } else if (
+              this.depart != "" &&
+              this.Destination != "" &&
+              this.depart == this.Destination &&
+              this.dateheure != "" &&
+              this.dateheure >= this.today
+            ) {
+              this.$swal({
+                position: "top-end",
+                icon: "error",
+                toast: true,
+                title: "depart et arrive ne peuvent pas etre identique",
+                showConfirmButton: false,
+                timer: 2000,
               });
-          });
-      }
-      else  if (
-        this.depart != "" &&
-        this.Destination != "" &&
-        this.depart == this.Destination &&
-        this.dateheure != "" &&
-        this.dateheure>=this.today
-      ){
-        
-                            this.$swal({
-          position: "top-end",
-          icon: "error",
-          toast: true,
-          title: "depart et arrive ne peuvent pas etre identique",
-          showConfirmButton: false,
-          timer: 2000,
-        })
-      }
-      
-      
-       
-         }
-        
-        })
-       
-       
-    
-     
-
+            }
+          }
+        });
     },
   },
 };

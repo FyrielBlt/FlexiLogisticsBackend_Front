@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- Ajouter Trajet -->
+    <!-- Ajouter villes -->
     <button @click="open = true">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -45,13 +45,10 @@
           <span class="text-sm">(Esc)</span>
         </div>
 
-        <!-- Add margin if you want to see some of the overlay behind the modal-->
-        <div class="px-6 py-4 text-left modal-content">
-          <!--Title-->
+        <div class="px-6 py-4 text-left modal-content ">
           <div class="flex items-center justify-between pb-3">
             <p class="text-2xl font-bold">Ajouter Ville</p>
           </div>
-          <!--Body-->
           <div class="mt-8">
             <div class="mt-4">
               <div class="p-6 bg-white rounded-md shadow-md">
@@ -64,6 +61,7 @@
                       <select
                         v-model="ville"
                         multiple
+                        required
                         class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
                       >
                         <option
@@ -75,7 +73,6 @@
                         </option>
                       </select>
                     </div>
-
                     <div class="flex justify-end mt-4">
                       <button
                         class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
@@ -91,12 +88,12 @@
         </div>
       </div>
     </div>
-    <Breadcrumb breadcrumb="Blank" />
+    <!-- Affichage des villes -->
     <div class="mt-8">
       <div class="mt-6">
         <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
           <div
-            class="inline-block min-w-full overflow-hidden rounded-lg shadow"
+            class="inline-block min-w-full overflow-hidden rounded-lg shadow  "
           >
             <div class="flex flex-col mt-3 text-center sm:flex-row">
               <div class="flex">
@@ -147,7 +144,21 @@
                       v-if="this.checked != ''"
                     >
                       <span class="text-yellow-500 flex justify-center">
-                        <button class="mx-2 px-2 rounded-md">
+                        <button class="
+          px-6
+          py-2
+          mt-3
+          font-medium
+          tracking-wide
+          text-white
+          bg-indigo-600
+          hover:bg-indigo-900
+          focus:outline-none
+           animate__animated animate__shakeX animate__delay-1s
+        " style="position: absolute;
+    right: 600px;
+    top: 40px;
+    height: 62px;">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             class="h-5 w-5 text-red-700"
@@ -160,7 +171,7 @@
                               clip-rule="evenodd"
                             />
                           </svg>
-                          Supprimer tout
+                          
                         </button>
                       </span>
                     </form>
@@ -248,7 +259,7 @@ export default {
           "/transporteur"
       )
       .then((resp) => (this.villesshown = resp.data));
-      
+
     // liste des villes de ce transport
     axios
       .get(
@@ -274,18 +285,16 @@ export default {
     ChangePage(NumPage) {
       this.currentPage = NumPage;
       this.perPage = this.perPage;
-       axios
-      .get(
-        "http://localhost:5000/api/Itineraires/" +
-          localStorage.getItem("idtransporteur") +
-          "/transporteur"
-       +
+      axios
+        .get(
+          "http://localhost:5000/api/Itineraires/" +
+            localStorage.getItem("idtransporteur") +
+            "/transporteur" +
             "/camion" +
             "?page=" +
             this.currentPage +
             "&quantityPage=" +
-            this.perPage 
-            
+            this.perPage
         )
         .then((response) => {
           this.villesshown = response.data;
@@ -310,11 +319,8 @@ export default {
                 this.reload();
               });
           });
-          this.$swal("supprimer!", "Trajet supprimé diffinitivement", "reussi");
-        } else if (result.dismiss == "cancel") {
-          this.$swal("Cancelled", "Your imaginary file is safe :)", "error");
-          console.log("cancel");
-        }
+           
+        } 
       });
     },
     reload() {
@@ -349,17 +355,24 @@ export default {
     },
     ajouterTrajet() {
       if (this.ville != "") {
-        this.ville.forEach(element => {
-           axios
-          .post("http://localhost:5000/api/Itineraires", {
+        this.ville.forEach((element) => {
+          axios.post("http://localhost:5000/api/Itineraires", {
             idVille: element.idVille,
             idTransporteur: localStorage.getItem("idtransporteur"),
           })
+          .then(()=>{
+            this.$swal({
+          position: "top-end",
+          icon: "success",
+          toast: true,
+          title: "Ville(s) Ajouté!",
+          showConfirmButton: false,
+          timer: 2000,
         })
-       
-          
-            this.reload();
-          
+                this.reload();
+
+        })
+        })
       }
     },
   },

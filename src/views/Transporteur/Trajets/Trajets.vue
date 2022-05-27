@@ -221,30 +221,27 @@
                       {{ u.heurdepart }}
                     </p>
                   </td>
-                 <td
+                  <td
                     class="px-5 py-5 text-sm bg-white border-b border-gray-200"
                   >
-                  
-                   <modal-trajet-update :trajettable="u"></modal-trajet-update>
-                  <form @submit.prevent="supprimertrajet(u.idTrajet)">
-                    <span class="text-yellow-500 flex justify-center">
-                      <button
-                        class="mx-2 px-2 rounded-md"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="h-5 w-5 text-red-700"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
-                      </button>
-                    </span>
+                    <modal-trajet-update :trajettable="u"></modal-trajet-update>
+                    <form @submit.prevent="supprimertrajet(u.idTrajet)">
+                      <span class="text-yellow-500 flex justify-center">
+                        <button class="mx-2 px-2 rounded-md">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5 text-red-700"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                              clip-rule="evenodd"
+                            />
+                          </svg>
+                        </button>
+                      </span>
                     </form>
                   </td>
                 </tr>
@@ -276,7 +273,7 @@ import ModalTrajetUpdate from "/src/views/Transporteur/Trajets/ModalLayoutTrajet
 export default {
   components: {
     PaginationVue,
-    ModalTrajetUpdate
+    ModalTrajetUpdate,
   },
   data() {
     return {
@@ -369,8 +366,7 @@ export default {
                 this.depart +
                 "&arrive=" +
                 this.arrive +
-          
-                 "&date2=" +
+                "&date2=" +
                 this.date
             )
             .then((response) => {
@@ -382,6 +378,11 @@ export default {
         .catch((error) => console.log(error));
     },
     reload() {
+      axios
+        .get("http://localhost:5000/api/villes")
+        .then((resp) => (this.villes = resp.data));
+      //idtransporteur de cette user
+      // liste trajets de ce transporteur
       axios
         .get(
           "http://localhost:5000/api/Transporteurs/" +
@@ -396,18 +397,39 @@ export default {
                 "/idtransporteur"
             )
             .then((response) => {
+              this.long = response.data.length;
+            })
+            .catch((error) => console.log(error));
+        })
+        .catch((error) => console.log(error));
+
+      axios
+        .get(
+          "http://localhost:5000/api/Transporteurs/" +
+            localStorage.getItem("iduser") +
+            "/iduser"
+        )
+        .then((response) => {
+          axios
+            .get(
+              "http://localhost:5000/api/Trajets/" +
+                response.data.idTransporteur +
+                "/idtransporteur" +
+                "?page=" +
+                this.currentPage +
+                "&quantityPage=" +
+                this.perPage
+            )
+            .then((response) => {
               this.camions = response.data;
-              console.log(this.camions);
             })
             .catch((error) => console.log(error));
         })
         .catch((error) => console.log(error));
     },
     supprimertrajet(id) {
-
-
- this.$swal({
-        title: "Supprission trajet",
+      this.$swal({
+        title: "vous êtes sûr?",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#36c6d3",
@@ -416,90 +438,21 @@ export default {
         cancelButtonText: "Annuler",
       }).then((result) => {
         if (result.value) {
-        
- // renvoyer l'offre correspondant a cette camion a supprimer
-            axios.get("http://localhost:5000/api/Offres/"+ id+"/idcamion").then((response)=>{
-              // puis on va modifier cette offre idcamion=null
-               response.data.forEach(element => {
-              axios.put("http://localhost:5000/api/Offres/"+element.idOffre, { 
-              idOffre:element.idOffre,
-              description:element.description,
-              date:element.date,
-              heurdepart:element.heurdepart,
-              idEtat:element.idEtat,
-              prix:element.prix,
-              prixFinale: null,
-              idTransporteur: localStorage.getItem("idtransporteur"),
-              idDemande:element.idDemande,
-              idCamion:null
-            }) 
-                })
-            axios.delete("http://localhost:5000/api/Trajets/" + id).then(() => {
-        axios
-          .get(
-            "http://localhost:5000/api/Transporteurs/" +
-              localStorage.getItem("iduser") +
-              "/iduser"
-          )
-          .then((response) => {
-            axios
-              .get(
-                "http://localhost:5000/api/Trajets/" +
-                  response.data.idTransporteur +
-                  "/idtransporteur"
-              )
-              .then((response) => {
-                this.long = response.data.length;
-              })
-              .catch((error) => console.log(error));
-          })
-          .catch((error) => console.log(error));
-        axios
-          .get(
-            "http://localhost:5000/api/Transporteurs/" +
-              localStorage.getItem("iduser") +
-              "/iduser"
-          )
-          .then((response) => {
-            axios
-              .get(
-                "http://localhost:5000/api/Trajets/" +
-                  response.data.idTransporteur +
-                  "/idtransporteur" +
-                  "?page=" +
-                  this.currentPage +
-                  "&quantityPage=" +
-                  this.perPage
-              )
-              .then((response) => {
-                this.camions = response.data;
-              })
-              .catch((error) => console.log(error));
-          })
-          .catch((error) => console.log(error));
-      });
-     
-       
-            
-      
-            })
-          this.$swal(
-            "supprimer!",
-            "Trajet supprimé diffinitivement",
-            "reussi"
-          );
-        } else if (result.dismiss == "cancel") {
-          this.$swal("Cancelled", "Your imaginary file is safe :)", "error");
-          console.log("cancel");
+          axios.delete("http://localhost:5000/api/Trajets/" + id).then(() => {
+               this.$swal({
+            position: "top-end",
+            icon: "success",
+            toast: true,
+            title: "Trajet supprimé",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          this.reload()
+          });
+
+          
         }
       });
-      
-
-
-      
-     
-      
-      
     },
   },
 };

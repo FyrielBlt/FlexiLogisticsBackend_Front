@@ -50,7 +50,7 @@
           <div class="flex items-center justify-between pb-3">
             <p class="text-2xl font-bold">Ajouter Chauffeur</p>
           </div>
-          <div class="mt-8">
+          <div class="mt-8 ">
             <div class="mt-4">
               <div class="p-6 bg-white rounded-md shadow-md">
                 <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
@@ -63,6 +63,7 @@
                         class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
                         id="image"
                         type="file"
+                        accept="image/png, image/gif, image/jpeg"
                         required
                         @change="FileSelected($event)"
                       />
@@ -135,9 +136,9 @@
     </div>
    <!-- Add end / import begin-->
     <Breadcrumb breadcrumb="Blank" />
-    <div class="mt-8">
+    <div class="mt-8 ">
       <div class="mt-6">
-        <div class="flex flex-col mt-3 text-center sm:flex-row animate__animated animate__fadeInDown">
+        <div class="flex flex-col mt-3 text-center sm:flex-row ">
           <div class="flex">
             <div class="relative">
               <select
@@ -186,7 +187,7 @@
             />
           </div>
         </div>
-        <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8 animate__animated animate__fadeInUp">
+        <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8 ">
           <div
             class="inline-block min-w-full overflow-hidden rounded-lg shadow"
           >
@@ -466,7 +467,7 @@ export default {
     },
     supprimerchauffeur(id) {
       this.$swal({
-        title: "Supprission chauffeur",
+        title: "Vous êtes sûr?",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#36c6d3",
@@ -478,7 +479,7 @@ export default {
           axios
             .get("http://localhost:5000/api/Camions/" + id + "/chauffeur")
             .then((resp) => {
-              console.log(resp.data)
+              //on cas ou ce camion a un chauffeur
               axios
                 .put(
                   "http://localhost:5000/api/Camions/" + resp.data.idcamion,
@@ -487,28 +488,43 @@ export default {
                     idtransporteur: resp.data.idtransporteur,
                     idchauffeur: null,
                     codevehicule: resp.data.codevehicule,
-                    idtype: resp.data.idtype,
+                    idtype: resp.data.idType,
                   }
                 )
                 .then(() => {
-                  axios.delete("http://localhost:5000/api/Chauffeurs/" + id).then(()=>
-                  this.close())
+                  axios.delete("http://localhost:5000/api/Chauffeurs/" + id).then(()=>{
+                    this.$swal({
+                    position: "top-end",
+                    icon: "success",
+                    toast: true,
+                  title: "Chauffeur supprimé",
+          showConfirmButton: false,
+          timer: 2000,
+        })
+                  this.close()
+                  }
+                  
+                  )
 
                 });
             }).catch(()=>
-             axios.delete("http://localhost:5000/api/Chauffeurs/" + id).then(()=>
-                  this.close())
-            )
+            // si non
+             axios.delete("http://localhost:5000/api/Chauffeurs/" + id).then(()=>{
+               this.$swal({
+          position: "top-end",
+          icon: "success",
+          toast: true,
+          title: "Chauffeur supprimé",
+          showConfirmButton: false,
+          timer: 2000,
+        })
+                 this.close()
 
-          this.$swal(
-            "supprimer!",
-            "Chauffeur supprimé diffinitivement",
-            "reussi"
-          );
-        } else if (result.dismiss == "cancel") {
-          this.$swal("Cancelled", "Your imaginary file is safe :)", "error");
-          console.log("cancel");
-        }
+             }
+            ))
+
+          
+        } 
       });
     },
     ajouterChauffeur() {
@@ -542,7 +558,7 @@ export default {
           position: "top-end",
           icon: "success",
           toast: true,
-          title: "Chauffeur Modifié",
+          title: "Chauffeur ajouté",
           showConfirmButton: false,
           timer: 2000,
         });

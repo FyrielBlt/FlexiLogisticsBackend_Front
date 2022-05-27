@@ -55,7 +55,7 @@
           </div>
 
           <!--Body-->
-          <div class="mt-8">
+          <div class="mt-8 animate__animated animate__fadeInDown">
             <div class="mt-4">
               <div class="p-6 bg-white rounded-md shadow-md">
                 <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">

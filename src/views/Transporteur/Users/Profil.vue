@@ -7,7 +7,7 @@
       <template v-slot:bread> Profil de {{ nom+" "+ prenom }} </template>
     </bread-crumb>
     <div class="grid grid-flow-col gap-3">
-      <div class="row-span-3 animate__animated animate__bounceInLeft">
+      <div class="row-span-3 ">
         <!-- <h4 class="text-gray-700">Profil</h4> -->
         <div class="max-w-sm overflow-hidden bg-white rounded shadow-lg">
           <input class="
@@ -58,7 +58,7 @@
         </div>
       </div>
 
-      <div class="col-span-2  animate__animated animate__fadeInDown">
+      <div class="col-span-2  ">
         <!-- <h4 class="text-gray-600">Modifier :</h4> -->
         <div>
           <div class="p-6 bg-white rounded-md shadow-md">

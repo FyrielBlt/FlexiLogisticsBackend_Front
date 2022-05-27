@@ -5,7 +5,7 @@
     <!-- <Banner /> -->
     <div class="mt-4">
       <div   class="flex flex-wrap -mx-6">
-        <div class="w-full px-6 sm:w-1/2 xl:w-1/3 animate__animated animate__bounceIn">
+        <div class="w-full px-6 sm:w-1/2 xl:w-1/3 ">
           <div
             class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
           >
@@ -43,7 +43,7 @@
               </svg>
             </div>
 
-            <div class="mx-5">
+            <div class="mx-5 animate__animated animate__fadeInDown" >
               <h4 class="text-2xl font-semibold text-gray-700">
               {{ this.chauffeurs.length }}
               </h4>
@@ -71,7 +71,7 @@
           </svg>
             </div>
             
-            <div class="mx-5">
+            <div class="mx-5 animate__animated animate__fadeInDown">
               <h4 class="text-2xl font-semibold text-gray-700">
 {{ this.camions.length }}
 
@@ -81,7 +81,7 @@
           </div>
         </div>
 
-        <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 xl:mt-0 animate__animated animate__bounceIn">
+        <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 xl:mt-0 ">
           <div
             class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
           >
@@ -107,7 +107,7 @@
               </svg>
             </div>
 
-            <div class="mx-5">
+            <div class="mx-5 animate__animated animate__fadeInDown">
               <h4 class="text-2xl font-semibold text-gray-700">
                 {{ this.demandes.length }}
               </h4>
@@ -121,7 +121,7 @@
     <div class="mt-8"></div>
 
     <div class="flex flex-col mt-8">
-      <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 animate__animated animate__fadeInDown">
+      <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 animate__animated animate__zoomIn">
         <div
           class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg"
         >
@@ -147,8 +147,9 @@ export default {
       camions:[],
       demandes:[],
        data : [
-  {name: 'Demande Livraison par jour', data: {'2022-01-01': 3, '2022-01-02': 4,'2022-01-03': 15, '2022-01-04': 0,'2022-01-05': 6, '2022-01-06': 3}},
-  {name: 'Facture transporteur par jour', data: {'2022-01-01': 1, '2022-01-02': 5,'2022-01-03': 10, '2022-01-04': 2,'2022-01-05': 6, '2022-01-06': 10}},
+  {name: 'Offre accepté', data: {'2022-01-01': 3, '2022-01-02': 4,'2022-01-03': 15, '2022-01-04': 0,'2022-01-05': 6, '2022-01-06': 3}},
+  {name: 'Offre réfusé', data: {'2022-01-01': 1, '2022-01-02': 5,'2022-01-03': 10, '2022-01-04': 2,'2022-01-05': 6, '2022-01-06': 10}},
+  
 ],
     };
   },

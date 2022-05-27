@@ -131,13 +131,13 @@
                         </label>
 
                         <select
-                          v-model="camiontable.idtypeNavigation.idtype"
+                          v-model="camiontable.idtypeNavigation.idType"
                           class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
                         >
                           <option
                             v-for="column in this.typecamions"
                             :key="column"
-                            :value="column.idtype"
+                            :value="column.idType"
                           >
                             {{ column.description }}
                           </option>
@@ -231,7 +231,7 @@ export default {
               idtransporteur: this.camiontable.idtransporteur,
               idchauffeur: this.idchauffeurcamion,
               codevehicule: this.camiontable.codevehicule,
-              idtype: this.camiontable.idtypeNavigation.idtype,
+              idtype: this.camiontable.idtypeNavigation.idType,
             }
           )
           .then(() => {
@@ -261,7 +261,7 @@ export default {
               idtransporteur: this.camiontable.idtransporteur,
               idchauffeur: null,
               codevehicule: this.camiontable.codevehicule,
-              idtype: this.camiontable.idtypeNavigation.idtype,
+              idtype: this.camiontable.idtypeNavigation.idType,
             }
           )
           .then(() => {
@@ -291,7 +291,7 @@ export default {
               idtransporteur: this.camiontable.idtransporteur,
               idchauffeur: this.camiontable.idchauffeurNavigation.idchauffeur,
               codevehicule: this.camiontable.codevehicule,
-              idtype: this.camiontable.idtypeNavigation.idtype,
+              idtype: this.camiontable.idtypeNavigation.idType,
             }
           )
           .then(() => {
@@ -303,8 +303,8 @@ export default {
           showConfirmButton: false,
           timer: 2000,
         });
-         location.replace("camions");
-            this.close();
+        // location.replace("camions");
+           // this.close();
           })
 
           .catch((error) => 
