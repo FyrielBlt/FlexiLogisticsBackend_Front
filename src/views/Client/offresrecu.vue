@@ -114,10 +114,27 @@
         </div>
     <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
       <div class="inline-block min-w-full overflow-hidden rounded-lg shadow">
-  
+    <input v-model="num" @keyup="ChangePage(page)"
+          class="appearance-none block text-gray-700 border border-red-500 rounded py-2 px-2 mb-2 leading-tight focus:outline-none focus:bg-white"
+          id="grid-first-name" type="text" placeholder="Num demande">
         <table class="min-w-full leading-normal" id="myTable">
           <thead>
             <tr>
+              <th
+                class="
+                  px-5
+                  py-3
+                  text-xs
+                  font-semibold
+                  tracking-wider
+                  text-left text-gray-600
+                  uppercase
+                  bg-gray-100
+                  border-b-2 border-gray-200
+                "
+              >
+                Num
+              </th>
               <th
                 class="
                   px-5
@@ -274,6 +291,13 @@
           <tbody>
             <tr v-for="(u, index) in offres" :key="index">
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                <div class="ml-3">
+                  <p class="text-gray-900 whitespace-nowrap">
+                    {{ u.idDemandeNavigation.idDemande }}
+                  </p>
+                </div>
+              </td>
+              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                 <div class="flex items-center">
                   <div class="ml-3">
                     <p class="text-gray-900 whitespace-nowrap">
@@ -290,9 +314,33 @@
                 </div>
               </td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                <p class="text-gray-900 whitespace-nowrap">
-                  {{ u.date.substr(0,10) }}
-                </p>
+                  <span
+                    class="
+                      inline-flex
+                      px-2
+                      text-xs
+                      font-semibold
+                      leading-5
+                      text-red-800
+                      bg-red-100
+                      rounded-full
+                    "
+                    v-if="u.date > u.idDemandeNavigation.date"
+                    >{{ u.date.substr(0,10) }}</span>
+                    <span
+                    class="
+                      inline-flex
+                      px-2
+                      text-xs
+                      font-semibold
+                      leading-5
+                      text-green-800
+                      bg-green-100
+                      rounded-full
+                    "
+                    v-else-if="u.date == u.idDemandeNavigation.date"
+                    >{{ u.date.substr(0,10) }}</span>
+           
               </td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                 <p class="text-gray-900 whitespace-nowrap">
@@ -444,6 +492,7 @@ export default defineComponent({
       att:"",
       encdt:"",
       acc:"",
+      num: '',
     };
   },
   created() {
@@ -512,7 +561,6 @@ export default defineComponent({
     },
     ChangePage(NumPage) {
       this.page = NumPage;
-      if (this.depart != "" || this.arrive != "") {
         axios
           .get(
             "http://localhost:5000/api/offres/client/" +
@@ -524,25 +572,14 @@ export default defineComponent({
               "&depart=" +
               this.depart +
               "&arrive=" +
-              this.arrive
+              this.arrive +
+               "&num=" +
+              this.num
           )
           .then((resp) => {
             this.offres = resp.data;
           });
-      } else {
-        axios
-          .get(
-            "http://localhost:5000/api/offres/client/" +
-              localStorage.getItem("iduser") +
-              "?page=" +
-              this.page +
-              "&quantityPage=" +
-              this.perpage
-          )
-          .then((resp) => {
-            this.offres = resp.data;
-          });
-      }
+      
     },
 
     accepter(offre) {
