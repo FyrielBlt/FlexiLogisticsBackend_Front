@@ -75,22 +75,7 @@
               </span>
             </div>
           </div>
-          <router-link to="../factureclient">
-            <button
-              class="
-                px-4
-                py-2
-                text-xm
-                font-semibold
-                text-gray-900
-                bg-red-400
-                rounded-r rounded-l
-                hover:bg-red-500
-              "
-            >
-              Retour
-            </button>
-          </router-link>
+        
         </div>
       </div>
     </div>

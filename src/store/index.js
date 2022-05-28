@@ -16,7 +16,7 @@ import Facture from"./facture/Facture";
 import FactureTransporteur from"./facture/FactureTransporteur";
 import Ville from"./ville/Ville";
 import Profil from "./users/Profil";
-// import Trajet from"./trajet/Trajet";
+ import Trajet from"./trajet/Trajet";
 
 export default createStore({
   
@@ -39,7 +39,8 @@ export default createStore({
     FactureTransporteur,
     Permission,
     Ville,
-    Profil
+    Profil,
+    Trajet
    
 
   }

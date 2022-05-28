@@ -124,19 +124,7 @@
               v-model="rechercheTransporteur"
             />
           </div>
-          <button
-            class="
-              px-4
-              py-2
-              text-xm
-              font-semibold
-              text-gray-900
-              bg-gray-300
-              rounded-l
-            "
-          >
-            ville 1
-          </button>
+         
           <div class="relative block mt-2 sm:mt-0">
             <span class="absolute inset-y-0 left-0 flex items-center pl-2">
               <svg
@@ -150,7 +138,7 @@
             </span>
 
             <input
-              placeholder="Ville1"
+              placeholder="Ville 1"
               class="
                 block
                 w-full
@@ -172,63 +160,7 @@
               v-model="rechercheVille1"
             />
           </div>
-          <button
-            class="
-              px-4
-              py-2
-              text-xm
-              font-semibold
-              text-gray-900
-              bg-gray-300
-              rounded-l
-            "
-          >
-            Ville 2
-          </button>
-          <div class="relative block mt-2 sm:mt-0">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-              <svg
-                viewBox="0 0 24 24"
-                class="w-4 h-4 text-gray-500 fill-current"
-              >
-                <path
-                  d="M10 4a6 6 0 100 12 6 6 0 000-12zm-8 6a8 8 0 1114.32 4.906l5.387 5.387a1 1 0 01-1.414 1.414l-5.387-5.387A8 8 0 012 10z"
-                />
-              </svg>
-            </span>
-
-            <input
-              placeholder="Ville2"
-              class="
-                block
-                w-full
-                py-2
-                pl-8
-                pr-6
-                text-xm text-gray-700
-                placeholder-gray-400
-                bg-white
-                border border-b border-gray-400
-                rounded-l rounded-r
-                appearance-none
-                sm:rounded-l-none
-                focus:bg-white
-                focus:placeholder-gray-600
-                focus:text-gray-700
-                focus:outline-none
-              "
-              v-model="rechercheVille2"
-            />
-          </div>
-          <router-link to="../demandeIntermediaire">
-            <button
-              class="px-4 py-2 text-xm font-semibold text-gray-900 bg-red-500"
-            >
-              Retour
-            </button>
-          </router-link>
-
-          <!-- fin button ajouter -->
+         
         </div>
 
         <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
@@ -286,6 +218,7 @@
                   v-for="(transporteur, index) in ListeTransporteurs"
                   :key="transporteur.idTransporteur"
                 >
+                
                   <th
                     class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
                   >
@@ -351,11 +284,8 @@
                 </tr>
               </tbody>
             </table>
-            <!--  -->
-
-            <div class="p-2 bg-white rounded-md shadow-md">
-              <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <div class="text-center">
+           
+                <div class="text-center ">
                   <div
                     class="
                       flex flex-col
@@ -375,81 +305,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="text-center">
-                  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                    <div
-                      class="
-                        py-4
-                        flex flex-col
-                        items-center
-                        bg-white
-                        xs:flex-row xs:justify-between
-                      "
-                    >
-                      <button
-                        class="
-                          px-6
-                          py-2
-                          font-semibold
-                          text-gray-900
-                          bg-gray-300
-                          rounded-r rounded-l
-                          hover:bg-gray-400
-                        "
-                        v-if="ListeDemandeDevis.length == 0"
-                        @click="Ajouter()"
-                      >
-                        Demander
-                      </button>
-                      <button
-                        class="
-                          px-6
-                          py-2
-                          font-semibold
-                          text-gray-900
-                          bg-gray-300
-                          rounded-r rounded-l
-                          hover:bg-gray-400
-                        "
-                        v-else
-                        @click="Modifier()"
-                      >
-                        Modifier
-                      </button>
-                    </div>
-
-                    <div
-                      class="
-                        px-6
-                        py-4
-                        flex flex-col
-                        items-center
-                        bg-white
-                        xs:flex-row xs:justify-between
-                      "
-                    >
-                      <router-link to="../demandeIntermediaire">
-                        <button
-                          class="
-                            px-4
-                            py-2
-                            text-xm
-                            font-semibold
-                            text-gray-900
-                            bg-red-400
-                            rounded-r rounded-l
-                            hover:bg-red-500
-                          "
-                        >
-                          Annuler
-                        </button>
-                      </router-link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- PAGINATION -->
+               
           </div>
         </div>
       </div>
@@ -498,35 +354,88 @@
                   v-for="transporteur in checkedTransporteur"
                   :key="transporteur.idTransporteur"
                 >
-                  <td
+                 <td
                     class="
                       px-6
                       py-4
-                      border-b border-gray-200
+                      border-b
+                      text-center
+                      border-gray-200
                       whitespace-nowrap
                       text-center
                     "
                   >
-                    {{ transporteur.idUserNavigation.nom }}
+                    <div class="flex justify-around">
+                      <div class="flex-shrink-0 w-10 h-10">
+                        <img
+                          class="w-10 h-10 rounded-full"
+                          :src="transporteur.imageSrc"
+                          alt=""
+                        />
+                      </div>
 
-                    {{ transporteur.idUserNavigation.prenom }}
+                      <div class="ml-4">
+                        <div class="px-6 py-2 border-b border-gray-200">
+                          {{ transporteur.idUserNavigation.prenom }}
+
+                          {{ transporteur.idUserNavigation.nom }}
+                        </div>
+                      </div>
+                    </div>
                   </td>
+                  
                 </tr>
               </tbody>
             </table>
+                 <div class="p-2 bg-white rounded-md shadow-md"  v-if="ListeDemandeDevis.length == 0">
+              <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+               
+                  <div class="text-center ">
+                  <div
+                    class="
+                      flex flex-col
+                      items-center
+                      bg-white
+                      xs:flex-row xs:justify-between
+                    "
+                  >
+                    <div class="inline-flex xs:mt-0">
+                      <button
+                        class="
+                          px-6
+                          py-2
+                          font-semibold
+                          text-gray-900
+                          bg-gray-300
+                          rounded-r rounded-l
+                          hover:bg-gray-400
+                        "
+                       
+                        @click="Ajouter()"
+                      >
+                        Demander
+                      </button>
+                      
+                    </div>
+
+                 
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    {{ checkedTransporteurId }}
-    <!-- {{ GetEtatDemande() }} -->
+    <!-- {{ checkedTransporteurId }} -->
+    <!-- {{ ListeTransporteurs }} -->
     <br />
     <!-- {{$route.params.id}} -->
     <br />
     <!-- {{ ChercherVille1 }} kkk{{ ChercherVille2 }} -->
     <!-- {{ checkedTransporteurId.length }} -->
     <br />
-    {{ checkedTransporteur }}
+    <!-- {{ checkedTransporteur }} -->
     <!-- {{ ListeDemacheckedTransporteurIdndeDevis }} -->
   </div>
   <!-- </div> -->
@@ -595,6 +504,7 @@ export default {
         this.checkedTransporteurId = res.data
           .map((el) => el.idTransporteurNavigation)
           .map((el) => el.idTransporteur);
+          this.checkedTransporteur=res.data.map((el) => el.idTransporteurNavigation);
       });
 
     await axios
@@ -723,7 +633,7 @@ export default {
       }
     },
     ChangePage(NumPage) {
-      if (this.rechercheVille1 != "" && this.rechercheVille2 != "") {
+      if (this.rechercheVille1 != ""&&this.rechercheTransporteur != "") {
         this.$store.dispatch("Get_NoveauTrajet", NumPage);
       } else {
         this.$store.dispatch("Get_NoveauTransporteur", NumPage);
@@ -732,7 +642,7 @@ export default {
   },
   watch: {
     ParpageTransporteur() {
-      if (this.rechercheVille1 != "" && this.rechercheVille2 != "") {
+      if (this.rechercheVille1 != "") {
         this.$store.dispatch("Changer_ParpageTrajet", this.ParpageTransporteur);
       } else {
         this.$store.dispatch(
@@ -742,47 +652,31 @@ export default {
       }
     },
     rechercheTransporteur() {
-      if (this.rechercheVille1 == "" && this.rechercheVille2 == "") {
-        this.$store.dispatch(
-          "Chercher_Transporteur",
-          this.rechercheTransporteur
-        );
-      } else {
+    
         let ville = {
           ville1: this.rechercheVille1,
-          ville2: this.rechercheVille2,
           name: this.rechercheTransporteur,
         };
         this.$store.dispatch("Chercher_Trajet", ville);
-      }
+      
     },
     rechercheVille1() {
       if (this.rechercheVille1 != "") {
         let ville = {
-          ville1: this.rechercheVille1,
-          ville2: this.rechercheVille2,
+           ville1: this.rechercheVille1,
           name: this.rechercheTransporteur,
+        
         };
+        console.log(ville)
         this.$store.dispatch("Chercher_Trajet", ville);
       } else {
         this.$store.dispatch(
-          "Chercher_Transporteur",
+          "Get_Transporteur",
           this.rechercheTransporteur
         );
       }
     },
-    rechercheVille2() {
-      if (this.rechercheVille2 != "") {
-        let ville = {
-          ville1: this.rechercheVille1,
-          ville2: this.rechercheVille2,
-          name: this.rechercheTransporteur,
-        };
-        this.$store.dispatch("Chercher_Trajet", ville);
-      } else {
-        this.$store.dispatch("Get_Transporteur");
-      }
-    },
+    
     checkedTransporteurId() {
       //let leng=this.checkedTransporteurId.length-1;
       this.checkedTransporteur = [];
@@ -799,6 +693,7 @@ export default {
           });
       }
     },
+    
   },
 };
 </script>

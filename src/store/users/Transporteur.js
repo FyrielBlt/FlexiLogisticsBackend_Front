@@ -50,11 +50,18 @@ export default {
   },
   mutations: {
     //trajet
-    GetTrajet(state, value) {
+    GetTrajett(state, value) {
      
       //state.ListeTrajets = value.data;
-      state.ListeTransporteurs = value.data.map(el => el.idCamionNavigation)
-        .map(el => el.idtransporteurNavigation);
+      state.ListeTransporteurs = value.data
+        .map(el => el.idTransporteurNavigation);
+         // supprimer repetition
+         state.ListeTransporteurs = state.ListeTransporteurs.filter((obj, pos, arr) => {
+          return arr.map(mapObj =>
+                mapObj.idTransporteur).indexOf(obj.idTransporteur) == pos;
+          });
+        
+         // supprimer repetition
       state.totalTransporteur = parseInt(value.headers["x-wp-total"]);
 
     },
@@ -107,6 +114,8 @@ export default {
     },
     // Ajouter
     AjouterTransporteur(state, transporteur) {
+    
+    
       axios.post(Url + "users", transporteur, {
         headers: {
           Authorization: 'Bearer ' + Token
@@ -137,46 +146,48 @@ export default {
   actions: {
     //Chercher transporteur a l'aide nom , ville1 ville2 
     Chercher_Trajet({ commit, state }, chercher) {
-
       state.ChercherVille1 = chercher.ville1;
-      state.ChercherVille2 = chercher.ville2;
-      if (chercher.ville1 != "" && chercher.ville2 != "") { state.currentTransporteur = 1; }
+      //supprimer repetition 
+
+    
+     // state.ChercherVille2 = chercher.ville2;
+      if (chercher.ville1 != "" ) { state.currentTransporteur = 1; }
       state.ChercherTransporteur = chercher.name;
 
-      axios.get(Url + `Trajets?page=${state.currentTransporteur}&quantityPage=${state.parPageTransporteur}&name=${state.ChercherTransporteur}&ville1=${state.ChercherVille1}&ville2=${state.ChercherVille2}`, {
+      axios.get(Url + `itineraires?page=${state.currentTransporteur}&quantityPage=${state.parPageTransporteur}&ville1=${state.ChercherVille1}&name=${state.ChercherTransporteur}`, {
         headers: {
           Authorization: 'Bearer ' + Token
         }
       })
         .then(res => {
           //  let tot=parseInt(res.headers["x-wp-total"]);
-          commit('GetTrajet', res);
+          commit('GetTrajett', res);
         })
     },
     // get noveau page 
     Get_NoveauTrajet({ commit, state }, NumPage) {
       state.currentTransporteur = NumPage;
-      axios.get(Url + `Trajets?page=${state.currentTransporteur}&quantityPage=${state.parPageTransporteur}&name=${state.ChercherTransporteur}&ville1=${state.ChercherVille1}&ville2=${state.ChercherVille2}`, {
+      axios.get(Url + `itineraires?page=${state.currentTransporteur}&quantityPage=${state.parPageTransporteur}&ville1=${state.ChercherVille1}&name=${state.ChercherTransporteur}`, {
         headers: {
           Authorization: 'Bearer ' + Token
         }
       })
         .then(res => {
           //  let tot=parseInt(res.headers["x-wp-total"]);
-          commit('GetTrajet', res);
+          commit('GetTrajett', res);
         })
     },
     Changer_ParpageTrajet({ commit, state }, Parpage) {
       state.currentTransporteur = 1;
       state.parPageTransporteur = Parpage;
-      axios.get(Url + `Trajets?page=${state.currentTransporteur}&quantityPage=${state.parPageTransporteur}&name=${state.ChercherTransporteur}&ville1=${state.ChercherVille1}&ville2=${state.ChercherVille2}`, {
+      axios.get(Url + `itineraires?page=${state.currentTransporteur}&quantityPage=${state.parPageTransporteur}&ville1=${state.ChercherVille1}&name=${state.ChercherTransporteur}`, {
         headers: {
           Authorization: 'Bearer ' + Token
         }
       })
         .then(res => {
           //  let tot=parseInt(res.headers["x-wp-total"]);
-          commit('GetTrajet', res);
+          commit('GetTrajett', res);
         })
     },
     //************************************ */
@@ -258,9 +269,6 @@ export default {
     Ajouter_Transporteur({ commit }, transporteur) {
       commit('AjouterTransporteur', transporteur);
     },
-    //sdfhsjdkf
-    //   Modifier_TransporteurTrajet({ commit }, l) {
-    //     commit('ModifierTransporteurTrajet', l);
-    // },
+    
   },
 };

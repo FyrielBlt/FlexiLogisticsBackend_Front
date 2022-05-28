@@ -502,6 +502,27 @@
               />
             </div>
             <div class="text-center">
+              <label class="text-gray-700" for="societe">Sociétè :</label>
+              <input
+                id="societe"
+                class="
+                  w-full
+                  mt-2
+                  border-gray-200
+                  rounded-md
+                  focus:border-indigo-600
+                  focus:ring
+                  focus:ring-opacity-40
+                  focus:ring-indigo-500
+                "
+                style="text-align: center"
+                type="text"
+                v-model="societe"
+              />
+            </div>
+            </div>
+            <div>
+            <div class="text-center">
               <label class="text-gray-700" for="Image">Image :</label>
               <input
                 id="Image"
@@ -747,6 +768,7 @@ export default {
       idTransporteur: "",
       iduser: "",
       index: "",
+      societe:""
       // success: false,
       // timeout: false,
     };
@@ -815,6 +837,8 @@ export default {
         this.prenom != "" &&
         this.email != "" &&
         this.password != ""
+        //&&
+        //this.societe != ""
       ) {
         let user = new FormData();
         user.append("nom", this.nom);
@@ -824,6 +848,7 @@ export default {
         user.append("image", "");
         user.append("ImageFile", this.imageFile);
         user.append("ImageSrc", "");
+      //  user.append("Societe", this.societe);
         this.$store.dispatch("Ajouter_Transporteur", user);
         this.open = false;
          this.$swal({

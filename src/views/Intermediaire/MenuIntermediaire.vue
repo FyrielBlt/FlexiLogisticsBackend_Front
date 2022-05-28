@@ -14,7 +14,12 @@
           :class="[
             $route.name === 'Intermediaire' ? activeClass : inactiveClass,
           ]"
-          to="Intermediaire"
+           :to="
+            $route.params.id || $route.params.facture || $route.params.demande
+              ? '../Intermediaire'
+              : 'Intermediaire'
+          "
+         
           ><i class="bi bi-bank2"></i>
 
           <span class="mx-4">Dashboard</span>
@@ -172,7 +177,9 @@
           VILLES
         </p>
         <!-- Facture client -->
-        <router-link
+      
+
+         <router-link
           v-if="verifPermission('Ville') != 0"
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[
@@ -185,6 +192,20 @@
           "
           ><i class="bi bi-building"></i>
           <span class="mx-4">Ville</span>
+        </router-link>
+          <router-link
+         v-if="verifPermission('Trajet') != 0"
+          class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
+          :class="[
+            $route.name === 'trajetIntermediaire' ? activeClass : inactiveClass,
+          ]"
+          :to="
+            $route.params.id || $route.params.facture || $route.params.demande
+              ? '../trajetIntermediaire'
+              : 'trajetIntermediaire'
+          "
+          ><i class="bi bi-minecart"></i>
+          <span class="mx-4">Trajet</span>
         </router-link>
         <!-- demandeDeLivraison -->
         <p
@@ -200,7 +221,8 @@
           :class="[
             $route.name === 'DemandeIntermediaire' ||
             $route.name === 'DemandeDevis' ||
-            $route.name === 'OffreIntermediaire'
+            $route.name === 'OffreIntermediaire'||
+            $route.name === 'DetailDemandeIntermediaire'
               ? activeClass
               : inactiveClass,
           ]"

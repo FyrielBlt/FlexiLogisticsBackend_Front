@@ -116,6 +116,19 @@
                       bg-indigo-800
                     "
                   >
+                    Etat
+                  </th>
+                  <th
+                    class="
+                      px-5
+                      py-3
+                      text-sm
+                      font-medium
+                      text-gray-100
+                      uppercase
+                      bg-indigo-800
+                    "
+                  >
                     Settings
                   </th>
                 </tr>
@@ -214,6 +227,176 @@
                   >
                     {{ offre.prixFinale }}
                   </td>
+                    <td
+                  v-if="offre.idEtat== GetEtatEnCours()"
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                    "
+                  >
+                    <div class="text-sm leading-5 text-gray-900">
+                      <a
+                        class="
+                          inline-flex
+                          px-2
+                          text-ms
+                          font-semibold
+                          leading-5
+                          text-black-800
+                          bg-yellow-300
+                          rounded-full
+                        "
+                      >
+                        <a class="mx-2 px-2 rounded-md"> En cour de traitement</a>
+                      </a>
+                    </div>
+                  </td>
+                  <td
+                  v-if="offre.idEtat==GetEtatAccepter()"
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                    "
+                  >
+                    <div class="text-sm leading-5 text-gray-900">
+                      <a
+                        class="
+                          inline-flex
+                          px-2
+                          text-ms
+                          font-semibold
+                          leading-5
+                          text-black-800
+                          bg-green-500
+                          rounded-full
+                        "
+                      >
+                        <a class="mx-2 px-2 rounded-md">Accepté</a>
+                      </a>
+                    </div>
+                  </td>
+                  <td
+                  v-if="offre.idEtat==GetEtatNonTraite()"
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                    "
+                  >
+                    <div class="text-sm leading-5 text-gray-900">
+                      <a
+                        class="
+                          inline-flex
+                          px-2
+                          text-ms
+                          font-semibold
+                          leading-5
+                          text-black-800
+                          bg-blue-500
+                          rounded-full
+                        "
+                      >
+                        <a class="mx-2 px-2 rounded-md">Non traité</a>
+                      </a>
+                    </div>
+                  </td>
+                   <td
+                  v-if="offre.idEtat==GetEtatEnAttente()"
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                    "
+                  >
+                    <div class="text-sm leading-5 text-gray-900">
+                      <a
+                        class="
+                          inline-flex
+                          px-2
+                          text-ms
+                          font-semibold
+                          leading-5
+                          text-black-800
+                          bg-cyan-500
+                          rounded-full
+                        "
+                      >
+                        <a class="mx-2 px-2 rounded-md">En attente d'acceptation</a>
+                      </a>
+                    </div>
+                  </td>
+                  <td
+                  v-if="offre.idEtat==GetEtatRefuser()"
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                    "
+                  >
+                    <div class="text-sm leading-5 text-gray-900">
+                      <a
+                        class="
+                          inline-flex
+                          px-2
+                          text-ms
+                          font-semibold
+                          leading-5
+                          text-black-800
+                          bg-red-500
+                          rounded-full
+                        "
+                      >
+                        <a class="mx-2 px-2 rounded-md">Refusé</a>
+                      </a>
+                    </div>
+                  </td>
+                   <td
+                  v-if="offre.idEtat==GetEtatIndisponible()"
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                    "
+                  >
+                    <div class="text-sm leading-5 text-gray-900">
+                      <a
+                        class="
+                          inline-flex
+                          px-2
+                          text-ms
+                          font-semibold
+                          leading-5
+                          text-black-800
+                          bg-orange-500
+                          rounded-full
+                        "
+                      >
+                        <a class="mx-2 px-2 rounded-md">Indisponible</a>
+                      </a>
+                    </div>
+                  </td>
+                 
+                  
 <!-- settings -->
                   <td
                     class="
@@ -227,36 +410,9 @@
                       whitespace-nowrap
                     "
                   >
-                    <button
-                      class="
-                        px-4
-                        py-2
-                        text-xm
-                        font-semibold
-                        text-gray-900
-                        bg-green-400
-                        rounded-r rounded-l
-                      "
-                      v-if="GetEtatEnCours() == offre.idEtat"
-                    >
-                      En cour de traitemment
-                    </button>
-                    <button
-                      class="
-                        px-4
-                        py-2
-                        text-xm
-                        font-semibold
-                        text-gray-900
-                        bg-red-400
-                        rounded-r rounded-l
-                        hover:bg-red-500
-                      "
-                      v-else-if="GetEtatRefuser() == offre.idEtat"
-                    >
-                      Refuser
-                    </button>
-                     <button
+                
+                
+                     <!-- <button
                       class="
                         px-4
                         py-2
@@ -266,11 +422,11 @@
                         bg-cyan-400
                         rounded-r rounded-l
                         "
-                      v-else-if="GetEtatAccepter() == offre.idEtat"
+                      v-if="GetEtatAccepter() == offre.idEtat"
                     >
                       Accepter
-                    </button>
-                    <div  v-else-if="GetEtatEnAttente() == offre.idEtat">
+                    </button> -->
+                    <div  v-if="GetEtatEnAttente() == offre.idEtat">
                     <button
                       class="
                         px-4
@@ -283,7 +439,7 @@
                         "
                         @click="Valider(offre.idOffre,index)" 
                     >
-                      En attente d'acceptation
+                      Accepter
                     </button>
                     <button
                     style="margin-left:5px"
@@ -313,7 +469,7 @@
                       :id="offre.idOffre"
                       :value="offre.idOffre"
                       v-model="checkedOffreId"
-                      v-else
+                     v-if="offre.idEtat==GetEtatNonTraite()"
                     />
                   </td>
                 </tr>
@@ -321,7 +477,7 @@
             </table>
             <!--  -->
 
-            <div class="p-2 bg-white rounded-md shadow-md">
+            <div class=" bg-white rounded-md shadow-md"  v-if="checkedOffreId.length!=0 ">
               <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div class="text-center">
                   <div
@@ -336,10 +492,10 @@
                   </div>
                 </div>
                 <div class="text-center">
-                  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2"  >
                     <div
                       class="
-                        py-4
+                        py-2
                         flex flex-col
                         items-center
                         bg-white
@@ -347,7 +503,7 @@
                       "
                     >
                       <button
-                      v-if="checkedOffreId.length!=0"
+                     
                         class="
                           px-6
                           py-2
@@ -363,33 +519,7 @@
                       </button>
                     </div>
 
-                    <div
-                      class="
-                        px-6
-                        py-4
-                        flex flex-col
-                        items-center
-                        bg-white
-                        xs:flex-row xs:justify-between
-                      "
-                    >
-                      <router-link to="../demandeIntermediaire">
-                        <button
-                          class="
-                            px-4
-                            py-2
-                            text-xm
-                            font-semibold
-                            text-gray-900
-                            bg-red-400
-                            rounded-r rounded-l
-                            hover:bg-red-500
-                          "
-                        >
-                          Annuler
-                        </button>
-                      </router-link>
-                    </div>
+                    
                   </div>
                 </div>
               </div>
@@ -400,8 +530,8 @@
       </div>
     </div>
     <!-- les offre selecter :{{ checkedOffreId }}
-    <br />
-    {{ GetEtatEnCours() }} -->
+    <br />-->
+    <!-- {{ GetEtatEnAttente()}}  -->
   </div>
   <!-- </div> -->
 </template>
@@ -420,6 +550,7 @@ export default {
     return {
       //listeOffre: [],
       checkedOffreId: [],
+      accepter:true
     };
   },
 
@@ -461,23 +592,46 @@ export default {
         (el) => el.idEtat
       )[0];
     },
+     GetEtatNonTraite() {
+      return this.ListeEtatOffres.filter((el) => el.etat == "Non traité").map(
+        (el) => el.idEtat
+      )[0];
+    },
     GetEtatEnCours() {
       return this.ListeEtatOffres.filter(
         (el) => el.etat == "En cours de traitement"
       ).map((el) => el.idEtat)[0];
     },
+    GetEtatIndisponible() {
+      return this.ListeEtatOffres.filter(
+        (el) => el.etat == "Indisponible"
+      ).map((el) => el.idEtat)[0];
+    },
     Accepter() {
+         let idt=this.ListeOffres.filter(el=>el.idOffre==this.checkedOffreId[0]).map(el=>el.idTransporteur)[0];
+
+      if(this.ListeOffres.filter(el=>el.idTransporteur==idt).length>1)
+      {
+        var AccepterOffreSeule = {
+        idEtatEnCours: this.GetEtatEnCours(),
+        OffreId: this.checkedOffreId[0],
+      };
+      this.$store.dispatch("Accepter_Offre_seule", AccepterOffreSeule);
+      }
+      else{
       var AccepterOffre = {
         idEtatEnCours: this.GetEtatEnCours(),
         idEtatRefuser: this.GetEtatRefuser(),
         ListeOffresId: this.checkedOffreId,
       };
       this.$store.dispatch("Accepter_Offre", AccepterOffre);
+      }
+       this.checkedOffreId=[];
     },
     AnnulerAccepter(id,index) {
        var Annuleraccepter = {
          idOffre:id,
-         idEtatRefuser: this.GetEtatRefuser(),
+         idEtatRefuser: this.GetEtatIndisponible(),
          index: index,
          
       };
