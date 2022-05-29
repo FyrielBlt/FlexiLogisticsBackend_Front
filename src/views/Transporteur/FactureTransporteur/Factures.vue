@@ -407,12 +407,12 @@
                 style="padding: 30px 49px"
               >
              
-                  <a v-if="u.factureTransporteur.SrcFactureFile!=null"
-                   :href="u.factureTransporteur.SrcFactureFile" target=" _blank" class="bg-black ml-20 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                  <a v-if="u.factureTransporteur[0].factureFile!=null"
+                   :href="u.factureTransporteur[0].srcFactureFile" target=" _blank" class="bg-black ml-20 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                   Download
                 </a>
                   <input
-                  v-if="u.factureTransporteur.SrcFactureFile==null"
+                  v-if="u.factureTransporteur[0].factureFile==null"
                         type="file"
                         id="image"
                         multiple="multiple"
@@ -422,11 +422,11 @@
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                 <p class="text-gray-900 whitespace-nowrap">
                     <a 
-                    v-if="u.factureTransporteur.srcPayementFile!=null"
-                    :href="u.factureTransporteur.SrcPayementFile" target=" _blank" class="bg-black ml-20 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                    v-if="u.factureTransporteur[0].payementFile!=null"
+                    :href="u.factureTransporteur[0].srcPayementFile" target=" _blank" class="bg-black ml-20 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                      Download
                 </a>
-                 <a v-if="u.factureTransporteur.srcPayementFile==null" href="">paiement en attente</a>
+                 <a v-if="u.factureTransporteur[0].payementFile==null" href="">paiement en attente</a>
                 </p>
               </td>
             </tr>
@@ -537,13 +537,13 @@ export default defineComponent({
      
             this.imageFile = event.target.files[0];
              let user = new FormData();
-              user.append("EtatFacture",1);
-              user.append("IdOffre ",20026);
-              user.append("FactureFile", "");
-              user.append("PayementFile",'');
-              user.append("Notification", '');
+              user.append("etatFacture",1);
+              user.append("idOffre",table.idOffre);
+              user.append("factureFile", "");
+              user.append("payementFile",'');
+              user.append("notification", '');
               user.append("imageFile", this.imageFile);
-              user.append(" SrcFactureFile", "")
+              user.append("srcPayementFile", "")
               axios.post("http://localhost:5000/api/FactureTransporteurs", user)
 
     },
@@ -554,7 +554,7 @@ export default defineComponent({
       .get("http://localhost:5000/api/offres/" +localStorage.getItem('idtransporteur')+"/offrestransporteur"
       +"?page="+this.currentPage+"&quantityPage="+this.perPage
       +"&&depart="+this.depart
-      +"&arrive="+this.arrive +"&date="+this.date+"&etat="+this.etat
+      +"&arrive="+this.arrive +"&date="+this.date+"&etat=Livre"
       +"&search="+this.searchby
       )
       .then((resp) => {

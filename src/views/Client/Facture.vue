@@ -176,17 +176,7 @@
                     border-b border-gray-200
                     whitespace-nowrap
                   ">
-          <a :href="u.srcPayementFile" v-if="u.payementFile" target="_blank"> <span class="
-                      inline-flex
-                      px-2
-                      text-xs
-                      font-semibold
-                      leading-5
-                      text-blue-800
-                      bg-blue-100
-                      rounded-full
-                    ">
-              Download</span></a>
+     <Dragdropfile :u="u" :factures="factures" @f="ChangePage(page)"></Dragdropfile>
 
         </td>
 
@@ -210,7 +200,7 @@
 
     </div>
   </div>
-  <Dragdropfile></Dragdropfile>
+  
 </template>
 
 <script>

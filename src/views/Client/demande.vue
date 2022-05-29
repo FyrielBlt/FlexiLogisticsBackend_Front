@@ -232,7 +232,7 @@
       </div>
     </div>
   </div>
-  <div class="mt-6 ">
+  <div style="margin-top: -70px;">
     <div class="flex justify-center">
       <h4 class="font-semibold p-3">Per Page :</h4>
       <div class="mb-3 p-3">
@@ -445,8 +445,8 @@
                         border border-green-400
                         rounded
                         shadow
-                      " @click="livrer(u)" v-if="u.idEtatdemande != livre">
-                      Livrer
+                      " @click="livrer(u)" v-if="u.idEtatdemande == encdt">
+                      Achevé
                     </button>
                   </div>
                 </div>
@@ -514,17 +514,25 @@ export default {
       arrivefilter: '',
       today: new Date().toISOString().split("T")[0],
       Files: null,
-      total:0
+      total:0,
+      acheve:""
     }
   },
 
   created() {
     axios
       .get(
-        "http://localhost:5000/api/EtatDemandeLivraisons/check?etat=livre"
+        "http://localhost:5000/api/EtatDemandeLivraisons/check?etat=Encours"
       )
       .then((response) => {
-        this.livre = response.data.idEtatDemande;
+        this.encdt = response.data.idEtatDemande;
+      })
+       axios
+      .get(
+        "http://localhost:5000/api/EtatDemandeLivraisons/check?etat=acheve"
+      )
+      .then((response) => {
+        this.acheve = response.data.idEtatDemande;
       }),
       axios
         .get("http://localhost:5000/api/demandelivraisons/client/" + localStorage.getItem("iduser"))
@@ -578,7 +586,7 @@ export default {
           poids: u.poids,
           largeur: u.largeur,
           hauteur: u.hauteur,
-          idEtatdemande: this.livre,
+          idEtatdemande: this.acheve,
           idclient: u.idclient,
         }
       ).then(() => {

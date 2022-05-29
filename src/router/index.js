@@ -212,6 +212,11 @@ const routes = [{
                 name: "Profile",
                 component: Profile,
             },
+            {
+              path: "facture",
+              name: "Facture",
+              component: Facture,
+          },
         ],
     },
     // fin Router Intermediaire
