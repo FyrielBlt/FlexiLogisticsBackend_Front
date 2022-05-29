@@ -4,6 +4,36 @@
     <template v-slot:bread> Facture </template>
     <template v-slot:bread1> Demandes </template>
   </bread-crumb>
+  <div class="pt-2 relative mx-auto text-gray-600">
+    <select id="small"  v-model="etat" @change="ChangePage(page)" style="    position: absolute;left: 191px;"
+      class="block p-2 mb-6 w-auto text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300">
+      <option class="inline-flex
+                      px-2
+                      text-xs
+                      font-semibold
+                      leading-5 
+                      text-gray-800
+                      bg-gray-100
+                      " value="" selected>Etat</option>
+      <option class="inline-flex
+                      px-2
+                      text-xs
+                      font-semibold
+                      leading-5
+                      text-red-800
+                      bg-red-100
+                      " value="Non payé">Non payé	</option>
+      <option class="inline-flex
+                      px-2
+                      text-xs
+                      font-semibold
+                      leading-5
+                      text-green-800
+                      bg-green-100" value="Payé">Payé</option>
+    </select>
+    <input style="padding-right: 3px;" class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none" type="search"
+      v-model="num" @keyup="ChangePage(page)" name="search" placeholder="Search">
+  </div>
   <table class="min-w-full">
     <thead>
       <tr>
@@ -21,7 +51,7 @@
                   ">
           Num
         </th>
-  
+
         <th class="
                     px-6
                     py-3
@@ -164,8 +194,7 @@
       </tr>
     </tbody>
   </table>
-          <div
-          class="
+  <div class="
             flex flex-col
             items-center
             px-2
@@ -174,20 +203,14 @@
             border-t
             xs:flex-row
             xs:justify-between
-          "
-        >
-          <div class="inline-flex xs:mt-0">
-            <!-- PAGINATION -->
-            <pagination-vue
-              :current="page"
-              :total="total"
-              :per-page="perpage"
-              @page-changed="ChangePage"
-            ></pagination-vue>
-          
-          </div>
-        </div>
-      <Dragdropfile></Dragdropfile>  
+          ">
+    <div class="inline-flex xs:mt-0">
+      <!-- PAGINATION -->
+      <pagination-vue :current="page" :total="total" :per-page="perpage" @page-changed="ChangePage"></pagination-vue>
+
+    </div>
+  </div>
+  <Dragdropfile></Dragdropfile>
 </template>
 
 <script>
@@ -202,56 +225,62 @@ export default {
     BreadCrumb,
     PaginationVue,
     Dragdropfile
-},
+  },
   data() {
     return {
       page: 1,
       perpage: 3,
-      total:0,
+      total: 0,
       factures: [],
+      num: '',
+      etat: '',
     }
   },
   created() {
-     axios
-          .get(
-            "http://localhost:5000/api/FactureClients/client/" +
-              localStorage.getItem("iduser")
-               
-          )
-          .then((resp) => {
-            this.total = resp.data.length;
-          });
-   axios
-          .get(
-            "http://localhost:5000/api/FactureClients/client/" +
-              localStorage.getItem("iduser") +
-              "?page=" +
-              this.page +
-              "&quantityPage=" +
-              this.perpage
-               
-          )
-          .then((resp) => {
-            this.factures = resp.data;
-          });
+    axios
+      .get(
+        "http://localhost:5000/api/FactureClients/client/" +
+        localStorage.getItem("iduser")
+
+      )
+      .then((resp) => {
+        this.total = resp.data.length;
+      });
+    axios
+      .get(
+        "http://localhost:5000/api/FactureClients/client/" +
+        localStorage.getItem("iduser") +
+        "?page=" +
+        this.page +
+        "&quantityPage=" +
+        this.perpage
+
+      )
+      .then((resp) => {
+        this.factures = resp.data;
+      });
   },
-  methods:{
-        ChangePage(NumPage) {
+  methods: {
+    ChangePage(NumPage) {
       this.page = NumPage;
-        axios
-          .get(
-            "http://localhost:5000/api/FactureClients/client/" +
-              localStorage.getItem("iduser") +
-              "?page=" +
-              this.page +
-              "&quantityPage=" +
-              this.perpage
-               
-          )
-          .then((resp) => {
-            this.factures = resp.data;
-          });
-      
+      axios
+        .get(
+          "http://localhost:5000/api/FactureClients/client/" +
+          localStorage.getItem("iduser") +
+          "?page=" +
+          this.page +
+          "&quantityPage=" +
+          this.perpage+
+          "&num=" +
+              this.num+
+              "&etat=" +
+              this.etat
+
+        )
+        .then((resp) => {
+          this.factures = resp.data;
+        });
+
     },
 
   }
