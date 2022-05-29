@@ -33,6 +33,7 @@ import ModalOffre from "../views/Transporteur/Offres/ModalLayoutOffre.vue";
 
 // fin transporteur
 // Intermediaire
+import SocieteIntermediaire from '../views/Intermediaire/users/societe/Societe.vue'
 import TrajetIntermediaire from '../views/Intermediaire/ville/Trajet.vue'
 import DetailDemandeIntermediaire from '../views/Intermediaire/demande/DetailDemande.vue'
 import Intermediaire from '../views/Intermediaire/Dashboard.vue'
@@ -170,6 +171,11 @@ const routes = [{
     name: 'ProfilIntermediaire',
     component: ProfilIntermediaire,
   },
+  {
+    path: 'societeIntermediaire',
+    component: SocieteIntermediaire,
+    name: 'SocieteIntermediaire',
+ },
   ],
 },
 

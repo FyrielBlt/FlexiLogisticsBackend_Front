@@ -17,6 +17,7 @@ import FactureTransporteur from"./facture/FactureTransporteur";
 import Ville from"./ville/Ville";
 import Profil from "./users/Profil";
  import Trajet from"./trajet/Trajet";
+ import Societe from "./users/Societe";
 
 export default createStore({
   
@@ -40,7 +41,8 @@ export default createStore({
     Permission,
     Ville,
     Profil,
-    Trajet
+    Trajet,
+    Societe
    
 
   }

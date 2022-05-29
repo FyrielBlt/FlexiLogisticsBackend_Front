@@ -4,51 +4,15 @@
     <!-- <Breadcrumb :breadcrumbName="Tables" /> -->
     <bread-crumb>
       <template v-slot:bread1> Users </template>
-      <template v-slot:bread> Transporteurs </template>
+      <template v-slot:bread> Sociéte </template>
     </bread-crumb>
-
-    <!-- alert -->
-    <!-- <div
-      class="
-        inline-flex
-        w-full
-        max-w-sm
-        ml-3
-        overflow-hidden
-        bg-white
-        rounded-lg
-        shadow-md
-      "
-      style="position: absolute; right: 50px"
-      v-if="success"
-    >
-      <div class="flex items-center justify-center w-12 bg-red-500">
-        <svg
-          class="w-6 h-6 text-white fill-current"
-          viewBox="0 0 40 40"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z"
-          />
-        </svg>
-      </div>
-
-      <div class="px-4 py-2 -mx-3">
-        <div class="mx-3">
-          <span class="font-semibold text-red-500">Erreur</span>
-          <p class="text-sm text-gray-600">Il faut remplir tous les champs</p>
-        </div>
-      </div>
-    </div> -->
-    <!-- fin alert -->
 
     <div class="mt-8">
       <!-- <h4 class="text-gray-600">Les Clients</h4> -->
 
       <div class="mt-6">
         <h2 class="text-xl font-semibold leading-tight text-gray-700">
-          Les Transporteurs
+          Les Sociétes
         </h2>
 
         <div class="flex flex-col mt-3 text-center sm:flex-row">
@@ -70,7 +34,7 @@
                   appearance-none
                   focus:outline-none focus:bg-white focus:border-gray-500
                 "
-                v-model="ParpageTransporteur"
+                v-model="ParpageSociete"
               >
                 <option value="1">1</option>
                 <option value="10">10</option>
@@ -159,7 +123,7 @@
                 focus:text-gray-700
                 focus:outline-none
               "
-              v-model="rechercheTransporteur"
+              v-model="rechercheSociete"
             />
           </div>
 
@@ -213,20 +177,7 @@
                       bg-indigo-800
                     "
                   >
-                    User
-                  </th>
-                  <th
-                    class="
-                      px-5
-                      py-3
-                      text-sm
-                      font-medium
-                      text-gray-100
-                      uppercase
-                      bg-indigo-800
-                    "
-                  >
-                    Email
+                    Logo
                   </th>
 
                   <th
@@ -240,9 +191,37 @@
                       bg-indigo-800
                     "
                   >
-                    Sociéte
+                    Nom sociéte
                   </th>
-                   <th
+                  <th
+                    class="
+                      px-5
+                      py-3
+                      text-sm
+                      font-medium
+                      text-gray-100
+                      uppercase
+                      bg-indigo-800
+                    "
+                  >
+                    Adresse
+                  </th>
+
+                  <th
+                    class="
+                      px-5
+                      py-3
+                      text-sm
+                      font-medium
+                      text-gray-100
+                      uppercase
+                      bg-indigo-800
+                    "
+                  >
+                    description
+                  </th>
+
+                  <th
                     class="
                       px-5
                       py-3
@@ -259,8 +238,8 @@
               </thead>
               <tbody class="bg-white">
                 <tr
-                  v-for="(transporteur, index) in ListeTransporteurs"
-                  :key="transporteur.idTransporteur"
+                  v-for="(societe, index) in ListeSocietes"
+                  :key="societe.idSociete"
                 >
                   <th
                     class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
@@ -278,15 +257,28 @@
                       text-center
                     "
                   >
-                    <div class="flex justify-around">
+                     <div class="flex justify-around">
                       <div class="flex-shrink-0 w-10 h-10">
                         <img
                           class="w-10 h-10 rounded-full"
-                          :src="transporteur.imageSrc"
+                          :src="societe.imageSrc"
                           alt=""
                         />
                       </div>
-
+                    </div>
+                  </td>
+                  <td
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                      text-center
+                    "
+                  >
+                    <div class="flex justify-around">
                       <div class="ml-4">
                         <div
                           class="
@@ -296,43 +288,64 @@
                             text-center text-gray-900
                           "
                         >
-                          {{ transporteur.idUserNavigation.prenom }}
+                          {{ societe.nom }}
                         </div>
-                        <div class="text-sm leading-5 text-gray-500">
-                          {{ transporteur.idUserNavigation.nom }}
+                      </div>
+                    </div>
+                  </td>
+                  <td
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                      text-center
+                    "
+                  >
+                    <div class="flex justify-around">
+                      <div class="ml-4">
+                        <div
+                          class="
+                            text-sm
+                            font-medium
+                            leading-5
+                            text-center text-gray-900
+                          "
+                        >
+                          {{ societe.adress }}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                      text-center
+                    "
+                  >
+                    <div class="flex justify-around">
+                      <div class="ml-4">
+                        <div
+                          class="
+                            text-sm
+                            font-medium
+                            leading-5
+                            text-center text-gray-900
+                          "
+                        >
+                          {{ societe.description }}
                         </div>
                       </div>
                     </div>
                   </td>
 
-                  <td
-                    class="
-                      px-6
-                      py-4
-                      border-b
-                      text-center
-                      border-gray-200
-                      whitespace-nowrap
-                    "
-                  >
-                    <div class="text-sm leading-5 text-gray-900">
-                      {{ transporteur.idUserNavigation.email }}
-                    </div>
-                  </td>
-                  <td
-                    class="
-                      px-6
-                      py-4
-                      border-b
-                      text-center
-                      border-gray-200
-                      whitespace-nowrap
-                    "
-                  >
-                    <div class="text-sm leading-5 text-gray-900">
-                      {{ transporteur.idUserNavigation.societe }}
-                    </div>
-                  </td>
                   <td
                     class="
                       px-6
@@ -349,7 +362,7 @@
                       <span class="text-yellow-500 flex justify-center">
                         <a
                           class="mx-2 px-2 rounded-md"
-                          @click="Modifier(transporteur, index)"
+                          @click="Modifier(societe, index)"
                           ><svg
                             xmlns="http://www.w3.org/2000/svg"
                             class="h-5 w-5 text-green-700"
@@ -370,7 +383,7 @@
 
                         <button
                           class="mx-2 px-2 rounded-md"
-                          @click="Supprimer(transporteur)"
+                          @click="Supprimer(societe)"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -405,9 +418,9 @@
               <div class="inline-flex xs:mt-0">
                 <!-- PAGINATION -->
                 <pagination-vue
-                  :current="currentTransporteur"
-                  :total="totalTransporteur"
-                  :per-page="perPageTransporteur"
+                  :current="currentSociete"
+                  :total="totalSociete"
+                  :per-page="perPageSociete"
                   @page-changed="ChangePage"
                 ></pagination-vue>
               </div>
@@ -422,301 +435,18 @@
       <template v-slot:ajouter>
         <!--Title-->
         <div class="flex items-center justify-between pb-3">
-          <p class="text-2xl font-bold">Ajouter Transporteur</p>
-        </div>
-        <div class="p-6 bg-white rounded-md shadow-md">
-          <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-            <div class="text-center">
-              <label
-                class="text-gray-700"
-                for="username"
-                style="text-align: center"
-                >Nom :</label
-              >
-              <input
-                class="
-                  w-full
-                  mt-2
-                  border-gray-200
-                  rounded-md
-                  focus:border-indigo-600
-                  focus:ring
-                  focus:ring-opacity-40
-                  focus:ring-indigo-500
-                "
-                style="text-align: center"
-                id="username"
-                type="text"
-                v-model="nom"
-              />
-            </div>
-            <div class="text-center">
-              <label class="text-gray-700" for="name">Prenom :</label>
-              <input
-                id="name"
-                class="
-                  w-full
-                  mt-2
-                  border-gray-200
-                  rounded-md
-                  focus:border-indigo-600
-                  focus:ring
-                  focus:ring-opacity-40
-                  focus:ring-indigo-500
-                "
-                style="text-align: center"
-                type="text"
-                v-model="prenom"
-              />
-            </div>
-            <div class="text-center">
-              <label class="text-gray-700" for="MotDePasse"
-                >Mot de passe :</label
-              >
-              <input
-                id="MotDePasse"
-                class="
-                  w-full
-                  mt-2
-                  border-gray-200
-                  rounded-md
-                  focus:border-indigo-600
-                  focus:ring
-                  focus:ring-opacity-40
-                  focus:ring-indigo-500
-                "
-                style="text-align: center"
-                type="text"
-                v-model="password"
-              />
-            </div>
-            <div class="text-center">
-              <label class="text-gray-700" for="cpassword "
-                >Confirme mot de passe:</label
-              >
-              <input
-                id="cpassword "
-                class="
-                  w-full
-                  mt-2
-                  border-gray-200
-                  rounded-md
-                  focus:border-indigo-600 focus:ring focus:ring-opacity-40
-                "
-                style="text-align: center"
-                type="text"
-                v-model="cpassword"
-              />
-            </div>
-            <div class="text-center">
-              <label class="text-gray-700" for="Email">Email :</label>
-              <input
-                id="Email"
-                class="
-                  w-full
-                  mt-2
-                  border-gray-200
-                  rounded-md
-                  focus:border-indigo-600
-                  focus:ring
-                  focus:ring-opacity-40
-                  focus:ring-indigo-500
-                "
-                style="text-align: center"
-                type="text"
-                v-model="email"
-              />
-            </div>
-            <div>
-              <label class="text-gray-700" for="passwordConfirmation"
-                >Sociéte
-              </label>
-              <select
-                v-model="societe"
-                class="
-                  w-full
-                  mt-2
-                  border-gray-200
-                  rounded-md
-                  focus:border-indigo-600
-                  focus:ring
-                  focus:ring-opacity-40
-                  focus:ring-indigo-500
-                "
-                
-              >
-                <option
-                  v-for="column in ListeSocietesAll"
-                  :key="column"
-                  :value="column.idSociete"
-                >
-                  {{ column.nom }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div>
-            <div class="text-center">
-              <label class="text-gray-700" for="Image">Image :</label>
-              <input
-                id="Image"
-                class="
-                  w-full
-                  mt-2
-                  border-gray-200
-                  rounded-md
-                  focus:border-indigo-600
-                  focus:ring
-                  focus:ring-opacity-40
-                  focus:ring-indigo-500
-                "
-                style="text-align: center"
-                type="file"
-                @change="FileSelected($event)"
-              />
-            </div>
-          </div>
-          <div class="flex justify-end mt-4">
-            <button
-              @click="Close()"
-              class="
-                p-3
-                px-6
-                py-3
-                mr-2
-                text-indigo-500
-                bg-transparent
-                rounded-lg
-                hover:bg-gray-100 hover:text-indigo-400
-                focus:outline-none
-              "
-            >
-              Close
-            </button>
-            <button
-              @click="SaveTransporteur()"
-              class="
-                px-4
-                py-2
-                text-gray-200
-                bg-gray-800
-                rounded-md
-                hover:bg-gray-700
-                focus:outline-none focus:bg-gray-700
-              "
-            >
-              Save
-            </button>
-          </div>
+          <p class="text-2xl font-bold">Ajouter Ville</p>
         </div>
 
-        <!-- Ajouter ************************* -->
-      </template>
-    </card-ajouter>
-    <!-- Ajouter ************************* -->
-
-    <card-ajouter v-bind:open="openModifier" @CloseAjouter="Close">
-      <template v-slot:ajouter>
-        <!--Title-->
-        <div class="flex items-center justify-between pb-3">
-          <p class="text-2xl font-bold">Modifier Transporteur</p>
-        </div>
-
-        <!--Body-->
-        <!-- <div>
-            <div class=""> -->
-        <div class="p-6 bg-white rounded-md shadow-md">
-          <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-            <div class="text-center">
-              <label
-                class="text-gray-700"
-                for="username"
-                style="text-align: center"
-                >Nom :</label
-              >
-              <input
-                class="
-                  w-full
-                  mt-2
-                  border-gray-200
-                  rounded-md
-                  focus:border-indigo-600
-                  focus:ring
-                  focus:ring-opacity-40
-                  focus:ring-indigo-500
-                "
-                style="text-align: center"
-                id="username"
-                type="text"
-                v-model="nom"
-              />
-            </div>
-            <div class="text-center">
-              <label class="text-gray-700" for="name">Prenom :</label>
-              <input
-                id="name"
-                class="
-                  w-full
-                  mt-2
-                  border-gray-200
-                  rounded-md
-                  focus:border-indigo-600
-                  focus:ring
-                  focus:ring-opacity-40
-                  focus:ring-indigo-500
-                "
-                style="text-align: center"
-                type="text"
-                v-model="prenom"
-              />
-            </div>
-            <div class="text-center">
-              <label class="text-gray-700" for="MotDePasse"
-                >Mot de passe :</label
-              >
-              <input
-                id="MotDePasse"
-                class="
-                  w-full
-                  mt-2
-                  border-gray-200
-                  rounded-md
-                  focus:border-indigo-600
-                  focus:ring
-                  focus:ring-opacity-40
-                  focus:ring-indigo-500
-                "
-                style="text-align: center"
-                type="text"
-                v-model="password"
-              />
-            </div>
-
-            <div class="text-center">
-              <label class="text-gray-700" for="Email">Email :</label>
-              <input
-                id="Email"
-                class="
-                  w-full
-                  mt-2
-                  border-gray-200
-                  rounded-md
-                  focus:border-indigo-600
-                  focus:ring
-                  focus:ring-opacity-40
-                  focus:ring-indigo-500
-                "
-                style="text-align: center"
-                type="text"
-                v-model="email"
-              />
-            </div>
-          </div>
-          <br />
+        <div class="gap-6 mt-4 sm:grid-cols-2">
           <div class="text-center">
-            <label class="text-gray-700" for="Image">Image :</label>
+            <label
+              class="text-gray-700"
+              for="username"
+              style="text-align: center"
+              >Nom Societe :</label
+            >
             <input
-              id="Image"
               class="
                 w-full
                 mt-2
@@ -728,10 +458,224 @@
                 focus:ring-indigo-500
               "
               style="text-align: center"
-              type="file"
-              @change="FileSelected($event)"
+              id="username"
+              type="text"
+              v-model="nomSociete"
             />
           </div>
+          <div class="text-center">
+            <label
+              class="text-gray-700"
+              for="Adresse"
+              style="text-align: center"
+              >Adresse :</label
+            >
+            <input
+              class="
+                w-full
+                mt-2
+                border-gray-200
+                rounded-md
+                focus:border-indigo-600
+                focus:ring
+                focus:ring-opacity-40
+                focus:ring-indigo-500
+              "
+              style="text-align: center"
+              id="Adresse"
+              type="text"
+              v-model="adresseSociete"
+            />
+          </div>
+            <div class="text-center">
+            <label
+              class="text-gray-700"
+              for="Description"
+              style="text-align: center"
+              >Description :</label
+            >
+            <input
+              class="
+                w-full
+                mt-2
+                border-gray-200
+                rounded-md
+                focus:border-indigo-600
+                focus:ring
+                focus:ring-opacity-40
+                focus:ring-indigo-500
+              "
+              style="text-align: center"
+              id="Description"
+              type="text"
+              v-model="descriptionSociete"
+            />
+          </div>
+           <div class="text-center">
+            <label
+              class="text-gray-700"
+              for="Image"
+              style="text-align: center"
+              >Image :</label
+            >
+            <input
+              class="
+                w-full
+                mt-2
+                border-gray-200
+                rounded-md
+                focus:border-indigo-600
+                focus:ring
+                focus:ring-opacity-40
+                focus:ring-indigo-500
+              "
+              style="text-align: center"
+              id="Image"
+              type="file"
+                 @change="FileSelected($event)"
+            />
+          </div>
+        </div>
+        <div class="flex justify-end mt-4">
+          <button
+            @click="Close()"
+            class="
+              p-3
+              px-6
+              py-3
+              mr-2
+              text-indigo-500
+              bg-transparent
+              rounded-lg
+              hover:bg-gray-100 hover:text-indigo-400
+              focus:outline-none
+            "
+          >
+            Close
+          </button>
+          <button
+            @click="SaveSociete()"
+            class="
+              px-4
+              py-2
+              text-gray-200
+              bg-gray-800
+              rounded-md
+              hover:bg-gray-700
+              focus:outline-none focus:bg-gray-700
+            "
+          >
+            Save
+          </button>
+        </div>
+        <!-- Ajouter ************************* -->
+      </template>
+    </card-ajouter>
+    <card-ajouter v-bind:open="openModifier" @CloseAjouter="Close">
+      <template v-slot:ajouter>
+        <!--Title-->
+        <div class="flex items-center justify-between pb-3">
+          <p class="text-2xl font-bold">Modifier Ville</p>
+        </div>
+
+        <div class="gap-6 mt-4 sm:grid-cols-2">
+          <div class="text-center">
+            <label
+              class="text-gray-700"
+              for="username"
+              style="text-align: center"
+              >Nom Societe :</label
+            >
+            <input
+              class="
+                w-full
+                mt-2
+                border-gray-200
+                rounded-md
+                focus:border-indigo-600
+                focus:ring
+                focus:ring-opacity-40
+                focus:ring-indigo-500
+              "
+              style="text-align: center"
+              id="username"
+              type="text"
+              v-model="nomSociete"
+            />
+          </div>
+          <div class="text-center">
+            <label
+              class="text-gray-700"
+              for="Adresse"
+              style="text-align: center"
+              >Adresse :</label
+            >
+            <input
+              class="
+                w-full
+                mt-2
+                border-gray-200
+                rounded-md
+                focus:border-indigo-600
+                focus:ring
+                focus:ring-opacity-40
+                focus:ring-indigo-500
+              "
+              style="text-align: center"
+              id="Adresse"
+              type="text"
+              v-model="adresseSociete"
+            />
+          </div>
+            <div class="text-center">
+            <label
+              class="text-gray-700"
+              for="Description"
+              style="text-align: center"
+              >Description :</label
+            >
+            <input
+              class="
+                w-full
+                mt-2
+                border-gray-200
+                rounded-md
+                focus:border-indigo-600
+                focus:ring
+                focus:ring-opacity-40
+                focus:ring-indigo-500
+              "
+              style="text-align: center"
+              id="Description"
+              type="text"
+              v-model="descriptionSociete"
+            />
+          </div>
+           <div class="text-center">
+            <label
+              class="text-gray-700"
+              for="Image"
+              style="text-align: center"
+              >Image :</label
+            >
+            <input
+              class="
+                w-full
+                mt-2
+                border-gray-200
+                rounded-md
+                focus:border-indigo-600
+                focus:ring
+                focus:ring-opacity-40
+                focus:ring-indigo-500
+              "
+              style="text-align: center"
+              id="Image"
+              type="file"
+                 @change="FileSelected($event)"
+            />
+          </div>
+        </div>
 
           <div class="flex justify-end mt-4">
             <button
@@ -765,15 +709,15 @@
               Modifier
             </button>
           </div>
-        </div>
-
+      
         <!-- Modifier ************************* -->
       </template>
     </card-ajouter>
-<!-- {{societe}} -->
-    {{ ListeTransporteurs }}
+
+    {{ ListeSocietes }}
+
+
   </div>
-  <!-- </div> -->
 </template>
 <script>
 import { mapGetters } from "vuex";
@@ -790,45 +734,30 @@ export default {
     return {
       openModifier: false,
       open: false,
-      ParpageTransporteur: "1",
-      rechercheTransporteur: "",
-      //data a ajouter
-      nom: "",
-      prenom: "",
-      password: "",
-      email: "",
-      cpassword: "",
-      imageFile: null,
-      idTransporteur: "",
-      iduser: "",
-      index: "",
-      societe: "",
+      ParpageSociete: "1",
+      rechercheSociete: "",
+       nomSociete: "",
+       idSociete: "",
+       imageFile: null,
+       adresseSociete:"",
+       descriptionSociete:""
       // success: false,
       // timeout: false,
     };
   },
   computed: {
     ...mapGetters([
-      "ListeTransporteurs",
-      "ListeSocietesAll",
-      "currentTransporteur",
-      "perPageTransporteur",
-      "parPageTransporteur",
-      "totalTransporteur",
+      "ListeSocietes",
+      "currentSociete",
+      "perPageSociete",
+      "parPageSociete",
+      "totalSociete",
     ]),
   },
   mounted() {
-    this.$store.dispatch("Get_Transporteur");
-    this.$store.dispatch("Get_Societe_All");
+    this.$store.dispatch("Get_Societe");
   },
   methods: {
-    // startAlert() {
-    //   this.success = true;
-    //   this.timeout = setTimeout(() => {
-    //     clearTimeout(this.timeout);
-    //     this.success = false;
-    //   }, 2000);
-    // },
     Ajouter() {
       this.open = true;
       console.log(this.open);
@@ -837,14 +766,14 @@ export default {
       this.open = E;
       if (this.openModifier) {
         this.openModifier = E;
-        this.nom = "";
-        this.prenom = "";
-        this.email = "";
-        this.password = "";
-        this.imageFile = null;
+        this.nomSociete = "";
+        this.adresseSociete = "";
+        this.descriptionSociete = "";
+        this.imageFile =null;
+     
       }
     },
-    Supprimer(transporteur) {
+    Supprimer(ss) {
       this.$swal({
         title: "Supprimer ?",
         text: "",
@@ -856,48 +785,43 @@ export default {
         cancelButtonText: "Annuler",
       }).then((result) => {
         if (result.isConfirmed) {
-          this.$store.dispatch("Delete_Transporteur", transporteur);
+          this.$store.dispatch("Delete_Societe", ss);
           this.$swal("Supprimer!", "", "success");
         }
       });
     },
 
     ChangePage(NumPage) {
-      this.$store.dispatch("Get_NoveauTransporteur", NumPage);
+      this.$store.dispatch("Get_NoveauSociete", NumPage);
     },
     //
-    SaveTransporteur() {
-      if (
-        this.nom != "" &&
-        this.prenom != "" &&
-        this.email != "" &&
-        this.password != ""
-        &&
-        this.societe != ""
-      ) {
-        let user = new FormData();
-        user.append("nom", this.nom);
-        user.append("prenom", this.prenom);
-        user.append("email", this.email);
-        user.append("motdepasse", this.password);
-        user.append("image", "");
-         user.append("societe",this.societe);
-        user.append("ImageFile", this.imageFile);
-        user.append("ImageSrc", "");
-        //  user.append("Societe", this.societe);
-        this.$store.dispatch("Ajouter_Transporteur", user);
+    SaveSociete() {
+      if (this.nomSociete != "" &&
+       this.adresseSociete && 
+       this.descriptionSociete &&
+       this.imageFile!=null) {
+        let societe = new FormData();
+        societe.append("nom", this.nomSociete);
+        societe.append("adress", this.adresseSociete);
+        societe.append("description", this.descriptionSociete);
+        societe.append("image", "");
+        societe.append("ImageFile", this.imageFile);
+        societe.append("ImageSrc", "");
+        this.$store.dispatch("Ajouter_Societe", societe);
         this.open = false;
+        this.nomSociete = "";
+        this.adresseSociete = "";
+        this.descriptionSociete = "";
+        this.imageFile=null;
         this.$swal({
           position: "top-end",
           icon: "success",
-
           toast: true,
-          title: "Transporteur Ajouter",
+          title: "Ville Ajouter",
           showConfirmButton: false,
           timer: 2000,
         });
       } else {
-        //this.startAlert();
         this.$swal({
           position: "top-end",
           icon: "error",
@@ -906,54 +830,40 @@ export default {
           showConfirmButton: false,
           timer: 2000,
         });
+        //this.startAlert();
         this.open = false;
       }
     },
-    Modifier(transporteur, index) {
+    Modifier(societe, index) {
       this.openModifier = true;
-      this.nom = transporteur.idUserNavigation.nom;
-      this.prenom = transporteur.idUserNavigation.prenom;
-      this.email = transporteur.idUserNavigation.email;
-      this.password = transporteur.idUserNavigation.motdepasse;
-      this.societe = transporteur.idUserNavigation.societe;
-      this.iduser = transporteur.idUser;
-      this.idTransporteur = transporteur.idTransporteur;
-      this.index = index; // console.log(personnelle.idUserNavigation);
+      //this.nomVille = ville.nomVille;
+      this.idSociete = societe.idSociete;
+      this.index = index;
+      this.nomSociete = societe.nom;
+      this.adresseSociete = societe.adress;
+      this.descriptionSociete = societe.description;
+      this.imageFile =null;
     },
     SaveModifier() {
-      if (
-        this.iduser != "" &&
-        this.nom != "" &&
-        this.prenom != "" &&
-        this.email != "" &&
-        this.password != ""
-      ) {
-        let user = new FormData();
-        user.append("idUser", this.iduser);
-        user.append("nom", this.nom);
-        user.append("prenom", this.prenom);
-        user.append("email", this.email);
-        user.append("motdepasse", this.password);
-        user.append("image", "");
-        user.append("societe", this.societe);
-        user.append("ImageFile", this.imageFile);
-        user.append("ImageSrc", "");
+        if (this.nomSociete != "" &&
+       this.adresseSociete && 
+       this.descriptionSociete) {
+        let societe = new FormData();
+         societe.append("idSociete", this.idSociete);
+        societe.append("nom", this.nomSociete);
+        societe.append("adress", this.adresseSociete);
+        societe.append("description", this.descriptionSociete);
+        societe.append("image",this.index );
+        societe.append("ImageFile", this.imageFile);
+        societe.append("ImageSrc", "");
 
-        let transporteur = {
-          idTransporteur: this.idTransporteur,
-          idUser: this.iduser,
-          imageSrc: "",
-          idUserNavigation: user,
-          index: this.index,
-        };
-        this.$store.dispatch("Modifier_Transporteur", transporteur);
+        this.$store.dispatch("Modifier_Societe", societe);
         this.Close(false);
         this.$swal({
           position: "top-end",
           icon: "success",
-
           toast: true,
-          title: "Transporteur Modifier",
+          title: "Ville Modifier",
           showConfirmButton: false,
           timer: 2000,
         });
@@ -970,21 +880,18 @@ export default {
         this.Close(false);
       }
     },
-    // ajouter image
+     // ajouter image
     FileSelected(event) {
       this.imageFile = event.target.files[0];
       console.log(this.imageFile);
     },
   },
   watch: {
-    ParpageTransporteur() {
-      this.$store.dispatch(
-        "Changer_ParpageTransporteur",
-        this.ParpageTransporteur
-      );
+    ParpageSociete() {
+      this.$store.dispatch("Changer_ParpageSociete", this.ParpageSociete);
     },
-    rechercheTransporteur() {
-      this.$store.dispatch("Chercher_Transporteur", this.rechercheTransporteur);
+    rechercheSociete() {
+      this.$store.dispatch("Chercher_Societe", this.rechercheSociete);
     },
   },
 };

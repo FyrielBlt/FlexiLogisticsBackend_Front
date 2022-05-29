@@ -15,10 +15,10 @@
           hover:bg-indigo-900
           focus:outline-none
            animate__animated animate__shakeX animate__delay-1s
-        " style="position: absolute;
-    right: 545px;
-    top: 40px;
-    height: 62px;">
+        " style="    position: relative;
+    left: 620px;
+    top: -87px;
+    height: 57px;">
     Demande Livraison
   </button>
   <div :class="`modal ${!open && 'opacity-0 pointer-events-none'

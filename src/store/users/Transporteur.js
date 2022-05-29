@@ -133,6 +133,7 @@ export default {
           }
         }).then(res => {
           let TransporteurAjouter = res.data;
+          console.log(UserAjouter.imageSrc)
           TransporteurAjouter.imageSrc = UserAjouter.imageSrc;
           TransporteurAjouter.idUserNavigation = UserAjouter;
           state.ListeTransporteurs.push(TransporteurAjouter);
