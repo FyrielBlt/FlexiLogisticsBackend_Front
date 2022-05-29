@@ -4,7 +4,7 @@
       <template v-slot:bread1> Personnels </template>
     </bread-crumb>
   <!-- <Breadcrumb breadcrumb="Personnels" /> -->
-  <div class="mt-6 animate__animated animate__fadeInDown">
+  <div class="mt-6">
 
 
     <div class="flex flex-col mt-3 sm:flex-row">

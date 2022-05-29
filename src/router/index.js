@@ -14,6 +14,7 @@ import Demande from "../views/Client/demande.vue";
 import Offres from "../views/Client/offresrecu.vue";
 import DashboardClient from "../views/Client/Dashboard.vue";
 import Profile from "../views/Client/Profile.vue";
+import Facture from "../views/Client/Facture.vue";
 // fin client
 //transporteur
 import DashboardTransporteur from "../views/Transporteur/Users/Dashboard.vue";
@@ -32,6 +33,9 @@ import ModalOffre from "../views/Transporteur/Offres/ModalLayoutOffre.vue";
 import FacturesTransporteur from "../views/Transporteur/FactureTransporteur/Factures.vue";
 // fin transporteur
 // Intermediaire
+import SocieteIntermediaire from '../views/Intermediaire/users/societe/Societe.vue'
+import TrajetIntermediaire from '../views/Intermediaire/ville/Trajet.vue'
+import DetailDemandeIntermediaire from '../views/Intermediaire/demande/DetailDemande.vue'
 import Intermediaire from '../views/Intermediaire/Dashboard.vue'
 import MenuIntermediaire from '../views/Intermediaire/MenuIntermediaire.vue'
 import Role from '../views/Intermediaire/users/role/Role.vue'
@@ -81,6 +85,16 @@ const routes = [{
                 path: 'role',
                 component: Role,
                 name: 'Role',
+            },
+            {
+                path: 'detailDemandeIntermediaire/:id',
+                name: 'DetailDemandeIntermediaire',
+                component: DetailDemandeIntermediaire,
+            },
+            {
+                path: 'trajetIntermediaire',
+                name: 'trajetIntermediaire',
+                component: TrajetIntermediaire,
             },
             {
                 path: 'permission',
@@ -156,6 +170,11 @@ const routes = [{
                 path: 'profilIntermediaire',
                 name: 'ProfilIntermediaire',
                 component: ProfilIntermediaire,
+            },
+            {
+                path: 'societeIntermediaire',
+                component: SocieteIntermediaire,
+                name: 'SocieteIntermediaire',
             },
         ],
     },

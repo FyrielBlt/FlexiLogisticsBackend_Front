@@ -15,6 +15,27 @@ export default {
     GetListeOffre(state, value) {
       state.ListeOffres = value;
     },
+    AccepterOffreSeule(state, OffreId) {
+     
+
+        state.ListeOffres.filter(el => el.idOffre == OffreId.OffreId)[0].idEtat = OffreId.idEtatEnCours;
+        state.ListeOffres.filter(el => el.idOffre == OffreId.OffreId)[0].prixFinale =
+          state.ListeOffres.filter(el => el.idOffre == OffreId.OffreId)[0].prix + 10;
+        console.log(state.ListeOffres.filter(el => el.idOffre == OffreId.OffreId)[0])
+        axios.put(Url + "offres/" + state.ListeOffres.filter(el => el.idOffre == OffreId.OffreId)[0].idOffre, state.ListeOffres.filter(el => el.idOffre == OffreId.OffreId)[0], {
+          headers: {
+            Authorization: 'Bearer ' + Token
+          }
+        }).then(res => {
+          console.log("en cour")
+        });
+      
+
+      console.log("bravo")
+
+
+
+    },
 
     AccepterOffre(state, ListeOffresId) {
       //refuser tout les offres puis accepter juste les choisit s
@@ -50,7 +71,8 @@ export default {
     AnnulerAccepter(state, annuler){
       
       state.ListeOffres[annuler.index].idEtat=annuler.idEtatRefuser;
-      axios.put(Url + "offres/" +annuler.idOffre , state.ListeOffres[annuler.index],{
+      let offre=state.ListeOffres[annuler.index];
+      axios.put(Url + "offres/" +annuler.idOffre ,offre,{
         headers: {
           Authorization: 'Bearer ' + Token
         }
@@ -70,7 +92,8 @@ export default {
       }
 
       state.ListeOffres[valider.index].idEtat=valider.idEtatAccepter;
-      axios.put(Url + "offres/" +valider.idOffre , state.ListeOffres[valider.index],{
+      let offre=state.ListeOffres[valider.index];
+      axios.put(Url + "offres/" +valider.idOffre ,offre ,{
         headers: {
           Authorization: 'Bearer ' + Token
         }
@@ -84,6 +107,9 @@ export default {
 
     Accepter_Offre({ commit }, ListeOffresId) {
       commit('AccepterOffre', ListeOffresId);
+    },
+    Accepter_Offre_seule({ commit }, ListeOffresId) {
+      commit('AccepterOffreSeule', ListeOffresId);
     },
     Get_ListeOffre({ commit }, value) {
       commit('GetListeOffre', value);

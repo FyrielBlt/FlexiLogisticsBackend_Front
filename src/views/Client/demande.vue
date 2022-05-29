@@ -15,10 +15,10 @@
           hover:bg-indigo-900
           focus:outline-none
            animate__animated animate__shakeX animate__delay-1s
-        " style="position: absolute;
-    right: 545px;
-    top: 40px;
-    height: 62px;">
+        " style="    position: relative;
+    left: 620px;
+    top: -87px;
+    height: 57px;">
     Demande Livraison
   </button>
   <div :class="`modal ${!open && 'opacity-0 pointer-events-none'
@@ -34,7 +34,7 @@
         rounded
         shadow-lg
         modal-container
-        animate__animated animate__fadeInDown
+        
       " style="width: 681px">
       <div class="
           absolute
@@ -232,7 +232,7 @@
       </div>
     </div>
   </div>
-  <div class="mt-6 animate__animated animate__fadeInDown">
+  <div class="mt-6 ">
     <div class="flex justify-center">
       <h4 class="font-semibold p-3">Per Page :</h4>
       <div class="mb-3 p-3">
@@ -466,7 +466,7 @@
           ">
           <div class="inline-flex xs:mt-0">
             <!-- PAGINATION -->
-            <pagination-vue :current="page" :total="this.demandes.length" :per-page="perpage"
+            <pagination-vue :current="page" :total="total" :per-page="perpage"
               @page-changed="ChangePage"></pagination-vue>
           </div>
         </div>
@@ -514,6 +514,7 @@ export default {
       arrivefilter: '',
       today: new Date().toISOString().split("T")[0],
       Files: null,
+      total:0
     }
   },
 
@@ -529,6 +530,7 @@ export default {
         .get("http://localhost:5000/api/demandelivraisons/client/" + localStorage.getItem("iduser"))
         .then((response) => {
           this.demandes = response.data
+          this.total = response.data.length
         })
 
     axios.get('http://localhost:5000/api/villes').then((resp) => this.villes = resp.data)
@@ -639,21 +641,19 @@ export default {
             filedemande.append("File", this.Files[i]);
             axios.post("http://localhost:5000/api/filedemandelivraisons/", filedemande)
       }
-
-
-
-          axios
+       axios
             .get("http://localhost:5000/api/demandelivraisons/client/" + localStorage.getItem("iduser"))
             .then((response) => {
-              this.demandes = response.data
-            })
-
-          this.open = false;
+              this.demandes = response.data;
+               this.open = false;
           Swal.fire(
             'Ajouté!',
             'Demande Ajouté Avec Succée',
             'success'
           )
+            })
+
+         
 
         })
           .catch((error) => console.log(error))
@@ -681,13 +681,22 @@ export default {
                 })
             })
 
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Your file has been deleted.',
-            showConfirmButton: false,
-            timer: 800
-          })
+        const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+Toast.fire({
+  icon: 'success',
+  title: 'Demande supprimé avec succée'
+})
         }
       })
 

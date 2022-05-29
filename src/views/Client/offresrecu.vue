@@ -6,7 +6,7 @@
     </bread-crumb>
   <!-- <Breadcrumb breadcrumb="Offre Récu" /> -->
 
-  <div class="mt-6 animate__animated animate__fadeInDown">
+  <div class="mt-6">
    
           <div class="flex justify-center">
           <h4 class="font-semibold p-3">Per Page :</h4>
@@ -453,7 +453,7 @@
             <!-- PAGINATION -->
             <pagination-vue
               :current="page"
-              :total="this.offres.length "
+              :total="total "
               :per-page="perpage"
               @page-changed="ChangePage"
             ></pagination-vue>
@@ -493,6 +493,7 @@ export default defineComponent({
       encdt:"",
       acc:"",
       num: '',
+      total:0
     };
   },
   created() {
@@ -538,6 +539,14 @@ export default defineComponent({
       )
       .then((resp) => {
         this.offres = resp.data;
+      });
+      axios
+      .get(
+        "http://localhost:5000/api/offres/client/" +
+          localStorage.getItem("iduser")
+      )
+      .then((resp) => {
+        this.total = resp.data.length
       });
       
   },
@@ -595,7 +604,7 @@ export default defineComponent({
           idDemande: offre.idDemande,
           recu: offre.recu,
           file: offre.file,
-          heurdepart:offre.heurdepart,
+          heurearrive:offre.heurearrive,
           idCamion:offre.idCamion,
 
         })
@@ -646,7 +655,7 @@ export default defineComponent({
           idDemande: offre.idDemande,
           recu: offre.recu,
           file: offre.file,
-          heurdepart:offre.heurdepart,
+          heurearrive:offre.heurearrive,
           idCamion:offre.idCamion,
         })
         .then(() => {

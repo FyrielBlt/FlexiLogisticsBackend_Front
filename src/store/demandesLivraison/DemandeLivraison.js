@@ -12,6 +12,7 @@ export default {
     parPageDemandeLivraison: 5,
     totalDemandeLivraison: 10,
     chercheDemande:0,
+    date:""
     //chercheDemandeDate:""
     //ClientById:""
   },
@@ -58,7 +59,7 @@ export default {
   actions: {
     //get page :
     Get_DemandeLivraison({ commit, state }) {
-      axios.get(Url + `DemandeLivraisons?page=${state.currentDemandeLivraison}&quantityPage=${state.parPageDemandeLivraison}&filter=${state.chercheDemande}&filter1=${0}`, {
+      axios.get(Url + `DemandeLivraisons?page=${state.currentDemandeLivraison}&quantityPage=${state.parPageDemandeLivraison}&date=${state.date}&filter=${state.chercheDemande}&filter1=${0}`, {
         headers: {
           Authorization: 'Bearer ' + Token
         }
@@ -71,7 +72,7 @@ export default {
     // get noveau page 
     Get_NoveauDemandeLivraison({ commit, state }, NumPage) {
       state.currentDemandeLivraison = NumPage;
-      axios.get(Url + `DemandeLivraisons?page=${state.currentDemandeLivraison}&quantityPage=${state.parPageDemandeLivraison}&filter=${state.chercheDemande}&filter1=${0}`, {
+      axios.get(Url + `DemandeLivraisons?page=${state.currentDemandeLivraison}&quantityPage=${state.parPageDemandeLivraison}&date=${state.date}&filter=${state.chercheDemande}&filter1=${0}`, {
         headers: {
           Authorization: 'Bearer ' + Token
         }
@@ -84,7 +85,7 @@ export default {
     Changer_ParpageDemandeLivraison({ commit, state }, Parpage) {
       state.currentDemandeLivraison = 1;
       state.parPageDemandeLivraison = Parpage;
-      axios.get(Url + `DemandeLivraisons?page=${state.currentDemandeLivraison}&quantityPage=${state.parPageDemandeLivraison}&filter=${state.chercheDemande}&filter1=${0}`, {
+      axios.get(Url + `DemandeLivraisons?page=${state.currentDemandeLivraison}&quantityPage=${state.parPageDemandeLivraison}&date=${state.date}&filter=${state.chercheDemande}&filter1=${0}`, {
         headers: {
           Authorization: 'Bearer ' + Token
         }
@@ -98,7 +99,7 @@ export default {
     Chercher_DemandeLivraisonEtat({ commit, state }, chercher) {
       state.currentDemandeLivraison = 1;
       state.chercheDemande = chercher;
-      axios.get(Url + `DemandeLivraisons?page=${state.currentDemandeLivraison}&quantityPage=${state.parPageDemandeLivraison}&filter=${state.chercheDemande}&filter1=${0}`, {
+      axios.get(Url + `DemandeLivraisons?page=${state.currentDemandeLivraison}&quantityPage=${state.parPageDemandeLivraison}&date=${state.date}&filter=${state.chercheDemande}&filter1=${0}`, {
         headers: {
           Authorization: 'Bearer ' + Token
         }
@@ -108,6 +109,22 @@ export default {
           commit('GetDemandeLivraison', res);
         })
     },
+    Chercher_date({ commit, state }, date) {
+      state.currentTrajet = 1;
+      // state.ChercherArrive = chercher.Arrive ;
+      // state.ChercherDepart ="";
+      state.date=date;
+      axios.get(Url +`DemandeLivraisons?page=${state.currentDemandeLivraison}&quantityPage=${state.parPageDemandeLivraison}&date=${state.date}&filter=${state.chercheDemande}&filter1=${0}`, {
+        headers: {
+          Authorization: 'Bearer ' + Token
+        }
+      })
+        .then(res => {
+          //  let tot=parseInt(res.headers["x-wp-total"]);
+          commit('GetDemandeLivraison', res);
+        })
+    },
+  },
     //get client by id
     // Get_Client_By_Id({commit},id){
     //   axios.get(Url + `Clients/`+id, {
@@ -146,5 +163,5 @@ export default {
     //     })
     // },
    
-  },
+  
 };

@@ -240,6 +240,19 @@
                       bg-indigo-800
                     "
                   >
+                    Sociéte
+                  </th>
+                   <th
+                    class="
+                      px-5
+                      py-3
+                      text-sm
+                      font-medium
+                      text-gray-100
+                      uppercase
+                      bg-indigo-800
+                    "
+                  >
                     Settings
                   </th>
                 </tr>
@@ -306,7 +319,20 @@
                       {{ transporteur.idUserNavigation.email }}
                     </div>
                   </td>
-
+                  <td
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                    "
+                  >
+                    <div class="text-sm leading-5 text-gray-900">
+                      {{ transporteur.idUserNavigation.societe }}
+                    </div>
+                  </td>
                   <td
                     class="
                       px-6
@@ -501,6 +527,35 @@
                 v-model="email"
               />
             </div>
+            <div>
+              <label class="text-gray-700" for="passwordConfirmation"
+                >Sociéte
+              </label>
+              <select
+                v-model="societe"
+                class="
+                  w-full
+                  mt-2
+                  border-gray-200
+                  rounded-md
+                  focus:border-indigo-600
+                  focus:ring
+                  focus:ring-opacity-40
+                  focus:ring-indigo-500
+                "
+                
+              >
+                <option
+                  v-for="column in ListeSocietesAll"
+                  :key="column"
+                  :value="column.idSociete"
+                >
+                  {{ column.nom }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div>
             <div class="text-center">
               <label class="text-gray-700" for="Image">Image :</label>
               <input
@@ -715,8 +770,8 @@
         <!-- Modifier ************************* -->
       </template>
     </card-ajouter>
-
-    <!-- {{ ListeTransporteurs }} -->
+<!-- {{societe}} -->
+    {{ ListeTransporteurs }}
   </div>
   <!-- </div> -->
 </template>
@@ -747,6 +802,7 @@ export default {
       idTransporteur: "",
       iduser: "",
       index: "",
+      societe: "",
       // success: false,
       // timeout: false,
     };
@@ -754,6 +810,7 @@ export default {
   computed: {
     ...mapGetters([
       "ListeTransporteurs",
+      "ListeSocietesAll",
       "currentTransporteur",
       "perPageTransporteur",
       "parPageTransporteur",
@@ -762,6 +819,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("Get_Transporteur");
+    this.$store.dispatch("Get_Societe_All");
   },
   methods: {
     // startAlert() {
@@ -787,7 +845,6 @@ export default {
       }
     },
     Supprimer(transporteur) {
-      
       this.$swal({
         title: "Supprimer ?",
         text: "",
@@ -815,6 +872,8 @@ export default {
         this.prenom != "" &&
         this.email != "" &&
         this.password != ""
+        &&
+        this.societe != ""
       ) {
         let user = new FormData();
         user.append("nom", this.nom);
@@ -822,14 +881,16 @@ export default {
         user.append("email", this.email);
         user.append("motdepasse", this.password);
         user.append("image", "");
+         user.append("societe",this.societe);
         user.append("ImageFile", this.imageFile);
         user.append("ImageSrc", "");
+        //  user.append("Societe", this.societe);
         this.$store.dispatch("Ajouter_Transporteur", user);
         this.open = false;
-         this.$swal({
+        this.$swal({
           position: "top-end",
           icon: "success",
-         
+
           toast: true,
           title: "Transporteur Ajouter",
           showConfirmButton: false,
@@ -854,7 +915,7 @@ export default {
       this.prenom = transporteur.idUserNavigation.prenom;
       this.email = transporteur.idUserNavigation.email;
       this.password = transporteur.idUserNavigation.motdepasse;
-      // this.image = transporteur.idUserNavigation.image;
+      this.societe = transporteur.idUserNavigation.societe;
       this.iduser = transporteur.idUser;
       this.idTransporteur = transporteur.idTransporteur;
       this.index = index; // console.log(personnelle.idUserNavigation);
@@ -874,7 +935,7 @@ export default {
         user.append("email", this.email);
         user.append("motdepasse", this.password);
         user.append("image", "");
-        user.append("societe", "");
+        user.append("societe", this.societe);
         user.append("ImageFile", this.imageFile);
         user.append("ImageSrc", "");
 
@@ -887,10 +948,10 @@ export default {
         };
         this.$store.dispatch("Modifier_Transporteur", transporteur);
         this.Close(false);
-         this.$swal({
+        this.$swal({
           position: "top-end",
           icon: "success",
-         
+
           toast: true,
           title: "Transporteur Modifier",
           showConfirmButton: false,

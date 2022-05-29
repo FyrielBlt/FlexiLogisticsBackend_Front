@@ -139,12 +139,7 @@ export default defineComponent({
             console.log(localStorage.getItem("jwt"));
 
             this.$router.push({ name: "Intermediaire" });
-             Swal.fire({
-  icon: 'success',
-  title: 'Hello '+response.data.validUser.nom +" "+response.data.validUser.prenom,
-  text: 'Welcome',
- 
-})
+            
 // login Transporteur
           } else if (localStorage.getItem("type") == "transporteur") {
             localStorage.setItem("token", response.data.token);
