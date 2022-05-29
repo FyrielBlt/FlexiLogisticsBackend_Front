@@ -29,7 +29,7 @@ import Demandechauffeur from "../views/Transporteur/Demandes/Demande.vue";
 import ModalLayoutHistoriqueDemande from "../views/Transporteur/Demandes/ModalLayoutHistoriqueDemande.vue";
 import Offreschauffeur from "../views/Transporteur/Offres/Offres.vue";
 import ModalOffre from "../views/Transporteur/Offres/ModalLayoutOffre.vue";
-
+import FacturesTransporteur from "../views/Transporteur/FactureTransporteur/Factures.vue";
 // fin transporteur
 // Intermediaire
 import Intermediaire from '../views/Intermediaire/Dashboard.vue'
@@ -218,7 +218,11 @@ const routes = [{
                 name: 'Offreschauffeur',
                 component: Offreschauffeur,
             },
-
+            {
+                path: 'facturesTransporteur',
+                name: 'facturesTransporteur',
+                component: FacturesTransporteur,
+            },
             {
                 path: 'trajets',
                 name: 'Trajets',

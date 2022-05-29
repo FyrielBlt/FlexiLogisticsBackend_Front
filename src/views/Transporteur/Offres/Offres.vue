@@ -522,33 +522,8 @@
                 style="padding: 30px 49px"
               >
              
-                <a id="myLink" title="Click to do something"
-                                  v-if="u.fileOffre.length>0"
-                                   class="
-                    bg-blue-500
-                    hover:bg-blue-700
-                    text-white
-                    font-bold
-                    py-2
-                    px-4
-                    rounded
-                  "
-              href="" @click="mesfichiers(u.fileOffre)">fichiers</a>
-                <a
-                  class="
-                    bg-red-500
-                    hover:bg-red-700
-                    text-white
-                    font-bold
-                    py-2
-                    px-4
-                    rounded
-                  "
-                  
-                  v-else
-                >
-                  Aucun fichier</a
-                >
+                <modal-offre-fichier  :u="u" ></modal-offre-fichier>
+               
               </td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                 <p class="text-gray-900 whitespace-nowrap">
@@ -567,10 +542,20 @@
                   <span class="relative"> {{ u.idEtatNavigation.etat }}</span>
                 </span>
               </td>
-              <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                <div class="flex justify-around">
-                  
-                </div>
+                <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+                <span
+                  :class="`relative inline-block px-3 py-1 font-semibold text-${u.statusColor}-900 leading-tight`"
+                >
+                  <span
+                    aria-hidden
+                    :class="`absolute inset-0 bg-${u.statusColor}-200 opacity-50 rounded-full`"
+                  ></span>
+                  <span class="relative"> 
+                     <button v-if="u.idEtatNavigation.etat=='Accepté'"
+                   type="button" @click="livrer(u)" class="bg-black ml-20 hover:bg-green-700 text-white font-bold py-2 
+                   px-4 rounded">Livré</button>
+                  </span>
+                </span>
               </td>
             </tr>
           </tbody>
@@ -606,10 +591,12 @@ import { defineComponent } from "vue";
 import axios from "axios";
 import PaginationVue from "/src/components/Intermediaire/pagination/PaginationVue.vue";
 import ModalLayoutOffreUpdate from "/src/views/Transporteur/Offres/ModalLayoutOffreUpdate.vue";
+import ModalOffreFichier from "/src/views/Transporteur/Offres/ModalOffreFichier.vue";;
 export default defineComponent({
   components: {// Breadcrumb 
    ModalLayoutOffreUpdate,
    PaginationVue,
+   ModalOffreFichier
   },
   data() {
     return {
@@ -626,12 +613,10 @@ export default defineComponent({
       arrive:'',
        etat:'',
        nondispo:'',
-       hrefa:''
+       hrefa:'',
     };
   },
   created() {
-
-   
      axios
       .get(
         "http://localhost:5000/api/EtatOffres/offre?offre=Nontraite" 
@@ -641,10 +626,10 @@ export default defineComponent({
       })
       axios
       .get(
-        "http://localhost:5000/api/EtatOffres/offre?offre=Accepte" 
+        "http://localhost:5000/api/EtatOffres/offre?offre=livre" 
           )
       .then((response) =>{
-        this.valide= response.data;
+        this.valide= response.data.idEtat;
       })
      axios
       .get("http://localhost:5000/api/villes")
@@ -684,6 +669,26 @@ export default defineComponent({
 
       }) 
       }
+    },
+    livrer(table){
+ axios.put("http://localhost:5000/api/Offres/"+table.idOffre, {
+              idOffre:table.idOffre,
+              description:table.description,
+              date:table.date,
+              heurearrive:table.heurearrive,
+              idEtat:this.valide,
+              prix:table.prix,
+              prixFinale: null,
+              idTransporteur: localStorage.getItem("idtransporteur"),
+              idDemande:table.idDemande,
+              idCamion:table.idCamion,
+              notificationIntermediaire: 1,
+              notificationClient: null,
+              notificationTransporteur: null,
+              datecreation:table.datecreation
+            }).then(()=>{ 
+              this.close()
+            })
     },
     searchfunction(mot){    
     axios

@@ -112,11 +112,9 @@
 import axios from "axios";
 
 
-import ModalTrajetAdd from "/src/views/Transporteur/Trajets/ModalTrajetAdd .vue";
 export default {
   props: ["table"],
   components: {
-    ModalTrajetAdd,
   },
   data() {
     return {

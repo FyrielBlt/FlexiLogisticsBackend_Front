@@ -406,20 +406,8 @@
                   >
                     <div class="flex items-center">
                       <div class="ml-3"  >
-                         <a 
-                  class="
-                    bg-blue-500
-                    hover:bg-blue-700
-                    text-white
-                    font-bold
-                    py-2
-                    px-4
-                    rounded
-                  "
-                  href="hh"
-                  
-                  >Download</a
-                >
+                     
+                <modal-demande-files :u="demande"></modal-demande-files>
                 
                       </div>
                     </div>
@@ -508,12 +496,14 @@
 //import Breadcrumb from "../../partials/Breadcrumb.vue";
 import { ref } from "vue";
 import axios from "axios";
+import ModalDemandeFiles from "/src/views/Transporteur/Demandes/ModalDemandeFiles.vue";;
 import ModalLayoutOffre from "/src/views/Transporteur/Offres/ModalLayoutOffre.vue";
 import PaginationVue from "/src/components/Intermediaire/pagination/PaginationVue.vue";
 export default {
   components: {
     ModalLayoutOffre,
     PaginationVue,
+    ModalDemandeFiles
   },
   data() {
     return {
