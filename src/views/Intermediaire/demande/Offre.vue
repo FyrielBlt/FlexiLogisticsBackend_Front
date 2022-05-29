@@ -148,8 +148,7 @@
                       border-b
                       text-center
                       border-gray-200
-                      whitespace-nowrap
-                      text-center
+                      whitespace-nowrap                   
                     "
                   >
                     <div class="ml-4">
