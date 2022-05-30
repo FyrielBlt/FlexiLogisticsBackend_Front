@@ -406,12 +406,13 @@
                 class="px-5 py-5 text-sm bg-white border-b border-gray-200"
                 style="padding: 30px 49px"
               >
-                  <a v-if="u.factureTransporteur[0]!=null"
+             
+                  <a v-if="u.factureTransporteur[0].factureFile!=null"
                    :href="u.factureTransporteur[0].srcFactureFile" target=" _blank" class="bg-black ml-20 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                   Download
                 </a>
                   <input
-                  v-if="u.factureTransporteur[0]==null"
+                  v-if="u.factureTransporteur[0].factureFile==null"
                         type="file"
                         id="image"
                         multiple="multiple"
@@ -421,11 +422,11 @@
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                 <p class="text-gray-900 whitespace-nowrap">
                     <a 
-                    v-if="u.factureTransporteur[0]!=null"
+                    v-if="u.factureTransporteur[0].payementFile!=null"
                     :href="u.factureTransporteur[0].srcPayementFile" target=" _blank" class="bg-black ml-20 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                      Download
                 </a>
-                 <a v-if="u.factureTransporteur[0]==null" href="">paiement en attente</a>
+                 <a v-if="u.factureTransporteur[0].payementFile==null" href="">paiement en attente</a>
                 </p>
               </td>
             </tr>
