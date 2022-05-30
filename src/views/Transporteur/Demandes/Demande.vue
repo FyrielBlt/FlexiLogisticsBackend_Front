@@ -1,16 +1,30 @@
 <template>
   <div>
-    
-    <!-- Breadcrumb -->
-    <Breadcrumb breadcrumb="Blank" />
-    HISTORIQUE
-  <router-link :to="'historiqueDemande'"
+  <span class="text-yellow-500 flex justify-center">
+                       
+                        <router-link :to="'historiqueDemande'"
+                        class="
+          px-6
+          py-2
+          mt-3
+          font-medium
+          tracking-wide
+          text-white
+          bg-indigo-600
+          hover:bg-indigo-900
+          focus:outline-none
+           animate__animated animate__shakeX animate__delay-1s
+        " style="position: absolute;
+    right: 600px;
+    top: 40px;
+    height: 62px;"
    >
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-file-earmark-zip-fill" viewBox="0 0 16 16">
-  <path d="M5.5 9.438V8.5h1v.938a1 1 0 0 0 .03.243l.4 1.598-.93.62-.93-.62.4-1.598a1 1 0 0 0 .03-.243z"/>
-  <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zm-4-.5V2h-1V1H6v1h1v1H6v1h1v1H6v1h1v1H5.5V6h-1V5h1V4h-1V3h1zm0 4.5h1a1 1 0 0 1 1 1v.938l.4 1.599a1 1 0 0 1-.416 1.074l-.93.62a1 1 0 0 1-1.109 0l-.93-.62a1 1 0 0 1-.415-1.074l.4-1.599V8.5a1 1 0 0 1 1-1z"/>
-</svg>     
+   Historique
+<i class="bi bi-box2"></i>   
   </router-link>
+                      </span>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+
     <div class="mt-8 ">
       <div class="mt-6">
         <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
@@ -431,11 +445,10 @@
                       </div>
                     </div>
                   </td>
-
                   <td
                     class="px-5 py-5 text-sm bg-white border-b border-gray-200"
                   >
-                      <span class="text-yellow-500 flex justify-center" >
+                      <span class="text-black-500 flex justify-center" >
                         <modal-layout-offre 
                           :tabledemande="demande"
                           :demandeid="demande.idDemande"

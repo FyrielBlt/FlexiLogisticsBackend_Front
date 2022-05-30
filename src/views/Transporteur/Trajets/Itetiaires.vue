@@ -56,7 +56,7 @@
                   <form @submit.prevent="ajouterTrajet">
                     <div>
                       <label class="text-gray-700" for="passwordConfirmation"
-                        >ctr+c pour selection multiple
+                        >ctr selection multiple
                       </label>
                       <select
                         v-model="ville"
@@ -240,8 +240,8 @@ export default {
     return {
       open: false,
       inteneraires: [],
-      currentPage: 1,
-      perPage: 5,
+      currentPage:1,
+      perPage:5,
       checked: [],
       total: "",
 
@@ -265,7 +265,10 @@ export default {
       .get(
         "http://localhost:5000/api/Itineraires/" +
           localStorage.getItem("idtransporteur") +
-          "/transporteur"
+          "/transporteur"  + "?page=" +
+            this.currentPage +
+            "&quantityPage=" +
+            this.perPage
       )
       .then((response) => {
         this.inteneraires = response.data;
@@ -290,7 +293,6 @@ export default {
           "http://localhost:5000/api/Itineraires/" +
             localStorage.getItem("idtransporteur") +
             "/transporteur" +
-            "/camion" +
             "?page=" +
             this.currentPage +
             "&quantityPage=" +

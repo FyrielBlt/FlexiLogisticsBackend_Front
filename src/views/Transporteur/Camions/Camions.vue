@@ -250,7 +250,16 @@
                           {{ u.idchauffeurNavigation.iduserNavigation.nom }}
                         </div>
                         <div v-if="u.idchauffeurNavigation == null">
-                          <span class="affect">Affecter chauffeur</span>
+                          <span class="
+                      inline-flex
+                      px-2
+                      text-xs
+                      font-semibold
+                      leading-5
+                      text-red-800
+                      bg-red-100
+                      rounded-full
+                    "> Affecter chauffeur</span>
                         </div>
                       </div>
                     </div>
@@ -440,32 +449,54 @@ export default {
 
   methods: {
     close() {
-      axios
-        .get(
-          "http://localhost:5000/api/Camions/" +
-            localStorage.getItem("idtransporteur") +
-            "?page=" +
-            this.currentPage +
-            "&quantityPage=" +
-            this.perPage
-        )
-        .then((response) => {
-          this.camions = response.data;
-        })
-        .catch((error) => console.log(error));
-      axios
-        .get(
-          "http://localhost:5000/api/Camions/" +
-            localStorage.getItem("idtransporteur")
-        )
-        .then((response) => {
-          this.long = response.data.length;
-          console.log(this.camions);
-        })
-        .catch((error) => console.log(error));
-      this.codevehicule = "";
-      this.cinchauffeur = "";
-      this.typecamion = "";
+    // liste camions de ce transporteur
+    axios
+      .get(
+        "http://localhost:5000/api/Camions/" +
+          localStorage.getItem("idtransporteur") +
+          "?page=" +
+          this.currentPage +
+          "&quantityPage=" +
+          this.perPage
+      )
+      .then((response) => {
+        this.camions = response.data;
+      })
+      .catch((error) => console.log(error));
+    axios
+      .get(
+        "http://localhost:5000/api/Camions/" +
+          localStorage.getItem("idtransporteur")
+      )
+      .then((response) => {
+        this.long = response.data.length;
+      })
+      .catch((error) => console.log(error));
+    // tous les typescamions
+
+    axios
+      .get("http://localhost:5000/api/TypeCamions")
+      .then((response) => {
+        this.typecamions = response.data;
+      })
+      .catch((error) => console.log(error));
+
+    //les chauffeurs sans camion
+    axios
+      .get(
+        "http://localhost:5000/api/Chauffeurs/" +
+          localStorage.getItem("societe") +
+          "/chauffeurs"
+      )
+      .then((response) => {
+        response.data.forEach((element) => {
+          if (element.camion.length == 0) {
+            this.chauffeurscamions[this.i] = element;
+            this.i = this.i + 1;
+          }
+        });
+      })
+      .catch((error) => console.log(error));
     },
     searchfunction(mot) {
       axios
@@ -527,7 +558,6 @@ export default {
       localStorage.setItem("moncamion", id);
       location.replace("Trajetcamion");
     },
-
     supprimercamion(id) {
       this.$swal({
         title: "vous êtes sûr?",
@@ -539,48 +569,13 @@ export default {
         cancelButtonText: "Annuler",
       }).then((result) => {
         if (result.value) {
-          // renvoyer l'offre correspondant a cette camion a supprimer
-          axios
-            .get("http://localhost:5000/api/Offres/" + id + "/idcamion")
-            .then((response) => {
-              // puis on va modifier cette offre idcamion=null
-              response.data.forEach((element) => {
-                axios.put(
-                  "http://localhost:5000/api/Offres/" + element.idOffre,
-                  {
-                    idOffre: element.idOffre,
-                    description: element.description,
-                    date: element.date,
-                    heurdepart: element.heurdepart,
-                    idEtat: element.idEtat,
-                    prix: element.prix,
-                    prixFinale: null,
-                    idTransporteur: localStorage.getItem("idtransporteur"),
-                    idDemande: element.idDemande,
-                    idCamion: null,
-                  }
-                );
-              });
+         
               axios
                 .delete("http://localhost:5000/api/Camions/" + id)
                 .then(() => {
-                  axios
-                    .get(
-                      "http://localhost:5000/api/Chauffeurs/" +
-                        localStorage.getItem("societe") +
-                        "/chauffeurs"
-                    )
-                    .then((response) => {
-                      response.data.forEach((element) => {
-                        if (element.camion.length == 0) {
-                          this.chauffeurscamions[this.i] = element;
-                          this.i = this.i + 1;
-                        }
-                      });
-                    })
-                    .catch((error) => console.log(error));
+                 
                 });
-            });
+            
         }
       });
     },

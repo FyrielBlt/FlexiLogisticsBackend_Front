@@ -6,7 +6,7 @@
     </bread-crumb>
     <!-- <Breadcrumb breadcrumb="Profil" /> -->
     <div class="grid grid-flow-col gap-3">
-      <div class="row-span-3 animate__animated animate__bounceInLeft">
+      <div class="row-span-3 ">
         <!-- <h4 class="text-gray-700">Profil</h4> -->
         <div class="max-w-sm overflow-hidden bg-white rounded shadow-lg ">
           <input class="
@@ -52,7 +52,7 @@
         </div>
       </div>
 
-      <div class="col-span-2 animate__animated animate__fadeInDown">
+      <div class="col-span-2">
         <!-- <h4 class="text-gray-600">Modifier :</h4> -->
         <div>
           <div class="p-6 bg-white rounded-md shadow-md">
@@ -281,7 +281,7 @@
 
 <script>
 import axios from "axios";
-import BreadCrumb from "../../components/Intermediaire/BreadCrumb.vue";
+import BreadCrumb from "/src/components/Transporteur/ProfilBridal.vue";
 export default {
   components: {
     BreadCrumb
@@ -321,11 +321,7 @@ export default {
     // ajouter image
     FileSelected(event) {
       this.imageFile = event.target.files[0];
-      console.log(this.imageFile);
-    },
-   
-    Modifier() {
-      Swal.fire({
+       Swal.fire({
         title: 'Entrer Ancien mot de passe pour continuer',
         input: 'text',
         inputAttributes: {
@@ -336,7 +332,9 @@ export default {
         showLoaderOnConfirm: true,
         preConfirm: (login) => {
           if (login == this.motdepasse) {
-            let user = new FormData();
+            if(this.password!=''){
+              if(this.password==this.cpassword || this.password==this.motdepasse){
+               let user = new FormData();
             user.append("idUser", this.idUser);
             user.append("Nom", this.nom);
             user.append("Prenom", this.prenom);
@@ -369,11 +367,59 @@ export default {
                   `Request failed: ${error}`
                 )
               })
+            }
+           
+            }
+           else if(this.password=='' ){
+              let user = new FormData();
+            user.append("idUser", this.idUser);
+            user.append("Nom", this.nom);
+            user.append("Prenom", this.prenom);
+            user.append("Email", this.email);
+            user.append("societe", localStorage.getItem('societe'));
+            user.append("motdepasse", this.motdepasse);
+            user.append("image", this.Profil.image);
+            user.append("ImageFile", this.imageFile);
+            user.append("ImageSrc", "");
+            axios
+              .put("http://localhost:5000/api/Users/" + this.idUser, user, {
+              })
+              .then(response => {
+                console.log(res.data);
+                this.user = res.data;
+                this.nom = res.data.nom;
+                this.prenom = res.data.prenom;
+                this.email = res.data.email;
+                this.image = res.data.imageSrc;
+                this.imageFile = "";
+                this.password = "";
+                this.cpassword = "";
+                if (!response.ok) {
+                  throw new Error(response.statusText)
+                }
+                return response.json()
+              })
+              .catch(error => {
+                Swal.showValidationMessage(
+                  `Request failed: ${error}`
+                )
+              })
+           }
           }
         },
         allowOutsideClick: () => !Swal.isLoading()
       }).then((result) => {
-        if ((result.value == this.motdepasse)) {
+          if(this.password!=this.cpassword && this.password!=this.motdepasse ){
+              this.$swal({
+            position: "top-end",
+            icon: "error",
+            toast: true,
+            title: "Confirmez mot de passe!",
+            showConfirmButton: false,
+            timer: 2000,
+          })
+            }
+       else if ((result.value == this.motdepasse)) {
           this.$swal({
             position: "top-end",
             icon: "success",
@@ -382,15 +428,6 @@ export default {
             showConfirmButton: false,
             timer: 2000,
           });
-        }else if((this.password != this.cpassword)){
-          this.$swal({
-            position: "top-end",
-            icon: "error",
-            toast: true,
-            title: "Confirmez mot de passe!",
-            showConfirmButton: false,
-            timer: 2000,
-          })
         }
         else {
           this.$swal({
@@ -403,15 +440,132 @@ export default {
           })
         }
       })
-
-
-
+    },
+    Modifier() {
+      Swal.fire({
+        title: 'Entrer Ancien mot de passe pour continuer',
+        input: 'text',
+        inputAttributes: {
+          autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Modifier',
+        showLoaderOnConfirm: true,
+        preConfirm: (login) => {
+          if (login == this.motdepasse) {
+            if(this.password!=''){
+              if(this.password==this.cpassword || this.password==this.motdepasse){
+               let user = new FormData();
+            user.append("idUser", this.idUser);
+            user.append("Nom", this.nom);
+            user.append("Prenom", this.prenom);
+            user.append("Email", this.email);
+            user.append("societe", localStorage.getItem('societe'));
+            user.append("motdepasse", this.password);
+            user.append("image", this.Profil.image);
+            user.append("ImageFile", this.imageFile);
+            user.append("ImageSrc", "");
+            axios
+              .put("http://localhost:5000/api/Users/" + this.idUser, user, {
+              })
+              .then(response => {
+                console.log(res.data);
+                this.user = res.data;
+                this.nom = res.data.nom;
+                this.prenom = res.data.prenom;
+                this.email = res.data.email;
+                this.image = res.data.imageSrc;
+                this.imageFile = "";
+                this.password = "";
+                this.cpassword = "";
+                if (!response.ok) {
+                  throw new Error(response.statusText)
+                }
+                return response.json()
+              })
+              .catch(error => {
+                Swal.showValidationMessage(
+                  `Request failed: ${error}`
+                )
+              })
+            }
+           
+            }
+           else if(this.password=='' ){
+              let user = new FormData();
+            user.append("idUser", this.idUser);
+            user.append("Nom", this.nom);
+            user.append("Prenom", this.prenom);
+            user.append("Email", this.email);
+            user.append("societe", localStorage.getItem('societe'));
+            user.append("motdepasse", this.motdepasse);
+            user.append("image", this.Profil.image);
+            user.append("ImageFile", this.imageFile);
+            user.append("ImageSrc", "");
+            axios
+              .put("http://localhost:5000/api/Users/" + this.idUser, user, {
+              })
+              .then(response => {
+                console.log(res.data);
+                this.user = res.data;
+                this.nom = res.data.nom;
+                this.prenom = res.data.prenom;
+                this.email = res.data.email;
+                this.image = res.data.imageSrc;
+                this.imageFile = "";
+                this.password = "";
+                this.cpassword = "";
+                if (!response.ok) {
+                  throw new Error(response.statusText)
+                }
+                return response.json()
+              })
+              .catch(error => {
+                Swal.showValidationMessage(
+                  `Request failed: ${error}`
+                )
+              })
+           }
+          }
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+      }).then((result) => {
+          if(this.password!=this.cpassword && this.password!=this.motdepasse ){
+              this.$swal({
+            position: "top-end",
+            icon: "error",
+            toast: true,
+            title: "Confirmez mot de passe!",
+            showConfirmButton: false,
+            timer: 2000,
+          })
+            }
+       else if ((result.value == this.motdepasse)) {
+          this.$swal({
+            position: "top-end",
+            icon: "success",
+            toast: true,
+            title: "Profil Modifié",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }
+        else {
+          this.$swal({
+            position: "top-end",
+            icon: "error",
+            toast: true,
+            title: "Ancien mot de passe incorrecte!",
+            showConfirmButton: false,
+            timer: 2000,
+          })
+        }
+      })
     },
   },
   watch: {
     cpassword() {
       if (this.password != "" && this.cpassword == "") {
-        //:class="[cpassword === '' ? ' focus:bg-red-100  focus:border-red-800 ' : ' focus:bg-green-200  focus:border-green-800 ']"
         this.cla = "form-control";
       } else if (this.password != "" && this.cpassword != "") {
         if (this.password == this.cpassword) {

@@ -3,25 +3,28 @@
     <!-- Breadcrumb -->
     <Breadcrumb breadcrumb="Modal" />
 
-    <button @click="open = true" class="
-                    bg-blue-500
-                    hover:bg-blue-700
-                    text-white
-                    font-bold
-                    py-2
-                    px-4
-                    rounded
-                  " v-if="u.idDemandeNavigation.fileDemandeLivraison.length > 0">Files</button>
+    <button @click="open = true" 
+                    class="
+                      inline-flex
+                      px-2
+                      text-xs
+                      font-semibold
+                      leading-5
+                      text-blue-800
+                      bg-blue-100
+                      rounded-full
+                    " v-if="u.idDemandeNavigation.fileDemandeLivraison.length > 0">Files</button>
 
     <button class="
-                    bg-red-500
-                    hover:bg-red-700
-                    text-white
-                    font-bold
-                    py-2
-                    px-4
-                    rounded
-                  " v-else>
+                      inline-flex
+                      px-2
+                      text-xs
+                      font-semibold
+                      leading-5
+                      text-red-800
+                      bg-red-100
+                      rounded-full
+                    " v-else>
       No Files</button>
     <div :class="`modal ${!open && 'opacity-0 pointer-events-none'
     } z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center`">

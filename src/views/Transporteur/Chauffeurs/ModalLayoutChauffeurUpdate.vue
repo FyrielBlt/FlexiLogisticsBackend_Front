@@ -61,22 +61,25 @@
                 <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                   <div>
                     <div>
-                      <label class="text-gray-700" for="image"
-                        >Photo de Profil</label
-                      >
+                       <input class="
+                    w-full
+                    mt-2
+                    border-gray-200
+                    rounded-md
+                    focus:border-indigo-600
+                    focus:ring
+                    focus:ring-opacity-40
+                    focus:ring-indigo-500
+                  " id="image" name="image" type="file" @change="FileSelected($event)" style="display:none;" />
+          <label for="image" class="relative group">
+            <img width="70" style="border-radius:50px" :src="userss.imageSrc" alt="Image Profil" />
+            <div
+              class="opacity-0 group-hover:opacity-70 duration-300 absolute 
+              inset-x-0 bottom-0 flex justify-center items-end text-xl bg-black
+               text-white font-semibold"
+              >Changer</div>
 
-                      
-                       <input type="file" name="pic1" id="pic1" style="display:none;"
-          
-                  @change="FileSelected($event)"
-          />
-          <center>
-
-<label for="pic1">
-<img  width="250"  height="150" :src="userss.imageSrc" alt="photode profile"  
-          />
-</label>
-          </center>
+          </label>
                     
                         
                      
@@ -172,7 +175,6 @@ export default {
     },
      FileSelected(event) {
       this.imageFile = event.target.files[0];
-      console.log(this.imageFile);
     },
     modifierChauffeur() {
       if (

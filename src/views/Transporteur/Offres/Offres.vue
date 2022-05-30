@@ -348,7 +348,7 @@
                   border-b-2 border-gray-200
                 "
               >
-                Description
+               Numéro Demande
               </th>
               <th
                 class="
@@ -363,9 +363,9 @@
                   border-b-2 border-gray-200
                 "
               >
-                Demande
+                Description offre
               </th>
-            
+              
               <th
                 class="
                   px-5
@@ -379,7 +379,7 @@
                   border-b-2 border-gray-200
                 "
               >
-                Date
+                Date de livraison
               </th>
               <th
                 class="
@@ -424,7 +424,7 @@
                   border-b-2 border-gray-200
                 "
               >
-                File
+                Fichiers
               </th>
               <th
                 class="
@@ -488,7 +488,7 @@
                 <div class="flex items-center">
                   <div class="ml-3">
                     <p class="text-gray-900 whitespace-nowrap">
-                      {{ u.idDemandeNavigation.description }}
+                      {{ u.idDemandeNavigation.idDemande}}
                     </p>
                   </div>
                 </div>
@@ -658,18 +658,47 @@ export default defineComponent({
       
   },
   methods: {
-    mesfichiers(table){
-      for (let i = 0; i < table.length; i++) {
-         axios
+   close(){
+axios
       .get(
-        "http://localhost:5000/api/FileOffres/"+table[i].idFile
+        "http://localhost:5000/api/EtatOffres/offre?offre=Nontraite" 
           )
       .then((response) =>{
-         window.open( response.data.srcOffreFile);
-
-      }) 
-      }
-    },
+        this.nondispo= response.data;
+      })
+      axios
+      .get(
+        "http://localhost:5000/api/EtatOffres/offre?offre=livre" 
+          )
+      .then((response) =>{
+        this.valide= response.data.idEtat;
+      })
+     axios
+      .get("http://localhost:5000/api/villes")
+      .then((resp) => (this.villes = resp.data));
+     axios
+      .get(
+        "http://localhost:5000/api/Transporteurs/" +
+          localStorage.getItem("iduser") +
+          "/iduser"
+      )
+      .then((response) => {
+    axios
+      .get("http://localhost:5000/api/offres/" +response.data.idTransporteur+"/offrestransporteur")
+      .then((resp) => {
+        this.long = resp.data.length;
+      });
+      })
+       
+    axios
+      .get("http://localhost:5000/api/offres/" +localStorage.getItem('idtransporteur')+"/offrestransporteur"
+      +"?page="+this.currentPage+"&quantityPage="+this.perPage
+      )
+      .then((resp) => {
+        this.offres = resp.data;
+      });
+      
+   },
     livrer(table){
  axios.put("http://localhost:5000/api/Offres/"+table.idOffre, {
               idOffre:table.idOffre,

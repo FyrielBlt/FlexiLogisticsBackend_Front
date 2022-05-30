@@ -329,7 +329,16 @@
                             u.idCamionNavigation.idchauffeurNavigation == null
                           "
                         >
-                          <span class="affect">Affecter chauffeur</span>
+                          <span class="
+                      inline-flex
+                      px-2
+                      text-xs
+                      font-semibold
+                      leading-5
+                      text-red-800
+                      bg-red-100
+                      rounded-full
+                    ">Affecter chauffeur</span>
                         </div>
                       </div>
                     </div>
@@ -459,7 +468,6 @@ export default {
       .then((resp) => (this.listcamions = resp.data));
     // liste trajets de ce transporteur
     axios;
-
     axios
       .get(
         "http://localhost:5000/api/Trajets/" +
@@ -685,9 +693,4 @@ export default {
   },
 };
 </script>
-<style>
-.affect {
-  font-weight: bold;
-  color: red;
-}
-</style>
+
