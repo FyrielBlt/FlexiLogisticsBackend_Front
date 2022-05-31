@@ -1,9 +1,10 @@
 <template>
   <div>
-                          <span class="text-green-500 flex justify-center" >
-    <button @click="open = true">
-<i class="bi bi-box2-heart-fill"></i>    </button>
-                          </span>
+    <span class="text-blue-500 flex justify-center">
+      <button @click="open = true">
+        <i class="bi bi-box2-heart-fill"></i>
+      </button>
+    </span>
     <div
       :class="`modal ${
         !open && 'opacity-0 pointer-events-none'
@@ -35,59 +36,72 @@
         </div>
 
         <!-- Add margin if you want to see some of the overlay behind the modal-->
-        <div class="px-6 py-4 text-left modal-content">
-          <!--Title-->
-          <div class="flex items-center justify-between pb-3">
-            <p class="text-2xl font-bold">Suggestion offre</p>
-          </div>
+       
+        <div class="px-6 py-4 text-center modal-content">
+
+            <p class="text-2xl font-bold ">Suggestion offre</p>
+        
 
           <!--Body-->
-          <div class="mt-8 animate__animated animate__fadeInDown">
-            <div class="mt-4">
-              <div class="p-6 bg-white rounded-md shadow-md">
-                <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-                  <form @submit.prevent="ajouterOffre">
-                    <div>
-                      <label class="text-gray-700" for="username"
-                        >Description</label
-                      >
-                      <textarea
-                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                        type="text"
+          
+                   <form @submit.prevent="ajouterOffre">
+      
+                   <div class="relative block mt-2 sm:mt-0">
+<span> Description offre :</span>
+                <textarea
+class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  :class="[
+                    description === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"                           type="text"
                         v-model="description"
                         required
                       />
-                    </div>
-                    <div>
-                      <label class="text-gray-700" for="username">Prix</label>
-                      <input
-                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                        type="number"
+               
+              </div>
+                     <div class="relative block mt-2 sm:mt-0">
+                       <span>Prix demandé :</span>
+                  <input
+                    class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  :class="[
+                   prix=== ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"                        type="number"
                         v-model="prix"
                         required
                       />
-                    </div>
+                
+              </div>
+                    <div class="relative block mt-2 sm:mt-0">
+                  <span>Date livraison : </span>
+                <input
+                    type="datetime-local"
+                     class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  :class="[
+                   offre === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"
+                    width="300px"  
+                    v-model="offre"
+                    :min="this.today"
+                    required
+                  />
+               
+               
+              </div>
+                                  <div class="relative block mt-2 sm:mt-0">
 
-                    <div>
-                      <label class="text-gray-700" for="passwordConfirmation">
-                        Date de livraison
-                      </label>
-                      <input
-                        type="datetime-local"
-                        width="300px"
-                        v-model="offre"
-                        :min="this.today"
-                        requied
-                      />
-                    </div>
-                    <div>
-                      <input
+                     <input
                         type="file"
                         id="image"
                         multiple="multiple"
                         @change="FileSelected($event)"
                       />
-                    </div>
+                      </div>
+                   
                     <div class="flex justify-end mt-4">
                       <button
                         class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
@@ -96,14 +110,15 @@
                       </button>
                     </div>
                   </form>
+
+
+
+
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
+       
 </template>
 <script>
 import axios from "axios";
@@ -159,11 +174,9 @@ export default {
       location.replace("demandechauffeur");
     },
     FileSelected(event) {
-     
       this.imageFile = event.target.files;
       console.log(this.imageFile[0]);
-            console.log(this.imageFile[1]);
-
+      console.log(this.imageFile[1]);
     },
     ajouterOffre() {
       if (this.description != "" && this.prix != "" && this.offre != "") {
@@ -196,14 +209,14 @@ export default {
                 new Date().getDate(),
             })
             .then((resp) => {
-             for (let i = 0; i < this.imageFile.length; i++) {
-              let user = new FormData();
-              user.append("idOffre", resp.data.idOffre);
-              user.append("nomFile", "");
-              user.append("imageFile", this.imageFile[i]);
-              user.append("srcOffreFile", "");
-              axios.post("http://localhost:5000/api/FileOffres", user)
-             }
+              for (let i = 0; i < this.imageFile.length; i++) {
+                let user = new FormData();
+                user.append("idOffre", resp.data.idOffre);
+                user.append("nomFile", "");
+                user.append("imageFile", this.imageFile[i]);
+                user.append("srcOffreFile", "");
+                axios.post("http://localhost:5000/api/FileOffres", user);
+              }
               axios.put(
                 "http://localhost:5000/api/DemandeDevis/" +
                   this.tabledemande.idDemandeDevis,
@@ -217,9 +230,7 @@ export default {
                 }
               );
 
-              this.close()
-
-             
+               this.close();
             });
         });
       }

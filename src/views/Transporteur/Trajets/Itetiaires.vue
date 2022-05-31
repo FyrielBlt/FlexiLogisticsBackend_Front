@@ -45,18 +45,17 @@
           <span class="text-sm">(Esc)</span>
         </div>
 
-        <div class="px-6 py-4 text-left modal-content ">
-          <div class="flex items-center justify-between pb-3">
-            <p class="text-2xl font-bold">Ajouter Ville</p>
-          </div>
+        <div class="px-6 py-4 text-center modal-content ">
+            <p  v-if="this.villesshown.length>0" class="text-2xl font-bold">Ajouter ville </p>
+            <p  v-if="this.villesshown.length==0" class="text-blue-700">Tout les villes sont déja ajoutés </p>
           <div class="mt-8">
             <div class="mt-4">
-              <div class="p-6 bg-white rounded-md shadow-md">
-                <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-                  <form @submit.prevent="ajouterTrajet">
-                    <div>
-                      <label class="text-gray-700" for="passwordConfirmation"
-                        >ctr selection multiple
+             
+                  <center>
+ <form   v-if="this.villesshown.length>0"  @submit.prevent="ajouterTrajet"  >
+                    
+                      <label class="text-blue-700" for="passwordConfirmation"
+                        >ctr pour selection multiple
                       </label>
                       <select
                         v-model="ville"
@@ -72,7 +71,7 @@
                           {{ column.nomVille }}
                         </option>
                       </select>
-                    </div>
+                
                     <div class="flex justify-end mt-4">
                       <button
                         class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
@@ -81,8 +80,9 @@
                       </button>
                     </div>
                   </form>
-                </div>
-              </div>
+                  </center>
+                 
+              
             </div>
           </div>
         </div>
@@ -137,7 +137,8 @@
                     Settings
                   </th>
                   <th
-                    class="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200"
+                    class="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600
+                     uppercase bg-gray-100 border-b-2 border-gray-200"
                   >
                     <form
                       @submit.prevent="supprimerville(u)"
@@ -156,7 +157,7 @@
           focus:outline-none
            animate__animated animate__shakeX animate__delay-1s
         " style="position: absolute;
-    right: 600px;
+         right: 600px;
     top: 40px;
     height: 62px;">
                           <svg
@@ -240,14 +241,13 @@ export default {
     return {
       open: false,
       inteneraires: [],
-      currentPage:1,
-      perPage:5,
       checked: [],
       total: "",
-
+        currentPage:1,
+      perPage:5,
       villes: [],
-
-      villesshown: [],
+villesshown:[],
+long:'',
     };
   },
   created() {
@@ -299,7 +299,7 @@ export default {
             this.perPage
         )
         .then((response) => {
-          this.villesshown = response.data;
+          this.inteneraires = response.data;
         })
         .catch((error) => console.log(error));
     },
@@ -318,6 +318,7 @@ export default {
             axios
               .delete("http://localhost:5000/api/Itineraires/" + element)
               .then(() => {
+                this.checked='',
                 this.reload();
               });
           });

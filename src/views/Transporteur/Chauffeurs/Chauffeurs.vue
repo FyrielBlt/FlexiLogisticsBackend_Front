@@ -46,77 +46,209 @@
           <span class="text-sm">(Esc)</span>
         </div>
 
-        <div class="px-6 py-4 text-left modal-content">
-          <div class="flex items-center justify-between pb-3">
+        <div class="px-6 py-4 text-center modal-content">
             <p class="text-2xl font-bold">Ajouter Chauffeur</p>
-          </div>
-          <div class="mt-8 ">
-            <div class="mt-4">
-              <div class="p-6 bg-white rounded-md shadow-md">
-                <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+          
                   <form @submit.prevent="ajouterChauffeur">
                     <div>
-                      <label class="text-gray-700" for="image"
-                        >Photo de Profil</label
-                      >
-                      <input
-                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                        id="image"
-                        type="file"
-                        accept="image/png, image/gif, image/jpeg"
-                        required
-                        @change="FileSelected($event)"
-                      />
+                        <input
+                  
+                    class="
+                    w-full
+                    mt-2
+                    border-gray-200
+                    rounded-md
+                    focus:border-indigo-600
+                    focus:ring
+                    focus:ring-opacity-40
+                    focus:ring-indigo-500
+                  " id="image" name="image" type="file" @change="FileSelected($event)"
+                   style="display:none;" />
+           <label for="image" class="relative group">
+            <img width="50" length="50" :src="this.imageprevesoire" alt="Image Profil" />
+            <div
+              class="opacity-0 group-hover:opacity-70 duration-300 absolute 
+              inset-x-0 bottom-0 flex justify-center items-end text-xl bg-black
+               text-white font-semibold"
+              >Changer</div>
+
+          </label>
                     </div>
-                    <div>
-                      <label class="text-gray-700" for="username">nom</label>
-                      <input
-                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                        type="text"
-                        v-model="nom"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label class="text-gray-700" for="username">prenom</label>
-                      <input
-                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                        type="text"
-                        v-model="prenom"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label class="text-gray-700" for="username">cin</label>
-                      <input
-                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                        type="text"
-                        v-model="cinchauffeur"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label class="text-gray-700" for="emailAddress"
-                        >email</label
-                      >
-                      <input
-                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                        type="email"
-                        v-model="email"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label class="text-gray-700" for="password"
-                        >motdepasse</label
-                      >
-                      <input
-                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                        type="text"
-                        v-model="password"
-                        required
-                      />
-                    </div>
+                   <div class="relative block mt-2 sm:mt-0">
+
+                <span class="absolute flex items-center pl-1 py-3">
+                  <svg
+                    v-if="nom != ''"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-check-lg bg-green-500 rounded-r rounded-l"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"
+                    />
+                  </svg>
+                  <svg
+                    v-else
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-exclamation-lg bg-red-500 rounded-r rounded-l"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0L7.005 3.1ZM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
+                    />
+                  </svg>
+                </span>
+
+                <input
+                  id="nom"
+                  required
+                  placeholder="Nom"
+                  class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  :class="[
+                    nom === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"
+                  v-model="nom"
+                />
+              </div>
+                     <div class="relative block mt-2 sm:mt-0">
+
+                <span class="absolute flex items-center pl-1 py-3">
+                  <svg
+                    v-if="prenom!= ''"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-check-lg bg-green-500 rounded-r rounded-l"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"
+                    />
+                  </svg>
+                  <svg
+                    v-else
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-exclamation-lg bg-red-500 rounded-r rounded-l"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0L7.005 3.1ZM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
+                    />
+                  </svg>
+                </span>
+
+                <input
+                required
+                  placeholder="Prénom"
+                  class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  :class="[
+                    prenom === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"
+                  v-model="prenom"
+                />
+              </div>
+                    <div class="relative block mt-2 sm:mt-0">
+
+                <span class="absolute flex items-center pl-1 py-3">
+                  <svg
+                    v-if="cinchauffeur != ''"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-check-lg bg-green-500 rounded-r rounded-l"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"
+                    />
+                  </svg>
+                  <svg
+                    v-else
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-exclamation-lg bg-red-500 rounded-r rounded-l"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0L7.005 3.1ZM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
+                    />
+                  </svg>
+                </span>
+
+                <input
+                  placeholder="Numéro cin"
+                  required
+                  class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  :class="[
+                    cinchauffeur === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"
+                  v-model="cinchauffeur"
+                />
+              </div>
+                    <div class="relative block mt-2 sm:mt-0">
+
+                <span class="absolute flex items-center pl-1 py-3">
+                  <svg
+                    v-if="email != ''"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-check-lg bg-green-500 rounded-r rounded-l"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"
+                    />
+                  </svg>
+                  <svg
+                    v-else
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-exclamation-lg bg-red-500 rounded-r rounded-l"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0L7.005 3.1ZM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
+                    />
+                  </svg>
+                </span>
+
+                <input
+                type="email"
+                required
+                  placeholder="email"
+                  class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  :class="[
+                    email === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"
+                  v-model="email"
+                />
+              </div>
+                   
                     <div class="flex justify-end mt-4">
                       <button
                         class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
@@ -130,12 +262,8 @@
                 
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          
    <!-- Add end / import begin-->
-    <Breadcrumb breadcrumb="Blank" />
     <div class="mt-8 ">
       <div class="mt-6">
         <div class="flex flex-col mt-3 text-center sm:flex-row ">
@@ -235,9 +363,14 @@
                   >
                     <div class="flex items-center">
                       <div class="flex-shrink-0 w-10 h-10">
-                        <img
+                        <img v-if="u.imageSrc!=null"
                           class="w-full h-full rounded-full"
                           :src="u.imageSrc"
+                          alt="profile pic"
+                        />
+                         <img v-else
+                          class="w-full h-full rounded-full"
+                          src="http://localhost:5000/File/Image/modelphoto.jpg"
                           alt="profile pic"
                         />
                       </div>
@@ -260,34 +393,27 @@
                     </p>
                   </td>
 
+                 
                   <td
                     class="px-5 py-5 text-sm bg-white border-b border-gray-200"
                   >
-                    <div class="flex justify-around">
-                      <span class="text-yellow-500 flex justify-center">
+                      <span class="text-black-500 flex " >
                         <modal-layout-chauffeur-update
                           :userss="u"
                         ></modal-layout-chauffeur-update>
                         <form
                           @submit.prevent="supprimerchauffeur(u.idchauffeur)"
                         >
-                          <button class="mx-2 px-2 rounded-md">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              class="h-5 w-5 text-red-700"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                clip-rule="evenodd"
-                              />
-                            </svg>
+                           <span class="text-orange-500 flex justify-center">
+                     <button
+                            class="mx-2 px-2 rounded-md"
+                          >
+                         <i class="bi bi-trash3-fill"></i>
                           </button>
+                           </span>
                         </form>
+                          
                       </span>
-                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -328,7 +454,8 @@ export default {
     return {
       open: ref(false),
       chauffeurs: [],
-      imageFile: null,
+      imageFile:'',
+      imageprevesoire:"http://localhost:5000/File/Image/modelphoto.jpg",
       camions: [],
       image: "",
       currentPage: 1,
@@ -396,7 +523,6 @@ export default {
           })
           .catch((error) => console.log(error));
       });
-    // inserer dans iduser le dernier id d'un user dans la BD
   },
   methods: {
     close() {
@@ -427,7 +553,12 @@ export default {
     },
     FileSelected(event) {
       this.imageFile = event.target.files[0];
-      console.log(this.imageFile);
+      if(this.imageFile!=null){
+        this.imageprevesoire=URL.createObjectURL(this.imageFile)
+      }
+      else{
+        this.imageprevesoire="http://localhost:5000/File/Image/modelphoto.jpg"
+      }
     },
     searchfunction(mot) {
       axios
@@ -533,13 +664,14 @@ export default {
         this.prenom != "" &&
         this.email != "" &&
         this.cinchauffeur != "" &&
-        this.password != ""
+        this.password != "" &&
+        this.imageFile!=''
       ) {
         let user = new FormData();
         user.append("nom", this.nom);
         user.append("prenom", this.prenom);
         user.append("email", this.email);
-        user.append("motdepasse", this.password);
+        user.append("motdepasse",'chauffeur');
         user.append("societe", localStorage.getItem("societe"));
         user.append("image", "");
         user.append("ImageFile", this.imageFile);
@@ -562,6 +694,11 @@ export default {
           showConfirmButton: false,
           timer: 2000,
         });
+                    this.nom='',
+                    this.prenom='',
+                    this.cinchauffeur='',
+                    this.email='',
+                    this.imageFile="http://localhost:5000/File/Image/modelphoto.jpg"
                     this.close();
                   })
                   .catch(() => {
@@ -592,6 +729,7 @@ export default {
               });
           
       } 
+      
     },
   },
 };

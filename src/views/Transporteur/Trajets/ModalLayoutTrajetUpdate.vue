@@ -1,11 +1,11 @@
 <template>
   <div>
     <!-- Breadcrumb -->
-    <Breadcrumb breadcrumb="Modal" />
-    <button @click="open = true" class="mx-2 px-2 rounded-md">
-      <svg
+      <span class="text-blue-500 flex justify-center">
+      <button @click="open = true">
+          <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="h-5 w-5 text-green-700"
+        class="h-5 w-5 text-blue-700"
         viewBox="0 0 20 20"
         fill="currentColor"
       >
@@ -18,7 +18,10 @@
           clip-rule="evenodd"
         />
       </svg>
-    </button>
+      </button>
+    </span>
+     
+
     <div
       :class="`modal ${
         !open && 'opacity-0 pointer-events-none'
@@ -49,89 +52,74 @@
           <span class="text-sm">(Esc)</span>
         </div>
 
-        <!-- Add margin if you want to see some of the overlay behind the modal-->
-        <div class="px-6 py-4 text-left modal-content">
-          <!--Title-->
-          <div class="flex items-center justify-between pb-3">
-            <p class="text-2xl font-bold">Modifier Trajet</p>
-          </div>
-          <!--Body-->
-          <div class="mt-8">
-            <div class="mt-4">
-              <div class="p-6 bg-white rounded-md shadow-md">
-                <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-                  <div>
-                     <form @submit.prevent="ModifierTrajet" >
-                       
-                   
- <div>
-                  <label class="text-gray-700" for="passwordConfirmation"
-                    >ville départ
-                  </label>
-                  <select
-                    class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+        <div class="px-6 py-4 text-center modal-content">
+            <p class="text-2xl font-bold">Modifier Trajet </p>
+          
+                  <form @submit.prevent="ModifierTrajet">
+      
+                   <div class="relative block mt-2 sm:mt-0">
+<span> Ville depart :</span>
+              <select
+               class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  :class="[
+                    trajettable.idVille1 === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"
                   >
                     <option selected disabled>
-                      {{ trajettable.idVille1}}
+                      {{ trajettable.idVille1Navigation.nomVille}}
                     </option>
                   </select>
-                </div>
-                 <div>
-                  <label class="text-gray-700" for="passwordConfirmation"
-                    >Destination 
-                  </label>
-                  <select
-                    class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                  >
+               
+              </div>
+                     <div class="relative block mt-2 sm:mt-0">
+
+                 <select
+ class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  :class="[
+                    prenom === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"                  >
                      <option selected disabled>
-                      {{ trajettable.idVille2}}
+                      {{ trajettable.idVille2Navigation.nomVille}}
                     </option>
                   </select>
-                </div>
-                <div>
-                  <label class="text-gray-700" for="passwordConfirmation"
-                    >Date/heure
-                  </label>
-                  <br />
-                  <input
+                
+              </div>
+                    <div class="relative block mt-2 sm:mt-0">
+
+                <input
                     type="datetime-local"
+                     class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  :class="[
+                   dateheure === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"
                     width="300px"  
                     v-model="dateheure"
                     :min="this.today"
                     required
                   />
-                </div>
-                <div class="flex justify-end mt-4">
-                  <button
-                    class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
-                  >
-                    Save
-                  </button>
-                </div>
+               
+              </div>
+                    
+                   
+                    <div class="flex justify-end mt-4">
+                      <button
+                        class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+                      >
+                        Save
+                      </button>
+                    </div>
                   </form>
-                  </div>
                 </div>
 
-                <div v-if="this.error == true" class="px-4 py-2 -mx-3">
-                  <div class="mx-3">
-                    <span class="font-semibold text-red-500"
-                      >Date occupé</span
-                    >
-                  </div>
-                </div>
-                <div v-if="this.sucess == true" class="px-4 py-2 -mx-3">
-                  <div class="mx-3">
-                    <span class="font-semibold text-green-500"
-                      >Modifiaction Réussi</span
-                    >
-                  </div>
-                </div>
+                
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 <script>
@@ -153,7 +141,7 @@ export default {
          axios
         .get(
           "http://localhost:5000/api/Trajets/" +
-            localStorage.getItem("moncamion") +
+            this.trajettable.idCamion +
             "/camion" +
             "?date=" +
             this.dateheure.toString().substr(0,10)
@@ -176,10 +164,10 @@ else{
           .put(
             "http://localhost:5000/api/Trajets/" + this.trajettable.idTrajet,
             {
-                idTrajet:this.trajettable.idTrajet,
-              idVille1: this.trajettable.idVille1,
+             idTrajet:this.trajettable.idTrajet,
+             idVille1: this.trajettable.idVille1,
              idVille2: this.trajettable.idVille2,
-             idCamion: localStorage.getItem("moncamion"),
+             idCamion:this.trajettable.idCamion,
             date: this.dateheure.toString().substr(0,10),
              heurdepart:this.dateheure.toString().substr(11,16)
             }
@@ -193,7 +181,7 @@ else{
           showConfirmButton: false,
           timer: 2000,
         });
-            // location.replace("chauffeurs");
+             location.replace("trajets");
           })
           .catch((error) => console.log(error));
       }

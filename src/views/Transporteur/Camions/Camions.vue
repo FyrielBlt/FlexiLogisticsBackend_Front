@@ -15,6 +15,7 @@
         />
       </svg>
     </button>
+
     <div
       :class="`modal ${
         !open && 'opacity-0 pointer-events-none'
@@ -28,35 +29,57 @@
       <div
         class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md"
       >
-        <div class="px-6 py-4 text-left modal-content">
-          <div class="flex items-center justify-between pb-3">
-            <p class="text-2xl font-bold">Ajouter Camion</p>
-          </div>
-          <!--Body-->
-          <div class="mt-8">
-            <div class="mt-4">
-              <div class="p-6 bg-white rounded-md shadow-md">
-                <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+        <div
+          class="absolute top-0 right-0 z-50 flex flex-col items-center mt-4 mr-4 text-sm text-white cursor-pointer modal-close"
+        >
+          <svg
+            class="text-white fill-current"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+          >
+            <path
+              d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"
+            />
+          </svg>
+          <span class="text-sm">(Esc)</span>
+        </div>
+
+        <div class="px-6 py-4 text-center modal-content">
+            <p class="text-2xl font-bold">Ajouter camion</p>
+          
                   <form @submit.prevent="ajouterCamionfunction">
-                    <div>
-                      <label class="text-gray-700" for="username"
-                        >Code Véhicule</label
-                      >
-                      <input
-                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                        type="text"
+                    
+                   <div class="relative block mt-2 sm:mt-0">
+<span>Code véhicule :</span>
+               
+ <input
+ required
+ placeholder=""
+ class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  :class="[
+                    codevehicule === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"                        type="text"
                         v-model="codevehicule"
-                        required
+                        
                       />
-                      <div>
-                        <label class="text-gray-700" for="passwordConfirmation"
-                          >Chauffeur
-                        </label>
-                        <select
-                          v-model="cinchauffeur"
-                          class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+               
+              </div>
+                     <div class="relative block mt-2 sm:mt-0">
+<span>Cin chauffeur: </span>
+               <select
+                class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+
                           required
-                        >
+                          v-model="cinchauffeur"
+   :class="[
+                    cinchauffeur === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"                        >
                           <option
                             v-for="column in this.chauffeurscamions"
                             :key="column"
@@ -65,16 +88,23 @@
                             {{ column.cinchauffeur }}
                           </option>
                         </select>
-                      </div>
-                      <div>
-                        <label class="text-gray-700" for="passwordConfirmation"
-                          >Type
-                        </label>
-                        <select
+
+               
+              </div>
+                    <div class="relative block mt-2 sm:mt-0">
+
+                <span>Type camion :</span>
+
+                <select
+                 class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+
                           required
                           v-model="typecamion"
-                          class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                        >
+   :class="[
+                    typecamion === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"                        >
                           <option
                             v-for="column in this.typecamions"
                             :key="column"
@@ -83,24 +113,20 @@
                             {{ column.description }}
                           </option>
                         </select>
-                      </div>
-                      <div class="flex justify-end mt-4">
-                        <button
-                          type="submit"
-                          class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
-                        >
-                          Save
-                        </button>
-                      </div>
+              </div>
+                    
+                    <div class="flex justify-end mt-4">
+                      <button
+                        class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+                      >
+                        Save
+                      </button>
                     </div>
                   </form>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      
     <Breadcrumb breadcrumb="Blank" />
     <div  >
       <div class="mt-6">
@@ -317,25 +343,18 @@
                   <td
                     class="px-5 py-5 text-sm bg-white border-b border-gray-200"
                   >
-                    <span class="text-yellow-500 flex justify-center">
+                    <span class="text-black-500 flex ">
                       <modal-layout-camion-update
                         :camiontable="u"
                       ></modal-layout-camion-update>
                       <form @submit.prevent="supprimercamion(u.idcamion)">
-                        <button class="mx-2 px-2 rounded-md">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 text-red-700"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
+                        <span class="text-orange-500 flex justify-center">
+                     <button
+                            class="mx-2 px-2 rounded-md"
                           >
-                            <path
-                              fill-rule="evenodd"
-                              d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                              clip-rule="evenodd"
-                            />
-                          </svg>
-                        </button>
+                         <i class="bi bi-trash3-fill"></i>
+                          </button>
+                           </span>
                       </form>
                     </span>
                   </td>
@@ -449,7 +468,6 @@ export default {
 
   methods: {
     close() {
-    // liste camions de ce transporteur
     axios
       .get(
         "http://localhost:5000/api/Camions/" +
@@ -573,7 +591,7 @@ export default {
               axios
                 .delete("http://localhost:5000/api/Camions/" + id)
                 .then(() => {
-                 
+                 this.close()
                 });
             
         }

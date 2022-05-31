@@ -13,7 +13,7 @@
                       text-blue-800
                       bg-blue-100
                       rounded-full
-                    " v-if="u.idDemandeNavigation.fileDemandeLivraison.length > 0">Files</button>
+                    " v-if="u.idDemandeNavigation.fileDemandeLivraison.length > 0">Télécharger fichier</button>
 
     <button class="
                       inline-flex
@@ -25,7 +25,7 @@
                       bg-red-100
                       rounded-full
                     " v-else>
-      No Files</button>
+      Aucun fichier</button>
     <div :class="`modal ${!open && 'opacity-0 pointer-events-none'
     } z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center`">
       <div @click="open = false" class="absolute w-full h-full bg-gray-900 opacity-50 modal-overlay"
@@ -60,8 +60,15 @@
             <ul class="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
               <li v-for="file in u.idDemandeNavigation.fileDemandeLivraison" :key="file"
                 class="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg">{{ file.nomFile }}
+                <div class="w-0 flex-1 flex items-center">
+                <!-- Heroicon name: solid/paper-clip -->
+                <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd" />
+                </svg>
+                <span class="ml-2 flex-1 w-0 truncate">{{ file.nomFile }} </span>
+              </div>
                 <a :href="file.srcFile" class="bg-black ml-20 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                  Download
+                  Télécharger
                 </a>
               </li>
             </ul>

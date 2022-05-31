@@ -45,23 +45,23 @@
         </div>
 
         <!-- Add margin if you want to see some of the overlay behind the modal-->
-        <div class="px-6 py-4 text-left modal-content">
-          <!--Title-->
-          <div class="flex items-center justify-between pb-3">
-            <p class="text-2xl font-bold">Ajouter Trajet</p>
-          </div>
+        <div class="px-6 py-4 text-center modal-content">
+            <p class="text-2xl font-bold">Ajouter camion</p>
           <!--Body-->
-          <div class="mt-8">
-            <div class="mt-4">
-              <div class="p-6 bg-white rounded-md shadow-md">
-                <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-                  <form @submit.prevent="ajouterTrajet">
-                    <div>
-                      <label for="">Code vehicule</label>
-                      <select
+         
+                <form @submit.prevent="ajouterTrajet">
+                    
+                   <div class="relative block mt-2 sm:mt-0">
+<span>Code véhicule :</span>
+              <select
                         required
                         v-model="codevehicule"
-                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+                class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+ :class="[
+                    codevehicule === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]" 
                       >
                         <option
                           v-for="column in this.listcamions"
@@ -70,49 +70,67 @@
                         >
                           {{ column.codevehicule }}
                         </option>
-                      </select>
-                    </div>
-                    <div>
-                      <label class="text-gray-700" for="passwordConfirmation"
-                        >ville départ
-                      </label>
-                      <select
+                      </select>   
+ 
+               
+              </div>
+                     <div class="relative block mt-2 sm:mt-0">
+<span> Ville départ: </span>
+                <select
                         v-model="departadress"
                         required
-                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+                          class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+ :class="[
+                    departadress === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]" 
                       >
                         <option v-for="column in this.villes" :key="column">
                           {{ column.nomVille }}
                         </option>
                       </select>
-                    </div>
-                    <div>
-                      <label class="text-gray-700" for="passwordConfirmation"
-                        >Destination
-                      </label>
-                      <select
-                        required
+
+               
+              </div>
+                      <div class="relative block mt-2 sm:mt-0">
+<span>Destination: </span>
+                <select
                         v-model="Destination"
-                        class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+                        required
+                          class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+ :class="[
+                    Destination=== ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]" 
                       >
                         <option v-for="column in this.villes" :key="column">
                           {{ column.nomVille }}
                         </option>
                       </select>
-                    </div>
-                    <div>
-                      <label class="text-gray-700" for="passwordConfirmation"
-                        >Date/heure
-                      </label>
-                      <br />
-                      <input
+
+               
+              </div>
+                    <div class="relative block mt-2 sm:mt-0">
+
+                <span>Date arrive :</span>
+
+                <input
+                 class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+ :class="[
+                    dateheure=== ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]" 
                         required
                         type="datetime-local"
                         width="300px"
                         v-model="dateheure"
                         :min="this.today"
                       />
-                    </div>
+              </div>
+                    
                     <div class="flex justify-end mt-4">
                       <button
                         class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
@@ -121,20 +139,10 @@
                       </button>
                     </div>
                   </form>
-                </div>
-                <div class="px-4 py-2 -mx-3">
-                  <div class="mx-3">
-                    <span class="font-semibold text-red-500">{{
-                      this.error
-                    }}</span>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        
     <!-- Breadcrumb -->
     <Breadcrumb breadcrumb="Blank" />
     <div class="mt-8">
@@ -380,25 +388,19 @@
                   <td
                     class="px-5 py-5 text-sm bg-white border-b border-gray-200"
                   >
+                     <span class="text-black-500 flex ">
                     <modal-trajet-update :trajettable="u"></modal-trajet-update>
                     <form @submit.prevent="supprimertrajet(u.idTrajet)">
-                      <span class="text-yellow-500 flex justify-center">
-                        <button class="mx-2 px-2 rounded-md">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 text-red-700"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
+                         <span class="text-orange-500 flex justify-center">
+                     <button
+                            class="mx-2 px-2 rounded-md"
                           >
-                            <path
-                              fill-rule="evenodd"
-                              d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                              clip-rule="evenodd"
-                            />
-                          </svg>
-                        </button>
-                      </span>
+                         <i class="bi bi-trash3-fill"></i>
+                          </button>
+                           </span>
+                      
                     </form>
+                                      </span>
                   </td>
                 </tr>
               </tbody>

@@ -1,11 +1,11 @@
 <template>
   <div>
     <!-- Breadcrumb -->
-    <Breadcrumb breadcrumb="Modal" />
-    <button @click="open = true" class="mx-2 px-2 rounded-md">
-      <svg
+     <span class="text-blue-500 flex justify-center">
+      <button @click="open = true">
+          <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="h-5 w-5 text-green-700"
+        class="h-5 w-5 text-blue-700"
         viewBox="0 0 20 20"
         fill="currentColor"
       >
@@ -18,7 +18,8 @@
           clip-rule="evenodd"
         />
       </svg>
-    </button>
+      </button>
+    </span>
     <div
       :class="`modal ${
         !open && 'opacity-0 pointer-events-none'
@@ -50,38 +51,42 @@
         </div>
 
         <!-- Add margin if you want to see some of the overlay behind the modal-->
-        <div class="px-6 py-4 text-left modal-content">
-          <!--Title-->
-          <div class="flex items-center justify-between pb-3">
-            <p class="text-2xl font-bold">Modifier Camion</p>
-          </div>
-          <!--Body-->
-          <div class="mt-8">
-            <div class="mt-4">
-              <div class="p-6 bg-white rounded-md shadow-md">
-                <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-                  <div>
-                    <form @submit.prevent="modifierCamion">
-                      <div>
-                        <label class="text-gray-700" for="codevehicule"
-                          >Code Véhicule</label
-                        >
-                        <input
-                          class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                          type="text"
+        
+                 <div class="px-6 py-4 text-center modal-content">
+            <p class="text-2xl font-bold">Modifier Chauffeur</p>
+          
+                  <form @submit.prevent="modifierCamion">
+                   
+                   <div class="relative block mt-2 sm:mt-0">
+<span> Code vehicule :</span>
+                 <input
+
+ class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  :class="[
+                    this.camiontable.codevehicule === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"
+                                        type="text"
                           v-model="camiontable.codevehicule"
                         />
                       </div>
-                      <div>
-                        <label class="text-gray-700" for="passwordConfirmation"
-                          >Chauffeur</label
-                        >
-                        <select
+
+               
+        
+                     <div class="relative block mt-2 sm:mt-0">
+<span>Chauffeur :</span>
+               <select
                           v-if="camiontable.idchauffeurNavigation != null"
                           v-model="
                             camiontable.idchauffeurNavigation.idchauffeur
                           "
-                          class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+                          class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  :class="[
+                   camiontable.idchauffeurNavigation.idchauffeur === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"
                         >
                           <option
                             :value="
@@ -108,8 +113,12 @@
                         <select
                           v-if="camiontable.idchauffeurNavigation == null"
                           v-model="idchauffeurcamion"
-                          class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                        >
+class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  :class="[
+                    camiontable.idchauffeurNavigation=== ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"                        >
                           <option
                             v-if="this.chauffeurscamions.length == 0"
                             disabled
@@ -124,16 +133,19 @@
                             {{ column.cinchauffeur }}
                           </option>
                         </select>
-                      </div>
-                      <div>
-                        <label class="text-gray-700" for="passwordConfirmation"
-                          >Type camion
-                        </label>
 
-                        <select
+              
+              </div>
+                    <div class="relative block mt-2 sm:mt-0">
+<span>Type camion :</span>
+               <select
                           v-model="camiontable.idtypeNavigation.idType"
-                          class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                        >
+class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  :class="[
+                   camiontable.idtypeNavigation.idType === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"                        >
                           <option
                             v-for="column in this.typecamions"
                             :key="column"
@@ -142,25 +154,23 @@
                             {{ column.description }}
                           </option>
                         </select>
-                      </div>
-                      <div class="flex justify-end mt-4">
-                        <button
-                          type="submit"
-                          class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
-                        >
-                          Save
-                        </button>
-                      </div>
-                    </form>
-                  </div>
+               
+              </div>
+                    
+                   
+                    <div class="flex justify-end mt-4">
+                      <button
+                        class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
+      
 </template>
 <script>
 import axios from "axios";
@@ -303,8 +313,8 @@ export default {
           showConfirmButton: false,
           timer: 2000,
         });
-        // location.replace("camions");
-           // this.close();
+        location.replace("camions");
+        this.close();
           })
 
           .catch((error) => 
