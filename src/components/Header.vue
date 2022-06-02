@@ -68,6 +68,7 @@
 
     <div class="flex items-center">
       <div class="flex items-center">
+      
         <div class="relative">
           <button
             @click="notificationOpen = !notificationOpen"
@@ -94,7 +95,7 @@
             @click="notificationOpen = false"
             class="fixed inset-0 h-full w-full z-10"
           ></div>
-
+        
           <div
             v-show="notificationOpen"
             class="
@@ -110,6 +111,7 @@
             "
             style="width: 20rem"
           >
+
             <a
               href="#"
               class="
@@ -138,7 +140,9 @@
           </div>
         </div>
       </div>
-
+      <div class="relative">
+         {{ this.name+" " +this.prenom }}
+      </div>
       <div class="relative">
         <button
           @click="dropdownOpen = !dropdownOpen"
@@ -156,9 +160,8 @@
         >
           <img
             class="object-cover w-full h-full"
-            src="https://st.depositphotos.com/1005920/2667/i/600/depositphotos_26678809-stock-photo-logout-icon.jpg"
             alt="Your avatar"
-          />
+            :src="this.image"          />
         </button>
 
         <div
@@ -189,33 +192,7 @@
               shadow-xl
             "
           >
-            <a
-              href="/profil"
-              class="
-                px-4
-                py-2
-                flex
-                rounded-md
-                text-sm text-gray-700
-                hover:bg-indigo-600 hover:text-white
-              "
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 mr-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                />
-              </svg>
-              Profile</a
-            >
+           
 
             <a
               @click="logout()"
@@ -243,7 +220,7 @@
                   d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
                 />
               </svg>
-              Log out</a
+              Se déconnecter</a
             >
           </div>
         </transition>
@@ -266,10 +243,15 @@ export default defineComponent({
       isOpen: true,
       notificationOpen: ref(false),
       offres: [],
-      image: localStorage.getItem("image"),
+      name:localStorage.getItem('name'),
+      prenom:localStorage.getItem('prenom'),
+      image: localStorage.getItem("imagesrc"),
     };
   },
-  created() {},
+  created() {
+
+
+  },
   methods: {
     logout() {
   
@@ -289,6 +271,8 @@ export default defineComponent({
       localStorage.removeItem("id");
       localStorage.removeItem("idtransporteur");
       localStorage.removeItem("idRole");
+            localStorage.removeItem("imagesrc");
+
       router.push("/");
        
     },

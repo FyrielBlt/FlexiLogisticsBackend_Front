@@ -76,34 +76,6 @@
                     </div>
                    <div class="relative block mt-2 sm:mt-0">
 
-                <span class="absolute flex items-center pl-1 py-3">
-                  <svg
-                    v-if="nom != ''"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-check-lg bg-green-500 rounded-r rounded-l"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"
-                    />
-                  </svg>
-                  <svg
-                    v-else
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-exclamation-lg bg-red-500 rounded-r rounded-l"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0L7.005 3.1ZM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
-                    />
-                  </svg>
-                </span>
 
                 <input
                   id="nom"
@@ -120,34 +92,7 @@
               </div>
                      <div class="relative block mt-2 sm:mt-0">
 
-                <span class="absolute flex items-center pl-1 py-3">
-                  <svg
-                    v-if="prenom!= ''"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-check-lg bg-green-500 rounded-r rounded-l"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"
-                    />
-                  </svg>
-                  <svg
-                    v-else
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-exclamation-lg bg-red-500 rounded-r rounded-l"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0L7.005 3.1ZM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
-                    />
-                  </svg>
-                </span>
+               
 
                 <input
                 required
@@ -163,35 +108,7 @@
               </div>
                     <div class="relative block mt-2 sm:mt-0">
 
-                <span class="absolute flex items-center pl-1 py-3">
-                  <svg
-                    v-if="cinchauffeur != ''"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-check-lg bg-green-500 rounded-r rounded-l"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"
-                    />
-                  </svg>
-                  <svg
-                    v-else
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-exclamation-lg bg-red-500 rounded-r rounded-l"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0L7.005 3.1ZM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
-                    />
-                  </svg>
-                </span>
-
+              
                 <input
                   placeholder="Numéro cin"
                   required
@@ -206,34 +123,7 @@
               </div>
                     <div class="relative block mt-2 sm:mt-0">
 
-                <span class="absolute flex items-center pl-1 py-3">
-                  <svg
-                    v-if="email != ''"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-check-lg bg-green-500 rounded-r rounded-l"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"
-                    />
-                  </svg>
-                  <svg
-                    v-else
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-exclamation-lg bg-red-500 rounded-r rounded-l"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0L7.005 3.1ZM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
-                    />
-                  </svg>
-                </span>
+               
 
                 <input
                 type="email"
@@ -248,12 +138,30 @@
                   v-model="email"
                 />
               </div>
+                     <div class="relative block mt-2 sm:mt-0">
+
+              
+
+                <input
+                type="tel"
+                required
+                  placeholder="téléphone"
+                  class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  :class="[
+                    tel === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"
+                  v-model="tel"
+                />
+              </div>
                    
                     <div class="flex justify-end mt-4">
                       <button
+                      type="submit"
                         class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
                       >
-                        Save
+                        Ajouter
                       </button>
                     </div>
                   </form>
@@ -337,11 +245,15 @@
                   >
                     Email
                   </th>
-
+ <th
+                    class="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200"
+                  >
+                    Tel
+                  </th>
                   <th
                     class="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200"
                   >
-                    Settings
+                   Paramétres
                   </th>
                 </tr>
               </thead>
@@ -393,7 +305,13 @@
                     </p>
                   </td>
 
-                 
+                  <td
+                    class="px-5 py-5 text-sm bg-white border-b border-gray-200"
+                  >
+                    <p class="text-gray-900 whitespace-nowrap">
+                      {{ u.iduserNavigation.tel }}
+                    </p>
+                  </td>
                   <td
                     class="px-5 py-5 text-sm bg-white border-b border-gray-200"
                   >
@@ -442,7 +360,6 @@ import axios from "axios";
 import { ref } from "vue";
 // import Vue from "vue";
 // import VueSimpleAlert from "vue-simple-alert";
-
 import PaginationVue from "/src/components/Intermediaire/pagination/PaginationVue.vue";
 import ModalLayoutChauffeurUpdate from "/src/views/Transporteur/Chauffeurs/ModalLayoutChauffeurUpdate.vue";
 export default {
@@ -454,6 +371,7 @@ export default {
     return {
       open: ref(false),
       chauffeurs: [],
+      tel:'',
       imageFile:'',
       imageprevesoire:"http://localhost:5000/File/Image/modelphoto.jpg",
       camions: [],
@@ -636,7 +554,6 @@ export default {
                   }
                   
                   )
-
                 });
             }).catch(()=>
             // si non
@@ -650,10 +567,8 @@ export default {
           timer: 2000,
         })
                  this.close()
-
              }
             ))
-
           
         } 
       });
@@ -665,7 +580,8 @@ export default {
         this.email != "" &&
         this.cinchauffeur != "" &&
         this.password != "" &&
-        this.imageFile!=''
+        this.imageFile!='' &&
+        this.tel!=''
       ) {
         let user = new FormData();
         user.append("nom", this.nom);
@@ -674,6 +590,7 @@ export default {
         user.append("motdepasse",'chauffeur');
         user.append("societe", localStorage.getItem("societe"));
         user.append("image", "");
+        user.append("tel", this.tel);
         user.append("ImageFile", this.imageFile);
         user.append("ImageSrc", "");
         axios
@@ -686,6 +603,14 @@ export default {
                     Iduser: response.data.idUser,
                   })
                   .then(() => {
+                    this.nom=''
+                    this.prenom=''
+                    this.cinchauffeur=''
+                    this.tel=''
+                    this.email=''
+                                        this.imageFile=null
+
+                    this.imageprevesoire="http://localhost:5000/File/Image/modelphoto.jpg"
                     this.$swal({
           position: "top-end",
           icon: "success",
@@ -694,11 +619,82 @@ export default {
           showConfirmButton: false,
           timer: 2000,
         });
-                    this.nom='',
-                    this.prenom='',
-                    this.cinchauffeur='',
-                    this.email='',
-                    this.imageFile="http://localhost:5000/File/Image/modelphoto.jpg"
+                  
+                    this.close();
+                  })
+                  .catch(() => {
+                    this.$swal({
+          position: "top-end",
+          icon: "error",
+          toast: true,
+          title: "Cin existe",
+          showConfirmButton: false,
+          timer: 2000,
+        })
+                    // si l 'email est correct l'utilisateur sera stocké dans la table user meme si la cin
+                    //n'est pas unique dnc on doit le supprimer
+                    axios.delete(
+                      "http://localhost:5000/api/Users/" + response.data.idUser
+                    );
+                  });
+              })
+              .catch(() => {
+                this.$swal({
+          position: "top-end",
+          icon: "error",
+          toast: true,
+          title: "Email utilisé",
+          showConfirmButton: false,
+          timer: 2000,
+        })
+              });
+          
+      } 
+       if (
+        this.nom != "" &&
+        this.prenom != "" &&
+        this.email != "" &&
+        this.cinchauffeur != "" &&
+        this.password != "" &&
+        this.imageFile=='' &&
+        this.tel!=''
+      ) {
+        let user = new FormData();
+        user.append("nom", this.nom);
+        user.append("prenom", this.prenom);
+        user.append("email", this.email);
+        user.append("motdepasse",'chauffeur');
+        user.append("societe", localStorage.getItem("societe"));
+        user.append("image", "");
+        user.append("tel", this.tel);
+        user.append("ImageFile",null);
+        user.append("ImageSrc", "");
+        axios
+          .post("http://localhost:5000/api/Users", user,)
+          .then((response) => { 
+                axios
+                  .post("http://localhost:5000/api/Chauffeurs/" + this.email, {
+                    Cinchauffeur: this.cinchauffeur,
+                    Idsociete: localStorage.getItem("societe"),
+                    Iduser: response.data.idUser,
+                  })
+                  .then(() => {
+                    this.nom=''
+                    this.prenom=''
+                    this.cinchauffeur=''
+                    this.tel=''
+                    this.email=''
+                    this.imageFile=null
+                    this.imageprevesoire="http://localhost:5000/File/Image/modelphoto.jpg"
+                    this.$swal({
+          position: "top-end",
+          icon: "success",
+          toast: true,
+          title: "Chauffeur ajouté",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+                  
                     this.close();
                   })
                   .catch(() => {

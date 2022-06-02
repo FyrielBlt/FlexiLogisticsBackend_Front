@@ -293,7 +293,7 @@
 
             <input
             v-model="searchby"
-              placeholder="prix/num offre/num demande"
+              placeholder="num offre/num demande"
               class="
                 block
                 w-full
@@ -469,7 +469,7 @@
                   border-b-2 border-gray-200
                 "
               >
-                Settings
+                 Paramétres
               </th>
             </tr>
           </thead>

@@ -1,12 +1,8 @@
 <template>
   <div class="w-full border-t-2 px-8 py-3 lg:flex justify-between items-center">
-    <p class="mb-2 lg:mb-0">© ISET DJERBA 2022</p>
+    <p class="mb-2 lg:mb-0">© {{new Date().toISOString().substr(0, 10)}}</p>
 
-    <div class="flex">
-      <a href="#" class="mr-6 hover:text-gray-900">Feryel</a>
-      <a href="#" class="mr-6 hover:text-gray-900">Karim</a>
-      <a href="#" class="hover:text-gray-900">Malek </a>
-    </div>
+   
   </div>
 </template>
 

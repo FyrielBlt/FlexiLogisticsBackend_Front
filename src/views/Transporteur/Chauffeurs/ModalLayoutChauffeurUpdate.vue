@@ -51,7 +51,6 @@
           </svg>
           <span class="text-sm">(Esc)</span>
         </div>
-
         <div class="px-6 py-4 text-center modal-content">
             <p class="text-2xl font-bold">Modifier Chauffeur</p>
           
@@ -89,34 +88,7 @@
                     </div>
                    <div class="relative block mt-2 sm:mt-0">
 
-                <span class="absolute flex items-center pl-1 py-3">
-                  <svg
-                    v-if="this.userss.iduserNavigation.nom != ''"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-check-lg bg-green-500 rounded-r rounded-l"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"
-                    />
-                  </svg>
-                  <svg
-                    v-else
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-exclamation-lg bg-red-500 rounded-r rounded-l"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0L7.005 3.1ZM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
-                    />
-                  </svg>
-                </span>
+                                     <span>Nom </span>
 
                 <input
                   id="nom"
@@ -133,38 +105,13 @@
               </div>
                      <div class="relative block mt-2 sm:mt-0">
 
-                <span class="absolute flex items-center pl-1 py-3">
-                  <svg
-                    v-if="userss.iduserNavigation.prenom!= ''"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-check-lg bg-green-500 rounded-r rounded-l"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"
-                    />
-                  </svg>
-                  <svg
-                    v-else
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-exclamation-lg bg-red-500 rounded-r rounded-l"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0L7.005 3.1ZM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
-                    />
-                  </svg>
-                </span>
+                <div class="relative block mt-2 sm:mt-0">
+
+                                     <span>Prenom </span>
 
                 <input
-                required
-                  placeholder="Prénom"
+                  id="prenom"
+                  required
                   class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                   :class="[
                     prenom === ''
@@ -174,37 +121,7 @@
                   v-model="userss.iduserNavigation.prenom"
                 />
               </div>
-                    <div class="relative block mt-2 sm:mt-0">
-
-                <span class="absolute flex items-center pl-1 py-3">
-                  <svg
-                    v-if="this.userss.cinchauffeur != ''"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-check-lg bg-green-500 rounded-r rounded-l"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"
-                    />
-                  </svg>
-                  <svg
-                    v-else
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-exclamation-lg bg-red-500 rounded-r rounded-l"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0L7.005 3.1ZM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
-                    />
-                  </svg>
-                </span>
-
+              <span>Numéro cin : </span>
                 <input
                   placeholder="Numéro cin"
                   required
@@ -219,35 +136,7 @@
               </div>
                     <div class="relative block mt-2 sm:mt-0">
 
-                <span class="absolute flex items-center pl-1 py-3">
-                  <svg
-                    v-if="this.userss.iduserNavigation.email != ''"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-check-lg bg-green-500 rounded-r rounded-l"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"
-                    />
-                  </svg>
-                  <svg
-                    v-else
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-exclamation-lg bg-red-500 rounded-r rounded-l"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0L7.005 3.1ZM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
-                    />
-                  </svg>
-                </span>
-
+               <span> Email : </span>
                 <input
                 type="email"
                 required
@@ -261,7 +150,22 @@
                   v-model="userss.iduserNavigation.email"
                 />
               </div>
-                   
+                   <div class="relative block mt-2 sm:mt-0">
+
+                                     <span>Tel: </span>
+
+                <input
+                  id="tel"
+                  required
+                  class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                  :class="[
+                    nom === ''
+                      ? ' focus:bg-red-100  focus:border-red-800 '
+                      : ' focus:bg-green-100  focus:border-green-800 ',
+                  ]"
+                  v-model="userss.iduserNavigation.tel"
+                />
+              </div> 
                     <div class="flex justify-end mt-4">
                       <button
                         class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
@@ -330,6 +234,7 @@ export default {
       user.append("Email", this.userss.iduserNavigation.email);
       user.append("motdepasse",this.userss.iduserNavigation.motdepasse);
       user.append("image", this.userss.iduserNavigation.image);
+            user.append("tel", this.userss.iduserNavigation.tel);
       user.append("ImageFile", this.imageFile);
       user.append("ImageSrc", "");
       axios

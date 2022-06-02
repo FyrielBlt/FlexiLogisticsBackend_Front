@@ -335,6 +335,7 @@ export default {
     return {
       Profil: [],
       nom: "",
+      reslt:false,
       prenom: "",
       email: "",
       tel: "",
@@ -375,7 +376,7 @@ export default {
     Modifier() {
       Swal.fire({
         title: "Entrer Ancien mot de passe pour continuer",
-        input: "text",
+        input: "password",
         inputAttributes: {
           autocapitalize: "off",
         },
@@ -403,11 +404,9 @@ export default {
                 axios
                   .put(
                     "http://localhost:5000/api/Users/" + this.idUser,
-                    user,
-                    {}
+                    user
                   )
-                  .then((response) => {
-                    console.log(res.data);
+                  .then((res) => {
                     this.user = res.data;
                     this.nom = res.data.nom;
                     this.prenom = res.data.prenom;
@@ -417,69 +416,27 @@ export default {
                     this.password = "";
                     this.cpassword = "";
                     this.tel = res.data.tel;
-                    if (!response.ok) {
-                      throw new Error(response.statusText);
-                    }
-                    return response.json();
+                     this.$swal({
+            position: "top-end",
+            icon: "success",
+            toast: true,
+            title: "Profil Modifié",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+                  }).catch(()=>{
+           this.$swal({
+          position: "top-end",
+          icon: "error",
+          toast: true,
+          title: "Un compte utilisateur déja créer avec cette adress mail",
+          showConfirmButton: false,
+          timer: 2000,
+        });
                   })
-                  .catch((error) => {
-                      this.$swal({
-          position: "top-end",
-          icon: "error",
-          toast: true,
-          title: "Un compte utilisateur déja créer avec cette adress mail",
-          showConfirmButton: false,
-          timer: 2000,
-        });
-                  });
+                 
               }
-            } else if (this.password == "") {
-              let user = new FormData();
-              user.append("idUser", this.idUser);
-              user.append("Nom", this.nom);
-              user.append("Prenom", this.prenom);
-              user.append("Email", this.email);
-              user.append("societe", localStorage.getItem("societe"));
-              user.append("motdepasse", this.motdepasse);
-              user.append("image", this.Profil.image);
-              user.append("tel", this.tel);
-
-              user.append("ImageFile", this.imageFile);
-              user.append("ImageSrc", "");
-              axios
-                .put("http://localhost:5000/api/Users/" + this.idUser, user, {})
-                .then((response) => {
-                  console.log(res.data);
-                  this.user = res.data;
-                  this.nom = res.data.nom;
-                  this.prenom = res.data.prenom;
-                  this.email = res.data.email;
-                  this.image = res.data.imageSrc;
-                  this.imageFile = "";
-                  this.password = "";
-                  this.cpassword = "";
-                  this.tel = res.data.tel;
-                  if (!response.ok) {
-                    throw new Error(response.statusText);
-                  }
-                  return response.json();
-                })
-                .catch((error) => {
-                 this.$swal({
-          position: "top-end",
-          icon: "error",
-          toast: true,
-          title: "Un compte utilisateur déja créer avec cette adress mail",
-          showConfirmButton: false,
-          timer: 2000,
-        });
-                });
-            }
-          }
-        },
-        allowOutsideClick: () => !Swal.isLoading(),
-      }).then((result) => {
-        if (
+               if (
           this.password != this.cpassword &&
           this.password != this.motdepasse
         ) {
@@ -491,8 +448,35 @@ export default {
             showConfirmButton: false,
             timer: 2000,
           });
-        } else if (result.value == this.motdepasse) {
-          this.$swal({
+            }
+         
+          }
+            else if (this.password == "") {
+              let user = new FormData();
+              user.append("idUser", this.idUser);
+              user.append("Nom", this.nom);
+              user.append("Prenom", this.prenom);
+              user.append("Email", this.email);
+              user.append("societe", localStorage.getItem("societe"));
+              user.append("motdepasse", this.motdepasse);
+              user.append("image", this.Profil.image);
+              user.append("tel", this.tel);
+              user.append("ImageFile", this.imageFile);
+              user.append("ImageSrc", "");
+              axios
+                .put("http://localhost:5000/api/Users/" + this.idUser, user)
+                .then((res) => {
+                  console.log(res.data);
+                  this.user = res.data;
+                  this.nom = res.data.nom;
+                  this.prenom = res.data.prenom;
+                  this.email = res.data.email;
+                  this.image = res.data.imageSrc;
+                  this.imageFile = "";
+                  this.password = "";
+                  this.cpassword = "";
+                  this.tel = res.data.tel;
+                   this.$swal({
             position: "top-end",
             icon: "success",
             toast: true,
@@ -500,19 +484,36 @@ export default {
             showConfirmButton: false,
             timer: 2000,
           });
-        } else {
+                 
+                }).catch(()=>{
+                    this.$swal({
+          position: "top-end",
+          icon: "error",
+          toast: true,
+          title: "Un compte utilisateur déja créer avec cette adress mail",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+                })
+                
+            }
+      
+       // allowOutsideClick: () => !Swal.isLoading(),
+          }
+          else if (login!=this.motdepasse) {
           this.$swal({
-            position: "top-end",
-            icon: "error",
-            toast: true,
-            title: "Ancien mot de passe incorrecte!",
-            showConfirmButton: false,
-            timer: 2000,
-          });
-        }
-      });
-    },
-  },
+          position: "top-end",
+          icon: "error",
+          toast: true,
+          title: "Ancien mot de passe incorrecte",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+          }
+      }
+      })}
+  }
+  ,
   watch: {
     cpassword() {
       if (this.password != "" && this.cpassword == "") {
@@ -527,6 +528,7 @@ export default {
         }
       }
     },
-  },
+  }
+    
 };
 </script>
