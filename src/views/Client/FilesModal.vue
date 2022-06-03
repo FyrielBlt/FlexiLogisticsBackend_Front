@@ -3,26 +3,30 @@
     <!-- Breadcrumb -->
     <Breadcrumb breadcrumb="Modal" />
 
-    <button @click="open = true" class="
-                    bg-blue-500
-                    hover:bg-blue-700
-                    text-white
-                    font-bold
-                    py-2
-                    px-4
-                    rounded
-                  " v-if="u.fileDemandeLivraison.length > 0">Files</button>
+    <button @click="open = true" c class="
+                      inline-flex
+                      px-2
+                      text-xs
+                      font-semibold
+                      leading-5
+                      text-blue-800
+                      bg-blue-100
+                                            border-8 border-blue-600 
 
-    <button class="
-                    bg-red-500
-                    hover:bg-red-700
-                    text-white
-                    font-bold
-                    py-2
-                    px-4
-                    rounded
-                  " v-else>
-      No Files</button>
+                    " v-if="u.fileDemandeLivraison.length > 0">Télécharger</button>
+
+    <button  class="
+                      inline-flex
+                      px-2
+                      text-xs
+                      font-semibold
+                      leading-5
+                      text-red-800
+                      bg-red-100
+                                            border-8 border-red-600 
+
+                    " v-else>
+      0 fichier</button>
     <div :class="`modal ${!open && 'opacity-0 pointer-events-none'
     } z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center`">
       <div @click="open = false" class="absolute w-full h-full bg-gray-900 opacity-50 modal-overlay"
@@ -66,7 +70,7 @@
                 <span class="ml-2 flex-1 w-0 truncate">{{ file.nomFile }} </span>
               </div>
               <div class="ml-4 flex-shrink-0">
-                <a :href="file.srcFile" class="font-medium text-indigo-600 hover:text-indigo-500"> Download </a>
+                <a :href="file.srcFile" class="font-medium text-indigo-600 hover:text-indigo-500">Télécharger</a>
               </div>
             </li>
           </ul>

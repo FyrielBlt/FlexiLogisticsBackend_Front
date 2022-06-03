@@ -148,7 +148,7 @@
                     :href="u.factureTransporteur[0].srcPayementFile"
                     target=" _blank"
                class="inline-flex px-2 
-      text-xs font-semibold leading-5 text-blue-800 bg-blue-100 rounded-full
+      text-xs font-semibold leading-5 text-blue-800 bg-blue-100 
                             border-8 border-blue-600 
 
       "                  >
@@ -157,8 +157,8 @@
                   <p
                     v-if="u.factureTransporteur[0].payementFile == null"
                     class="inline-flex px-2 
-      text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full
-                            border-8 border-orange-600 
+      text-xs font-semibold leading-5 text-red-800 bg-red-100 
+                            border-8 border-red-600 
 
       "
                     >en attente</p

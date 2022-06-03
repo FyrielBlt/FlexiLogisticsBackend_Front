@@ -162,7 +162,7 @@ class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg
                       <button
                         class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
                       >
-                        Save
+                        Modifier
                       </button>
                     </div>
                   </form>

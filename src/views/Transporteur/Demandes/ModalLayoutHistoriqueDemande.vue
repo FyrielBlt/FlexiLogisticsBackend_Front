@@ -329,7 +329,12 @@
                    <th
                     class="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200"
                   >
-                    Date
+                    Date de livraison
+                  </th>
+                    <th
+                    class="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200"
+                  >
+                    Fichiers
                   </th>
                   <th
                     class="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200"
@@ -390,6 +395,15 @@
                       </div>
                     </div>
                   </td>
+                   <td
+                    class="px-5 py-5 text-sm bg-white border-b border-gray-200"
+                  >
+                    <div class="flex items-center">
+                      <div class="ml-3"  >
+                <modal-demande-files :u="demande"></modal-demande-files>
+                      </div>
+                    </div>
+                  </td>
                   <td
                     class="px-5 py-5 text-sm bg-white border-b border-gray-200"
                   >
@@ -435,11 +449,13 @@ import { ref } from "vue";
 import axios from "axios";
 import ModalLayoutOffre from "/src/views/Transporteur/Offres/ModalLayoutOffre.vue";
 import PaginationVue from "/src/components/Intermediaire/pagination/PaginationVue.vue";
+import ModalDemandeFiles from "/src/views/Transporteur/Demandes/ModalDemandeFiles.vue";;
 
 export default {
   components: {
     ModalLayoutOffre,
     PaginationVue,
+    ModalDemandeFiles
   },
   data() {
     return {

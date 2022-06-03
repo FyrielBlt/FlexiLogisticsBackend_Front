@@ -249,7 +249,7 @@ export default defineComponent({
     };
   },
   created() {
-
+   
 
   },
   methods: {
@@ -259,7 +259,7 @@ export default defineComponent({
       localStorage.removeItem("type");
       localStorage.removeItem("email");
       localStorage.removeItem("name");
-       localStorage.removeItem("nom");
+      localStorage.removeItem("nom");
       localStorage.removeItem("prenom");
       localStorage.removeItem("societe");
       localStorage.removeItem("image");
@@ -271,8 +271,7 @@ export default defineComponent({
       localStorage.removeItem("id");
       localStorage.removeItem("idtransporteur");
       localStorage.removeItem("idRole");
-            localStorage.removeItem("imagesrc");
-
+      localStorage.removeItem("imagesrc");
       router.push("/");
        
     },
