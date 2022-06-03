@@ -206,16 +206,20 @@ export default {
                 "-0" +
                 (new Date().getMonth() + 1) +
                 "-" +
-                new Date().getDate(),
+              
+              new Date().getDate(),
             })
             .then((resp) => {
+              alert(this.imageFile!=null)
+              if(this.imageFile!=null){
               for (let i = 0; i < this.imageFile.length; i++) {
-                let user = new FormData();
-                user.append("idOffre", resp.data.idOffre);
-                user.append("nomFile", "");
-                user.append("imageFile", this.imageFile[i]);
-                user.append("srcOffreFile", "");
-                axios.post("http://localhost:5000/api/FileOffres", user);
+                let file = new FormData();
+                file.append("idOffre", resp.data.idOffre);
+                file.append("nomFile", "");
+                file.append("imageFile", this.imageFile[i]);
+                file.append("srcOffreFile", "");
+                axios.post("http://localhost:5000/api/FileOffres", file);
+              }
               }
               axios.put(
                 "http://localhost:5000/api/DemandeDevis/" +
@@ -231,6 +235,7 @@ export default {
               );
 
                this.close();
+              
             });
         });
       }
