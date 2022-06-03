@@ -323,6 +323,7 @@ export default {
     };
   },
   created() {
+    console.log(this.timeFrom(8))
     axios
       .get(
         "http://localhost:5000/api/offres/client/" +
@@ -347,5 +348,18 @@ export default {
         this.demandes = resp.data;
       });
   },
+  methods: {
+    timeFrom(X) {
+      var dates = [];
+      for (let I = 0; I < Math.abs(X); I++) {
+        dates.push(new Date(new Date() - ((X >= 0 ? I : (I - I - I)) * 24 * 60 * 60 * 1000)).getDate().toString().padStart(2, '0')
+           + '-' + new Date(new Date() - ((X >= 0 ? I : (I - I - I)) * 24 * 60 * 60 * 1000)).getMonth().toString().padStart(2, '0')
+           + '-' + new Date(new Date() - ((X >= 0 ? I : (I - I - I)) * 24 * 60 * 60 * 1000)).getFullYear());
+      }
+
+      return dates;
+    }
+
+  }
 };
 </script>

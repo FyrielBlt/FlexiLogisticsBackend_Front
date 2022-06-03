@@ -159,11 +159,11 @@ export default defineComponent({
 
           //  console.log(localStorage.getItem("type"));
         })
-        .catch(() => {
+        .catch((error) => {
           Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "Something went wrong!",
+            text: error.response.data,
           });
         });
     },
