@@ -356,21 +356,7 @@
                 class="px-5 py-5 text-sm bg-white border-b border-gray-200"
                 style="padding: 1px 10px"
               >
-                <a
-                  class="
-                    bg-blue-500
-                    hover:bg-blue-700
-                    text-white
-                    font-bold
-                    py-2
-                    px-4
-                    rounded
-                  "
-                  :href="u.file"
-                  v-if="u.file"
-                  >Download</a
-                >
-                <a style="color: red; font-weight: bold" v-else> No File</a>
+               <files-modal :u="u"></files-modal>
               </td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                 <p class="text-gray-900 whitespace-nowrap">{{ u.prixFinale }}DT</p>
@@ -470,12 +456,12 @@ import { ref } from 'vue'
 import BreadCrumb from "../../components/Intermediaire/BreadCrumb.vue";
 import axios from "axios";
 import PaginationVue from "../../components/Intermediaire/pagination/PaginationVue.vue";
-
+import FilesModal from "./FilesModaloffre.vue";
 //import $ from "jquery";
 export default defineComponent({
   // components: { Breadcrumb },
   components: {
-    PaginationVue,BreadCrumb
+    PaginationVue,BreadCrumb,FilesModal
   },
   data() {
     return {
