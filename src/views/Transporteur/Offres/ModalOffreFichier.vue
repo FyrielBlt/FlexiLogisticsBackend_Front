@@ -6,8 +6,8 @@
     <button
       @click="open = true"
       class="inline-flex px-2 
-      text-xs font-semibold leading-5 text-blue-800 bg-blue-100 rounded-full
-                            border-8 border-blue-600 
+      text-xs font-semibold leading-5 text-blue-800 bg-blue-100 
+      border-8 border-blue-600 
 
       "
       v-if="u.fileOffre.length > 0"
@@ -17,7 +17,8 @@
 
     <button
       disabled
-      class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full border-8 border-orange-600"
+      class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100
+        border-8 border-red-600"
       v-else
     >
       0 fichiers

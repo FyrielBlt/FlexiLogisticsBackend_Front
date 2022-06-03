@@ -284,7 +284,7 @@
                   border-b-2 border-gray-200
                 "
               >
-                Settings
+                Paramétre
               </th>
             </tr>
           </thead>

@@ -142,7 +142,7 @@
                   >
                     <form
                       @submit.prevent="supprimerville(u)"
-                      v-if="this.checked != ''"
+                      v-if="this.checked!='' "
                     >
                       <span class="text-yellow-500 flex justify-center">
                         <button class="
@@ -243,6 +243,7 @@ export default {
       inteneraires: [],
       checked: [],
       total: "",
+      show:false,
         currentPage:1,
       perPage:5,
       villes: [],
@@ -318,12 +319,13 @@ long:'',
             axios
               .delete("http://localhost:5000/api/Itineraires/" + element)
               .then(() => {
-                this.checked='',
+              
                 this.reload();
               });
           });
            
         } 
+           
       });
     },
     reload() {

@@ -7,6 +7,7 @@ import autht from '../middleware/autht'
 import authc from '../middleware/authc'
 //login
 import Login from '../views/Login.vue'
+import Inscription from '../views/Inscription.vue'
 //client
 import MenuClient from "../views/Client/MenuClient.vue";
 import Client from "../views/Client/Personnels.vue";
@@ -54,7 +55,6 @@ import ProfilIntermediaire from '../views/Intermediaire/users/profil/Profil.vue'
 import FactureTransporteur from '../views/Intermediaire/facturesTransporteur/FactureTransporteur.vue'
 import VoirFacture from '../views/Intermediaire/facturesTransporteur/VoirFacture.vue'
 import PayementTransporteur from '../views/Intermediaire/facturesTransporteur/PayementTransporteur.vue'
-//fin login
 //***** */
 import Forms from '../views/Forms.vue'
 import Tables from '../views/Tables.vue'
@@ -69,6 +69,12 @@ const routes = [{
         name: 'Login',
         component: Login,
     },
+    {
+        path: '/Inscription',
+        name: 'Inscription',
+        component: Inscription,
+    },
+
     //Router Intermediaire
     {
         path: '/dashboard',
@@ -213,10 +219,10 @@ const routes = [{
                 component: Profile,
             },
             {
-              path: "facture",
-              name: "Facture",
-              component: Facture,
-          },
+                path: "facture",
+                name: "Facture",
+                component: Facture,
+            },
         ],
     },
     // fin Router Intermediaire

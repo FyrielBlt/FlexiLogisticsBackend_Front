@@ -12,7 +12,6 @@
                       leading-5
                       text-blue-800
                       bg-blue-100
-                      rounded-full
                                             border-8 border-blue-600 
 
                     " v-if="u.idDemandeNavigation.fileDemandeLivraison.length > 0">Télécharger </button>
@@ -25,8 +24,7 @@
                       leading-5
                       text-red-800
                       bg-red-100
-                      rounded-full
-                      border-8 border-orange-600 
+                      border-8 border-red-600 
                     " v-else>
       0 fichiers</button>
     <div :class="`modal ${!open && 'opacity-0 pointer-events-none'

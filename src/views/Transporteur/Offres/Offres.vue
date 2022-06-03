@@ -250,8 +250,11 @@
                 <option  value=''>Tout</option>
                 <option value="Accepte">Accepté </option>
                 <option value="Refuse">Réfusé</option>
+                <option value="Livre">Livré </option>
+
                 <option value="Non traite">Non traité</option>
-                <option value="En cours de traitement">EN cours de traitement</option>
+                <option value="En cours de traitement">En cours de traitement</option>
+                                <option value="Indisponible">Indisponible</option>
 
               </select>
 
@@ -552,8 +555,10 @@
                   ></span>
                   <span class="relative"> 
                      <button v-if="u.idEtatNavigation.etat=='Accepté'"
-                   type="button" @click="livrer(u)" class="bg-black ml-20 hover:bg-green-700 text-white font-bold py-2 
-                   px-4 rounded">Livré</button>
+                   type="button" @click="livrer(u)"       
+                   class="inline-flex px-2 text-xs font-semibold
+                    leading-5 text-green-800 bg-blue-100 rounded-full border-8 border-blue-600"
+                  >Livraison réussi</button>
                   </span>
                 </span>
               </td>

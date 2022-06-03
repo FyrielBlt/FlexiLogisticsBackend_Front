@@ -36,89 +36,75 @@
         </div>
 
         <!-- Add margin if you want to see some of the overlay behind the modal-->
-       
+
         <div class="px-6 py-4 text-center modal-content">
-
-            <p class="text-2xl font-bold ">Suggestion offre</p>
-        
-
+          <p class="text-2xl font-bold">Suggestion offre</p>
           <!--Body-->
-          
-                   <form @submit.prevent="ajouterOffre">
-      
-                   <div class="relative block mt-2 sm:mt-0">
-<span> Description offre :</span>
-                <textarea
-class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-                  :class="[
-                    description === ''
-                      ? ' focus:bg-red-100  focus:border-red-800 '
-                      : ' focus:bg-green-100  focus:border-green-800 ',
-                  ]"                           type="text"
-                        v-model="description"
-                        required
-                      />
-               
-              </div>
-                     <div class="relative block mt-2 sm:mt-0">
-                       <span>Prix demandé :</span>
-                  <input
-                    class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-                  :class="[
-                   prix=== ''
-                      ? ' focus:bg-red-100  focus:border-red-800 '
-                      : ' focus:bg-green-100  focus:border-green-800 ',
-                  ]"                        type="number"
-                        v-model="prix"
-                        required
-                      />
-                
-              </div>
-                    <div class="relative block mt-2 sm:mt-0">
-                  <span>Date livraison : </span>
-                <input
-                    type="datetime-local"
-                     class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
-                  :class="[
-                   offre === ''
-                      ? ' focus:bg-red-100  focus:border-red-800 '
-                      : ' focus:bg-green-100  focus:border-green-800 ',
-                  ]"
-                    width="300px"  
-                    v-model="offre"
-                    :min="this.today"
-                    required
-                  />
-               
-               
-              </div>
-                                  <div class="relative block mt-2 sm:mt-0">
-
-                     <input
-                        type="file"
-                        id="image"
-                        multiple="multiple"
-                        @change="FileSelected($event)"
-                      />
-                      </div>
-                   
-                    <div class="flex justify-end mt-4">
-                      <button
-                        class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
-                      >
-                        Save
-                      </button>
-                    </div>
-                  </form>
-
-
-
-
-                </div>
-              </div>
+          <form @submit.prevent="ajouterOffre">
+            <div class="relative block mt-2 sm:mt-0">
+              <span> Description offre :</span>
+              <textarea
+                class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                :class="[
+                  description === ''
+                    ? ' focus:bg-red-100  focus:border-red-800 '
+                    : ' focus:bg-green-100  focus:border-green-800 ',
+                ]"
+                type="text"
+                v-model="description"
+                required
+              />
             </div>
-          </div>
-       
+            <div class="relative block mt-2 sm:mt-0">
+              <span>Prix demandé :</span>
+              <input
+                class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                :class="[
+                  prix === ''
+                    ? ' focus:bg-red-100  focus:border-red-800 '
+                    : ' focus:bg-green-100  focus:border-green-800 ',
+                ]"
+                type="number"
+                v-model="prix"
+                required
+              />
+            </div>
+            <div class="relative block mt-2 sm:mt-0">
+              <span>Date livraison : </span>
+              <input
+                type="datetime-local"
+                class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
+                :class="[
+                  offre === ''
+                    ? ' focus:bg-red-100  focus:border-red-800 '
+                    : ' focus:bg-green-100  focus:border-green-800 ',
+                ]"
+                width="300px"
+                v-model="offre"
+                :min="this.today"
+                required
+              />
+            </div>
+            <div class="relative block mt-2 sm:mt-0">
+              <input
+                type="file"
+                id="image"
+                multiple="multiple"
+                @change="FileSelected($event)"
+              />
+            </div>
+            <div class="flex justify-end mt-4">
+              <button
+                class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+              >
+                Envoyer
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import axios from "axios";
@@ -209,13 +195,15 @@ export default {
                 new Date().getDate(),
             })
             .then((resp) => {
-              for (let i = 0; i < this.imageFile.length; i++) {
-                let user = new FormData();
-                user.append("idOffre", resp.data.idOffre);
-                user.append("nomFile", "");
-                user.append("imageFile", this.imageFile[i]);
-                user.append("srcOffreFile", "");
-                axios.post("http://localhost:5000/api/FileOffres", user);
+              if (this.imageFile != null) {
+                for (let i = 0; i < this.imageFile.length; i++) {
+                  let file = new FormData();
+                  file.append("idOffre", resp.data.idOffre);
+                  file.append("nomFile", "");
+                  file.append("imageFile", this.imageFile[i]);
+                  file.append("srcOffreFile", "");
+                  axios.post("http://localhost:5000/api/FileOffres", file);
+                }
               }
               axios.put(
                 "http://localhost:5000/api/DemandeDevis/" +
@@ -230,7 +218,7 @@ export default {
                 }
               );
 
-               this.close();
+              this.close();
             });
         });
       }

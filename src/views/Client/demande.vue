@@ -179,7 +179,7 @@
               <th class="px-6 py-2 text-xs text-gray-500">DATE</th>
               <th class="px-6 py-2 text-xs text-gray-500">FILE</th>
               <th class="px-6 py-2 text-xs text-gray-500">ETAT</th>
-              <th class="px-6 py-2 text-xs text-gray-500">SETTINGS</th>
+              <th class="px-6 py-2 text-xs text-gray-500">Paramétre</th>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-500">
