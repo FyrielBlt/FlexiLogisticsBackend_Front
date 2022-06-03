@@ -652,12 +652,18 @@ export default {
       }
     },
     rechercheTransporteur() {
-    
+    if (this.rechercheTransporteur != "") {
         let ville = {
           ville1: this.rechercheVille1,
           name: this.rechercheTransporteur,
         };
         this.$store.dispatch("Chercher_Trajet", ville);
+     }else{
+        this.$store.dispatch(
+          "Get_Transporteur",
+          this.rechercheTransporteur
+         );
+    }
       
     },
     rechercheVille1() {

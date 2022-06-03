@@ -8,7 +8,7 @@ export default {
     ListeSocietes: [],
     currentSociete: 1,
     perPageSociete: 1,
-    parPageSociete: 3,
+    parPageSociete: 10,
     totalSociete: 10,
     ChercherSociete: ""
 

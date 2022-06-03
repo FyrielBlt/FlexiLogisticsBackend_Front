@@ -489,8 +489,8 @@ export default {
         this.nom != "" &&
         this.prenom != "" &&
         this.email != "" &&
-        this.password != ""&&
-         this.password == this.cpassword
+        this.password != "" &&
+        this.password == this.cpassword
       ) {
         let user = new FormData();
         user.append("idUser", this.idUser);
@@ -517,20 +517,30 @@ export default {
             this.imageFile = null;
             this.password = "";
             this.cpassword = "";
+          })
+          .catch(() => {
+            this.$swal({
+              position: "top-end",
+              icon: "error",
+              toast: true,
+              title: "Email utilisé",
+              showConfirmButton: false,
+              timer: 2000,
+            });
           });
         // this.startAlert();
         this.$swal({
           position: "top-end",
           icon: "success",
-         
+
           toast: true,
           title: "Profil Modifier",
           showConfirmButton: false,
           timer: 2000,
         });
       } else {
-       // this.startAlert();
-       this.$swal({
+        // this.startAlert();
+        this.$swal({
           position: "top-end",
           icon: "error",
           toast: true,

@@ -508,7 +508,7 @@ export default {
     return {
       openModifier: false,
       open: false,
-      ParpageVille: "1",
+      ParpageVille: "10",
       rechercheVille: "",
       nomVille: "",
       idVille: "",

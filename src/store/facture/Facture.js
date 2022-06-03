@@ -8,7 +8,7 @@ export default {
     achever: 0,
     currentFacture: 1,
     perPageFacture: 1,
-    parPageFacture: 5,
+    parPageFacture: 10,
     totalFacture: 10,
     filterPayement: null,
     cher:null
@@ -65,7 +65,7 @@ export default {
         })
     },
     Chercher_order({ commit, state }, filter) {
-      console.log("esoooo");
+      console.log(filter);
       state.filterPayement = filter;
       state.currentFacture = 1;
       //state.parPageFacture = Parpage;

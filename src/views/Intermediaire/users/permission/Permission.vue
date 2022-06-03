@@ -223,7 +223,7 @@ export default {
   },
   data() {
     return {
-      ParpagePermission: "1",
+      ParpagePermission: "10",
       recherchePermission: "",
       // success: false,
       // timeout: false,

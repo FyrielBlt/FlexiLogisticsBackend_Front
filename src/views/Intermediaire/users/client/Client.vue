@@ -7,42 +7,6 @@
       <template v-slot:bread> Clients </template>
     </bread-crumb>
 
-    <!-- alert -->
-    <!-- <div
-      class="
-        inline-flex
-        w-full
-        max-w-sm
-        ml-3
-        overflow-hidden
-        bg-white
-        rounded-lg
-        shadow-md
-      "
-      style="position: absolute; right: 50px"
-      v-if="success"
-    >
-      <div class="flex items-center justify-center w-12 bg-red-500">
-        <svg
-          class="w-6 h-6 text-white fill-current"
-          viewBox="0 0 40 40"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z"
-          />
-        </svg>
-      </div>
-
-      <div class="px-4 py-2 -mx-3">
-        <div class="mx-3">
-          <span class="font-semibold text-red-500">Erreur</span>
-          <p class="text-sm text-gray-600">Il faut remplir tous les champs</p>
-        </div>
-      </div>
-    </div> -->
-    <!-- fin alert -->
-
     <div class="mt-8">
       <!-- <h4 class="text-gray-600">Les Clients</h4> -->
 
@@ -228,8 +192,20 @@
                   >
                     Email
                   </th>
+                  <th
+                    class="
+                      px-5
+                      py-3
+                      text-sm
+                      font-medium
+                      text-gray-100
+                      uppercase
+                      bg-indigo-800
+                    "
+                  >
+                    Télèphone
+                  </th>
 
-                 
                   <th
                     class="
                       px-5
@@ -307,7 +283,20 @@
                       {{ client.iduserNavigation.email }}
                     </div>
                   </td>
-                
+                  <td
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                    "
+                  >
+                    <div class="text-sm leading-5 text-gray-900">
+                      {{ client.iduserNavigation.tel }}
+                    </div>
+                  </td>
                   <td
                     class="
                       px-6
@@ -484,6 +473,25 @@
               />
             </div>
             <div class="text-center">
+              <label class="text-gray-700" for="Email">Télèphone :</label>
+              <input
+                id="Email"
+                class="
+                  w-full
+                  mt-2
+                  border-gray-200
+                  rounded-md
+                  focus:border-indigo-600
+                  focus:ring
+                  focus:ring-opacity-40
+                  focus:ring-indigo-500
+                "
+                style="text-align: center"
+                type="number"
+                v-model="tel"
+              />
+            </div>
+            <div class="text-center">
               <label class="text-gray-700" for="Email">Email :</label>
               <input
                 id="Email"
@@ -502,26 +510,27 @@
                 v-model="email"
               />
             </div>
-            <div class="text-center">
-              <label class="text-gray-700" for="Image">Image :</label>
-              <input
-                id="Image"
-                class="
-                  w-full
-                  mt-2
-                  border-gray-200
-                  rounded-md
-                  focus:border-indigo-600
-                  focus:ring
-                  focus:ring-opacity-40
-                  focus:ring-indigo-500
-                "
-                style="text-align: center"
-                type="file"
-                @change="FileSelected($event)"
-              />
-            </div>
           </div>
+          <div class="text-center">
+            <label class="text-gray-700" for="Image">Image :</label>
+            <input
+              id="Image"
+              class="
+                w-full
+                mt-2
+                border-gray-200
+                rounded-md
+                focus:border-indigo-600
+                focus:ring
+                focus:ring-opacity-40
+                focus:ring-indigo-500
+              "
+              style="text-align: center"
+              type="file"
+              @change="FileSelected($event)"
+            />
+          </div>
+
           <div class="flex justify-end mt-4">
             <button
               @click="Close()"
@@ -637,6 +646,46 @@
                 v-model="password"
               />
             </div>
+            <div class="text-center">
+              <label class="text-gray-700" for="MotDePasse"
+                >Confirme Mot de passe :</label
+              >
+              <input
+                id="MotDePasse"
+                class="
+                  w-full
+                  mt-2
+                  border-gray-200
+                  rounded-md
+                  focus:border-indigo-600
+                  focus:ring
+                  focus:ring-opacity-40
+                  focus:ring-indigo-500
+                "
+                style="text-align: center"
+                type="text"
+                v-model="cpassword"
+              />
+            </div>
+            <div class="text-center">
+              <label class="text-gray-700" for="Email">Télèphone :</label>
+              <input
+                id="Email"
+                class="
+                  w-full
+                  mt-2
+                  border-gray-200
+                  rounded-md
+                  focus:border-indigo-600
+                  focus:ring
+                  focus:ring-opacity-40
+                  focus:ring-indigo-500
+                "
+                style="text-align: center"
+                type="number"
+                v-model="tel"
+              />
+            </div>
 
             <div class="text-center">
               <label class="text-gray-700" for="Email">Email :</label>
@@ -722,6 +771,8 @@
   <!-- </div> -->
 </template>
 <script>
+import axios from "axios";
+import Url from "../../../../store/Api";
 import { mapGetters } from "vuex";
 import BreadCrumb from "../../../../components/Intermediaire/BreadCrumb.vue";
 import CardAjouter from "../../../../components/Intermediaire/CardAjouter.vue";
@@ -736,7 +787,7 @@ export default {
     return {
       openModifier: false,
       open: false,
-      ParpageClient: "1",
+      ParpageClient: "10",
       rechercheClient: "",
       //data a ajouter
       nom: "",
@@ -748,8 +799,7 @@ export default {
       idClient: "",
       iduser: "",
       index: "",
-      // success: false,
-      // timeout: false,
+      tel: "",
     };
   },
   computed: {
@@ -784,11 +834,12 @@ export default {
         this.prenom = "";
         this.email = "";
         this.password = "";
+        this.cpassword = "";
+        this.tel = "";
         this.imageFile = null;
       }
     },
     Supprimer(client) {
-      
       this.$swal({
         title: "Supprimer ?",
         text: "",
@@ -810,41 +861,79 @@ export default {
     },
     //
     SaveClient() {
-      if (
-        this.nom != "" &&
-        this.prenom != "" &&
-        this.email != "" &&
-        this.password != ""
-      ) {
-        let client = new FormData();
-        client.append("Nom", this.nom);
-        client.append("Prenom", this.prenom);
-        client.append("Email", this.email);
-        client.append("Motdepasse", this.password);
-        client.append("image", "");
-        client.append("ImageFile", this.imageFile);
-        client.append("ImageSrc", "");
-        this.$store.dispatch("Ajouter_Client", client);
-        this.open = false;
-         this.$swal({
-          position: "top-end",
-          icon: "success",
-          toast:true,
-          title: "Client Ajouter",
-          showConfirmButton: false,
-          timer: 2000,
-        });
+      if (this.password == this.cpassword) {
+        if (
+          this.nom != "" &&
+          this.prenom != "" &&
+          this.email != "" &&
+          this.password != "" &&
+          this.tel != ""
+        ) {
+          let client = new FormData();
+          client.append("Nom", this.nom);
+          client.append("Prenom", this.prenom);
+          client.append("Email", this.email);
+          client.append("Motdepasse", this.password);
+          client.append("image", "");
+          client.append("Tel", this.tel);
+          client.append("ImageFile", this.imageFile);
+          client.append("ImageSrc", "");
+          axios
+            .post(Url + "users", client, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            })
+            .then((res) => {
+              this.$store.dispatch("Ajouter_Client", res.data);
+              this.open = false;
+              this.$swal({
+                position: "top-end",
+                icon: "success",
+                toast: true,
+                title: "Client Ajouter",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+              this.nom = "";
+              this.prenom = "";
+              this.email = "";
+              this.password = "";
+              this.cpassword = "";
+              this.tel = "";
+              this.imageFile = null;
+            })
+            .catch(() => {
+              this.$swal({
+                position: "top-end",
+                icon: "error",
+                toast: true,
+                title: "Email utilisé",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            });
+        } else {
+          this.$swal({
+            position: "top-end",
+            icon: "error",
+            toast: true,
+            title: "Il faut remplir tous les champs",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          // this.startAlert();
+          this.open = false;
+        }
       } else {
-         this.$swal({
+        this.$swal({
           position: "top-end",
-          icon: "error",        
-          toast:true,
-          title: "Il faut remplir tous les champs",
+          icon: "error",
+          toast: true,
+          title: "Les mots de passe diferent",
           showConfirmButton: false,
           timer: 2000,
         });
-       // this.startAlert();
-        this.open = false;
       }
     },
     Modifier(personnelle, index) {
@@ -852,58 +941,107 @@ export default {
       this.nom = personnelle.iduserNavigation.nom;
       this.prenom = personnelle.iduserNavigation.prenom;
       this.email = personnelle.iduserNavigation.email;
-      this.password = personnelle.iduserNavigation.motdepasse;
-      // this.ImageFile = personnelle.iduserNavigation.ImageFile;
+      //  this.password = personnelle.iduserNavigation.motdepasse;
+      this.tel = personnelle.iduserNavigation.tel;
       this.iduser = personnelle.iduser;
       this.idClient = personnelle.idclient;
       this.index = index; // console.log(personnelle.idUserNavigation);
     },
     SaveModifier() {
-      if (
-        this.iduser != "" &&
-        this.nom != "" &&
-        this.prenom != "" &&
-        this.email != "" &&
-        this.password != ""
-      ) {
-        let user = new FormData();
-        user.append("iduser", this.iduser);
-        user.append("nom", this.nom);
-        user.append("prenom", this.prenom);
-        user.append("email", this.email);
-        user.append("motdepasse", this.password);
-        user.append("image", "");
-        user.append("societe", "");
-        user.append("ImageFile", this.imageFile);
-        user.append("ImageSrc", "");
-        let client = {
-          idclient: this.idClient,
-          iduser: this.iduser,
-          imageSrc: "",
-          iduserNavigation: user,
-          index: this.index,
-        };
-        this.$store.dispatch("Modifier_Client", client);
-        this.Close(false);
-        this.$swal({
-          position: "top-end",
-          icon: "success",
-          toast:true,
-          text: "Client Modifier",
-          showConfirmButton: false,
-          timer: 2000,
-        });
+      if (this.password == this.cpassword) {
+        if (
+          this.iduser != "" &&
+          this.nom != "" &&
+          this.prenom != "" &&
+          this.email != "" &&
+          this.password != "" &&
+          this.tel != ""
+        ) {
+          let user = new FormData();
+          user.append("idUser", this.iduser);
+          user.append("nom", this.nom);
+          user.append("prenom", this.prenom);
+          user.append("email", this.email);
+          user.append("motdepasse", this.password);
+          user.append("image", "");
+          user.append("Tel", this.tel);
+          user.append("societe", "");
+          user.append("ImageFile", this.imageFile);
+          user.append("ImageSrc", "");
+
+          axios
+            .put(Url + "users/" + this.iduser, user, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            })
+            .then((res) => {
+              let client = {
+                idclient: this.idClient,
+                iduser: this.iduser,
+                imageSrc: res.data.imageSrc,
+                iduserNavigation: res.data,
+                index: this.index,
+              };
+              this.$store.dispatch("Modifier_Client", client);
+              this.open = false;
+              this.$swal({
+                position: "top-end",
+                icon: "success",
+                toast: true,
+                title: "Client Modifié",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+              this.nom = "";
+              this.prenom = "";
+              this.email = "";
+              this.password = "";
+              this.cpassword = "";
+              this.tel = "";
+              this.imageFile = null;
+            })
+            .catch(() => {
+              this.$swal({
+                position: "top-end",
+                icon: "error",
+                toast: true,
+                title: "Email utilisé",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            });
+          // this.$store.dispatch("Modifier_Client", client);
+          // this.Close(false);
+          // this.$swal({
+          //   position: "top-end",
+          //   icon: "success",
+          //   toast: true,
+          //   text: "Client Modifier",
+          //   showConfirmButton: false,
+          //   timer: 2000,
+          // });
+        } else {
+          this.$swal({
+            position: "top-end",
+            icon: "error",
+            toast: true,
+            title: "Il faut remplir tous les champs",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          //this.startAlert();
+          this.Close(false);
+        }
       } else {
-         this.$swal({
+        this.$swal({
           position: "top-end",
           icon: "error",
           toast: true,
-          title: "Il faut remplir tous les champs",
+          title: "Les mots de passe diferent",
           showConfirmButton: false,
           timer: 2000,
         });
-        //this.startAlert();
-        this.Close(false);
       }
     },
     // ajouter image

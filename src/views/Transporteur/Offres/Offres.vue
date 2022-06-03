@@ -521,8 +521,8 @@
                 </p>
               </td>
               <td
-                class="px-5 py-5 text-sm bg-white border-b border-gray-200"
-                style="padding: 30px 49px"
+                class="text-sm bg-white border-b border-gray-200"
+                
               >
              
                 <modal-offre-fichier  :u="u" ></modal-offre-fichier>
@@ -680,7 +680,7 @@ axios
       })
      axios
       .get("http://localhost:5000/api/villes")
-      .then((resp) => (this.villes = resp.data));
+      .then((resp) => (this.villes = resp.datanpm ));
      axios
       .get(
         "http://localhost:5000/api/Transporteurs/" +

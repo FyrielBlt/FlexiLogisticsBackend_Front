@@ -7,7 +7,7 @@ export default {
     ListeRoles: [],
     currentRole: 1,
     perPageRole: 1,
-    parPageRole: 3,
+    parPageRole: 10,
     totalRole: 10,
     ChercherRole: ""
   },

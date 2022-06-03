@@ -121,7 +121,7 @@
             </div>
                    <div class="relative block mt-2 sm:mt-0">
             <input
-              placeholder="Demnade"
+              placeholder="Numéro Demande"
               class="
                 block
                 w-full
@@ -141,7 +141,7 @@
                 focus:outline-none
               "
               type="text"
-              v-model="NumChercher"
+              v-model="rechercheDemande"
             />
             
           </div>
@@ -504,7 +504,7 @@
                       whitespace-nowrap
                     "
                   >
-                    {{ demandeLivraison.datecreation.substr(0,10) }}
+                    {{ demandeLivraison.date.substr(0,10) }}
                   </td>
                   <td
                     class="
@@ -642,7 +642,7 @@
         </div>
       </div>
     </div>
-    <!-- {{ ListeDemandeLivraisons }} -->
+    <!-- {{ rechercheDemande }} -->
     <!-- {{ EtatDemande }}{{rechercheDemande}} -->
   </div>
   <!-- </div> -->
@@ -662,8 +662,8 @@ export default {
     return {
       ParpageDemandeLivraison: 10,
       EtatDemande: 0,
-      dateChercher:""
-      // rechercheDemande:""
+      dateChercher:"",
+       rechercheDemande:""
     };
   },
   computed: {
@@ -717,10 +717,14 @@ export default {
     },
     dateChercher(){
       this.$store.dispatch("Chercher_date",this.dateChercher);
-    }
-    // dateDemande(){
-    //   this.$store.dispatch("Chercher_DemandeLivraisonDate", this.dateDemande);
-    // }
+    },
+    dateDemande(){
+      this.$store.dispatch("Chercher_DemandeLivraisonDate", this.dateDemande);
+    },
+    rechercheDemande()
+    {
+      this.$store.dispatch("Chercher_DemandeLivraisonNum", this.rechercheDemande);
+    },
   },
 };
 </script>

@@ -125,7 +125,7 @@
                   :href="u.factureTransporteur[0].srcFactureFile"
                   target=" _blank"
  class="inline-flex px-2 
-      text-xs font-semibold leading-5 text-blue-800 bg-blue-100 rounded-full
+      text-xs font-semibold leading-5 text-blue-800 bg-blue-100
                             border-8 border-blue-600 
 
       "                >

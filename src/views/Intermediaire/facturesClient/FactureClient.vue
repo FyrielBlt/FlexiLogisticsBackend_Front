@@ -91,15 +91,11 @@
                   focus:bg-white
                   focus:border-gray-500
                 "
-                 v-model="order"
+                v-model="order"
               >
                 <option value="0">All</option>
-                <option value="oui">
-                  Facturée
-                </option>
-                <option value="non">
-                  Non Facturée
-                </option>
+                <option value="oui">Facturée</option>
+                <option value="non">Non Facturée</option>
               </select>
 
               <div
@@ -140,7 +136,7 @@
             </span>
 
             <input
-              placeholder="Search"
+              placeholder="Client"
               class="
                 block
                 w-full
@@ -159,7 +155,7 @@
                 focus:text-gray-700
                 focus:outline-none
               "
-               v-model="recherche"
+              v-model="recherche"
             />
           </div>
         </div>
@@ -182,7 +178,7 @@
                       bg-indigo-800
                     "
                   >
-                    ID
+                    Numéro
                   </th>
                   <th
                     class="
@@ -273,7 +269,7 @@
                   <th
                     class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
                   >
-                    {{ 1 + index }}
+                    {{ getNum(demande.idDemande,demande.factureClient) }}
                   </th>
                   <td
                     class="
@@ -393,40 +389,17 @@
                       whitespace-nowrap
                     "
                   >
-                    <div class="flex justify-around">
-                      <span class="text-green-500 flex justify-center">
-                        <button
-                          v-if="demande.factureClient.length == 0"
-                          class="mx-2 px-2 rounded-md text-green-800 text-xm"
-                          @click="
-                            facture(demande.idDemande, demande.factureClient)
-                          "
-                        >
-                          <a class="mx-2 px-2 rounded-md">Upload </a>
-                          <i class="bi bi-cloud-upload"></i>
-                        </button>
-                        <button
-                          v-else
-                          class="
-                            inline-flex
-                            px-2
-                            text-xs
-                            font-semibold
-                            leading-5
-                            text-green-800
-                            bg-green-100
-                            rounded-full
-                          "
-                          @click="
-                            facture(demande.idDemande, demande.factureClient)
-                          "
-                        >
-                        
-                          <a class="mx-2 px-2 rounded-md">Facturé </a>
-                          <i class="bi bi-eye-slash"></i>
-                        </button>
-                      </span>
-                    </div>
+                    <!-- {{VerifPayementClient(demande.idDemande, demande.factureClient)}} -->
+                    <DragDrop
+                      :client="
+                        VerifPayementClient(
+                          demande.idDemande,
+                          demande.factureClient
+                        )
+                      "
+                      :id="demande.idDemande"
+                      @f="ChangePage(page)"
+                    ></DragDrop>
                   </td>
 
                   <td
@@ -441,22 +414,65 @@
                       whitespace-nowrap
                     "
                   >
-                    <div class="flex justify-around">
-                      <span class="text-green-500 flex justify-center" v-if="VerifPayementClient(demande.idDemande, demande.factureClient)">
-                        <button
-                          class="mx-2 px-2 rounded-md text-green-600 text-xm"
-                          @click="Payement(demande.idDemande, demande.factureClient)"
+                    <div
+                      class="flex justify-around"
+                      v-if="
+                        VerifPayementClient(
+                          demande.idDemande,
+                          demande.factureClient
+                        )
+                      "
+                    >
+                      <!-- {{VerifPayementClient(demande.idDemande, demande.factureClient)}} -->
+
+                      <span
+                        class="text-green-500 flex justify-center"
+                        v-if="
+                          VerifPayementClient(
+                            demande.idDemande,
+                            demande.factureClient
+                          ).payementFile
+                        "
+                      >
+                        <a
+                          :href="
+                            VerifPayementClient(
+                              demande.idDemande,
+                              demande.factureClient
+                            ).srcPayementFile
+                          "
+                          target="_blank"
                         >
-                          <a class="mx-2 px-2 rounded-md"> Oui </a>
-                          <i class="bi bi-eye-slash"></i>
-                        </button>
+                          <span
+                            class="
+                              inline-flex
+                              px-2
+                              text-xs
+                              font-semibold
+                              leading-5
+                              text-blue-800
+                              bg-blue-100
+                              rounded-full
+                            "
+                          >
+                            Download</span
+                          ></a
+                        >
                       </span>
-                       <span class="text-red-500 flex justify-center" v-else>
+                      <span class="text-red-500 flex justify-center" v-else>
                         <button
                           class="mx-2 px-2 rounded-md text-red-600 text-xm"
                         >
                           <a class="mx-2 px-2 rounded-md"> Non </a>
-                          <i class="bi bi-eye-slash"></i>
+                        </button>
+                      </span>
+                    </div>
+                    <div class="flex justify-around" v-else>
+                      <span class="text-red-500 flex justify-center">
+                        <button
+                          class="mx-2 px-2 rounded-md text-red-600 text-xm"
+                        >
+                          <a class="mx-2 px-2 rounded-md"> Non </a>
                         </button>
                       </span>
                     </div>
@@ -488,11 +504,11 @@
             <!-- PAGINATION -->
           </div>
         </div>
-        <!-- {{recherche}} -->
+        <!-- {{order}} -->
       </div>
     </div>
   </div>
-  
+
   <!-- </div> -->
 </template>
 <script>
@@ -501,18 +517,22 @@ import BreadCrumb from "../../../components/Intermediaire/BreadCrumb.vue";
 import axios from "axios";
 import Url from "../../../store/Api";
 import PaginationVue from "../../../components/Intermediaire/pagination/PaginationVue.vue";
+import DragDrop from "../../../components/Intermediaire/DragDrop.vue";
+
 export default {
   components: {
     BreadCrumb,
     PaginationVue,
+    DragDrop,
   },
   data() {
     return {
-      ParpageFactureClients: "1",
+      ParpageFactureClients: "10",
       livrer: "",
       achever: "",
-      order:"0",
-      recherche:""
+      order: "0",
+      recherche: "",
+      page: 1,
     };
   },
   async created() {
@@ -561,38 +581,13 @@ export default {
     this.$store.dispatch("Get_EtatOffre");
   },
   methods: {
-    facture(id, listfacture) {
-      //alert(listfacture[0].idFactClient +"" + id);
-      if (listfacture.length == 0) {
-        this.$router.push({
-          name: "UploadFacture",
-          params: {
-            demande: id,
-            idFactClient: 0,
-          },
-        });
-      } else {
-        this.$router.push({
-          name: "UploadFacture",
-          params: {
-            demande: id,
-            idFactClient: listfacture[0].idFactClient,
-          },
-        });
-      }
+    getNum(id, listfacture) {
+      if (listfacture.length == 0) return null;
+      else return listfacture.filter((el) => el.idDemandeLivraison == id)[0].idFactClient;
     },
-    Payement(id, listfacture) {
-      let idfacture=listfacture.filter(el=>el.idDemandeLivraison==id).map(el=>el.idFactClient)[0];
-      this.$router.push({
-        name: "PayementClient",
-        params: {
-            id: idfacture,
-            
-          },
-      });
-    },
-    VerifPayementClient(id, listfacture){
-      return listfacture.filter(el=>el.idDemandeLivraison==id).map(el=>el.payementFile)[0];
+    VerifPayementClient(id, listfacture) {
+      if (listfacture.length == 0) return null;
+      else return listfacture.filter((el) => el.idDemandeLivraison == id)[0];
     },
     PrixFinale(indice) {
       let prix = this.ListeFactures[indice].offre
@@ -626,7 +621,8 @@ export default {
       this.$router.push({ name: "ListeOffre", params: { id: id } });
     },
     ChangePage(NumPage) {
-      this.$store.dispatch("Get_NoveauFacture", NumPage);
+      this.page = NumPage;
+      this.$store.dispatch("Get_NoveauFacture", this.page);
     },
   },
   watch: {
@@ -642,7 +638,6 @@ export default {
     recherche() {
       this.$store.dispatch("Chercher", this.recherche);
     },
-    
   },
 };
 </script>

@@ -148,7 +148,7 @@
                       border-b
                       text-center
                       border-gray-200
-                      whitespace-nowrap                   
+                      whitespace-nowrap
                     "
                   >
                     <div class="ml-4">
@@ -197,7 +197,7 @@
                     "
                   >
                     <div class="text-sm leading-5 text-gray-900">
-                      {{ offre.date }}
+                      {{ offre.date.substr(0, 10) }}
                     </div>
                   </td>
                   <td
@@ -226,8 +226,8 @@
                   >
                     {{ offre.prixFinale }}
                   </td>
-                    <td
-                  v-if="offre.idEtat== GetEtatEnCours()"
+                  <td
+                    v-if="offre.idEtat == GetEtatEnCours()"
                     class="
                       px-6
                       py-4
@@ -250,12 +250,14 @@
                           rounded-full
                         "
                       >
-                        <a class="mx-2 px-2 rounded-md"> En cour de traitement</a>
+                        <a class="mx-2 px-2 rounded-md">
+                          En cour de traitement</a
+                        >
                       </a>
                     </div>
                   </td>
                   <td
-                  v-if="offre.idEtat==GetEtatAccepter()"
+                    v-if="offre.idEtat == GetEtatAccepter()"
                     class="
                       px-6
                       py-4
@@ -283,7 +285,7 @@
                     </div>
                   </td>
                   <td
-                  v-if="offre.idEtat==GetEtatNonTraite()"
+                    v-if="offre.idEtat == GetEtatNonTraite()"
                     class="
                       px-6
                       py-4
@@ -310,8 +312,8 @@
                       </a>
                     </div>
                   </td>
-                   <td
-                  v-if="offre.idEtat==GetEtatEnAttente()"
+                  <td
+                    v-if="offre.idEtat == GetEtatEnAttente()"
                     class="
                       px-6
                       py-4
@@ -334,12 +336,14 @@
                           rounded-full
                         "
                       >
-                        <a class="mx-2 px-2 rounded-md">En attente d'acceptation</a>
+                        <a class="mx-2 px-2 rounded-md"
+                          >En attente d'acceptation</a
+                        >
                       </a>
                     </div>
                   </td>
                   <td
-                  v-if="offre.idEtat==GetEtatRefuser()"
+                    v-if="offre.idEtat == GetEtatRefuser()"
                     class="
                       px-6
                       py-4
@@ -366,8 +370,8 @@
                       </a>
                     </div>
                   </td>
-                   <td
-                  v-if="offre.idEtat==GetEtatIndisponible()"
+                  <td
+                    v-if="offre.idEtat == GetEtatIndisponible()"
                     class="
                       px-6
                       py-4
@@ -394,9 +398,8 @@
                       </a>
                     </div>
                   </td>
-                 
-                  
-<!-- settings -->
+
+                  <!-- settings -->
                   <td
                     class="
                       px-6
@@ -409,9 +412,7 @@
                       whitespace-nowrap
                     "
                   >
-                
-                
-                     <!-- <button
+                    <!-- <button
                       class="
                         px-4
                         py-2
@@ -425,36 +426,36 @@
                     >
                       Accepter
                     </button> -->
-                    <div  v-if="GetEtatEnAttente() == offre.idEtat">
-                    <button
-                      class="
-                        px-4
-                        py-2
-                        text-xm
-                        font-semibold
-                        text-gray-900
-                        bg-cyan-400
-                        rounded-r rounded-l
+                    <div v-if="GetEtatEnAttente() == offre.idEtat">
+                      <button
+                        class="
+                          px-4
+                          py-2
+                          text-xm
+                          font-semibold
+                          text-gray-900
+                          bg-cyan-400
+                          rounded-r rounded-l
                         "
-                        @click="Valider(offre.idOffre,index)" 
-                    >
-                      Accepter
-                    </button>
-                    <button
-                    style="margin-left:5px"
-                      class="
-                        px-4
-                        py-2
-                        text-xm
-                        font-semibold
-                        text-gray-900
-                        bg-red-400
-                        rounded-r rounded-l
+                        @click="Valider(offre, index)"
+                      >
+                        Accepter
+                      </button>
+                      <button
+                        style="margin-left: 5px"
+                        class="
+                          px-4
+                          py-2
+                          text-xm
+                          font-semibold
+                          text-gray-900
+                          bg-red-400
+                          rounded-r rounded-l
                         "
-                    @click="AnnulerAccepter(offre.idOffre,index)" 
-                    >
-                      Annuler
-                    </button>
+                        @click="AnnulerAccepter(offre.idOffre, index)"
+                      >
+                        Annuler
+                      </button>
                     </div>
                     <input
                       type="checkbox"
@@ -468,7 +469,7 @@
                       :id="offre.idOffre"
                       :value="offre.idOffre"
                       v-model="checkedOffreId"
-                     v-if="offre.idEtat==GetEtatNonTraite()"
+                      v-if="offre.idEtat == GetEtatNonTraite()"
                     />
                   </td>
                 </tr>
@@ -476,7 +477,10 @@
             </table>
             <!--  -->
 
-            <div class=" bg-white rounded-md shadow-md"  v-if="checkedOffreId.length!=0 ">
+            <div
+              class="bg-white rounded-md shadow-md"
+              v-if="checkedOffreId.length != 0"
+            >
               <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div class="text-center">
                   <div
@@ -491,7 +495,7 @@
                   </div>
                 </div>
                 <div class="text-center">
-                  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2"  >
+                  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                     <div
                       class="
                         py-2
@@ -502,7 +506,6 @@
                       "
                     >
                       <button
-                     
                         class="
                           px-6
                           py-2
@@ -517,8 +520,6 @@
                         Accepter
                       </button>
                     </div>
-
-                    
                   </div>
                 </div>
               </div>
@@ -529,7 +530,7 @@
       </div>
     </div>
     <!-- les offre selecter :{{ checkedOffreId }}
-    <br />-->
+    <br /> -->
     <!-- {{ GetEtatEnAttente()}}  -->
   </div>
   <!-- </div> -->
@@ -549,7 +550,7 @@ export default {
     return {
       //listeOffre: [],
       checkedOffreId: [],
-      accepter:true
+      accepter: true,
     };
   },
 
@@ -576,10 +577,10 @@ export default {
       });
   },
   methods: {
-    GetEtatEnAttente(){
-       return this.ListeEtatOffres.filter((el) => el.etat == "En attente d'acceptation").map(
-        (el) => el.idEtat
-      )[0];
+    GetEtatEnAttente() {
+      return this.ListeEtatOffres.filter(
+        (el) => el.etat == "En attente d'acceptation"
+      ).map((el) => el.idEtat)[0];
     },
     GetEtatRefuser() {
       return this.ListeEtatOffres.filter((el) => el.etat == "Refusé").map(
@@ -591,7 +592,7 @@ export default {
         (el) => el.idEtat
       )[0];
     },
-     GetEtatNonTraite() {
+    GetEtatNonTraite() {
       return this.ListeEtatOffres.filter((el) => el.etat == "Non traité").map(
         (el) => el.idEtat
       )[0];
@@ -602,53 +603,75 @@ export default {
       ).map((el) => el.idEtat)[0];
     },
     GetEtatIndisponible() {
-      return this.ListeEtatOffres.filter(
-        (el) => el.etat == "Indisponible"
-      ).map((el) => el.idEtat)[0];
+      return this.ListeEtatOffres.filter((el) => el.etat == "Indisponible").map(
+        (el) => el.idEtat
+      )[0];
     },
     Accepter() {
-         let idt=this.ListeOffres.filter(el=>el.idOffre==this.checkedOffreId[0]).map(el=>el.idTransporteur)[0];
-
-      if(this.ListeOffres.filter(el=>el.idTransporteur==idt).length>1)
-      {
-        var AccepterOffreSeule = {
-        idEtatEnCours: this.GetEtatEnCours(),
-        OffreId: this.checkedOffreId[0],
-      };
-      this.$store.dispatch("Accepter_Offre_seule", AccepterOffreSeule);
-      }
-      else{
       var AccepterOffre = {
         idEtatEnCours: this.GetEtatEnCours(),
         idEtatRefuser: this.GetEtatRefuser(),
         ListeOffresId: this.checkedOffreId,
       };
-      this.$store.dispatch("Accepter_Offre", AccepterOffre);
+
+      this.$store.dispatch("Refuser_Tout", AccepterOffre);
+      for (var i = 0; i < this.checkedOffreId.length; i++) {
+        let of = this.ListeOffres.filter(
+          (el) => el.idOffre == this.checkedOffreId[i]
+        )[0];
+        of.idEtat = this.GetEtatEnCours();
+        of.prixFinale = of.prix + 10;
+
+        of.idEtatNavigation = null;
+        // console.log(of)
+        axios
+          .put(Url + "offres/" + of.idOffre, of, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          })
+          .then((res) => {
+            console.log("res 2 :");
+            console.log(of);
+            console.log(res);
+          });
+        console.log("bravo");
       }
-       this.checkedOffreId=[];
+
+      // this.$store.dispatch("Accepter_Offre", AccepterOffre);
+
+      this.checkedOffreId = [];
     },
-    AnnulerAccepter(id,index) {
-       var Annuleraccepter = {
-         idOffre:id,
-         idEtatRefuser: this.GetEtatIndisponible(),
-         index: index,
-         
+
+    AnnulerAccepter(id, index) {
+      var Annuleraccepter = {
+        idOffre: id,
+        idEtatRefuser: this.GetEtatIndisponible(),
+        index: index,
       };
       //console.log(id)
-      console.log(Annuleraccepter)
+      console.log(Annuleraccepter);
       this.$store.dispatch("Annuler_Accepter", Annuleraccepter);
     },
-    Valider(id,index) {
-       var AccepterValider = {
-         idOffre:id,
-         idEtatAccepter: this.GetEtatAccepter(),
-         idEtatRefuser: this.GetEtatRefuser(),
-         index: index,
-         
+    Valider(offre, index,) {
+      var AccepterValider = {
+        idOffre: offre.idOffre,
+        idEtatAccepter: this.GetEtatAccepter(),
+        idEtatRefuser: this.GetEtatRefuser(),
+        index: index,
       };
       //console.log(id)
-      console.log(AccepterValider)
+      console.log(AccepterValider);
       this.$store.dispatch("Valider_Accepter", AccepterValider);
+      offre.idEtat= this.GetEtatAccepter();
+      offre.idEtatNavigation=  null;
+         axios.put(Url + "offres/" +offre.idOffre , offre,{
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem("token"),
+        }
+      }).then(res => {
+        console.log("ValiderAccepter")
+      });
     },
   },
 };

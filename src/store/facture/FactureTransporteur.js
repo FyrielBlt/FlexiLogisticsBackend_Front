@@ -6,9 +6,10 @@ export default {
     ListeFactureTransporteurs: [],
     currentFactureTransporteurs: 1,
     perPageFactureTransporteurs: 1,
-    parPageFactureTransporteurs: 5,
+    parPageFactureTransporteurs: 10,
     totalFactureTransporteurs: 10,
-    filterPayement:null
+    filterPayement:null,
+    num:""
   },
   getters: {
     ListeFactureTransporteurs(state) {
@@ -107,6 +108,19 @@ export default {
     Get_NoveauFactureTransporteurs({ commit, state }, NumPage) {
       state.currentFactureTransporteurs = NumPage;
       axios.get(Url + `FactureTransporteurs?page=${state.currentFactureTransporteurs}&quantityPage=${state.parPageFactureTransporteurs}`, {
+        headers: {
+          Authorization: 'Bearer ' + Token
+        }
+      })
+        .then(res => {
+          //  let tot=parseInt(res.headers["x-wp-total"]);
+          commit('GetFactureTransporteur', res);
+        })
+    },
+    Filter_Num({ commit, state }, filter) {
+      state.num = filter;
+      state.currentFactureTransporteurs = 1;
+      axios.get(Url + `FactureTransporteurs?page=${state.currentFactureTransporteurs}&quantityPage=${state.parPageFactureTransporteurs}&num=${state.num}&sortOrder=${state.filterPayement}`, {
         headers: {
           Authorization: 'Bearer ' + Token
         }

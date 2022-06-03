@@ -612,11 +612,14 @@ export default defineComponent({
               file: offre.idDemandeNavigation.file,
             }
           ).then(()=>{
-           Swal.fire(
-      'Updated!',
-      'Your offer has been updated.',
-      'success'
-    )
+         this.$swal({
+          position: "top-end",
+          icon: "success",
+          toast: true,
+          title: "Offre accepté avec succée",
+          showConfirmButton: false,
+          timer: 2000,
+        })
           });
           axios
             .get(
@@ -662,11 +665,14 @@ export default defineComponent({
               file: offre.idDemandeNavigation.file,
             }
           ).then(()=>{
-           Swal.fire(
-      'Updated!',
-      'Your offer has been updated.',
-      'success'
-    )
+           this.$swal({
+          position: "top-end",
+          icon: "success",
+          toast: true,
+          title: "Offre annulé avec succée",
+          showConfirmButton: false,
+          timer: 2000,
+        })
           });
           axios
             .get(

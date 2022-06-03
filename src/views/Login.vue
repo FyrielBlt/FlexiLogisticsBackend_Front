@@ -108,6 +108,9 @@ export default defineComponent({
           localStorage.setItem("type", response.data.type);
           if (localStorage.getItem("type") == "intermediaire") {
             localStorage.setItem("token", response.data.type.token);
+            localStorage.setItem("name", response.data.validUser.nom);
+            localStorage.setItem("prenom", response.data.validUser.prenom);
+             localStorage.setItem("imagesrc", response.data.validUser.imageSrc);
             localStorage.setItem(
               "id",
               response.data.validUser.intermediaire[0].idIntermediaire

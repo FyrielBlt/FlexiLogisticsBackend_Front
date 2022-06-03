@@ -15,63 +15,112 @@ export default {
     GetListeOffre(state, value) {
       state.ListeOffres = value;
     },
-    AccepterOffreSeule(state, OffreId) {
+    // AccepterOffreSeule(state, OffreId) {
      
 
-        state.ListeOffres.filter(el => el.idOffre == OffreId.OffreId)[0].idEtat = OffreId.idEtatEnCours;
-        state.ListeOffres.filter(el => el.idOffre == OffreId.OffreId)[0].prixFinale =
-          state.ListeOffres.filter(el => el.idOffre == OffreId.OffreId)[0].prix + 10;
-        console.log(state.ListeOffres.filter(el => el.idOffre == OffreId.OffreId)[0])
-        axios.put(Url + "offres/" + state.ListeOffres.filter(el => el.idOffre == OffreId.OffreId)[0].idOffre, state.ListeOffres.filter(el => el.idOffre == OffreId.OffreId)[0], {
-          headers: {
-            Authorization: 'Bearer ' + Token
-          }
-        }).then(res => {
-          console.log("en cour")
-        });
+    //     state.ListeOffres.filter(el => el.idOffre == OffreId.OffreId)[0].idEtat = OffreId.idEtatEnCours;
+    //     state.ListeOffres.filter(el => el.idOffre == OffreId.OffreId)[0].prixFinale =
+    //       state.ListeOffres.filter(el => el.idOffre == OffreId.OffreId)[0].prix + 10;
+    //     console.log(state.ListeOffres.filter(el => el.idOffre == OffreId.OffreId)[0])
+    //     axios.put(Url + "offres/" + state.ListeOffres.filter(el => el.idOffre == OffreId.OffreId)[0].idOffre, state.ListeOffres.filter(el => el.idOffre == OffreId.OffreId)[0], {
+    //       headers: {
+    //         Authorization: 'Bearer ' + Token
+    //       }
+    //     }).then(res => {
+    //       console.log("en cour")
+    //     });
       
 
-      console.log("bravo")
+    //   console.log("bravo")
 
 
 
-    },
-
-    AccepterOffre(state, ListeOffresId) {
+    // },
+    RefuserTout(state, ListeOffresId) {
       //refuser tout les offres puis accepter juste les choisit s
       for (var j = 0; j < state.ListeOffres.length; j++) {
         state.ListeOffres[j].idEtat = ListeOffresId.idEtatRefuser;
-        axios.put(Url + "offres/" + state.ListeOffres[j].idOffre, state.ListeOffres[j], {
+        let off =state.ListeOffres[j];
+        off.idEtatNavigation=null;
+        axios.put(Url + "offres/" + off.idOffre, off, {
           headers: {
             Authorization: 'Bearer ' + Token
           }
-        }).then();
-      }
-
-      //accepter les choisits + donner l'offre au client 
-      for (var i = 0; i < ListeOffresId.ListeOffresId.length; i++) {
-        state.ListeOffres.filter(el => el.idOffre == ListeOffresId.ListeOffresId[i])[0].idEtat = ListeOffresId.idEtatEnCours;
-        state.ListeOffres.filter(el => el.idOffre == ListeOffresId.ListeOffresId[i])[0].prixFinale =
-          state.ListeOffres.filter(el => el.idOffre == ListeOffresId.ListeOffresId[i])[0].prix + 10;
-        console.log(state.ListeOffres.filter(el => el.idOffre == ListeOffresId.ListeOffresId[i])[0])
-        axios.put(Url + "offres/" + state.ListeOffres.filter(el => el.idOffre == ListeOffresId.ListeOffresId[i])[0].idOffre, state.ListeOffres.filter(el => el.idOffre == ListeOffresId.ListeOffresId[i])[0], {
-          headers: {
-            Authorization: 'Bearer ' + Token
-          }
-        }).then(res => {
-          console.log("en cour")
+        }).then(res=>{
+          console.log("res :1")
+          console.log(off)
         });
       }
+      console.log("malek")
+      //accepter les choisits + donner l'offre au client 
+      // for (var i = 0; i < ListeOffresId.ListeOffresId.length; i++) {
+      //   state.ListeOffres.filter(el => el.idOffre == ListeOffresId.ListeOffresId[i])[0].idEtat = ListeOffresId.idEtatEnCours;
+      //   state.ListeOffres.filter(el => el.idOffre == ListeOffresId.ListeOffresId[i])[0].prixFinale =
+      //   state.ListeOffres.filter(el => el.idOffre == ListeOffresId.ListeOffresId[i])[0].prix + 10;
+      //  var of= state.ListeOffres.filter(el => el.idOffre == ListeOffresId.ListeOffresId[i])[0];
+      //   of.idEtatNavigation=null;
+      // // console.log(of)
+      //    axios.put(Url + "offres/" + of.idOffre, of, {
+      //     headers: {
+      //       Authorization: 'Bearer ' + Token
+      //     }
+      //   }).then(res => {
+      //     console.log("res 2 :")
+      //     console.log(of)
+      //   });
+      //   console.log("bravo")
+      // }
 
-      console.log("bravo")
+      //console.log("bravo")
 
 
 
     },
+    // AccepterOffre(state, ListeOffresId) {
+    //   // //refuser tout les offres puis accepter juste les choisit s
+    //   // for (var j = 0; j < state.ListeOffres.length; j++) {
+    //   //   state.ListeOffres[j].idEtat = ListeOffresId.idEtatRefuser;
+    //   //   var off =state.ListeOffres[j];
+    //   //   off.idEtatNavigation=null;
+    //   //   axios.put(Url + "offres/" + off.idOffre, off, {
+    //   //     headers: {
+    //   //       Authorization: 'Bearer ' + Token
+    //   //     }
+    //   //   }).then(res=>{
+    //   //     console.log("res :1")
+    //   //     console.log(off)
+    //   //   });
+    //   // }
+    //   // console.log("malek")
+    //   //accepter les choisits + donner l'offre au client 
+    //   for (var i = 0; i < ListeOffresId.ListeOffresId.length; i++) {
+    //     state.ListeOffres.filter(el => el.idOffre == ListeOffresId.ListeOffresId[i])[0].idEtat = ListeOffresId.idEtatEnCours;
+    //     state.ListeOffres.filter(el => el.idOffre == ListeOffresId.ListeOffresId[i])[0].prixFinale =
+    //     state.ListeOffres.filter(el => el.idOffre == ListeOffresId.ListeOffresId[i])[0].prix + 10;
+    //     let of = state.ListeOffres.filter(el => el.idOffre == ListeOffresId.ListeOffresId[i])[0];
+    //     of.idEtatNavigation=null;
+    //   // console.log(of)
+    //      axios.put(Url + "offres/" + of.idOffre, of, {
+    //       headers: {
+    //         Authorization: 'Bearer ' + Token
+    //       }
+    //     }).then(res => {
+    //       console.log("res 2 :")
+    //       console.log(of)
+    //     });
+    //     console.log("bravo")
+    //   }
+
+    //   //console.log("bravo")
+
+
+
+    // },
     AnnulerAccepter(state, annuler){
       
       state.ListeOffres[annuler.index].idEtat=annuler.idEtatRefuser;
       let offre=state.ListeOffres[annuler.index];
+      offre.idEtatNavigation=null;
       axios.put(Url + "offres/" +annuler.idOffre ,offre,{
         headers: {
           Authorization: 'Bearer ' + Token
@@ -91,23 +140,18 @@ export default {
         }).then();
       }
 
-      state.ListeOffres[valider.index].idEtat=valider.idEtatAccepter;
-      let offre=state.ListeOffres[valider.index];
-      axios.put(Url + "offres/" +valider.idOffre ,offre ,{
-        headers: {
-          Authorization: 'Bearer ' + Token
-        }
-      }).then(res => {
-        console.log("ValiderAccepter")
-      });
+      // state.ListeOffres[valider.index].idEtat=valider.idEtatAccepter;
+      // let offre=state.ListeOffres[valider.index];
+      // offre.idEtatNavigation=null;
+   
     },
   },
   actions: {
 
 
-    Accepter_Offre({ commit }, ListeOffresId) {
-      commit('AccepterOffre', ListeOffresId);
-    },
+    // Accepter_Offre({ commit }, ListeOffresId) {
+    //   commit('AccepterOffre', ListeOffresId);
+    // },
     Accepter_Offre_seule({ commit }, ListeOffresId) {
       commit('AccepterOffreSeule', ListeOffresId);
     },
@@ -119,6 +163,9 @@ export default {
     },
     Valider_Accepter({ commit }, valider) {
       commit('ValiderAccepter', valider);
+    },
+    Refuser_Tout({ commit }, valider) {
+      commit('RefuserTout', valider);
     },
   },
 };

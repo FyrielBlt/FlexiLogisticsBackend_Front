@@ -94,12 +94,8 @@
                 v-model="order"
               >
                 <option value="0">All</option>
-                <option value="oui">
-                  Oui
-                </option>
-                <option value="non">
-                  Non
-                </option>
+                <option value="oui">Payé</option>
+                <option value="non">Non payé</option>
               </select>
 
               <div
@@ -140,7 +136,7 @@
             </span>
 
             <input
-              placeholder="Search"
+              placeholder="Numéro Facture"
               class="
                 block
                 w-full
@@ -182,7 +178,7 @@
                       bg-indigo-800
                     "
                   >
-                    ID
+                   Numéro
                   </th>
                   <th
                     class="
@@ -195,7 +191,7 @@
                       bg-indigo-800
                     "
                   >
-                     Transporteur
+                    Transporteur
                   </th>
 
                   <th
@@ -267,13 +263,13 @@
               </thead>
               <tbody class="bg-white">
                 <tr
-                  v-for="(facture, index) in ListeFactureTransporteurs"
+                  v-for="(facture) in ListeFactureTransporteurs"
                   :key="facture"
                 >
                   <th
                     class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
                   >
-                    {{ 1 + index }}
+                    {{ facture.idFactTransporteur }}
                   </th>
                   <td
                     class="
@@ -290,7 +286,10 @@
                       <div class="flex-shrink-0 w-10 h-10">
                         <img
                           class="w-10 h-10 rounded-full"
-                          :src="facture.idOffreNavigation.idTransporteurNavigation.imageSrc"
+                          :src="
+                            facture.idOffreNavigation.idTransporteurNavigation
+                              .imageSrc
+                          "
                           alt=""
                         />
                       </div>
@@ -304,10 +303,16 @@
                             text-center text-gray-900
                           "
                         >
-                          {{facture.idOffreNavigation.idTransporteurNavigation.idUserNavigation.nom}}
+                          {{
+                            facture.idOffreNavigation.idTransporteurNavigation
+                              .idUserNavigation.nom
+                          }}
                         </div>
                         <div class="text-sm leading-5 text-gray-500">
-                         {{facture.idOffreNavigation.idTransporteurNavigation.idUserNavigation.prenom}}
+                          {{
+                            facture.idOffreNavigation.idTransporteurNavigation
+                              .idUserNavigation.prenom
+                          }}
                         </div>
                       </div>
                     </div>
@@ -324,7 +329,10 @@
                     "
                   >
                     <div class="text-sm leading-5 text-gray-900">
-                     {{facture.idOffreNavigation.idDemandeNavigation.description}}
+                      {{
+                        facture.idOffreNavigation.idDemandeNavigation
+                          .description
+                      }}
                     </div>
                   </td>
                   <td
@@ -338,25 +346,25 @@
                     "
                   >
                     <div class="text-sm leading-5 text-gray-900">
-                       <a
-                          class="
-                            inline-flex
-                            px-2
-                            text-ms
-                            font-semibold
-                            leading-5
-                            text-green-800
-                            bg-green-200
-                            rounded-full
-                          "
+                      <a
+                        class="
+                          inline-flex
+                          px-2
+                          text-ms
+                          font-semibold
+                          leading-5
+                          text-green-800
+                          bg-green-200
+                          rounded-full
+                        "
+                      >
+                        <a class="mx-2 px-2 rounded-md"
+                          >{{ facture.idOffreNavigation.prix }} $</a
                         >
-                          <a class="mx-2 px-2 rounded-md">{{facture.idOffreNavigation.prix}} $</a>
-                          
-                        </a>
-                      
+                      </a>
                     </div>
                   </td>
-                   <td
+                  <td
                     class="
                       px-6
                       py-4
@@ -367,22 +375,22 @@
                     "
                   >
                     <div class="text-sm leading-5 text-gray-900">
-                       <a
-                          class="
-                            inline-flex
-                            px-2
-                            text-ms
-                            font-semibold
-                            leading-5
-                            text-red-800
-                            bg-red-200
-                            rounded-full
-                          "
+                      <a
+                        class="
+                          inline-flex
+                          px-2
+                          text-ms
+                          font-semibold
+                          leading-5
+                          text-red-800
+                          bg-red-200
+                          rounded-full
+                        "
+                      >
+                        <a class="mx-2 px-2 rounded-md"
+                          >{{ facture.idOffreNavigation.prixFinale }} $</a
                         >
-                          <a class="mx-2 px-2 rounded-md">{{facture.idOffreNavigation.prixFinale}} $</a>
-                          
-                        </a>
-                      
+                      </a>
                     </div>
                   </td>
                   <td
@@ -398,25 +406,22 @@
                     "
                   >
                     <div class="flex justify-around">
-                      <span class="text-green-500 flex justify-center">
-                        
-                        <button
+                      <a :href="facture.srcFactureFile" target="_blank">
+                        <span
                           class="
                             inline-flex
                             px-2
-                            text-ms
+                            text-xs
                             font-semibold
                             leading-5
-                            text-green-800
-                            bg-green-200
+                            text-blue-800
+                            bg-blue-100
                             rounded-full
                           "
-                          @click="VoirFacture(facture.idFactTransporteur)"
                         >
-                          <a class="mx-2 px-2 rounded-md">Facture </a>
-                          <i class="bi bi-eye-slash"></i>
-                        </button>
-                      </span>
+                          Download</span
+                        ></a
+                      >
                     </div>
                   </td>
 
@@ -433,7 +438,11 @@
                     "
                   >
                     <div class="flex justify-around">
-                      <span class="text-red-500 flex justify-center" v-if="facture.payementFile==null" >
+                      <DragDropt
+                        :facturetransporteur="facture"
+                        @f="ChangePage(page)"
+                      ></DragDropt>
+                      <!-- <span class="text-red-500 flex justify-center" v-if="facture.payementFile==null" >
                         <button
                           class="mx-2 px-2 rounded-md text-red-600 text-xm"
                           @click="Payement(facture.idFactTransporteur)"
@@ -450,7 +459,7 @@
                           <a class="mx-2 px-2 rounded-md"> oui </a>
                           <i class="bi bi-eye-slash"></i>
                         </button>
-                      </span>
+                      </span> -->
                     </div>
                   </td>
                 </tr>
@@ -491,17 +500,21 @@ import { mapGetters } from "vuex";
 import BreadCrumb from "../../../components/Intermediaire/BreadCrumb.vue";
 // import axios from "axios";
 // import Url from "../../../store/Api";
+import DragDropt from "../../../components/Intermediaire/DragDropt.vue";
+
 import PaginationVue from "../../../components/Intermediaire/pagination/PaginationVue.vue";
 export default {
   components: {
     BreadCrumb,
     PaginationVue,
+    DragDropt,
   },
   data() {
     return {
-      ParpageFactureTransporteurs: "1",
-      order:"0",
-      recherche:""
+      ParpageFactureTransporteurs: "10",
+      order: "0",
+      recherche: "",
+      page: 1,
       // livrer: "",
       // achever: "",
     };
@@ -552,23 +565,20 @@ export default {
   methods: {
     VoirFacture(id) {
       //alert(listfacture[0].idFactClient +"" + id);
-     
-        this.$router.push({
-          name: "VoirFacture",
-          params: {
-            id: id,
-           
-          },
+
+      this.$router.push({
+        name: "VoirFacture",
+        params: {
+          id: id,
+        },
       });
-      
     },
     Payement(id) {
       this.$router.push({
         name: "PayementTransporteur",
-         params: {
-            facture: id,
-           
-          },
+        params: {
+          facture: id,
+        },
       });
     },
     PrixFinale(indice) {
@@ -602,12 +612,13 @@ export default {
       this.$router.push({ name: "ListeOffre", params: { id: id } });
     },
     ChangePage(NumPage) {
+      this.page = NumPage;
       this.$store.dispatch("Get_NoveauFactureTransporteurs", NumPage);
     },
   },
   watch: {
     recherche() {
-      this.$store.dispatch("Filter_Payement", this.recherche);
+      this.$store.dispatch("Filter_Num", this.recherche);
     },
     ParpageFactureTransporteurs() {
       this.$store.dispatch(
@@ -619,7 +630,6 @@ export default {
       this.$store.dispatch("Chercher_DemandeLivraisonEtat", this.EtatDemande);
     },
     order() {
-      
       this.$store.dispatch("Filter_Payement", this.order);
     },
   },

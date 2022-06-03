@@ -1,11 +1,8 @@
 <template>
   <div>
-<<<<<<< HEAD
       <bread-crumb>
     <template v-slot:bread1> Profile </template>
   </bread-crumb>
-=======
->>>>>>> dde1c6b7d23282a03ec3eca9f3d02440a1d8ec7a
     <!-- <Breadcrumb breadcrumb="Profil" /> -->
     <div class="grid grid-flow-col gap-3">
       <div class="row-span-3">
@@ -378,23 +375,6 @@ export default {
         this.image=URL.createObjectURL(this.imageFile)
       
      
-<<<<<<< HEAD
-=======
-    },
-    close(){
-       axios
-      .get("http://localhost:5000/api/users/" + localStorage.getItem("iduser"))
-      .then((res) => {
-        this.Profil = res.data;
-        this.image = res.data.imageSrc;
-        this.user = res.data;
-        this.nom = res.data.nom;
-        this.prenom = res.data.prenom;
-        this.email = res.data.email;
-        this.idUser = res.data.idUser;
-        (this.motdepasse = res.data.motdepasse), (this.tel = res.data.tel);
-      });
->>>>>>> dde1c6b7d23282a03ec3eca9f3d02440a1d8ec7a
     },
     Modifier() {
       Swal.fire({
@@ -439,13 +419,6 @@ export default {
                     this.password = "";
                     this.cpassword = "";
                     this.tel = res.data.tel;
-<<<<<<< HEAD
-=======
-                     localStorage.setItem("email",this.email);
-                   localStorage.setItem("name",this.nom);
-                   localStorage.setItem("prenom",this.prenom);
-                     localStorage.setItem("imagesrc",this.image);
->>>>>>> dde1c6b7d23282a03ec3eca9f3d02440a1d8ec7a
                      this.$swal({
             position: "top-end",
             icon: "success",
@@ -454,10 +427,6 @@ export default {
             showConfirmButton: false,
             timer: 2000,
           });
-<<<<<<< HEAD
-=======
-location.reload()
->>>>>>> dde1c6b7d23282a03ec3eca9f3d02440a1d8ec7a
                   }).catch(()=>{
            this.$swal({
           position: "top-end",
@@ -510,15 +479,6 @@ location.reload()
                   this.password = "";
                   this.cpassword = "";
                   this.tel = res.data.tel;
-<<<<<<< HEAD
-=======
-                  
-                      localStorage.setItem("email",this.email);
-                   localStorage.setItem("name",this.nom);
-                   localStorage.setItem("prenom",this.prenom);
-                     localStorage.setItem("imagesrc",this.image);
-
->>>>>>> dde1c6b7d23282a03ec3eca9f3d02440a1d8ec7a
                    this.$swal({
             position: "top-end",
             icon: "success",
@@ -526,14 +486,8 @@ location.reload()
             title: "Profil Modifié",
             showConfirmButton: false,
             timer: 2000,
-<<<<<<< HEAD
           });
                  
-=======
-
-          });
-                 location.reload()
->>>>>>> dde1c6b7d23282a03ec3eca9f3d02440a1d8ec7a
                 }).catch(()=>{
                     this.$swal({
           position: "top-end",

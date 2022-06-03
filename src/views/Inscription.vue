@@ -193,7 +193,9 @@ export default defineComponent({
                 idUser: response.data.idUser,
               });
             }
+            this.$router.push('/login');
           })
+          
           .catch(() => {
             this.$swal({
               position: "top-end",

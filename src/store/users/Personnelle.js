@@ -11,7 +11,7 @@ export default {
     ListePersonnelles: [],
     currentPersonnelle: 1,
     perPagePersonnelle: 1,
-    parPagePersonnelle: 5,
+    parPagePersonnelle: 10,
     totalPersonnelle: 10,
     filterRole: 0
   },
@@ -70,35 +70,28 @@ export default {
     },
     // Modifier
     ModifierPersonnelle(state, personnelle) {  
-
-
-
-      axios
-      .put(Url + "users/" + personnelle.idUser, personnelle.idUserNavigation, {
-        headers: {
-          Authorization: 'Bearer ' + Token
-        }
-      })
-      .then(res => {
-        personnelle.idUserNavigation=res.data;
-        personnelle.imageSrc=res.data.imageSrc;
+      // axios
+      // .put(Url + "users/" + personnelle.idUser, personnelle.idUserNavigation, {
+      //   headers: {
+      //     Authorization: 'Bearer ' + Token
+      //   }
+      // })
+      // .then(res => {
+       // personnelle.idUserNavigation=personnelle;
+        //personnelle.imageSrc=res.data.imageSrc;
         state.ListePersonnelles[personnelle.index] = personnelle;
         
-      });
+      // });
     
     },
    
     // Ajouter
     AjouterPersonnelle(state, personnelle) {
-      axios.post(Url + "users", personnelle.personnelle, {
-        headers: {
-          Authorization: 'Bearer ' + Token
-        }
-      }).then(res => {
+     
        // console.log(res.data);
-        let UserAjouter=res.data;
+        let UserAjouter=personnelle.personnelle;
         let intermediaire = {
-          IdUser: res.data.idUser,
+          IdUser: personnelle.personnelle.idUser,
           IdRole: personnelle.Idrole
         };
         //console.log(intermediaire);
@@ -114,7 +107,7 @@ export default {
           state.ListePersonnelles.push(intermediaireAjouter);
           console.log(intermediaireAjouter);
         });
-      });
+     // });
     }
   },
   actions: {

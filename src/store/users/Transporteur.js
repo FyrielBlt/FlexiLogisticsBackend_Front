@@ -8,7 +8,7 @@ export default {
     ListeTransporteurs: [],
     currentTransporteur: 1,
     perPageTransporteur: 1,
-    parPageTransporteur: 3,
+    parPageTransporteur: 10,
     totalTransporteur: 10,
     ChercherTransporteur: "",
     // trajet
@@ -97,18 +97,18 @@ export default {
       // state.ListeTransporteurs[transporteur.index] = transporteur;
       // modifier users
      // console.log(user.get("idUser"));
-      axios
-        .put(Url + "users/" + user.idUserNavigation.get("idUser"), user.idUserNavigation, {
-          headers: {
-            Authorization: 'Bearer ' + Token
-          }
-        })
-        .then(res => {
-          user.idUserNavigation=res.data;
-          user.imageSrc=res.data.imageSrc;
+      // axios
+      //   .put(Url + "users/" + user.idUserNavigation.get("idUser"), user.idUserNavigation, {
+      //     headers: {
+      //       Authorization: 'Bearer ' + Token
+      //     }
+      //   })
+      //   .then(res => {
+         // user.idUserNavigation=res.data;
+        //  user.imageSrc=res.data.imageSrc;
           state.ListeTransporteurs[user.index] = user;
-          console.log(user);
-        });
+          //console.log(user);
+        // });
         // .catch((rer) => console.log(rer));
 
     },
@@ -116,15 +116,15 @@ export default {
     AjouterTransporteur(state, transporteur) {
     
     
-      axios.post(Url + "users", transporteur, {
-        headers: {
-          Authorization: 'Bearer ' + Token
-        }
-      }).then(res => {
-        console.log(res.data);
-        let UserAjouter = res.data;
+      // axios.post(Url + "users", transporteur, {
+      //   headers: {
+      //     Authorization: 'Bearer ' + Token
+      //   }
+      // }).then(res => {
+        console.log(transporteur);
+        let UserAjouter =transporteur;
         var Transporteur = {
-          "idUser": res.data.idUser,
+          "idUser": transporteur.idUser,
         };
 
         axios.post(Url + "Transporteurs", Transporteur, {
@@ -139,7 +139,7 @@ export default {
           state.ListeTransporteurs.push(TransporteurAjouter);
 
         });
-      });
+      // });
 
 
     }
@@ -152,7 +152,7 @@ export default {
 
     
      // state.ChercherVille2 = chercher.ville2;
-      if (chercher.ville1 != "" ) { state.currentTransporteur = 1; }
+      // if (chercher.ville1 != "" ) { state.currentTransporteur = 1; }
       state.ChercherTransporteur = chercher.name;
 
       axios.get(Url + `itineraires?page=${state.currentTransporteur}&quantityPage=${state.parPageTransporteur}&ville1=${state.ChercherVille1}&name=${state.ChercherTransporteur}`, {

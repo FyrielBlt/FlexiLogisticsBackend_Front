@@ -8,7 +8,7 @@ export default {
     ListeVilles: [],
     currentVille: 1,
     perPageVille: 1,
-    parPageVille: 3,
+    parPageVille: 10,
     totalVille: 10,
     ChercherVille: ""
 

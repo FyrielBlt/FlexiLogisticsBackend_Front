@@ -6,7 +6,7 @@
     <button @click="open = true" class="
                       inline-flex
                       px-2
-                      text-xs
+                      text-sm
                       font-semibold
                       leading-5
                       text-blue-800
@@ -14,12 +14,12 @@
                       
                                             border-8 border-blue-600 
 
-                    " v-if="u.fileOffre.length > 0">Télécharger</button>
+                    " v-if="u.fileOffre.length > 0">{{u.fileOffre.length}} Fichier(s)</button>
 
     <button  class="
                       inline-flex
                       px-2
-                      text-xs
+                      text-sm
                       font-semibold
                       leading-5
                       text-red-800
@@ -27,7 +27,7 @@
                                             border-8 border-red-600 
 
                     " v-else>
-      0 fichiers</button>
+      0 Fichier</button>
     <div :class="`modal ${!open && 'opacity-0 pointer-events-none'
     } z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center`">
       <div @click="open = false" class="absolute w-full h-full bg-gray-900 opacity-50 modal-overlay"

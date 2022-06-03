@@ -8,10 +8,10 @@ export default {
     ListeClients: [],
     currentClient: 1,
     perPageClient: 1,
-    parPageClient: 2,
+    parPageClient: 10,
     totalClient: 10,
     rechercheClient:""
-  },
+  }, 
   getters: {
     //return les clients
     ListeClientsAll(state) {
@@ -58,65 +58,18 @@ export default {
     },
     // Modifier
     ModifierClient(state, client) {
-      axios
-      .put(Url + "users/" + client.iduserNavigation.get("iduser"), client.iduserNavigation, {
-        headers: {
-          Authorization: 'Bearer ' + Token
-        }
-      })
-      .then(res => {
-        client.iduserNavigation=res.data;
-        client.imageSrc=res.data.imageSrc;
+     
         state.ListeClients[client.index]=client;
         console.log(client);
-      });
-      /////
-      // state.ListeClients[client.index]=client;
-      // //modifier intermediaire
-      
-      //  console.log(client);
-      // // modifier users
-      // axios
-      //   .put(Url + "users/" + client.iduser, client.iduserNavigation, {
-      //     headers: {
-      //       Authorization: 'Bearer ' + Token
-      //     }
-      //   })
-      //   .then()
-      //   .catch((rer) => console.log(rer));
-      // console.log(client);
-      // axios
-      //   .put(Url + "Clients/" + client.idClient, client, {
-      //     headers: {
-      //       Authorization: 'Bearer ' + Token
-      //     }
-      //   })
-      //   .then()
-      //   .catch((rer) => console.log(rer));
+     
     },
     // Ajouter
     AjouterClient(state, user) {
 
-      // let user = {
-      //   Nom: client.Nom,
-      //   Prenom: client.Prenom,
-      //   Email: client.Email,
-      //   Motdepasse: client.Motdepasse,
-      //   Image: client.Image
-      // };
-        
-   
-     // console.log(user);
-
-      axios.post(Url + "users", user, {
-        headers: {
-          Authorization: 'Bearer ' + Token
-        }
-      }).then(res => {
-       // console.log(res.data);
-        let UserAjouter=res.data;
+     
+        let UserAjouter=user;
         let client = {
-          iduser: res.data.idUser, 
+          iduser: user.idUser, 
         };
         //console.log(client);
         axios.post(Url + "clients", client, {
@@ -130,17 +83,6 @@ export default {
           state.ListeClients.push(clientAjouter);
           //console.log(intermediaireAjouter);
         });
-       });
-
-
-
-      // axios.post(Url + "Clients", client, {
-      //   headers: {
-      //     Authorization: 'Bearer ' + Token
-      //   }
-      // }).then(res => {
-      //   state.ListeClients.push(res.data);
-      // });
     }
   },
   actions: { 

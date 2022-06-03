@@ -225,6 +225,19 @@
                   >
                     Email
                   </th>
+                  <th
+                    class="
+                      px-5
+                      py-3
+                      text-sm
+                      font-medium
+                      text-gray-100
+                      uppercase
+                      bg-indigo-800
+                    "
+                  >
+                    Télèphone
+                  </th>
 
                   <th
                     class="
@@ -314,6 +327,20 @@
                   >
                     <div class="text-sm leading-5 text-gray-900">
                       {{ personnelle.idUserNavigation.email }}
+                    </div>
+                  </td>
+                  <td
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                    "
+                  >
+                    <div class="text-sm leading-5 text-gray-900">
+                      {{ personnelle.idUserNavigation.tel }}
                     </div>
                   </td>
                   <td
@@ -528,13 +555,10 @@
                 v-model="email"
               />
             </div>
-
             <div class="text-center">
-              <label class="text-gray-700" for="passwordConfirmation"
-                >Role</label
-              >
-              <select
-                v-model="idRole"
+              <label class="text-gray-700" for="Email">Télèphone :</label>
+              <input
+                id="Email"
                 class="
                   w-full
                   mt-2
@@ -545,17 +569,37 @@
                   focus:ring-opacity-40
                   focus:ring-indigo-500
                 "
-              >
-                <option
-                  v-for="role in ListeRoles"
-                  :key="role.idRole"
-                  :value="role.idRole"
-                >
-                  {{ role.role1 }}
-                </option>
-              </select>
+                style="text-align: center"
+                type="number"
+                v-model="tel"
+              />
             </div>
           </div>
+          <div class="text-center">
+            <label class="text-gray-700" for="passwordConfirmation">Role</label>
+            <select
+              v-model="idRole"
+              class="
+                w-full
+                mt-2
+                border-gray-200
+                rounded-md
+                focus:border-indigo-600
+                focus:ring
+                focus:ring-opacity-40
+                focus:ring-indigo-500
+              "
+            >
+              <option
+                v-for="role in ListeRoles"
+                :key="role.idRole"
+                :value="role.idRole"
+              >
+                {{ role.role1 }}
+              </option>
+            </select>
+          </div>
+
           <br />
           <div class="text-center">
             <label class="text-gray-700" for="Image">Image :</label>
@@ -691,6 +735,27 @@
                 v-model="password"
               />
             </div>
+            <div class="text-center">
+              <label class="text-gray-700" for="MotDePasse"
+                >Confirme Mot de passe :</label
+              >
+              <input
+                id="MotDePasse"
+                class="
+                  w-full
+                  mt-2
+                  border-gray-200
+                  rounded-md
+                  focus:border-indigo-600
+                  focus:ring
+                  focus:ring-opacity-40
+                  focus:ring-indigo-500
+                "
+                style="text-align: center"
+                type="text"
+                v-model="cpassword"
+              />
+            </div>
 
             <div class="text-center">
               <label class="text-gray-700" for="Email">Email :</label>
@@ -711,13 +776,10 @@
                 v-model="email"
               />
             </div>
-
             <div class="text-center">
-              <label class="text-gray-700" for="passwordConfirmation"
-                >Role</label
-              >
-              <select
-                v-model="idRole"
+              <label class="text-gray-700" for="Email">Télèphone :</label>
+              <input
+                id="Email"
                 class="
                   w-full
                   mt-2
@@ -728,16 +790,36 @@
                   focus:ring-opacity-40
                   focus:ring-indigo-500
                 "
-              >
-                <option
-                  v-for="role in ListeRoles"
-                  :key="role.idRole"
-                  :value="role.idRole"
-                >
-                  {{ role.role1 }}
-                </option>
-              </select>
+                style="text-align: center"
+                type="number"
+                v-model="tel"
+              />
             </div>
+          </div>
+
+          <div class="text-center">
+            <label class="text-gray-700" for="passwordConfirmation">Role</label>
+            <select
+              v-model="idRole"
+              class="
+                w-full
+                mt-2
+                border-gray-200
+                rounded-md
+                focus:border-indigo-600
+                focus:ring
+                focus:ring-opacity-40
+                focus:ring-indigo-500
+              "
+            >
+              <option
+                v-for="role in ListeRoles"
+                :key="role.idRole"
+                :value="role.idRole"
+              >
+                {{ role.role1 }}
+              </option>
+            </select>
 
             <div class="text-center">
               <label class="text-gray-700" for="Image">Image :</label>
@@ -759,6 +841,7 @@
               />
             </div>
           </div>
+
           <div class="flex justify-end mt-4">
             <button
               @click="Close()"
@@ -804,6 +887,8 @@
 <script>
 // import swal from "sweetalert2";
 // window.Swal = swal;
+import axios from "axios";
+import Url from "../../../../store/Api";
 import { mapGetters } from "vuex";
 import BreadCrumb from "../../../../components/Intermediaire/BreadCrumb.vue";
 import CardAjouter from "../../../../components/Intermediaire/CardAjouter.vue";
@@ -818,7 +903,7 @@ export default {
     return {
       openModifier: false,
       open: false,
-      ParpagePersonnelle: "1",
+      ParpagePersonnelle: "10",
       filterRole: 0,
       //data a ajouter
       nom: "",
@@ -831,7 +916,7 @@ export default {
       idIntermediaire: "",
       idUser: "",
       index: "",
-      // success: false,
+      tel: "",
       // timeout: false,
     };
   },
@@ -869,13 +954,12 @@ export default {
         this.prenom = "";
         this.email = "";
         this.password = "";
+        this.cpassword = "";
         this.idRole = "";
+        this.tel = "";
         this.imageFile = null;
       }
     },
-    //  malek() {
-    //   swal.fire({});
-    // },
     Supprimer(personnelle) {
       this.$swal({
         title: "Supprimer ?",
@@ -902,49 +986,96 @@ export default {
     },
     //
     SavePersonnel() {
-      if (
-        this.nom != "" &&
-        this.prenom != "" &&
-        this.email != "" &&
-        this.password != ""
-      ) {
-        let personnelle = new FormData();
-        personnelle.append("Nom", this.nom);
-        personnelle.append("Prenom", this.prenom);
-        personnelle.append("Email", this.email);
-        personnelle.append("MotDePasse", this.password);
-        //personnelle.append("Idrole",this.idRole);
-        personnelle.append("image", "");
-        personnelle.append("ImageFile", this.imageFile);
-        personnelle.append("ImageSrc", "");
-        let per = {
-          Idrole: this.idRole,
-          personnelle: personnelle,
-          IdRoleNavigation: this.GetRole(this.idRole),
-        };
+      if (this.password == this.cpassword) {
+        if (
+          this.nom != "" &&
+          this.prenom != "" &&
+          this.email != "" &&
+          this.password != ""
+        ) {
+          let personnelle = new FormData();
+          personnelle.append("Nom", this.nom);
+          personnelle.append("Prenom", this.prenom);
+          personnelle.append("Email", this.email);
+          personnelle.append("MotDePasse", this.password);
+          personnelle.append("Tel", this.tel);
+          personnelle.append("image", "");
+          personnelle.append("ImageFile", this.imageFile);
+          personnelle.append("ImageSrc", "");
 
-        this.$store.dispatch("Ajouter_Personnelle", per);
-        this.open = false;
-        this.$swal({
-          position: "top-end",
-          icon: "success",
-          
-          toast: true,
-          title: "Personnel Ajouter",
-          showConfirmButton: false,
-          timer: 2000,
-        });
+          axios
+            .post(Url + "users", personnelle, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            })
+            .then((res) => {
+              let per = {
+                Idrole: this.idRole,
+                personnelle: res.data,
+                IdRoleNavigation: this.GetRole(this.idRole),
+              };
+              this.$store.dispatch("Ajouter_Personnelle", per);
+              this.open = false;
+              this.$swal({
+                position: "top-end",
+                icon: "success",
+                toast: true,
+                title: "Personnel Ajouter",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+              this.nom = "";
+              this.prenom = "";
+              this.email = "";
+              this.password = "";
+              this.cpassword = "";
+              this.tel = "";
+              this.imageFile = null;
+            })
+            .catch(() => {
+              this.$swal({
+                position: "top-end",
+                icon: "error",
+                toast: true,
+                title: "Email utilisé",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            });
+
+          // this.$store.dispatch("Ajouter_Personnelle", per);
+          // this.open = false;
+          // this.$swal({
+          //   position: "top-end",
+          //   icon: "success",
+
+          //   toast: true,
+          //   title: "Personnel Ajouter",
+          //   showConfirmButton: false,
+          //   timer: 2000,
+          // });
+        } else {
+          this.$swal({
+            position: "top-end",
+            icon: "error",
+            toast: true,
+            title: "Il faut remplir tous les champs",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          // this.startAlert();
+          this.open = false;
+        }
       } else {
         this.$swal({
           position: "top-end",
           icon: "error",
           toast: true,
-          title: "Il faut remplir tous les champs",
+          title: "Les mots de passe diferent",
           showConfirmButton: false,
           timer: 2000,
         });
-       // this.startAlert();
-        this.open = false;
       }
     },
     Modifier(personnelle, index) {
@@ -952,61 +1083,116 @@ export default {
       this.nom = personnelle.idUserNavigation.nom;
       this.prenom = personnelle.idUserNavigation.prenom;
       this.email = personnelle.idUserNavigation.email;
-      this.password = personnelle.idUserNavigation.motdepasse;
+      //  this.password = personnelle.idUserNavigation.motdepasse;
       this.idRole = personnelle.idRole;
-      // this.image=personnelle.idUserNavigation.image;
+      this.tel = personnelle.idUserNavigation.tel;
       this.idIntermediaire = personnelle.idIntermediaire;
       this.idUser = personnelle.idUser;
       this.index = index; // console.log(personnelle.idUserNavigation);
     },
     SaveModifier() {
-      if (
-        this.idUser != "" &&
-        this.nom != "" &&
-        this.prenom != "" &&
-        this.email != "" &&
-        this.password != ""
-      ) {
-        let user = new FormData();
-        user.append("idUser", this.idUser);
-        user.append("Nom", this.nom);
-        user.append("Prenom", this.prenom);
-        user.append("Email", this.email);
-        user.append("MotDePasse", this.password);
-        user.append("image", "");
-        user.append("ImageFile", this.imageFile);
-        user.append("ImageSrc", "");
+      if (this.password == this.cpassword) {
+        if (
+          this.idUser != "" &&
+          this.nom != "" &&
+          this.prenom != "" &&
+          this.email != "" &&
+          this.password != ""
+        ) {
+          let user = new FormData();
+          user.append("idUser", this.idUser);
+          user.append("Nom", this.nom);
+          user.append("Prenom", this.prenom);
+          user.append("Email", this.email);
+          user.append("MotDePasse", this.password);
+          user.append("image", "");
+          user.append("Tel", this.tel);
+          user.append("ImageFile", this.imageFile);
+          user.append("ImageSrc", "");
 
-        let personnelle = {
-          idUser: this.idUser,
-          idRole: this.idRole,
-          imageSrc: "",
-          idRoleNavigation: this.GetRole(this.idRole),
-          idUserNavigation: user,
-          index: this.index,
-        };
-        this.$store.dispatch("Modifier_Personnelle", personnelle);
-        this.Close(false);
-         this.$swal({
-          position: "top-end",
-          icon: "success",
-        
-          toast: true,
-          title: "Personnel Modifier",
-          showConfirmButton: false,
-          timer: 2000,
-        });
+          // let personnelle = {
+          //   idUser: this.idUser,
+          //   idRole: this.idRole,
+          //   imageSrc: "",
+          //   idRoleNavigation: this.GetRole(this.idRole),
+          //   idUserNavigation: user,
+          //   index: this.index,
+          // };
+          axios
+            .put(Url + "users/" + this.idUser, user, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            })
+            .then((res) => {
+              let personnelle = {
+                idUser: this.idUser,
+                idRole: this.idRole,
+                imageSrc: res.data.imageSrc,
+                idRoleNavigation: this.GetRole(this.idRole),
+                idUserNavigation: res.data,
+                index: this.index,
+              };
+              this.$store.dispatch("Modifier_Personnelle", personnelle);
+              this.open = false;
+              this.$swal({
+                position: "top-end",
+                icon: "success",
+                toast: true,
+                title: "Personnel Modifié",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+              this.nom = "";
+              this.prenom = "";
+              this.email = "";
+              this.password = "";
+              this.cpassword = "";
+              this.tel = "";
+              this.imageFile = null;
+            })
+            .catch(() => {
+              this.$swal({
+                position: "top-end",
+                icon: "error",
+                toast: true,
+                title: "Email utilisé",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            });
+          // this.$store.dispatch("Modifier_Personnelle", personnelle);
+          // this.Close(false);
+          //  this.$swal({
+          //   position: "top-end",
+          //   icon: "success",
+
+          //   toast: true,
+          //   title: "Personnel Modifier",
+          //   showConfirmButton: false,
+          //   timer: 2000,
+          // });
+        } else {
+          this.$swal({
+            position: "top-end",
+            icon: "error",
+            toast: true,
+            title: "Il faut remplir tous les champs",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          //this.startAlert();
+          this.Close(false);
+        }
       } else {
         this.$swal({
           position: "top-end",
           icon: "error",
           toast: true,
-          title: "Il faut remplir tous les champs",
+          title: "Les mots de passe diferent",
           showConfirmButton: false,
           timer: 2000,
         });
-        //this.startAlert();
-        this.Close(false);
       }
     },
     // ajouter image

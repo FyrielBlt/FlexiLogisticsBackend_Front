@@ -81,7 +81,7 @@
                 ]"
                 width="300px"
                 v-model="offre"
-                :min="this.today"
+                :min="tabledemande.idDemandeNavigation.date"
                 required
               />
             </div>

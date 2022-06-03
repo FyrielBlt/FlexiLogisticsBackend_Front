@@ -14,7 +14,7 @@
                       bg-blue-100
                                             border-8 border-blue-600 
 
-                    " v-if="u.idDemandeNavigation.fileDemandeLivraison.length > 0">Télécharger </button>
+                    " v-if="u.idDemandeNavigation.fileDemandeLivraison.length > 0">{{u.idDemandeNavigation.fileDemandeLivraison.length}} Fichier(s) </button>
 
     <button disabled class="
                       inline-flex
@@ -26,7 +26,7 @@
                       bg-red-100
                       border-8 border-red-600 
                     " v-else>
-      0 fichiers</button>
+      0 Fichier</button>
     <div :class="`modal ${!open && 'opacity-0 pointer-events-none'
     } z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center`">
       <div @click="open = false" class="absolute w-full h-full bg-gray-900 opacity-50 modal-overlay"

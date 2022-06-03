@@ -3,26 +3,31 @@
     <!-- Breadcrumb -->
     <Breadcrumb breadcrumb="Modal" />
 
-    <button
-      @click="open = true"
-      class="inline-flex px-2 
-      text-xs font-semibold leading-5 text-blue-800 bg-blue-100 
-      border-8 border-blue-600 
 
-      "
-      v-if="u.fileOffre.length > 0"
-    >
-      Télécharger 
-    </button>
+    <button @click="open = true" 
+                    class="
+                      inline-flex
+                      px-2
+                      text-xs
+                      font-semibold
+                      leading-5
+                      text-blue-800
+                      bg-blue-100
+                                            border-8 border-blue-600 
 
-    <button
-      disabled
-      class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100
-        border-8 border-red-600"
-      v-else
-    >
-      0 fichiers
-    </button>
+                    " v-if="u.fileOffre.length> 0">{{u.fileOffre.length}} Fichier(s) </button>
+
+    <button disabled class="
+                      inline-flex
+                      px-2
+                      text-xs
+                      font-semibold
+                      leading-5
+                      text-red-800
+                      bg-red-100
+                      border-8 border-red-600 
+                    " v-else>
+      0 Fichier</button>
     <div
       :class="`modal ${
         !open && 'opacity-0 pointer-events-none'

@@ -8,7 +8,7 @@ export default {
     ListeTrajetsAll: [],
     currentTrajet: 1,
     perPageTrajet: 1,
-    parPageTrajet: 3,
+    parPageTrajet: 10,
     totalTrajet: 10,
     ChercherTrajet: "",
     ChercherDepart:"",

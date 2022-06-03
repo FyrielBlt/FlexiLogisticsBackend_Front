@@ -49,12 +49,12 @@ import DemandeDevis from '../views/Intermediaire/demande/DemandeDevis.vue'
 import VilleIntermediaire from '../views/Intermediaire/ville/Ville.vue'
 import OffreIntermediaire from '../views/Intermediaire/demande/Offre.vue'
 import FactureClient from '../views/Intermediaire/facturesClient/FactureClient.vue'
-import UploadFacture from '../views/Intermediaire/facturesClient/UploadFacture.vue'
-import PayementClient from '../views/Intermediaire/facturesClient/PayementClient.vue'
+//import UploadFacture from '../views/Intermediaire/facturesClient/UploadFacture.vue'
+//import PayementClient from '../views/Intermediaire/facturesClient/PayementClient.vue'
 import ProfilIntermediaire from '../views/Intermediaire/users/profil/Profil.vue'
 import FactureTransporteur from '../views/Intermediaire/facturesTransporteur/FactureTransporteur.vue'
-import VoirFacture from '../views/Intermediaire/facturesTransporteur/VoirFacture.vue'
-import PayementTransporteur from '../views/Intermediaire/facturesTransporteur/PayementTransporteur.vue'
+//import VoirFacture from '../views/Intermediaire/facturesTransporteur/VoirFacture.vue'
+//import PayementTransporteur from '../views/Intermediaire/facturesTransporteur/PayementTransporteur.vue'
 //***** */
 import Forms from '../views/Forms.vue'
 import Tables from '../views/Tables.vue'
@@ -153,7 +153,7 @@ const routes = [{
                 name: 'factureTransporteur',
                 component: FactureTransporteur,
             },
-            {
+           /* {
                 path: 'voirFacture/:id',
                 name: 'VoirFacture',
                 component: VoirFacture,
@@ -171,7 +171,7 @@ const routes = [{
                 path: 'payementClient/:id',
                 name: 'PayementClient',
                 component: PayementClient,
-            },
+            },*/
             {
                 path: 'profilIntermediaire',
                 name: 'ProfilIntermediaire',

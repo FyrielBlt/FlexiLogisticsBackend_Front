@@ -7,45 +7,7 @@
       <template v-slot:bread> Transporteurs </template>
     </bread-crumb>
 
-    <!-- alert -->
-    <!-- <div
-      class="
-        inline-flex
-        w-full
-        max-w-sm
-        ml-3
-        overflow-hidden
-        bg-white
-        rounded-lg
-        shadow-md
-      "
-      style="position: absolute; right: 50px"
-      v-if="success"
-    >
-      <div class="flex items-center justify-center w-12 bg-red-500">
-        <svg
-          class="w-6 h-6 text-white fill-current"
-          viewBox="0 0 40 40"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z"
-          />
-        </svg>
-      </div>
-
-      <div class="px-4 py-2 -mx-3">
-        <div class="mx-3">
-          <span class="font-semibold text-red-500">Erreur</span>
-          <p class="text-sm text-gray-600">Il faut remplir tous les champs</p>
-        </div>
-      </div>
-    </div> -->
-    <!-- fin alert -->
-
     <div class="mt-8">
-      <!-- <h4 class="text-gray-600">Les Clients</h4> -->
-
       <div class="mt-6">
         <h2 class="text-xl font-semibold leading-tight text-gray-700">
           Les Transporteurs
@@ -240,9 +202,23 @@
                       bg-indigo-800
                     "
                   >
+                    Télèphone
+                  </th>
+
+                  <th
+                    class="
+                      px-5
+                      py-3
+                      text-sm
+                      font-medium
+                      text-gray-100
+                      uppercase
+                      bg-indigo-800
+                    "
+                  >
                     Sociéte
                   </th>
-                   <th
+                  <th
                     class="
                       px-5
                       py-3
@@ -330,7 +306,21 @@
                     "
                   >
                     <div class="text-sm leading-5 text-gray-900">
-                      {{ transporteur.idUserNavigation.societe }}
+                      {{ transporteur.idUserNavigation.tel }}
+                    </div>
+                  </td>
+                  <td
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                    "
+                  >
+                    <div class="text-sm leading-5 text-gray-900">
+                      {{ GetSociete(transporteur.idUserNavigation.societe) }}
                     </div>
                   </td>
                   <td
@@ -527,39 +517,10 @@
                 v-model="email"
               />
             </div>
-            <div>
-              <label class="text-gray-700" for="passwordConfirmation"
-                >Sociéte
-              </label>
-              <select
-                v-model="societe"
-                class="
-                  w-full
-                  mt-2
-                  border-gray-200
-                  rounded-md
-                  focus:border-indigo-600
-                  focus:ring
-                  focus:ring-opacity-40
-                  focus:ring-indigo-500
-                "
-                
-              >
-                <option
-                  v-for="column in ListeSocietesAll"
-                  :key="column"
-                  :value="column.idSociete"
-                >
-                  {{ column.nom }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div>
             <div class="text-center">
-              <label class="text-gray-700" for="Image">Image :</label>
+              <label class="text-gray-700" for="Email">Télèphone :</label>
               <input
-                id="Image"
+                id="Email"
                 class="
                   w-full
                   mt-2
@@ -571,11 +532,58 @@
                   focus:ring-indigo-500
                 "
                 style="text-align: center"
-                type="file"
-                @change="FileSelected($event)"
+                type="number"
+                v-model="tel"
               />
             </div>
           </div>
+          <div>
+            <label class="text-gray-700" for="passwordConfirmation"
+              >Sociéte
+            </label>
+            <select
+              v-model="societe"
+              class="
+                w-full
+                mt-2
+                border-gray-200
+                rounded-md
+                focus:border-indigo-600
+                focus:ring
+                focus:ring-opacity-40
+                focus:ring-indigo-500
+              "
+            >
+              <option
+                v-for="column in ListeSocietesAll"
+                :key="column"
+                :value="column.idSociete"
+              >
+                {{ column.nom }}
+              </option>
+            </select>
+          </div>
+
+          <div class="text-center">
+            <label class="text-gray-700" for="Image">Image :</label>
+            <input
+              id="Image"
+              class="
+                w-full
+                mt-2
+                border-gray-200
+                rounded-md
+                focus:border-indigo-600
+                focus:ring
+                focus:ring-opacity-40
+                focus:ring-indigo-500
+              "
+              style="text-align: center"
+              type="file"
+              @change="FileSelected($event)"
+            />
+          </div>
+
           <div class="flex justify-end mt-4">
             <button
               @click="Close()"
@@ -691,6 +699,27 @@
                 v-model="password"
               />
             </div>
+            <div class="text-center">
+              <label class="text-gray-700" for="MotDePasse"
+                >Confirmer Mot de passe :</label
+              >
+              <input
+                id="MotDePasse"
+                class="
+                  w-full
+                  mt-2
+                  border-gray-200
+                  rounded-md
+                  focus:border-indigo-600
+                  focus:ring
+                  focus:ring-opacity-40
+                  focus:ring-indigo-500
+                "
+                style="text-align: center"
+                type="text"
+                v-model="cpassword"
+              />
+            </div>
 
             <div class="text-center">
               <label class="text-gray-700" for="Email">Email :</label>
@@ -709,6 +738,25 @@
                 style="text-align: center"
                 type="text"
                 v-model="email"
+              />
+            </div>
+            <div class="text-center">
+              <label class="text-gray-700" for="Email">Télèphone :</label>
+              <input
+                id="Email"
+                class="
+                  w-full
+                  mt-2
+                  border-gray-200
+                  rounded-md
+                  focus:border-indigo-600
+                  focus:ring
+                  focus:ring-opacity-40
+                  focus:ring-indigo-500
+                "
+                style="text-align: center"
+                type="number"
+                v-model="tel"
               />
             </div>
           </div>
@@ -770,12 +818,14 @@
         <!-- Modifier ************************* -->
       </template>
     </card-ajouter>
-<!-- {{societe}} -->
-    {{ ListeTransporteurs }}
+    <!-- {{societe}} -->
+    <!-- {{ ListeSocietesAll }} -->
   </div>
   <!-- </div> -->
 </template>
 <script>
+import axios from "axios";
+import Url from "../../../../store/Api";
 import { mapGetters } from "vuex";
 import BreadCrumb from "../../../../components/Intermediaire/BreadCrumb.vue";
 import CardAjouter from "../../../../components/Intermediaire/CardAjouter.vue";
@@ -790,7 +840,7 @@ export default {
     return {
       openModifier: false,
       open: false,
-      ParpageTransporteur: "1",
+      ParpageTransporteur: "10",
       rechercheTransporteur: "",
       //data a ajouter
       nom: "",
@@ -803,7 +853,7 @@ export default {
       iduser: "",
       index: "",
       societe: "",
-      // success: false,
+      tel: "",
       // timeout: false,
     };
   },
@@ -822,6 +872,9 @@ export default {
     this.$store.dispatch("Get_Societe_All");
   },
   methods: {
+    GetSociete(id) {
+      return this.ListeSocietesAll.filter((el) => el.idSociete == id)[0].nom;
+    },
     // startAlert() {
     //   this.success = true;
     //   this.timeout = setTimeout(() => {
@@ -840,6 +893,8 @@ export default {
         this.nom = "";
         this.prenom = "";
         this.email = "";
+        this.tel = "";
+        this.cpassword = "";
         this.password = "";
         this.imageFile = null;
       }
@@ -867,46 +922,96 @@ export default {
     },
     //
     SaveTransporteur() {
-      if (
-        this.nom != "" &&
-        this.prenom != "" &&
-        this.email != "" &&
-        this.password != ""
-        &&
-        this.societe != ""
-      ) {
-        let user = new FormData();
-        user.append("nom", this.nom);
-        user.append("prenom", this.prenom);
-        user.append("email", this.email);
-        user.append("motdepasse", this.password);
-        user.append("image", "");
-         user.append("societe",this.societe);
-        user.append("ImageFile", this.imageFile);
-        user.append("ImageSrc", "");
-        //  user.append("Societe", this.societe);
-        this.$store.dispatch("Ajouter_Transporteur", user);
-        this.open = false;
-        this.$swal({
-          position: "top-end",
-          icon: "success",
-
-          toast: true,
-          title: "Transporteur Ajouter",
-          showConfirmButton: false,
-          timer: 2000,
-        });
+      if (this.password == this.cpassword) {
+        if (
+          this.nom != "" &&
+          this.prenom != "" &&
+          this.email != "" &&
+          this.password != "" &&
+          this.societe != ""
+        ) {
+          let user = new FormData();
+          user.append("nom", this.nom);
+          user.append("prenom", this.prenom);
+          user.append("email", this.email);
+          user.append("motdepasse", this.password);
+          user.append("image", "");
+          user.append("Tel", this.tel);
+          user.append("societe", this.societe);
+          user.append("ImageFile", this.imageFile);
+          user.append("ImageSrc", "");
+          //  user.append("Societe", this.societe);
+          axios
+            .post(Url + "users", user, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            })
+            .then((res) => {
+              // let per = {
+              //   Idrole: this.idRole,
+              //   personnelle: res.data,
+              //   IdRoleNavigation: this.GetRole(this.idRole),
+              // };
+              this.$store.dispatch("Ajouter_Transporteur", res.data);
+              this.open = false;
+              this.$swal({
+                position: "top-end",
+                icon: "success",
+                toast: true,
+                title: "Transporteur Ajouter",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+              this.nom = "";
+              this.prenom = "";
+              this.email = "";
+              this.password = "";
+              this.cpassword = "";
+              this.tel = "";
+              this.imageFile = null;
+            })
+            .catch(() => {
+              this.$swal({
+                position: "top-end",
+                icon: "error",
+                toast: true,
+                title: "Email utilisé",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            });
+          // this.$store.dispatch("Ajouter_Transporteur", user);
+          // this.open = false;
+          // this.$swal({
+          //   position: "top-end",
+          //   icon: "success",
+          //   toast: true,
+          //   title: "Transporteur Ajouter",
+          //   showConfirmButton: false,
+          //   timer: 2000,
+          // });
+        } else {
+          //this.startAlert();
+          this.$swal({
+            position: "top-end",
+            icon: "error",
+            toast: true,
+            title: "Il faut remplir tous les champs",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          this.open = false;
+        }
       } else {
-        //this.startAlert();
         this.$swal({
           position: "top-end",
           icon: "error",
           toast: true,
-          title: "Il faut remplir tous les champs",
+          title: "Les mots de passe diferent",
           showConfirmButton: false,
           timer: 2000,
         });
-        this.open = false;
       }
     },
     Modifier(transporteur, index) {
@@ -914,60 +1019,108 @@ export default {
       this.nom = transporteur.idUserNavigation.nom;
       this.prenom = transporteur.idUserNavigation.prenom;
       this.email = transporteur.idUserNavigation.email;
-      this.password = transporteur.idUserNavigation.motdepasse;
+      // this.password = transporteur.idUserNavigation.motdepasse;
+      this.tel = transporteur.idUserNavigation.tel;
       this.societe = transporteur.idUserNavigation.societe;
       this.iduser = transporteur.idUser;
       this.idTransporteur = transporteur.idTransporteur;
       this.index = index; // console.log(personnelle.idUserNavigation);
     },
     SaveModifier() {
-      if (
-        this.iduser != "" &&
-        this.nom != "" &&
-        this.prenom != "" &&
-        this.email != "" &&
-        this.password != ""
-      ) {
-        let user = new FormData();
-        user.append("idUser", this.iduser);
-        user.append("nom", this.nom);
-        user.append("prenom", this.prenom);
-        user.append("email", this.email);
-        user.append("motdepasse", this.password);
-        user.append("image", "");
-        user.append("societe", this.societe);
-        user.append("ImageFile", this.imageFile);
-        user.append("ImageSrc", "");
+      if (this.password == this.cpassword) {
+        if (
+          this.iduser != "" &&
+          this.nom != "" &&
+          this.prenom != "" &&
+          this.email != "" &&
+          this.password != ""
+        ) {
+          let user = new FormData();
+          user.append("idUser", this.iduser);
+          user.append("nom", this.nom);
+          user.append("prenom", this.prenom);
+          user.append("email", this.email);
+          user.append("motdepasse", this.password);
+          user.append("image", "");
+          user.append("Tel", this.tel);
+          user.append("societe", this.societe);
+          user.append("ImageFile", this.imageFile);
+          user.append("ImageSrc", "");
 
-        let transporteur = {
-          idTransporteur: this.idTransporteur,
-          idUser: this.iduser,
-          imageSrc: "",
-          idUserNavigation: user,
-          index: this.index,
-        };
-        this.$store.dispatch("Modifier_Transporteur", transporteur);
-        this.Close(false);
-        this.$swal({
-          position: "top-end",
-          icon: "success",
+          axios
+            .put(Url + "users/" + this.iduser, user, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            })
+            .then((res) => {
+              let transporteur = {
+                idTransporteur: this.idTransporteur,
+                idUser: this.iduser,
+                imageSrc: res.data.imageSrc,
+                idUserNavigation: res.data,
+                index: this.index,
+              };
+              this.$store.dispatch("Modifier_Transporteur", transporteur);
+              this.open = false;
+              this.$swal({
+                position: "top-end",
+                icon: "success",
+                toast: true,
+                title: "Transporteur Modifié",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+              this.nom = "";
+              this.prenom = "";
+              this.email = "";
+              this.password = "";
+              this.cpassword = "";
+              this.tel = "";
+              this.imageFile = null;
+            })
+            .catch(() => {
+              this.$swal({
+                position: "top-end",
+                icon: "error",
+                toast: true,
+                title: "Email utilisé",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            });
+          // this.$store.dispatch("Modifier_Transporteur", transporteur);
+          // this.Close(false);
+          // this.$swal({
+          //   position: "top-end",
+          //   icon: "success",
 
-          toast: true,
-          title: "Transporteur Modifier",
-          showConfirmButton: false,
-          timer: 2000,
-        });
+          //   toast: true,
+          //   title: "Transporteur Modifier",
+          //   showConfirmButton: false,
+          //   timer: 2000,
+          // });
+        } else {
+          //this.startAlert();
+          this.$swal({
+            position: "top-end",
+            icon: "error",
+            toast: true,
+            title: "Il faut remplir tous les champs",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+          this.Close(false);
+        }
       } else {
-        //this.startAlert();
         this.$swal({
           position: "top-end",
           icon: "error",
           toast: true,
-          title: "Il faut remplir tous les champs",
+          title: "Les mots de passe diferent",
           showConfirmButton: false,
           timer: 2000,
         });
-        this.Close(false);
       }
     },
     // ajouter image

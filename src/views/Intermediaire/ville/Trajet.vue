@@ -366,7 +366,7 @@ export default {
       openModifier: false,
       open: false,
       
-      ParpageTrajet: "1",
+      ParpageTrajet: "10",
       VilleDeppart: "",
       VilleArrive: "",
       nomVille: "",
