@@ -608,39 +608,49 @@ export default {
       )[0];
     },
     Accepter() {
-      var AccepterOffre = {
-        idEtatEnCours: this.GetEtatEnCours(),
-        idEtatRefuser: this.GetEtatRefuser(),
-        ListeOffresId: this.checkedOffreId,
-      };
+             
+this.ListeOffres.forEach(element=>{
+          element.idEtat=this.GetEtatRefuser();
+          element.idEtatNavigation = null;  axios
+       .put(Url + "offres/" + element.idOffre, element, {
+           headers: {
+             Authorization: "Bearer " + localStorage.getItem("token"),
+           },
+        })
+        .then((res) => {
+          console.log("res 2 :");
+          
+            console.log(res);
+         });
+       console.log("bravo");
+       
+      });
 
-      this.$store.dispatch("Refuser_Tout", AccepterOffre);
-      for (var i = 0; i < this.checkedOffreId.length; i++) {
-        let of = this.ListeOffres.filter(
-          (el) => el.idOffre == this.checkedOffreId[i]
-        )[0];
-        of.idEtat = this.GetEtatEnCours();
-        of.prixFinale = of.prix + 10;
+      //for
+      this.checkedOffreId.forEach(element=>{
+             let of = this.ListeOffres.filter(
+         (el) => el.idOffre == element
+       )[0];
+       of.idEtat = this.GetEtatEnCours();
+       of.prixFinale = of.prix + 10;
 
         of.idEtatNavigation = null;
-        // console.log(of)
-        axios
-          .put(Url + "offres/" + of.idOffre, of, {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          })
-          .then((res) => {
-            console.log("res 2 :");
-            console.log(of);
+         console.log(of)
+                axios
+       .put(Url + "offres/" + of.idOffre, of, {
+           headers: {
+             Authorization: "Bearer " + localStorage.getItem("token"),
+           },
+        })
+        .then((res) => {
+          console.log("res 2 :");
+           
             console.log(res);
-          });
-        console.log("bravo");
-      }
-
-      // this.$store.dispatch("Accepter_Offre", AccepterOffre);
-
-      this.checkedOffreId = [];
+         });
+       console.log("bravo");
+       
+      });
+       this.checkedOffreId = [];
     },
 
     AnnulerAccepter(id, index) {

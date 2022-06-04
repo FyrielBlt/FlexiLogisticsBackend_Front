@@ -507,7 +507,7 @@
               </td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                 <p class="text-gray-900 whitespace-nowrap">
-                  {{ u.date.substr(0,10)+ u.heurdepart }}
+                  {{ u.date.substr(0,10)+ u.heurearrive }}
                 </p>
               </td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
@@ -712,7 +712,7 @@ axios
               heurearrive:table.heurearrive,
               idEtat:this.valide,
               prix:table.prix,
-              prixFinale: null,
+              prixFinale: table.prixFinale,
               idTransporteur: localStorage.getItem("idtransporteur"),
               idDemande:table.idDemande,
               idCamion:table.idCamion,

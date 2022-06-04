@@ -602,7 +602,7 @@ export default {
       return prix;
     },
     GetEtatAccepter() {
-      return this.ListeEtatOffres.filter((el) => el.etat == "Accepté").map(
+      return this.ListeEtatOffres.filter((el) => el.etat == "Livré").map(
         (el) => el.idEtat
       )[0];
     },
