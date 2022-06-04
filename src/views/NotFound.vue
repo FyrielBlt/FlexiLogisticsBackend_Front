@@ -10,18 +10,7 @@
           Oops! The page you are looking for does not exist. It might have been
           moved or deleted.
         </p>
-        <router-link
-          to="/dashboard"
-          class="bg-gradient-to-r from-purple-400 to-blue-500 hover:from-pink-500 hover:to-orange-500 text-white font-semibold px-6 py-2 rounded-md mr-6"
-        >
-          HOME
-        </router-link>
-        <router-link
-          to="/"
-          class="bg-gradient-to-r from-red-400 to-red-500 hover:from-red-500 hover:to-red-500 text-white font-semibold px-6 py-2 rounded-md"
-        >
-          Contact Us
-        </router-link>
+       
       </div>
     </div>
   </div>

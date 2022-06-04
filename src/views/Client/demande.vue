@@ -166,7 +166,7 @@
         <input v-model="num" @keyup="ChangePage(page)"
           class="appearance-none block text-gray-700 border border-red-500 rounded py-2 px-2 mb-2 leading-tight focus:outline-none focus:bg-white"
           id="grid-first-name" type="text" placeholder="Num demande" />
-        <table class="divide-y divide-gray-300" style="width: 100%">
+        <table class="min-w-full leading-normal" style="width: 100%">
           <thead class="bg-gray-100">
             <tr>
               <th class="px-6 text-xs text-gray-500">NUM</th>
@@ -182,10 +182,15 @@
               <th class="px-6 py-2 text-xs text-gray-500">Paramétre</th>
             </tr>
           </thead>
-          <tbody class="bg-white divide-y divide-gray-500">
-            <tr class="whitespace-nowrap" v-for="(u, index) in demandes" :key="index">
-              <td class="px-6 text-sm bg-white border-b border-gray-200">
-                {{ u.idDemande }}
+          <tbody class="bg-gray-300 divide-y divide-gray-500">
+
+            <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100" v-for="(u, index) in demandes"
+              :key="index">
+
+              <td class=" px-6 text-sm bg-white border-b border-gray-200">
+              {{ u.idDemande }}
+
+              
               </td>
               <td class="text-sm bg-white border-b border-gray-200" style="padding: 30px 49px">
                 <div class="flex items-center">
@@ -239,8 +244,12 @@
                     </button>
                   </div>
                 </div>
+               
               </td>
+
             </tr>
+            
+
           </tbody>
         </table>
         <div class="flex flex-col items-center px-2 py-2 bg-white border-t xs:flex-row xs:justify-between">
@@ -253,6 +262,13 @@
       </div>
     </div>
   </div>
+
+
+  
+
+
+
+
 </template>
 <script lang="js">
 import BreadCrumb from "../../components/Intermediaire/BreadCrumb.vue";
@@ -372,11 +388,14 @@ export default {
           .get("http://localhost:5000/api/demandelivraisons/client/" + localStorage.getItem("iduser"))
           .then((response) => {
             this.demandes = response.data
-            Swal.fire(
-              'Updated!',
-              'Your offer has been updated.',
-              'success'
-            )
+            this.$swal({
+              position: "top-end",
+              icon: "success",
+              toast: true,
+              title: "Demande achevé",
+              showConfirmButton: false,
+              timer: 2000,
+            })
           })
 
       });
@@ -409,7 +428,7 @@ export default {
       } else {
         axios.post('http://localhost:5000/api/demandelivraisons', {
           "description": this.description,
-          "datecreation": date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate(),
+          "datecreation": date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
           "adressdepart": this.depart,
           "adressarrive": this.arrive,
           "poids": this.poids,
@@ -434,17 +453,17 @@ export default {
             .then((response) => {
               this.demandes = response.data;
               this.open = false;
-               this.$swal({
-          position: "top-end",
-          icon: "success",
-          toast: true,
-          title: "Demande Ajouté Avec Succée",
-          showConfirmButton: false,
-          timer: 2000,
-        })
-        setTimeout(location.reload(), 4000)
+              this.$swal({
+                position: "top-end",
+                icon: "success",
+                toast: true,
+                title: "Demande Ajouté Avec Succée",
+                showConfirmButton: false,
+                timer: 2000,
+              })
+              setTimeout(location.reload(), 2000)
 
-        
+
             })
 
         })

@@ -79,6 +79,19 @@
                   >
                     Date
                   </th>
+                   <th
+                    class="
+                      px-5
+                      py-3
+                      text-sm
+                      font-medium
+                      text-gray-100
+                      uppercase
+                      bg-indigo-800
+                    "
+                  >
+                    File
+                  </th>
                   <th
                     class="
                       px-5
@@ -198,6 +211,21 @@
                   >
                     <div class="text-sm leading-5 text-gray-900">
                       {{ offre.date.substr(0, 10) }}
+                    </div>
+                  </td>
+                   <td
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                    "
+                  >
+                    <div class="text-sm leading-5 text-gray-900">
+                      <!-- {{offre.fileOffre}} -->
+                       <files-modalo :u="offre.fileOffre"></files-modalo>
                     </div>
                   </td>
                   <td
@@ -532,10 +560,12 @@
     <!-- les offre selecter :{{ checkedOffreId }}
     <br />
     {{ ListeNonSelect()}}  -->
+    <!-- {{ListeOffres}} -->
   </div>
   <!-- </div> -->
 </template>
 <script>
+import FilesModalo from "../../../components/Intermediaire/FilesModalo.vue";
 import axios from "axios";
 import Url from "../../../store/Api";
 import { mapGetters } from "vuex";
@@ -544,7 +574,7 @@ import BreadCrumb from "../../../components/Intermediaire/BreadCrumb.vue";
 export default {
   components: {
     BreadCrumb,
-    // PaginationVue,
+   FilesModalo,
   },
   data() {
     return {
@@ -608,7 +638,6 @@ export default {
         (el) => el.idEtat
       )[0];
     },
-
     AccepterSelect() {
       this.checkedOffreId.forEach((element) => {
         let cours = this.GetEtatEnCours();
@@ -656,7 +685,7 @@ export default {
           .then((res) => {});
       });
       this.AccepterSelect();
-
+      this.checkedOffreId=[];
     },
 
     AnnulerAccepter(id, index) {

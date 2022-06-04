@@ -293,7 +293,7 @@
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                 <div class="ml-3">
                   <p class="text-gray-900 whitespace-nowrap">
-                    {{ u.idDemandeNavigation.idDemande }}
+                 <router-link :to="{ name: 'DemandeDetails', params: { id: u.idDemandeNavigation.idDemande }}"><i style="font-size: 1rem;" class="mr-2 text-cyan-600 hover:text-yellow-600 bi bi-arrow-right-circle-fill">{{ u.idDemandeNavigation.idDemande }}</i></router-link>   
                   </p>
                 </div>
               </td>
@@ -341,7 +341,8 @@
                       rounded-full
                     "
                     v-else-if="u.date == u.idDemandeNavigation.date"
-                    >{{ u.date.substr(0,10) }}</span>
+                    >{{ u.date.substr(0,10) }} <br>
+                    {{  u.heurearrive  }}</span>
            
               </td>
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">

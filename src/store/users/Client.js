@@ -83,6 +83,14 @@ export default {
           state.ListeClients.push(clientAjouter);
           //console.log(intermediaireAjouter);
         });
+    },
+    ActiveCompte(state, user){
+      axios.put(Url + "users/active/"+user.idUser, user, {
+        headers: {
+          Authorization: 'Bearer ' + Token
+        }
+      }).then();
+
     }
   },
   actions: { 
@@ -161,6 +169,9 @@ export default {
     // Ajouter
     Ajouter_Client({ commit }, client) {
       commit('AjouterClient', client);
+    },
+    Active_Compte({ commit }, USER) {
+      commit('ActiveCompte', USER);
     },
   },
 };
