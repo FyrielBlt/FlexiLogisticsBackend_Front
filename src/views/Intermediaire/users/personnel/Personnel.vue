@@ -7,42 +7,6 @@
       <template v-slot:bread> Personnels </template>
     </bread-crumb>
 
-    <!-- alert -->
-    <!-- <div
-      class="
-        inline-flex
-        w-full
-        max-w-sm
-        ml-3
-        overflow-hidden
-        bg-white
-        rounded-lg
-        shadow-md
-      "
-      style="position: absolute; right: 50px"
-      v-if="success"
-    >
-      <div class="flex items-center justify-center w-12 bg-red-500">
-        <svg
-          class="w-6 h-6 text-white fill-current"
-          viewBox="0 0 40 40"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z"
-          />
-        </svg>
-      </div>
-
-      <div class="px-4 py-2 -mx-3">
-        <div class="mx-3">
-          <span class="font-semibold text-red-500">Erreur</span>
-          <p class="text-sm text-gray-600">Il faut remplir tous les champs</p>
-        </div>
-      </div>
-    </div> -->
-    <!-- fin alert -->
-
     <div class="mt-8">
       <!-- <h4 class="text-gray-600">Les Clients</h4> -->
 
@@ -263,6 +227,19 @@
                       bg-indigo-800
                     "
                   >
+                    Status
+                  </th>
+                  <th
+                    class="
+                      px-5
+                      py-3
+                      text-sm
+                      font-medium
+                      text-gray-100
+                      uppercase
+                      bg-indigo-800
+                    "
+                  >
                     Settings
                   </th>
                 </tr>
@@ -355,6 +332,65 @@
                     "
                   >
                     {{ personnelle.idRoleNavigation.role1 }}
+                  </td>
+                  <td
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                    "
+                  >
+                  <button
+                      class="
+                        inline-flex
+                        px-2
+                        text-xx
+                        font-semibold
+                        leading-5
+                        text-orange-700
+                        bg-orange-100
+                        rounded-full
+                      "
+                      v-if="personnelle.idRoleNavigation.role1=='SuperAdmin'"
+                      
+                    >
+                      Activé
+                    </button>
+                    <button
+                      class="
+                        inline-flex
+                        px-2
+                        text-xx
+                        font-semibold
+                        leading-5
+                        text-green-700
+                        bg-green-100
+                        rounded-full
+                      "
+                      v-else-if="personnelle.idUserNavigation.active == 1 "
+                      @click="Desactive(personnelle.idUserNavigation)"
+                    >
+                      Active
+                    </button>
+                    <button
+                      class="
+                        inline-flex
+                        px-2
+                        text-xx
+                        font-semibold
+                        leading-5
+                        text-red-700
+                        bg-red-100
+                        rounded-full
+                      "
+                      v-else
+                      @click="Active(personnelle.idUserNavigation)"
+                    >
+                      Désactivé
+                    </button>
                   </td>
 
                   <td
@@ -973,7 +1009,14 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           this.$store.dispatch("Delete_Personnelle", personnelle);
-          this.$swal("Supprimer!", "", "success");
+          this.$swal({
+            position: "top-end",
+            icon: "success",
+            toast: true,
+            title: "Supprimer",
+            showConfirmButton: false,
+            timer: 2000,
+          });
         }
       });
     },
@@ -999,7 +1042,7 @@ export default {
           personnelle.append("Email", this.email);
           personnelle.append("MotDePasse", this.password);
           personnelle.append("Tel", this.tel);
-          personnelle.append("image", "");
+          personnelle.append("image", "intermediaire.png");
           personnelle.append("ImageFile", this.imageFile);
           personnelle.append("ImageSrc", "");
 
@@ -1016,7 +1059,7 @@ export default {
                 IdRoleNavigation: this.GetRole(this.idRole),
               };
               this.$store.dispatch("Ajouter_Personnelle", per);
-              this.open = false;
+              this.Close(false);
               this.$swal({
                 position: "top-end",
                 icon: "success",
@@ -1110,14 +1153,6 @@ export default {
           user.append("ImageFile", this.imageFile);
           user.append("ImageSrc", "");
 
-          // let personnelle = {
-          //   idUser: this.idUser,
-          //   idRole: this.idRole,
-          //   imageSrc: "",
-          //   idRoleNavigation: this.GetRole(this.idRole),
-          //   idUserNavigation: user,
-          //   index: this.index,
-          // };
           axios
             .put(Url + "users/" + this.idUser, user, {
               headers: {
@@ -1134,7 +1169,7 @@ export default {
                 index: this.index,
               };
               this.$store.dispatch("Modifier_Personnelle", personnelle);
-              this.open = false;
+              this.Close(false);
               this.$swal({
                 position: "top-end",
                 icon: "success",
@@ -1199,6 +1234,36 @@ export default {
     FileSelected(event) {
       this.imageFile = event.target.files[0];
       console.log(this.imageFile);
+    },
+
+    Active(user) {
+      user.active = 1;
+      console.log(user);
+
+      this.$store.dispatch("Active_Compte", user);
+      this.$swal({
+        position: "top-end",
+        icon: "success",
+        toast: true,
+        title: "Compte Activée",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    },
+    Desactive(user) {
+      user.active = null;
+      console.log(user);
+
+      this.$store.dispatch("Active_Compte", user);
+
+      this.$swal({
+        position: "top-end",
+        icon: "info",
+        toast: true,
+        title: "Compte Desactivée",
+        showConfirmButton: false,
+        timer: 2000,
+      });
     },
   },
   watch: {

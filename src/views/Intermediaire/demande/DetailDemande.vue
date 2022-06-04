@@ -6,7 +6,7 @@
       <template v-slot:bread1> Demandes </template>
       <template v-slot:bread> Détail Demande </template>
     </bread-crumb>
-    <div class="mt-10 text-center" style="margin-left:18%"> 
+    <div class="mt-10 text-center" style="margin-left: 8%">
       <!-- <h4 class="text-gray-700">{{ demande }}</h4> -->
       <div class="w-full max-w-sm mt-6 lg:max-w-full lg:flex">
         <div
@@ -19,10 +19,10 @@
             rounded-t
             lg:h-auto lg:w-80 lg:rounded-t-none lg:rounded-l
           "
-          :style="{ 'background-image': 'url(' + demande.idclientNavigation.imageSrc+ ')' }"
-         
+          
           title="Woman holding a mug"
         >
+         
           <!-- <img
               class="
             flex-none
@@ -33,10 +33,11 @@
             rounded-t
             lg:h-auto lg:w-48 lg:rounded-t-none lg:rounded-l
           "
-              src="https://via.placeholder.com/50"
+              :src="image"
               alt="Avatar of Jonathan Reinink"
             /> -->
         </div>
+         <!-- {{image}} -->
         <div
           class="
             flex flex-col
@@ -53,7 +54,6 @@
             lg:rounded-r
           "
         >
-        
           <div class="mb-8">
             <p class="flex items-center text-sm text-gray-600">
               <!-- <svg
@@ -97,7 +97,7 @@
                   d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z"
                 />
               </svg> -->
-              <br><br>
+              <br /><br />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -132,7 +132,7 @@
                   d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z"
                 />
               </svg> -->
-              <br><br>
+              <br /><br />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -155,7 +155,7 @@
               </svg>
               Telephone : {{ telephone }}
             </p>
-            <br>
+            <br />
             <!-- <div class="mb-2 text-xl font-bold text-gray-900">
               Can coffee make you a better developer?
             </div> -->
@@ -169,7 +169,7 @@
               src="https://via.placeholder.com/50"
               alt="Avatar of Jonathan Reinink"
             /> -->
-            <div class="text-sm" style="margin-left:90px">
+            <div class="text-sm" style="margin-left: 90px">
               <p class="leading-none text-gray-900">
                 <span
                   class="
@@ -269,7 +269,7 @@
               >Largeur : {{ Largeur }} m</span
             >
           </div>
-           <div class="px-6 pt-4 pb-2">
+          <div class="px-6 pt-4 pb-2">
             <span
               class="
                 inline-block
@@ -283,9 +283,14 @@
                 bg-blue-400
                 rounded-full
               "
-              > {{ demande.idEtatdemandeNavigation.etatDemande }} </span
             >
+              {{ etat }}
+            </span>
+          </div>
+          <div class="px-6 pt-4 pb-2">
            
+              <files-modal :u="file"></files-modal>
+        
           </div>
         </div>
       </div>
@@ -295,11 +300,13 @@
 </template>
 <script >
 import BreadCrumb from "../../../components/Intermediaire/BreadCrumb.vue";
+import FilesModal from "../../../components/Intermediaire/FilesModal.vue";
 import axios from "axios";
 import Url from "../../../store/Api";
 export default {
   components: {
     BreadCrumb,
+    FilesModal,
   },
   data() {
     return {
@@ -314,18 +321,26 @@ export default {
       Poids: "",
       Largeur: "",
       Hauteur: "",
+      image: "",
+      etat: "",
+      file: "",
+      telephone: "",
     };
   },
   async created() {
     await axios
-      .get(Url + "DemandeLivraisons/" + this.$route.params.id, {
+      .get(Url + "demandelivraisons/" + this.$route.params.id, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
       .then((res) => {
-        console.log(res.data[0]);
-        this.demande = res.data[0];
+       // console.log(res.data[0]);
+       this.demande = res.data[0];
+        this.telephone = res.data[0].idclientNavigation.iduserNavigation.tel;
+        this.file = res.data[0].fileDemandeLivraison;
+        this.etat = res.data[0].idEtatdemandeNavigation.etatDemande;
+        this.image = res.data[0].idclientNavigation.imageSrc;
         this.nom = res.data[0].idclientNavigation.iduserNavigation.nom;
         this.prenom = res.data[0].idclientNavigation.iduserNavigation.prenom;
         this.Description = res.data[0].description;

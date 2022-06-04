@@ -193,7 +193,8 @@ export default {
     },
     //************************************ */
     //get page :
-    Get_Transporteur({ commit, state }) {
+    Get_Transporteurt({ commit, state },ch) {
+      state.ChercherTransporteur=ch;
       axios.get(Url + `Transporteurs?page=${state.currentTransporteur}&quantityPage=${state.parPageTransporteur}&name=${state.ChercherTransporteur}`, {
         headers: {
           Authorization: 'Bearer ' + Token
@@ -204,7 +205,19 @@ export default {
           commit('GetTransporteur', res);
         })
     },
-
+ //get page :
+ Get_Transporteur({ commit, state }) {
+  
+  axios.get(Url + `Transporteurs?page=${state.currentTransporteur}&quantityPage=${state.parPageTransporteur}&name=${state.ChercherTransporteur}`, {
+    headers: {
+      Authorization: 'Bearer ' + Token
+    }
+  })
+    .then(res => {
+      //  let tot=parseInt(res.headers["x-wp-total"]);
+      commit('GetTransporteur', res);
+    })
+},
 
     // get noveau page 
     Get_NoveauTransporteur({ commit, state }, NumPage) {

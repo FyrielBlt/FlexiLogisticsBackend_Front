@@ -58,7 +58,7 @@
             class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
           >
             <div class="p-3 bg-blue-600 bg-opacity-75 rounded-full">
-             <i class="bi bi-people-fill"></i>
+              <i class="bi bi-people-fill"></i>
             </div>
 
             <div class="mx-5">
@@ -90,7 +90,6 @@
       <!-- liste -->
     </div>
 
-    <div class="mt-8"></div>
     <!-- table -->
     <div class="flex flex-col mt-8">
       <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -114,8 +113,24 @@
         </div>
       </div>
     </div>
-
-   
+    <div class="mt-8">
+      <div class="flex flex-wrap -mx-6">
+        <div class="w-full px-6 sm:w-1/2 xl:w-1/2">
+          <div
+            class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
+          >
+            <pie-chart :data="dataa()"></pie-chart>
+          </div>
+        </div>
+        <div class="w-full px-6 sm:w-1/2 xl:w-1/2">
+          <div
+            class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
+          >
+            <pie-chart :data="dataa()"></pie-chart>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -181,7 +196,7 @@ export default {
       this.timeFrom(7).forEach((element) => {
         mm.push(element);
         mm.push(
-          this.ListeDemandeLivraisons.filter(
+          this.ListeDemandeLivraisonsAll.filter(
             (el) => el.datecreation.substr(0, 10) == element
           ).length
         );
@@ -203,87 +218,36 @@ export default {
       var j6 = this.timeFrom(7)[5];
       var j7 = this.timeFrom(7)[6];
 
-      // var data = {
-      //   j1: this.ListeDemandeLivraisons.filter(
-      //     (el) => el.datecreation.substr(0, 10) == j1
-      //   ).length,
-      //   j2: this.ListeDemandeLivraisons.filter(
-      //     (el) => el.datecreation.substr(0, 10) == j2
-      //   ).length,
-      //   j3: this.ListeDemandeLivraisons.filter(
-      //     (el) => el.datecreation.substr(0, 10) == j3
-      //   ).length,
-      //   j4: this.ListeDemandeLivraisons.filter(
-      //     (el) => el.datecreation.substr(0, 10) == j4
-      //   ).length,
-      //   j5: this.ListeDemandeLivraisons.filter(
-      //     (el) => el.datecreation.substr(0, 10) == j5
-      //   ).length,
-      //   j6: this.ListeDemandeLivraisons.filter(
-      //     (el) => el.datecreation.substr(0, 10) == j6
-      //   ).length,
-      //   j7: this.ListeDemandeLivraisons.filter(
-      //     (el) => el.datecreation.substr(0, 10) == j7
-      //   ).length,
-      // };
       var data = {
-        [j7]: this.ListeDemandeLivraisons.filter(
+        [j7]: this.ListeDemandeLivraisonsAll.filter(
           (el) => el.datecreation.substr(0, 10) == j7
         ).length,
-        [j6]: this.ListeDemandeLivraisons.filter(
+        [j6]: this.ListeDemandeLivraisonsAll.filter(
           (el) => el.datecreation.substr(0, 10) == j6
         ).length,
-        [j5]: this.ListeDemandeLivraisons.filter(
+        [j5]: this.ListeDemandeLivraisonsAll.filter(
           (el) => el.datecreation.substr(0, 10) == j5
         ).length,
-        [j4]: this.ListeDemandeLivraisons.filter(
+        [j4]: this.ListeDemandeLivraisonsAll.filter(
           (el) => el.datecreation.substr(0, 10) == j4
         ).length,
-        [j3]: this.ListeDemandeLivraisons.filter(
+        [j3]: this.ListeDemandeLivraisonsAll.filter(
           (el) => el.datecreation.substr(0, 10) == j3
         ).length,
-        [j2]: this.ListeDemandeLivraisons.filter(
+        [j2]: this.ListeDemandeLivraisonsAll.filter(
           (el) => el.datecreation.substr(0, 10) == j2
         ).length,
-        [j1]: this.ListeDemandeLivraisons.filter(
+        [j1]: this.ListeDemandeLivraisonsAll.filter(
           (el) => el.datecreation.substr(0, 10) == j1
         ).length,
       };
       var ob = {
         name: "Demande Livraison par jour",
         data: data,
-        
       };
-      //  var data1 = {
-      //   "Avant 7 jour": this.ListeDemandeLivraisons.filter(
-      //     (el) => el.datecreation.substr(0, 10) == j7
-      //   ).length,
-      //   "Avant 6 jour": this.ListeDemandeLivraisons.filter(
-      //     (el) => el.datecreation.substr(0, 10) == j6
-      //   ).length,
-      //   "Avant 4 jour": this.ListeDemandeLivraisons.filter(
-      //     (el) => el.datecreation.substr(0, 10) == j5
-      //   ).length,
-      //   "Avant 3 jour": this.ListeDemandeLivraisons.filter(
-      //     (el) => el.datecreation.substr(0, 10) == j4
-      //   ).length,
-      //   "Avant 2 jour": this.ListeDemandeLivraisons.filter(
-      //     (el) => el.datecreation.substr(0, 10) == j3
-      //   ).length,
-      //   "Avant 1 jour": this.ListeDemandeLivraisons.filter(
-      //     (el) => el.datecreation.substr(0, 10) == j2
-      //   ).length,
-      //   "Ajourd'hui": this.ListeDemandeLivraisons.filter(
-      //     (el) => el.datecreation.substr(0, 10) == j1
-      //   ).length,
-      // };
-      //  var ob1 = {
-      //   name: "Demande Facture Transporteur par jour",
-      //   data: data1,
-        
-      // };
+     
       liste.push(ob);
-      // var bb=JSON.stringify(aa)
+    
       return liste;
     },
   },
@@ -292,7 +256,7 @@ export default {
       "ListePersonnellesAll",
       "ListeClientsAll",
       "ListeTransporteursAll",
-      "ListeDemandeLivraisons",
+      "ListeDemandeLivraisonsAll",
       // "ListeFactureTransporteurs"
     ]),
   },
@@ -300,7 +264,7 @@ export default {
     this.$store.dispatch("Get_Personnelle_All");
     this.$store.dispatch("Get_Client_All");
     this.$store.dispatch("Get_Transporteur_All");
-    this.$store.dispatch("Get_DemandeLivraison");
+    this.$store.dispatch("Get_DemandeLivraison_All");
     //  this.$store.dispatch("Get_Facture_Transporteur");
   },
 };

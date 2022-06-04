@@ -7,14 +7,14 @@
         </p>
         <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4" :class="[
           $route.name === 'DashboardClient' ? activeClass : inactiveClass,
-        ]" to="DashboardClient">
+        ]" to="/client/DashboardClient">
                   <i class="bi bi-bank2"></i>
 
 
           <span class="mx-4">Dashboard</span>
         </router-link>
         <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-          :class="[$route.name === 'Profile' ? activeClass : inactiveClass]" to="profile">
+          :class="[$route.name === 'Profile' ? activeClass : inactiveClass]" to="/client/profile">
                  
          <i class="bi bi-file-earmark-person"></i>
 
@@ -24,20 +24,20 @@
           GESTION
         </p>
         <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-          :class="[$route.name === 'Client' ? activeClass : inactiveClass]" to="clients">
+          :class="[$route.name === 'Client' ? activeClass : inactiveClass]" to="/client/clients">
                         <i class="bi bi-people-fill"></i>
 
 
           <span class="mx-4">Personnels</span>
         </router-link>
         <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-          :class="[$route.name === 'Demande' ? activeClass : inactiveClass]" to="demande">
+          :class="[$route.name === 'Demande' ? activeClass : inactiveClass]" to="/client/demande">
                   <i class="bi bi-box2-heart-fill"></i>
 
           <span class="mx-4">Demandes</span>
         </router-link>
         <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-          :class="[$route.name === 'Offres' ? activeClass : inactiveClass]" to="offres">
+          :class="[$route.name === 'Offres' ? activeClass : inactiveClass]" to="/client/offres">
                   <i class="bi bi-bell"></i>
 
 
@@ -47,7 +47,7 @@
           PAYEMENT
         </p>
         <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-          :class="[$route.name === 'Facture' ? activeClass : inactiveClass]" to="facture">
+          :class="[$route.name === 'Facture' ? activeClass : inactiveClass]" to="/client/facture">
           <svg version="1.1" width="24px" height="24px" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
             style="enable-background:new 0 0 512 512;" xml:space="preserve">

@@ -79,6 +79,19 @@
                   >
                     Date
                   </th>
+                   <th
+                    class="
+                      px-5
+                      py-3
+                      text-sm
+                      font-medium
+                      text-gray-100
+                      uppercase
+                      bg-indigo-800
+                    "
+                  >
+                    File
+                  </th>
                   <th
                     class="
                       px-5
@@ -198,6 +211,21 @@
                   >
                     <div class="text-sm leading-5 text-gray-900">
                       {{ offre.date.substr(0, 10) }}
+                    </div>
+                  </td>
+                   <td
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                    "
+                  >
+                    <div class="text-sm leading-5 text-gray-900">
+                      <!-- {{offre.fileOffre}} -->
+                       <files-modalo :u="offre.fileOffre"></files-modalo>
                     </div>
                   </td>
                   <td
@@ -437,7 +465,7 @@
                           bg-cyan-400
                           rounded-r rounded-l
                         "
-                        @click="Valider(offre, index)"
+                        @click="Valider(offre)"
                       >
                         Accepter
                       </button>
@@ -530,12 +558,14 @@
       </div>
     </div>
     <!-- les offre selecter :{{ checkedOffreId }}
-    <br /> -->
-    <!-- {{ GetEtatEnAttente()}}  -->
+    <br />
+    {{ ListeNonSelect()}}  -->
+    <!-- {{ListeOffres}} -->
   </div>
   <!-- </div> -->
 </template>
 <script>
+import FilesModalo from "../../../components/Intermediaire/FilesModalo.vue";
 import axios from "axios";
 import Url from "../../../store/Api";
 import { mapGetters } from "vuex";
@@ -544,13 +574,14 @@ import BreadCrumb from "../../../components/Intermediaire/BreadCrumb.vue";
 export default {
   components: {
     BreadCrumb,
-    // PaginationVue,
+   FilesModalo,
   },
   data() {
     return {
       //listeOffre: [],
       checkedOffreId: [],
       accepter: true,
+      ListeNonSelectId: [],
     };
   },
 
@@ -607,50 +638,54 @@ export default {
         (el) => el.idEtat
       )[0];
     },
-    Accepter() {
-             
-this.ListeOffres.forEach(element=>{
-          element.idEtat=this.GetEtatRefuser();
-          element.idEtatNavigation = null;  axios
-       .put(Url + "offres/" + element.idOffre, element, {
-           headers: {
-             Authorization: "Bearer " + localStorage.getItem("token"),
-           },
-        })
-        .then((res) => {
-          console.log("res 2 :");
-          
-            console.log(res);
-         });
-       console.log("bravo");
-       
-      });
-
-      //for
-      this.checkedOffreId.forEach(element=>{
-             let of = this.ListeOffres.filter(
-         (el) => el.idOffre == element
-       )[0];
-       of.idEtat = this.GetEtatEnCours();
-       of.prixFinale = of.prix + 10;
-
+    AccepterSelect() {
+      this.checkedOffreId.forEach((element) => {
+        let cours = this.GetEtatEnCours();
+        console.log(cours);
+        let of = this.ListeOffres.filter((el) => el.idOffre === element)[0];
+        of.idEtat = cours;
+        of.prixFinale = of.prix + 10;
         of.idEtatNavigation = null;
-         console.log(of)
-                axios
-       .put(Url + "offres/" + of.idOffre, of, {
-           headers: {
-             Authorization: "Bearer " + localStorage.getItem("token"),
-           },
-        })
-        .then((res) => {
-          console.log("res 2 :");
-           
-            console.log(res);
-         });
-       console.log("bravo");
-       
+        console.log(of);
+        axios
+          .put(Url + "offres/" + element, of, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          })
+          .then((res) => {});
       });
-       this.checkedOffreId = [];
+      //this.ListeNonSelect();
+    },
+    ListeNonSelect() {
+      var liste = this.ListeOffres.map((el) => el.idOffre);
+      var listeId = this.checkedOffreId;
+      listeId.forEach((element) => {
+        liste = liste.filter((el) => el != element);
+      });
+      console.log(liste);
+      return liste;
+    },
+
+    Accepter() {
+      this.ListeNonSelect().forEach((element) => {
+        let refuser = this.GetEtatRefuser();
+        console.log(refuser);
+        let of = this.ListeOffres.filter((el) => el.idOffre === element)[0];
+        of.idEtat = refuser;
+        of.prixFinale = of.prix + 10;
+        of.idEtatNavigation = null;
+        //console.log(of);
+        axios
+          .put(Url + "offres/" + element, of, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          })
+          .then((res) => {});
+      });
+      this.AccepterSelect();
+      this.checkedOffreId=[];
     },
 
     AnnulerAccepter(id, index) {
@@ -663,25 +698,42 @@ this.ListeOffres.forEach(element=>{
       console.log(Annuleraccepter);
       this.$store.dispatch("Annuler_Accepter", Annuleraccepter);
     },
-    Valider(offre, index,) {
-      var AccepterValider = {
-        idOffre: offre.idOffre,
-        idEtatAccepter: this.GetEtatAccepter(),
-        idEtatRefuser: this.GetEtatRefuser(),
-        index: index,
-      };
-      //console.log(id)
-      console.log(AccepterValider);
-      this.$store.dispatch("Valider_Accepter", AccepterValider);
-      offre.idEtat= this.GetEtatAccepter();
-      offre.idEtatNavigation=  null;
-         axios.put(Url + "offres/" +offre.idOffre , offre,{
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem("token"),
-        }
-      }).then(res => {
-        console.log("ValiderAccepter")
+    Valider(offre) {
+     
+
+      var liste = this.ListeOffres.map((el) => el.idOffre);
+      // var listeId = this.checkedOffreId;
+
+      liste = liste.filter((el) => el != offre.idOffre);
+
+      liste.forEach((element) => {
+        let refuser = this.GetEtatRefuser();
+        console.log(refuser);
+        let of = this.ListeOffres.filter((el) => el.idOffre === element)[0];
+        of.idEtat = refuser;
+        of.prixFinale = of.prix + 10;
+        of.idEtatNavigation = null;
+        //console.log(of);
+        axios
+          .put(Url + "offres/" + element, of, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          })
+          .then((res) => {});
       });
+     
+      offre.idEtat = this.GetEtatAccepter();
+      offre.idEtatNavigation = null;
+      axios
+        .put(Url + "offres/" + offre.idOffre, offre, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((res) => {
+          console.log("ValiderAccepter");
+        });
     },
   },
 };

@@ -659,8 +659,9 @@ export default {
         };
         this.$store.dispatch("Chercher_Trajet", ville);
      }else{
+      console.log(this.rechercheTransporteur);
         this.$store.dispatch(
-          "Get_Transporteur",
+          "Get_Transporteurt",
           this.rechercheTransporteur
          );
     }
@@ -677,7 +678,7 @@ export default {
         this.$store.dispatch("Chercher_Trajet", ville);
       } else {
         this.$store.dispatch(
-          "Get_Transporteur",
+          "Get_Transporteurt",
           this.rechercheTransporteur
         );
       }

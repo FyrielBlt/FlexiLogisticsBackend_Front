@@ -205,6 +205,19 @@
                   >
                     Télèphone
                   </th>
+                  <th
+                    class="
+                      px-5
+                      py-3
+                      text-sm
+                      font-medium
+                      text-gray-100
+                      uppercase
+                      bg-indigo-800
+                    "
+                  >
+                    Status
+                  </th>
 
                   <th
                     class="
@@ -296,6 +309,49 @@
                     <div class="text-sm leading-5 text-gray-900">
                       {{ client.iduserNavigation.tel }}
                     </div>
+                  </td>
+                  <td
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                    "
+                  >
+                    <button
+                      class="
+                        inline-flex
+                        px-2
+                        text-xx
+                        font-semibold
+                        leading-5
+                        text-green-700
+                        bg-green-100
+                        rounded-full
+                      "
+                      v-if="client.iduserNavigation.active == 1"
+                      @click="Desactive(client.iduserNavigation)"
+                    >
+                      Active
+                    </button>
+                    <button
+                      class="
+                        inline-flex
+                        px-2
+                        text-xx
+                        font-semibold
+                        leading-5
+                        text-red-700
+                        bg-red-100
+                        rounded-full
+                      "
+                      v-else
+                      @click="Active(client.iduserNavigation)"
+                    >
+                      Désactivé
+                    </button>
                   </td>
                   <td
                     class="
@@ -852,7 +908,14 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           this.$store.dispatch("Delete_Client", client);
-          this.$swal("Supprimer!", "", "success");
+          this.$swal({
+            position: "top-end",
+            icon: "success",
+            toast: true,
+            title: "Supprimer",
+            showConfirmButton: false,
+            timer: 2000,
+          });
         }
       });
     },
@@ -874,7 +937,7 @@ export default {
           client.append("Prenom", this.prenom);
           client.append("Email", this.email);
           client.append("Motdepasse", this.password);
-          client.append("image", "");
+          client.append("image", "intermediaire.png");
           client.append("Tel", this.tel);
           client.append("ImageFile", this.imageFile);
           client.append("ImageSrc", "");
@@ -886,7 +949,7 @@ export default {
             })
             .then((res) => {
               this.$store.dispatch("Ajouter_Client", res.data);
-              this.open = false;
+              this.Close(false);
               this.$swal({
                 position: "top-end",
                 icon: "success",
@@ -984,7 +1047,7 @@ export default {
                 index: this.index,
               };
               this.$store.dispatch("Modifier_Client", client);
-              this.open = false;
+              this.Close(false);
               this.$swal({
                 position: "top-end",
                 icon: "success",
@@ -1048,6 +1111,36 @@ export default {
     FileSelected(event) {
       this.imageFile = event.target.files[0];
       console.log(this.imageFile);
+    },
+
+    Active(user) {
+      user.active = 1;
+      console.log(user);
+
+      this.$store.dispatch("Active_Compte", user);
+      this.$swal({
+        position: "top-end",
+        icon: "success",
+        toast: true,
+        title: "Compte Activée",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    },
+    Desactive(user) {
+      user.active = null;
+      console.log(user);
+
+      this.$store.dispatch("Active_Compte", user);
+
+      this.$swal({
+        position: "top-end",
+        icon: "info",
+        toast: true,
+        title: "Compte Desactivée",
+        showConfirmButton: false,
+        timer: 2000,
+      });
     },
   },
   watch: {

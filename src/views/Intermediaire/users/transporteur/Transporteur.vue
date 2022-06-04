@@ -218,6 +218,19 @@
                   >
                     Sociéte
                   </th>
+                   <th
+                    class="
+                      px-5
+                      py-3
+                      text-sm
+                      font-medium
+                      text-gray-100
+                      uppercase
+                      bg-indigo-800
+                    "
+                  >
+                     Status
+                  </th>
                   <th
                     class="
                       px-5
@@ -323,6 +336,50 @@
                       {{ GetSociete(transporteur.idUserNavigation.societe) }}
                     </div>
                   </td>
+                   <td
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                    "
+                  >
+                    <button
+                      class="
+                        inline-flex
+                        px-2
+                        text-xx
+                        font-semibold
+                        leading-5
+                        text-green-700
+                        bg-green-100
+                        rounded-full
+                      "
+                      v-if="transporteur.idUserNavigation.active == 1"
+                      @click="Desactive(transporteur.idUserNavigation)"
+                    >
+                      Active
+                    </button>
+                    <button
+                      class="
+                        inline-flex
+                        px-2
+                        text-xx
+                        font-semibold
+                        leading-5
+                        text-red-700
+                        bg-red-100
+                        rounded-full
+                      "
+                      v-else
+                      @click="Active(transporteur.idUserNavigation)"
+                    >
+                      Désactivé
+                    </button>
+                  </td>
+
                   <td
                     class="
                       px-6
@@ -875,13 +932,7 @@ export default {
     GetSociete(id) {
       return this.ListeSocietesAll.filter((el) => el.idSociete == id)[0].nom;
     },
-    // startAlert() {
-    //   this.success = true;
-    //   this.timeout = setTimeout(() => {
-    //     clearTimeout(this.timeout);
-    //     this.success = false;
-    //   }, 2000);
-    // },
+   
     Ajouter() {
       this.open = true;
       console.log(this.open);
@@ -912,7 +963,14 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           this.$store.dispatch("Delete_Transporteur", transporteur);
-          this.$swal("Supprimer!", "", "success");
+         this.$swal({
+        position: "top-end",
+        icon: "success",
+        toast: true,
+        title: "Supprimer",
+        showConfirmButton: false,
+        timer: 2000,
+      });
         }
       });
     },
@@ -935,7 +993,7 @@ export default {
           user.append("prenom", this.prenom);
           user.append("email", this.email);
           user.append("motdepasse", this.password);
-          user.append("image", "");
+          user.append("image", "intermediaire.png");
           user.append("Tel", this.tel);
           user.append("societe", this.societe);
           user.append("ImageFile", this.imageFile);
@@ -954,7 +1012,7 @@ export default {
               //   IdRoleNavigation: this.GetRole(this.idRole),
               // };
               this.$store.dispatch("Ajouter_Transporteur", res.data);
-              this.open = false;
+              this.Close(false);
               this.$swal({
                 position: "top-end",
                 icon: "success",
@@ -981,16 +1039,7 @@ export default {
                 timer: 2000,
               });
             });
-          // this.$store.dispatch("Ajouter_Transporteur", user);
-          // this.open = false;
-          // this.$swal({
-          //   position: "top-end",
-          //   icon: "success",
-          //   toast: true,
-          //   title: "Transporteur Ajouter",
-          //   showConfirmButton: false,
-          //   timer: 2000,
-          // });
+          
         } else {
           //this.startAlert();
           this.$swal({
@@ -1062,7 +1111,7 @@ export default {
                 index: this.index,
               };
               this.$store.dispatch("Modifier_Transporteur", transporteur);
-              this.open = false;
+               this.Close(false);
               this.$swal({
                 position: "top-end",
                 icon: "success",
@@ -1089,17 +1138,7 @@ export default {
                 timer: 2000,
               });
             });
-          // this.$store.dispatch("Modifier_Transporteur", transporteur);
-          // this.Close(false);
-          // this.$swal({
-          //   position: "top-end",
-          //   icon: "success",
-
-          //   toast: true,
-          //   title: "Transporteur Modifier",
-          //   showConfirmButton: false,
-          //   timer: 2000,
-          // });
+         
         } else {
           //this.startAlert();
           this.$swal({
@@ -1127,6 +1166,35 @@ export default {
     FileSelected(event) {
       this.imageFile = event.target.files[0];
       console.log(this.imageFile);
+    },
+     Active(user) {
+      user.active = 1;
+      console.log(user);
+
+      this.$store.dispatch("Active_Compte", user);
+      this.$swal({
+        position: "top-end",
+        icon: "success",
+        toast: true,
+        title: "Compte Activée",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    },
+    Desactive(user) {
+      user.active = null;
+      console.log(user);
+
+      this.$store.dispatch("Active_Compte", user);
+
+      this.$swal({
+        position: "top-end",
+        icon: "info",
+        toast: true,
+        title: "Compte Desactivée",
+        showConfirmButton: false,
+        timer: 2000,
+      });
     },
   },
   watch: {

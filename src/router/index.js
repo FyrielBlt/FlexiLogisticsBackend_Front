@@ -16,6 +16,7 @@ import Offres from "../views/Client/offresrecu.vue";
 import DashboardClient from "../views/Client/Dashboard.vue";
 import Profile from "../views/Client/Profile.vue";
 import Facture from "../views/Client/Facture.vue";
+import DemandeDetails from "../views/Client/demandedetails.vue";
 // fin client
 //transporteur
 import DashboardTransporteur from "../views/Transporteur/Users/Dashboard.vue";
@@ -65,318 +66,323 @@ import Card from '../views/CardView.vue'
 import Blank from '../views/BlankView.vue'
 import NotFound from '../views/NotFound.vue'
 const routes = [{
-        path: '/',
-        name: 'Login',
-        component: Login,
-    },
-    {
-        path: '/Inscription',
-        name: 'Inscription',
-        component: Inscription,
-    },
+  path: '/',
+  name: 'Login',
+  component: Login,
+},
+{
+  path: '/Inscription',
+  name: 'Inscription',
+  component: Inscription,
+},
 
-    //Router Intermediaire
-    {
-        path: '/dashboard',
-        component: MenuIntermediaire,
-        meta: {
-            middleware: [auth, log],
-        },
-        children: [{
-                path: 'Intermediaire',
-                component: Intermediaire,
-                name: 'Intermediaire',
-            },
-            {
-                path: 'role',
-                component: Role,
-                name: 'Role',
-            },
-            {
-                path: 'detailDemandeIntermediaire/:id',
-                name: 'DetailDemandeIntermediaire',
-                component: DetailDemandeIntermediaire,
-            },
-            {
-                path: 'trajetIntermediaire',
-                name: 'trajetIntermediaire',
-                component: TrajetIntermediaire,
-            },
-            {
-                path: 'permission',
-                component: Permission,
-                name: 'Permission',
-            },
-            {
-                path: 'clientIntermediaire',
-                component: ClientIntermediaire,
-                name: 'ClientIntermediaire',
-            },
-            {
-                path: 'personnelIntermediaire',
-                component: PersonnelIntermediaire,
-                name: 'PersonnelIntermediaire',
-            },
-            {
-                path: 'transporteurIntermediaire',
-                component: TransporteurIntermediaire,
-                name: 'TransporteurIntermediaire',
-            },
-            {
-                path: 'demandeIntermediaire',
-                component: DemandeIntermediaire,
-                name: 'DemandeIntermediaire',
-            },
-            {
-                path: 'demandeDevis/:id',
-                name: 'DemandeDevis',
-                component: DemandeDevis,
-            },
-            {
-                path: 'offreIntermediaire/:id',
-                name: 'OffreIntermediaire',
-                component: OffreIntermediaire,
-            },
+//Router Intermediaire
+{
+  path: '/dashboard',
+  component: MenuIntermediaire,
+  meta: {
+    middleware: [auth, log],
+  },
+  children: [{
+    path: 'Intermediaire',
+    component: Intermediaire,
+    name: 'Intermediaire',
+  },
+  {
+    path: 'role',
+    component: Role,
+    name: 'Role',
+  },
+  {
+    path: 'detailDemandeIntermediaire/:id',
+    name: 'DetailDemandeIntermediaire',
+    component: DetailDemandeIntermediaire,
+  },
+  {
+    path: 'trajetIntermediaire',
+    name: 'trajetIntermediaire',
+    component: TrajetIntermediaire,
+  },
+  {
+    path: 'permission',
+    component: Permission,
+    name: 'Permission',
+  },
+  {
+    path: 'clientIntermediaire',
+    component: ClientIntermediaire,
+    name: 'ClientIntermediaire',
+  },
+  {
+    path: 'personnelIntermediaire',
+    component: PersonnelIntermediaire,
+    name: 'PersonnelIntermediaire',
+  },
+  {
+    path: 'transporteurIntermediaire',
+    component: TransporteurIntermediaire,
+    name: 'TransporteurIntermediaire',
+  },
+  {
+    path: 'demandeIntermediaire',
+    component: DemandeIntermediaire,
+    name: 'DemandeIntermediaire',
+  },
+  {
+    path: 'demandeDevis/:id',
+    name: 'DemandeDevis',
+    component: DemandeDevis,
+  },
+  {
+    path: 'offreIntermediaire/:id',
+    name: 'OffreIntermediaire',
+    component: OffreIntermediaire,
+  },
 
-            {
-                path: 'villeIntermediaire',
-                name: 'VilleIntermediaire',
-                component: VilleIntermediaire,
-            },
-            {
-                path: 'factureClient',
-                name: 'FactureClient',
-                component: FactureClient,
-            },
-            {
-                path: 'factureTransporteur',
-                name: 'factureTransporteur',
-                component: FactureTransporteur,
-            },
-           /* {
-                path: 'voirFacture/:id',
-                name: 'VoirFacture',
-                component: VoirFacture,
-            },
-            {
-                path: 'uploadFacture/:demande&:idFactClient',
-                name: 'UploadFacture',
-                component: UploadFacture,
-            }, {
-                path: 'payementTransporteur/:facture',
-                name: 'PayementTransporteur',
-                component: PayementTransporteur,
-            },
-            {
-                path: 'payementClient/:id',
-                name: 'PayementClient',
-                component: PayementClient,
-            },*/
-            {
-                path: 'profilIntermediaire',
-                name: 'ProfilIntermediaire',
-                component: ProfilIntermediaire,
-            },
-            {
-                path: 'societeIntermediaire',
-                component: SocieteIntermediaire,
-                name: 'SocieteIntermediaire',
-            },
-        ],
-    },
+  {
+    path: 'villeIntermediaire',
+    name: 'VilleIntermediaire',
+    component: VilleIntermediaire,
+  },
+  {
+    path: 'factureClient',
+    name: 'FactureClient',
+    component: FactureClient,
+  },
+  {
+    path: 'factureTransporteur',
+    name: 'factureTransporteur',
+    component: FactureTransporteur,
+  },
+  /* {
+       path: 'voirFacture/:id',
+       name: 'VoirFacture',
+       component: VoirFacture,
+   },
+   {
+       path: 'uploadFacture/:demande&:idFactClient',
+       name: 'UploadFacture',
+       component: UploadFacture,
+   }, {
+       path: 'payementTransporteur/:facture',
+       name: 'PayementTransporteur',
+       component: PayementTransporteur,
+   },
+   {
+       path: 'payementClient/:id',
+       name: 'PayementClient',
+       component: PayementClient,
+   },*/
+  {
+    path: 'profilIntermediaire',
+    name: 'ProfilIntermediaire',
+    component: ProfilIntermediaire,
+  },
+  {
+    path: 'societeIntermediaire',
+    component: SocieteIntermediaire,
+    name: 'SocieteIntermediaire',
+  },
+  ],
+},
 
-    // fin Router Intermediaire
-    //Router client
-    {
-        path: '/dashboard',
-        component: MenuClient,
-        meta: {
-            middleware: [authc, log],
-        },
-        children: [{
-                path: 'dashboardClient',
-                name: 'DashboardClient',
-                component: DashboardClient,
-            },
-            {
-                path: 'clients',
-                name: 'Client',
-                component: Client,
-            },
-            {
-                path: 'demande',
-                name: 'Demande',
-                component: Demande,
-            },
-            {
-                path: 'offres',
-                name: 'Offres',
-                component: Offres,
-            },
-            {
-                path: "profile",
-                name: "Profile",
-                component: Profile,
-            },
-            {
-                path: "facture",
-                name: "Facture",
-                component: Facture,
-            },
-        ],
-    },
-    // fin Router Intermediaire
-    //Router Transporteur
-    {
-        path: '/dashboard',
-        component: MenuTransporteur,
-        meta: {
-            middleware: [autht, log],
-        },
-        children: [{
-                path: 'dashboardTransporteur',
-                name: 'DashboardTransporteur',
-                component: DashboardTransporteur,
-            },
-            {
-                path: 'demandechauffeur',
-                name: 'Demandechauffeur',
-                component: Demandechauffeur,
-            },
-            {
-                path: 'offreschauffeur',
-                name: 'Offreschauffeur',
-                component: Offreschauffeur,
-            },
-            {
-                path: 'facturesTransporteur',
-                name: 'facturesTransporteur',
-                component: FacturesTransporteur,
-            },
-            {
-                path: 'trajets',
-                name: 'Trajets',
-                component: Trajets,
-            },
-            {
-                path: 'transporteurs',
-                name: 'Transporteurs',
-                component: Transporteurs,
-            },
-            {
-                path: 'chauffeurs',
-                name: 'Chauffeurs',
-                component: Chauffeurs,
-            },
-            {
-                path: 'itetiaires',
-                name: 'itetiaires',
-                component: Itetiaires,
-            },
+// fin Router Intermediaire
+//Router client
+{
+  path: '/client',
+  component: MenuClient,
+  meta: {
+    middleware: [authc, log],
+  },
+  children: [{
+    path: 'dashboardClient',
+    name: 'DashboardClient',
+    component: DashboardClient,
+  },
+  {
+    path: 'clients',
+    name: 'Client',
+    component: Client,
+  },
+  {
+    path: 'demande',
+    name: 'Demande',
+    component: Demande,
+  },
+  {
+    path: 'demande/:id',
+    name: 'DemandeDetails',
+    component: DemandeDetails,
+  },
+  {
+    path: 'offres',
+    name: 'Offres',
+    component: Offres,
+  },
+  {
+    path: "profile",
+    name: "Profile",
+    component: Profile,
+  },
+  {
+    path: "facture",
+    name: "Facture",
+    component: Facture,
+  },
+  ],
+},
+// fin Router Intermediaire
+//Router Transporteur
+{
+  path: '/dashboard',
+  component: MenuTransporteur,
+  meta: {
+    middleware: [autht, log],
+  },
+  children: [{
+    path: 'dashboardTransporteur',
+    name: 'DashboardTransporteur',
+    component: DashboardTransporteur,
+  },
+  {
+    path: 'demandechauffeur',
+    name: 'Demandechauffeur',
+    component: Demandechauffeur,
+  },
+  {
+    path: 'offreschauffeur',
+    name: 'Offreschauffeur',
+    component: Offreschauffeur,
+  },
+  {
+    path: 'facturesTransporteur',
+    name: 'facturesTransporteur',
+    component: FacturesTransporteur,
+  },
+  {
+    path: 'trajets',
+    name: 'Trajets',
+    component: Trajets,
+  },
+  {
+    path: 'transporteurs',
+    name: 'Transporteurs',
+    component: Transporteurs,
+  },
+  {
+    path: 'chauffeurs',
+    name: 'Chauffeurs',
+    component: Chauffeurs,
+  },
+  {
+    path: 'itetiaires',
+    name: 'itetiaires',
+    component: Itetiaires,
+  },
 
-            {
-                path: 'camions',
-                name: 'Camions',
-                component: Camions,
-            },
-            {
-                path: 'trajetcamion',
-                name: 'Trajetcamion',
-                component: Trajetcamion,
-            },
-            {
-                path: "profil",
-                name: "Profil",
-                component: ProfilTransprteur,
-            },
-
-
-            {
-                path: 'historiqueDemande',
-                name: 'historiqueDemande',
-                component: ModalLayoutHistoriqueDemande,
-            },
-        ],
-    },
-
-    // fin Router Transporteur
-    // fin Router Transporteur
+  {
+    path: 'camions',
+    name: 'Camions',
+    component: Camions,
+  },
+  {
+    path: 'trajetcamion',
+    name: 'Trajetcamion',
+    component: Trajetcamion,
+  },
+  {
+    path: "profil",
+    name: "Profil",
+    component: ProfilTransprteur,
+  },
 
 
-    {
-        path: '/forms',
-        name: 'Forms',
-        component: Forms,
-    }, {
-        path: '/cards',
-        name: 'Cards',
-        component: Card,
-    }, {
-        path: '/tables',
-        name: 'Tables',
-        component: Tables,
-    }, {
-        path: '/ui-elements',
-        name: 'UIElements',
-        component: UIElements,
-    }, {
-        path: '/modal',
-        name: 'Modal',
-        component: Modal,
-    },
-    // {
-    //   path: "/charts",
-    //   name: "Chart",
-    //   component: Chart,
-    // },
-    {
-        path: '/blank',
-        name: 'Blank',
-        component: Blank,
-    },
-    // <<<<<<< HEAD
-    { path: '/:pathMatch(.*)*', component: NotFound },
-    // =======
-    //   { path: "/:pathMatch(.*)*", component: NotFound },
-    // >>>>>>> c322e0653f0c1f3bdbe0f76ce5b122251f7a7402
-    // >>>>>>> 639f3fc82e826186c25e0de4c7171dd0e7630b3f
+  {
+    path: 'historiqueDemande',
+    name: 'historiqueDemande',
+    component: ModalLayoutHistoriqueDemande,
+  },
+  ],
+},
 
-    {
-        path: '/forms',
-        name: 'Forms',
-        component: Forms,
-    }, {
-        path: '/cards',
-        name: 'Cards',
-        component: Card,
-    }, {
-        path: '/tables',
-        name: 'Tables',
-        component: Tables,
-    }, {
-        path: '/ui-elements',
-        name: 'UIElements',
-        component: UIElements,
-    }, {
-        path: '/modal',
-        name: 'Modal',
-        component: Modal,
-    },
-    // {
-    //   path: "/charts",
-    //   name: "Chart",
-    //   component: Chart,
-    // },
-    {
-        path: '/blank',
-        name: 'Blank',
-        component: Blank,
-    }, { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
+// fin Router Transporteur
+// fin Router Transporteur
+
+
+{
+  path: '/forms',
+  name: 'Forms',
+  component: Forms,
+}, {
+  path: '/cards',
+  name: 'Cards',
+  component: Card,
+}, {
+  path: '/tables',
+  name: 'Tables',
+  component: Tables,
+}, {
+  path: '/ui-elements',
+  name: 'UIElements',
+  component: UIElements,
+}, {
+  path: '/modal',
+  name: 'Modal',
+  component: Modal,
+},
+// {
+//   path: "/charts",
+//   name: "Chart",
+//   component: Chart,
+// },
+{
+  path: '/blank',
+  name: 'Blank',
+  component: Blank,
+},
+// <<<<<<< HEAD
+{ path: '/:pathMatch(.*)*', component: NotFound },
+// =======
+//   { path: "/:pathMatch(.*)*", component: NotFound },
+// >>>>>>> c322e0653f0c1f3bdbe0f76ce5b122251f7a7402
+// >>>>>>> 639f3fc82e826186c25e0de4c7171dd0e7630b3f
+
+{
+  path: '/forms',
+  name: 'Forms',
+  component: Forms,
+}, {
+  path: '/cards',
+  name: 'Cards',
+  component: Card,
+}, {
+  path: '/tables',
+  name: 'Tables',
+  component: Tables,
+}, {
+  path: '/ui-elements',
+  name: 'UIElements',
+  component: UIElements,
+}, {
+  path: '/modal',
+  name: 'Modal',
+  component: Modal,
+},
+// {
+//   path: "/charts",
+//   name: "Chart",
+//   component: Chart,
+// },
+{
+  path: '/blank',
+  name: 'Blank',
+  component: Blank,
+}, { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 ]
 
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
-    routes,
+  history: createWebHistory(process.env.BASE_URL),
+  routes,
 });
 
 /*******************************************************Middelware********************************************/
@@ -384,38 +390,38 @@ const router = createRouter({
 // runs the default `next()` callback but also triggers
 // the subsequent Middleware function.
 function nextFactory(context, middleware, index) {
-    const subsequentMiddleware = middleware[index]
-        // If no subsequent Middleware exists,
-        // the default `next()` callback is returned.
-    if (!subsequentMiddleware) return context.next
+  const subsequentMiddleware = middleware[index]
+  // If no subsequent Middleware exists,
+  // the default `next()` callback is returned.
+  if (!subsequentMiddleware) return context.next
 
-    return (...parameters) => {
-        // Run the default Vue Router `next()` callback first.
-        context.next(...parameters)
-            // Than run the subsequent Middleware with a new
-            // `nextMiddleware()` callback.
-        const nextMiddleware = nextFactory(context, middleware, index + 1)
-        subsequentMiddleware({...context, next: nextMiddleware })
-    }
+  return (...parameters) => {
+    // Run the default Vue Router `next()` callback first.
+    context.next(...parameters)
+    // Than run the subsequent Middleware with a new
+    // `nextMiddleware()` callback.
+    const nextMiddleware = nextFactory(context, middleware, index + 1)
+    subsequentMiddleware({ ...context, next: nextMiddleware })
+  }
 }
 
 router.beforeEach((to, from, next) => {
-        if (to.meta.middleware) {
-            const middleware = Array.isArray(to.meta.middleware) ?
-                to.meta.middleware : [to.meta.middleware]
+  if (to.meta.middleware) {
+    const middleware = Array.isArray(to.meta.middleware) ?
+      to.meta.middleware : [to.meta.middleware]
 
-            const context = {
-                from,
-                next,
-                router,
-                to,
-            }
-            const nextMiddleware = nextFactory(context, middleware, 1)
+    const context = {
+      from,
+      next,
+      router,
+      to,
+    }
+    const nextMiddleware = nextFactory(context, middleware, 1)
 
-            return middleware[0]({...context, next: nextMiddleware })
-        }
+    return middleware[0]({ ...context, next: nextMiddleware })
+  }
 
-        return next()
-    })
-    /*******************************************************Middelware********************************************/
+  return next()
+})
+/*******************************************************Middelware********************************************/
 export default router

@@ -94,177 +94,14 @@
     </div>
 
     <div class="mt-8">
-      <line-chart style="background-color: white;" :data="data"></line-chart>
+      <line-chart style="background-color: white;" :data="line()"></line-chart>
+    </div>
+    <div class="flex flex-wrap -mx-6 mt-14">
+      <pie-chart width="580px" :donut="true" :data="pie()"></pie-chart>
+      <pie-chart width="580px" :donut="true" :data="[['Payé', 44], ['Non Payé', 23]]"></pie-chart>
+      {{pie()}}
     </div>
 
-    <div class="flex flex-col mt-8">
-      <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 animate__animated animate__fadeInDown">
-        <div class="
-            inline-block
-            min-w-full
-            overflow-hidden
-            align-middle
-            border-b border-gray-200
-            shadow
-            sm:rounded-lg
-          ">
-          <div class="font-medium text-lg pb-3 bg-gray-200"> Les Offres :</div>
-          <table class="min-w-full">
-            <thead>
-              <tr>
-                <th class="
-                    px-6
-                    py-3
-                    text-xs
-                    font-medium
-                    leading-4
-                    tracking-wider
-                    text-left text-gray-500
-                    uppercase
-                    border-b border-gray-200
-                    bg-gray-50
-                  ">
-                  Description
-                </th>
-                <th class="
-                    px-6
-                    py-3
-                    text-xs
-                    font-medium
-                    leading-4
-                    tracking-wider
-                    text-left text-gray-500
-                    uppercase
-                    border-b border-gray-200
-                    bg-gray-50
-                  ">
-                  Date
-                </th>
-                <th class="
-                    px-6
-                    py-3
-                    text-xs
-                    font-medium
-                    leading-4
-                    tracking-wider
-                    text-left text-gray-500
-                    uppercase
-                    border-b border-gray-200
-                    bg-gray-50
-                  ">
-                  Prix
-                </th>
-                <th class="
-                    px-6
-                    py-3
-                    text-xs
-                    font-medium
-                    leading-4
-                    tracking-wider
-                    text-left text-gray-500
-                    uppercase
-                    border-b border-gray-200
-                    bg-gray-50
-                  ">
-                  Status
-                </th>
-                <th class="
-                    px-6
-                    py-3
-                    text-xs
-                    font-medium
-                    leading-4
-                    tracking-wider
-                    text-left text-gray-500
-                    uppercase
-                    border-b border-gray-200
-                    bg-gray-50
-                  ">
-                  Transporteur
-                </th>
-
-              </tr>
-            </thead>
-
-            <tbody class="bg-white">
-              <tr v-for="(u, index) in offres" :key="index">
-                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap ">
-                  <div class="flex items-center">
-                    <div class="ml-4">
-                      <div class="text-sm font-medium leading-5 text-gray-900">
-                        {{ u.description }}
-                      </div>
-                      <div class="text-sm leading-5 text-gray-500">
-                        Demande : {{ u.idDemandeNavigation.description }}
-                      </div>
-                    </div>
-                  </div>
-                </td>
-
-                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                  <div class="text-sm leading-5 text-gray-900">
-                    {{ u.date.substr(0, 10) }}
-                  </div>
-                  <div class="text-sm leading-5 text-gray-500">
-
-                  </div>
-                </td>
-                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                  <span class="
-                      inline-flex
-                      px-2
-                      text-xs
-                      font-semibold
-                      leading-5
-                      text-yellow-800
-                      bg-yellow-100
-                      rounded-full
-                    ">{{ u.prix }}DT</span>
-                </td>
-                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                  <span class="
-                      inline-flex
-                      px-2
-                      text-xs
-                      font-semibold
-                      leading-5
-                      text-red-800
-                      bg-red-100
-                      rounded-full
-                    " v-if="u.idEtatNavigation.etat == 'Refusé'">{{ u.idEtatNavigation.etat }}</span>
-                  <span class="
-                      inline-flex
-                      px-2
-                      text-xs
-                      font-semibold
-                      leading-5
-                      text-green-800
-                      bg-green-100
-                      rounded-full
-                    " v-else>{{ u.idEtatNavigation.etat }}</span>
-                </td>
-
-                <td class="
-                    px-6
-                    py-4
-                    text-sm
-                    leading-5
-                    text-gray-500
-                    border-b border-gray-200
-                    whitespace-nowrap
-                  ">
-                  {{ u.idTransporteurNavigation.idUserNavigation.nom }} {{
-                      u.idTransporteurNavigation.idUserNavigation.prenom
-                  }}
-                </td>
-
-
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -284,46 +121,30 @@ export default {
       demandes: [],
       offres: [],
       type: localStorage.getItem("type"),
-      data: [
-        {
-          name: 'Demande Livraison par jour',
-          data:
-          {
-            '2022-01-01': 3,
-            '2022-01-02': 4,
-            '2022-01-03': 15,
-            '2022-01-04': 0,
-            '2022-01-05': 6,
-            '2022-01-06': 3
-          }
-        },
-        {
-          name: 'Offre par jour',
-          data: {
-            '2022-01-01': 1,
-            '2022-01-02': 5,
-            '2022-01-03': 10,
-            '2022-01-04': 2,
-            '2022-01-05': 6,
-            '2022-01-06': 10
-          }
-        },
-        {
-          name: 'Offre par jour',
-          data: {
-            '2022-01-01': 3,
-            '2022-01-02': 9,
-            '2022-01-03': 15,
-            '2022-01-04': 2,
-            '2022-01-05': 6,
-            '2022-01-06': 10
-          }
-        },
-      ],
+      facturesnp: [],
+      facturesp: [],
     };
   },
   created() {
     console.log(this.timeFrom(8))
+    axios
+      .get(
+        "http://localhost:5000/api/FactureClients/client/" +
+        localStorage.getItem("iduser") +
+        "?etat=Payé"
+      )
+      .then((resp) => {
+        this.facturesp = resp.data.length;
+      });
+    axios
+      .get(
+        "http://localhost:5000/api/FactureClients/client/" +
+        localStorage.getItem("iduser") +
+        "?etat=Non payé"
+      )
+      .then((resp) => {
+        this.facturesnp = resp.data.length;
+      });
     axios
       .get(
         "http://localhost:5000/api/offres/client/" +
@@ -352,14 +173,107 @@ export default {
     timeFrom(X) {
       var dates = [];
       for (let I = 0; I < Math.abs(X); I++) {
-        dates.push(new Date(new Date() - ((X >= 0 ? I : (I - I - I)) * 24 * 60 * 60 * 1000)).getDate().toString().padStart(2, '0')
-           + '-' + new Date(new Date() - ((X >= 0 ? I : (I - I - I)) * 24 * 60 * 60 * 1000)).getMonth().toString().padStart(2, '0')
-           + '-' + new Date(new Date() - ((X >= 0 ? I : (I - I - I)) * 24 * 60 * 60 * 1000)).getFullYear());
+        dates.push(
+          new Date(
+            new Date() - (X >= 0 ? I : I - I - I) * 24 * 60 * 60 * 1000
+          ).getFullYear() +
+          "-" +
+          (
+            new Date(
+              new Date() - (X >= 0 ? I : I - I - I) * 24 * 60 * 60 * 1000
+            ).getMonth() + 1
+          )
+            .toString()
+            .padStart(2, "0") +
+          "-" +
+          new Date(
+            new Date() - (X >= 0 ? I : I - I - I) * 24 * 60 * 60 * 1000
+          )
+            .getDate()
+            .toString()
+            .padStart(2, "0")
+        );
       }
 
       return dates;
-    }
+    },
+    pie() {
+      let liste = [];
+      liste.push(['Payé',this.facturesp])
+      liste.push(['Non Payé',this.facturesnp])
+      return liste;
+    },
+    line() {
+      let liste = [];
+      let offre = [];
+      var j1 = this.timeFrom(7)[0];
+      var j2 = this.timeFrom(7)[1];
+      var j3 = this.timeFrom(7)[2];
+      var j4 = this.timeFrom(7)[3];
+      var j5 = this.timeFrom(7)[4];
+      var j6 = this.timeFrom(7)[5];
+      var j7 = this.timeFrom(7)[6];
+      var data = {
+        [j7]: this.demandes.filter(
+          (el) => el.datecreation.substr(0, 10) == j7
+        ).length,
+        [j6]: this.demandes.filter(
+          (el) => el.datecreation.substr(0, 10) == j6
+        ).length,
+        [j5]: this.demandes.filter(
+          (el) => el.datecreation.substr(0, 10) == j5
+        ).length,
+        [j4]: this.demandes.filter(
+          (el) => el.datecreation.substr(0, 10) == j4
+        ).length,
+        [j3]: this.demandes.filter(
+          (el) => el.datecreation.substr(0, 10) == j3
+        ).length,
+        [j2]: this.demandes.filter(
+          (el) => el.datecreation.substr(0, 10) == j2
+        ).length,
+        [j1]: this.demandes.filter(
+          (el) => el.datecreation.substr(0, 10) == j1
+        ).length,
+      };
+      var offresdata = {
+        [j7]: this.offres.filter(
+          (el) => el.datecreation.substr(0, 10) == j7
+        ).length,
+        [j6]: this.offres.filter(
+          (el) => el.datecreation.substr(0, 10) == j6
+        ).length,
+        [j5]: this.offres.filter(
+          (el) => el.datecreation.substr(0, 10) == j5
+        ).length,
+        [j4]: this.offres.filter(
+          (el) => el.datecreation.substr(0, 10) == j4
+        ).length,
+        [j3]: this.offres.filter(
+          (el) => el.datecreation.substr(0, 10) == j3
+        ).length,
+        [j2]: this.offres.filter(
+          (el) => el.datecreation.substr(0, 10) == j2
+        ).length,
+        [j1]: this.offres.filter(
+          (el) => el.datecreation.substr(0, 10) == j1
+        ).length,
+      };
+      var ob = {
+        name: "Demande Livraison par jour",
+        data: data,
 
-  }
+      };
+      var of = {
+        name: "Offre par jour",
+        data: offresdata,
+
+      };
+      liste.push(ob);
+      liste.push(of);
+      return liste;
+    },
+  },
+
 };
 </script>

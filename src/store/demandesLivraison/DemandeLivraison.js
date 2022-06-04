@@ -5,7 +5,7 @@ export default {
   
   state: {
     //liste de DemandeLivraison
-   // ListeDemandeLivraisonsAll:[],
+   ListeDemandeLivraisonsAll:[],
     ListeDemandeLivraisons: [],
     currentDemandeLivraison: 1,
     perPageDemandeLivraison: 1,
@@ -21,9 +21,9 @@ export default {
     //   return state.ClientById;
     // },
     //return les DemandeLivraisons
-    // ListeDemandeLivraisonsAll(state) {
-    //   return state.ListeDemandeLivraisonsAll;
-    // },
+    ListeDemandeLivraisonsAll(state) {
+      return state.ListeDemandeLivraisonsAll;
+    },
     
     ListeDemandeLivraisons(state) {
       return state.ListeDemandeLivraisons;
@@ -43,9 +43,9 @@ export default {
   },
   mutations: {
    // get all
-    // GetDemandeLivraisonAll(state, value) {
-    //   state.ListeDemandeLivraisonsAll = value;
-    // },
+    GetDemandeLivraisonAll(state, value) {
+      state.ListeDemandeLivraisonsAll = value;
+    },
      // get all d'une page
      GetDemandeLivraison(state, value) {
       state.ListeDemandeLivraisons = value.data;
@@ -166,16 +166,16 @@ export default {
         })
     },
     // get all
-    // Get_DemandeLivraison_All({ commit }) {
-    //   axios.get(Url + "DemandeLivraisons", {
-    //     headers: {
-    //       Authorization: 'Bearer ' + Token
-    //     }
-    //   })
-    //     .then(res => {
-    //       commit('GetDemandeLivraisonAll', res.data);
-    //     })
-    // },
+    Get_DemandeLivraison_All({ commit }) {
+      axios.get(Url + "DemandeLivraisons/demandeall", {
+        headers: {
+          Authorization: 'Bearer ' + Token
+        }
+      })
+        .then(res => {
+          commit('GetDemandeLivraisonAll', res.data);
+        })
+    },
    
   },
 };
