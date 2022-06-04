@@ -437,7 +437,7 @@
                           bg-cyan-400
                           rounded-r rounded-l
                         "
-                        @click="Valider(offre, index)"
+                        @click="Valider(offre)"
                       >
                         Accepter
                       </button>
@@ -530,8 +530,8 @@
       </div>
     </div>
     <!-- les offre selecter :{{ checkedOffreId }}
-    <br /> -->
-    <!-- {{ GetEtatEnAttente()}}  -->
+    <br />
+    {{ ListeNonSelect()}}  -->
   </div>
   <!-- </div> -->
 </template>
@@ -551,6 +551,7 @@ export default {
       //listeOffre: [],
       checkedOffreId: [],
       accepter: true,
+      ListeNonSelectId: [],
     };
   },
 
@@ -607,40 +608,53 @@ export default {
         (el) => el.idEtat
       )[0];
     },
-    Accepter() {
-      var AccepterOffre = {
-        idEtatEnCours: this.GetEtatEnCours(),
-        idEtatRefuser: this.GetEtatRefuser(),
-        ListeOffresId: this.checkedOffreId,
-      };
-
-      this.$store.dispatch("Refuser_Tout", AccepterOffre);
-      for (var i = 0; i < this.checkedOffreId.length; i++) {
-        let of = this.ListeOffres.filter(
-          (el) => el.idOffre == this.checkedOffreId[i]
-        )[0];
-        of.idEtat = this.GetEtatEnCours();
+    AccepterSelect() {
+      this.checkedOffreId.forEach((element) => {
+        let cours = this.GetEtatEnCours();
+        console.log(cours);
+        let of = this.ListeOffres.filter((el) => el.idOffre === element)[0];
+        of.idEtat = cours;
         of.prixFinale = of.prix + 10;
-
         of.idEtatNavigation = null;
-        // console.log(of)
+        console.log(of);
         axios
-          .put(Url + "offres/" + of.idOffre, of, {
+          .put(Url + "offres/" + element, of, {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("token"),
             },
           })
-          .then((res) => {
-            console.log("res 2 :");
-            console.log(of);
-            console.log(res);
-          });
-        console.log("bravo");
-      }
+          .then((res) => {});
+      });
+      //this.ListeNonSelect();
+    },
+    ListeNonSelect() {
+      var liste = this.ListeOffres.map((el) => el.idOffre);
+      var listeId = this.checkedOffreId;
+      listeId.forEach((element) => {
+        liste = liste.filter((el) => el != element);
+      });
+      console.log(liste);
+      return liste;
+    },
 
-      // this.$store.dispatch("Accepter_Offre", AccepterOffre);
-
-      this.checkedOffreId = [];
+    Accepter() {
+      this.ListeNonSelect().forEach((element) => {
+        let refuser = this.GetEtatRefuser();
+        console.log(refuser);
+        let of = this.ListeOffres.filter((el) => el.idOffre === element)[0];
+        of.idEtat = refuser;
+        of.prixFinale = of.prix + 10;
+        of.idEtatNavigation = null;
+        //console.log(of);
+        axios
+          .put(Url + "offres/" + element, of, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          })
+          .then((res) => {});
+      });
+      this.AccepterSelect();
     },
 
     AnnulerAccepter(id, index) {
@@ -653,25 +667,42 @@ export default {
       console.log(Annuleraccepter);
       this.$store.dispatch("Annuler_Accepter", Annuleraccepter);
     },
-    Valider(offre, index,) {
-      var AccepterValider = {
-        idOffre: offre.idOffre,
-        idEtatAccepter: this.GetEtatAccepter(),
-        idEtatRefuser: this.GetEtatRefuser(),
-        index: index,
-      };
-      //console.log(id)
-      console.log(AccepterValider);
-      this.$store.dispatch("Valider_Accepter", AccepterValider);
-      offre.idEtat= this.GetEtatAccepter();
-      offre.idEtatNavigation=  null;
-         axios.put(Url + "offres/" +offre.idOffre , offre,{
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem("token"),
-        }
-      }).then(res => {
-        console.log("ValiderAccepter")
+    Valider(offre) {
+     
+
+      var liste = this.ListeOffres.map((el) => el.idOffre);
+      // var listeId = this.checkedOffreId;
+
+      liste = liste.filter((el) => el != offre.idOffre);
+
+      liste.forEach((element) => {
+        let refuser = this.GetEtatRefuser();
+        console.log(refuser);
+        let of = this.ListeOffres.filter((el) => el.idOffre === element)[0];
+        of.idEtat = refuser;
+        of.prixFinale = of.prix + 10;
+        of.idEtatNavigation = null;
+        //console.log(of);
+        axios
+          .put(Url + "offres/" + element, of, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          })
+          .then((res) => {});
       });
+     
+      offre.idEtat = this.GetEtatAccepter();
+      offre.idEtatNavigation = null;
+      axios
+        .put(Url + "offres/" + offre.idOffre, offre, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((res) => {
+          console.log("ValiderAccepter");
+        });
     },
   },
 };
