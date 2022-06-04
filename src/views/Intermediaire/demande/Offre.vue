@@ -608,6 +608,7 @@ export default {
         (el) => el.idEtat
       )[0];
     },
+
     AccepterSelect() {
       this.checkedOffreId.forEach((element) => {
         let cours = this.GetEtatEnCours();
@@ -655,6 +656,7 @@ export default {
           .then((res) => {});
       });
       this.AccepterSelect();
+
     },
 
     AnnulerAccepter(id, index) {

@@ -157,7 +157,8 @@ export default {
       this.error = false;
       this.sucess = false;
       this.open = false;
-      location.replace("demandechauffeur");
+      location.reload()
+
     },
     FileSelected(event) {
       this.imageFile = event.target.files;

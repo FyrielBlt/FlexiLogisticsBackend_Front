@@ -184,9 +184,14 @@
                 class="px-5 py-5 text-sm bg-white border-b border-gray-200"
                 v-if="(u.factureTransporteur.length== 0)"
               >
-                <p class="text-gray-900 whitespace-nowrap">
-                  <a>paiement en attente</a>
-                </p>
+                <p
+                    class="inline-flex px-2 
+      text-xs font-semibold leading-5 text-red-800 bg-red-100 
+                            border-8 border-red-600 
+
+      "
+                    >en attente</p
+                  >
               </td>
             </tr>
           </tbody>
@@ -301,6 +306,7 @@ export default defineComponent({
       user.append("imageFile", this.imageFile);
       user.append("srcPayementFile", "");
       axios.post("http://localhost:5000/api/FactureTransporteurs", user);
+      location.reload()
     },
 
     searchfunction(mot) {

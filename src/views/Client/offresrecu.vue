@@ -326,7 +326,9 @@
                       rounded-full
                     "
                     v-if="u.date > u.idDemandeNavigation.date"
-                    >{{ u.date.substr(0,10) }}</span>
+                    >  {{ u.date.substr(0,10) }} 
+                    <br>
+                    {{  u.heurearrive  }}</span>
                     <span
                     class="
                       inline-flex

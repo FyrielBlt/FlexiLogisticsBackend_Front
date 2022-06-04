@@ -409,7 +409,7 @@ export default {
       } else {
         axios.post('http://localhost:5000/api/demandelivraisons', {
           "description": this.description,
-          "datecreation": date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate(),
+          "datecreation": date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate(),
           "adressdepart": this.depart,
           "adressarrive": this.arrive,
           "poids": this.poids,
@@ -442,6 +442,9 @@ export default {
           showConfirmButton: false,
           timer: 2000,
         })
+        setTimeout(location.reload(), 4000)
+
+        
             })
 
         })
