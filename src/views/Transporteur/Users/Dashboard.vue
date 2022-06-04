@@ -66,7 +66,7 @@
         <div
           class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg"
         >
-                  <line-chart :data="data"></line-chart>
+          <line-chart :data="web()"></line-chart>
 
        
         </div>
@@ -87,14 +87,17 @@ export default {
       chauffeurs: [],
       camions:[],
       demandes:[],
-       data : [
-  {name: 'Offre accepté', data: {'2022-01-01': 3, '2022-01-02': 4,'2022-01-03': 15, '2022-01-04': 0,'2022-01-05': 6, '2022-01-06': 3}},
-  {name: 'Offre réfusé', data: {'2022-01-01': 1, '2022-01-02': 5,'2022-01-03': 10, '2022-01-04': 2,'2022-01-05': 6, '2022-01-06': 10}},
-  
-],
+      offretotal:[],
     };
   },
   created() {
+    axios
+      .get("http://localhost:5000/api/offres/" +localStorage.getItem('idtransporteur')+"/offrestransporteur"
+      )
+      .then((response) =>{
+        this.offretotal= response.data;
+      })
+     
     axios
       .get(
         "http://localhost:5000/api/Chauffeurs/" +
@@ -123,17 +126,11 @@ export default {
           .catch((error) => console.log(error));
       })
       .catch((error) => console.log(error));
-       axios
-      .get(
-        "http://localhost:5000/api/Transporteurs/" +
-          localStorage.getItem("iduser") +
-          "/iduser"
-      )
-      .then((resp) => {
+      
         axios
           .get(
             "http://localhost:5000/api/DemandeDevis/" +
-              resp.data.idTransporteur +
+              localStorage.getItem('idtransporteur') +
               "/transporteur"
               
           )
@@ -142,28 +139,108 @@ export default {
             this.demandes = response.data;
           })
           .catch((error) => console.log(error));
-      });
+  
   },
   methods: {
-    supprimerchauffeur(id){
-       axios.delete("http://localhost:5000/api/Chauffeurs/"+id)
-.then(()=>{
+      timeFrom(X) {
+      var dates = [];
+      for (let I = 0; I < Math.abs(X); I++) {
+        dates.push(
+          new Date(
+            new Date() - (X >= 0 ? I : I - I - I) * 24 * 60 * 60 * 1000
+          ).getFullYear() +
+            "-" +
+            (
+              new Date(
+                new Date() - (X >= 0 ? I : I - I - I) * 24 * 60 * 60 * 1000
+              ).getMonth() + 1
+            )
+              .toString()
+              .padStart(2, "0") +
+            "-" +
+            new Date(
+              new Date() - (X >= 0 ? I : I - I - I) * 24 * 60 * 60 * 1000
+            )
+              .getDate()
+              .toString()
+              .padStart(2, "0")
+        );
+      }
 
-     axios
+      return dates;
+    },
+     web() {
+      let liste = [];
+      var j1 = this.timeFrom(7)[0];
+      var j2 = this.timeFrom(7)[1];
+      var j3 = this.timeFrom(7)[2];
+      var j4 = this.timeFrom(7)[3];
+      var j5 = this.timeFrom(7)[4];
+      var j6 = this.timeFrom(7)[5];
+      var j7 = this.timeFrom(7)[6];
+      var data = {
+        [j7]: this.demandes.filter(
+          (el) => el.dateEnvoit.substr(0, 10) == j7
+        ).length,
+        [j6]: this.demandes.filter(
+          (el) => el.dateEnvoit.substr(0, 10) == j6
+        ).length,
+        [j5]: this.demandes.filter(
+          (el) => el.dateEnvoit.substr(0, 10) == j5
+        ).length,
+        [j4]: this.demandes.filter(
+          (el) => el.dateEnvoit.substr(0, 10) == j4
+        ).length,
+        [j3]: this.demandes.filter(
+          (el) => el.dateEnvoit.substr(0, 10) == j3
+        ).length,
+        [j2]: this.demandes.filter(
+          (el) => el.dateEnvoit.substr(0, 10) == j2
+        ).length,
+        [j1]: this.demandes.filter(
+          (el) => el.dateEnvoit.substr(0, 10) == j1
+        ).length,
+      };
+       var offretotal = {
+        [j7]: this.offretotal.filter(
+          (el) => el.datecreation.substr(0, 10) == j7
+        ).length,
+        [j6]: this.offretotal.filter(
+          (el) => el.datecreation.substr(0, 10) == j6
+        ).length,
+        [j5]: this.offretotal.filter(
+          (el) => el.datecreation.substr(0, 10) == j5
+        ).length,
+        [j4]: this.offretotal.filter(
+          (el) => el.datecreation.substr(0, 10) == j4
+        ).length,
+        [j3]: this.offretotal.filter(
+          (el) => el.datecreation.substr(0, 10) == j3
+        ).length,
+        [j2]: this.offretotal.filter(
+          (el) => el.datecreation.substr(0, 10) == j2
+        ).length,
+        [j1]: this.offretotal.filter(
+          (el) => el.datecreation.substr(0, 10) == j1
+        ).length,
+      };
+      var ob = {
+        name: "Demande Livraison par jour",
+        data: data,
+        
+      };
+      var ob2 = {
+        name: "Offre envoyé par jour",
+        data: offretotal,
+        
+      };
+     
+     
+      liste.push(ob);
+      liste.push(ob2);
 
-      .get(
-        "http://localhost:5000/api/Chauffeurs/" +
-          localStorage.getItem("societe") +
-          "/chauffeurs"
-      )
-      .then((response) => {
-        this.chauffeurs = response.data;
-        console.log(this.chauffeurs);
-      })
-      .catch((error) => console.log(error));
- })
-    }
-    
+      return liste;
+    },
     
     }}
      
