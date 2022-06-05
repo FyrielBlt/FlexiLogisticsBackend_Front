@@ -25,6 +25,7 @@
         "postcss": "^8",
         "sweetalert2": "^7.33.1",
         "tailwindcss": "^3",
+        "v-calendar": "^3.0.0-alpha.8",
         "vue": "^3.2.13",
         "vue-apexcharts": "^1.6.2",
         "vue-bootstrap-datetimepicker": "^5.0.1",

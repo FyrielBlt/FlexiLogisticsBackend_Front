@@ -1,12 +1,19 @@
 <template>
   <div class="flex items-center justify-center h-screen px-6 bg-white r">
     <div
-      class="w-full max-w-sm p-6 rounded-md shadow-md"
-      style="opacity: 0.9; background-color: #d2d7e0"
+      class="w-full h-full p-6 rounded-md shadow-md"
+      style="position: absolute;
+    right: 1px;
+    top: 1px;
+    width: 626px;
+     background-color: white"
     >
-      <div class="flex items-center justify-center">
-        <div class="flex items-center">
-          <svg
+
+  <div class="min-h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+      <div>
+                <svg
+                class="mx-auto h-28 w-28"
             version="1.1"
             id="Icons"
             xmlns="http://www.w3.org/2000/svg"
@@ -28,62 +35,52 @@
             <line class="st0" x1="2" y1="17" x2="11" y2="17" />
             <rect x="-288" y="-432" class="st3" width="536" height="680" />
           </svg>
-
-         
-        </div>
+        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Se Connecter</h2>
+        <p class="mt-2 text-center text-sm text-gray-600">
+          Ou
+          {{ ' ' }}
+          <router-link  to="/Inscription" class="font-medium text-indigo-600 hover:text-indigo-500"> Créer compte </router-link>
+        </p>
       </div>
-
-      <form class="mt-4" @submit.prevent="login">
-        <label class="block">
-          <span class="text-sm text-gray-700">Email</span>
-          <input
-            type="text"
-            class="block w-full mt-1 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-            v-model="email"
-          />
-        </label>
-
-        <label class="block mt-3">
-          <span class="text-sm text-gray-700">Password</span>
-          <input
-            type="password"
-            class="block w-full mt-1 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-            v-model="password"
-          />
-        </label>
- <div class="mt-6">
-          
-          <button
-            type="submit"
-            class="w-full px-4 py-2 text-sm text-center text-white bg-indigo-600 rounded-md focus:outline-none hover:bg-indigo-500"
-          >
-            Se connecter
-          </button>
-           
-        </div>
-        <div class="flex items-center justify-between mt-4">
+      <form class="mt-8 space-y-6" @submit.prevent="login" method="POST">
+        <input type="hidden" name="remember" value="true" />
+        <div class="rounded-md shadow-sm -space-y-px">
+          <div class="pb-3">
+            <label for="email-address" class="sr-only">Email address</label>
+            <input id="email-address" name="email" type="email" v-model="email" autocomplete="email" required="" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address" />
+          </div>
           <div>
-            <a
-              class="block text-sm text-indigo-700 fontme hover:underline"
-              href="#"
-              >Mot de passe oublié?</a
-            >
-
-              <router-link
-              class="block text-sm text-indigo-700 fontme hover:underline"
-
-          to="/Inscription"
-          >
-            Créér compte
-          </router-link>
+            <label for="password" class="sr-only">Password</label>
+            <input id="password" name="password" type="password" v-model="password" autocomplete="current-password" required="" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password" />
           </div>
         </div>
 
-       
-        
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
+            <label for="remember-me" class="ml-2 block text-sm text-gray-900"> Remember me </label>
+          </div>
+
+          <div class="text-sm">
+            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500"> Mot de passe oublié? </a>
+          </div>
+        </div>
+
+        <div>
+          <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+              <LockClosedIcon class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
+            </span>
+            Se connecter
+          </button>
+        </div>
       </form>
     </div>
   </div>
+  
+    </div>
+  </div>
+  
 </template>
 
 <script>
@@ -186,6 +183,7 @@ export default defineComponent({
 .r {
   background-image: url("../assets/malek.png");
   background-repeat: no-repeat;
-  background-position: 50% 50%;
+  background-size: cover;
+  background-position: left;
 }
 </style>

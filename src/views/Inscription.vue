@@ -31,8 +31,8 @@
         </div>
       </div>
 
-      <form class="mt-4" @submit.prevent="Enregistrer">
-        <label class="block mt-3">
+      <form class="mt-4 row-auto" @submit.prevent="Enregistrer">
+        <label class="block mt-3 col-auto">
           <span class="text-sm text-gray-700">Nom</span>
           <input
             type="text"
@@ -40,7 +40,7 @@
             v-model="nom"
           />
         </label>
-        <label class="block mt-3">
+        <label class="block mt-3 col-auto">
           <span class="text-sm text-gray-700">Prenom</span>
           <input
             type="text"
@@ -133,7 +133,10 @@
         </div>
       </form>
     </div>
+    
   </div>
+  
+  
 </template>
 
 <script>

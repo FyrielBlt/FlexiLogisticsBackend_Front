@@ -96,12 +96,13 @@
     <div class="mt-8">
       <line-chart style="background-color: white;" :data="line()"></line-chart>
     </div>
-    <div class="flex flex-wrap -mx-6 mt-14">
+    <div class="flex flex-wrap  mx-auto mt-14 bg-white">
       <pie-chart width="580px" :donut="true" :data="pie()"></pie-chart>
       <pie-chart width="580px" :donut="true" :data="[['Payé', 44], ['Non Payé', 23]]"></pie-chart>
-      {{pie()}}
     </div>
 
+
+<v-calendar :demandes="demandes"></v-calendar>
   </div>
 </template>
 
@@ -110,11 +111,13 @@ import axios from "axios";
 //import { ref } from "vue";
 //import Banner from "../../partials/Banner.vue";
 import BreadCrumb from "../../components/Intermediaire/BreadCrumb.vue";
+import VCalendar from "./components/v-calendar.vue";
 export default {
   components: {
     //  Banner,
     BreadCrumb,
-  },
+    VCalendar
+},
   data() {
     return {
       personnels: [],
@@ -126,7 +129,7 @@ export default {
     };
   },
   created() {
-    console.log(this.timeFrom(8))
+    
     axios
       .get(
         "http://localhost:5000/api/FactureClients/client/" +
@@ -236,6 +239,7 @@ export default {
           (el) => el.datecreation.substr(0, 10) == j1
         ).length,
       };
+      console.log(data)
       var offresdata = {
         [j7]: this.offres.filter(
           (el) => el.datecreation.substr(0, 10) == j7
