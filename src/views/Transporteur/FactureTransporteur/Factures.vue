@@ -305,8 +305,9 @@ export default defineComponent({
       user.append("notification", "");
       user.append("imageFile", this.imageFile);
       user.append("srcPayementFile", "");
-      axios.post("http://localhost:5000/api/FactureTransporteurs", user);
-      location.reload()
+      axios.post("http://localhost:5000/api/FactureTransporteurs", user)
+      .then(()=>location.reload());
+   
     },
 
     searchfunction(mot) {
