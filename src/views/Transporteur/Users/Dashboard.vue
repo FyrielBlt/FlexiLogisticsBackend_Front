@@ -66,9 +66,13 @@
         <div
           class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg"
         >
-          <line-chart :data="web()"></line-chart>
+        <div class="flex flex-wrap -mx-6 mt-14">
+                    <line-chart :data="web()"></line-chart>
 
-       
+      <pie-chart width="580px" :donut="true" :data="pie()"></pie-chart>
+
+  
+    </div>
         </div>
       </div>
     </div>
@@ -88,14 +92,34 @@ export default {
       camions:[],
       demandes:[],
       offretotal:[],
+      offreaccepte:[],
+       offrerefuse:[]
     };
   },
   created() {
+    
+     
     axios
       .get("http://localhost:5000/api/offres/" +localStorage.getItem('idtransporteur')+"/offrestransporteur"
       )
       .then((response) =>{
         this.offretotal= response.data;
+      })
+      axios
+      .get("http://localhost:5000/api/offres/" +localStorage.getItem('idtransporteur')+"/offrestransporteur"
+      +"?etat=Accepte"
+      
+      )
+      .then((response) =>{
+        this.offreaccepte= response.data;
+      })
+       axios
+      .get("http://localhost:5000/api/offres/" +localStorage.getItem('idtransporteur')+"/offrestransporteur"
+      +"?etat=Refuse"
+      
+      )
+      .then((response) =>{
+        this.offrerefuse= response.data;
       })
      
     axios
@@ -142,6 +166,12 @@ export default {
   
   },
   methods: {
+    pie() {
+      let liste = [];
+      liste.push(['Offre accepté',this.offreaccepte.length])
+      liste.push(['Offre réfusé',this.offrerefuse.length])
+      return liste;
+    },
       timeFrom(X) {
       var dates = [];
       for (let I = 0; I < Math.abs(X); I++) {
