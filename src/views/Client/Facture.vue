@@ -208,6 +208,7 @@ import axios from "axios";
 import BreadCrumb from "../../components/Intermediaire/BreadCrumb.vue";
 
 import PaginationVue from "../../components/Intermediaire/pagination/PaginationVue.vue";
+import url from "../../store/Api";
 import Dragdropfile from "./components/dragdropfile.vue";
 export default {
   components: {
@@ -219,7 +220,7 @@ export default {
   data() {
     return {
       page: 1,
-      perpage: 3,
+      perpage: 5,
       total: 0,
       factures: [],
       num: '',
@@ -229,7 +230,7 @@ export default {
   created() {
     axios
       .get(
-        "http://localhost:5000/api/FactureClients/client/" +
+        url+"FactureClients/client/" +
         localStorage.getItem("iduser")
 
       )
@@ -238,7 +239,7 @@ export default {
       });
     axios
       .get(
-        "http://localhost:5000/api/FactureClients/client/" +
+        url+"FactureClients/client/" +
         localStorage.getItem("iduser") +
         "?page=" +
         this.page +
@@ -255,7 +256,7 @@ export default {
       this.page = NumPage;
       axios
         .get(
-          "http://localhost:5000/api/FactureClients/client/" +
+          url+"FactureClients/client/" +
           localStorage.getItem("iduser") +
           "?page=" +
           this.page +

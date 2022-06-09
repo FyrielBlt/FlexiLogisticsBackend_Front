@@ -5,32 +5,17 @@
         <i class="bi bi-box2-heart-fill"></i>
       </button>
     </span>
-    <div
-      :class="`modal ${
-        !open && 'opacity-0 pointer-events-none'
-      } z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center`"
-    >
-      <div
-        @click="open = false"
-        class="absolute w-full h-full bg-gray-900 opacity-50 modal-overlay"
-      ></div>
+    <div :class="`modal ${!open && 'opacity-0 pointer-events-none'
+    } z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center`">
+      <div @click="open = false" class="absolute w-full h-full bg-gray-900 opacity-50 modal-overlay"></div>
 
-      <div
-        class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md"
-      >
+      <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md">
         <div
-          class="absolute top-0 right-0 z-50 flex flex-col items-center mt-4 mr-4 text-sm text-white cursor-pointer modal-close"
-        >
-          <svg
-            class="text-white fill-current"
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-          >
+          class="absolute top-0 right-0 z-50 flex flex-col items-center mt-4 mr-4 text-sm text-white cursor-pointer modal-close">
+          <svg class="text-white fill-current" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+            viewBox="0 0 18 18">
             <path
-              d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"
-            />
+              d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z" />
           </svg>
           <span class="text-sm">(Esc)</span>
         </div>
@@ -49,11 +34,7 @@
                   description === ''
                     ? ' focus:bg-red-100  focus:border-red-800 '
                     : ' focus:bg-green-100  focus:border-green-800 ',
-                ]"
-                type="text"
-                v-model="description"
-                required
-              />
+                ]" type="text" v-model="description" required />
             </div>
             <div class="relative block mt-2 sm:mt-0">
               <span>Prix demandé :</span>
@@ -63,40 +44,24 @@
                   prix === ''
                     ? ' focus:bg-red-100  focus:border-red-800 '
                     : ' focus:bg-green-100  focus:border-green-800 ',
-                ]"
-                type="number"
-                v-model="prix"
-                required
-              />
+                ]" type="number" v-model="prix" required />
             </div>
             <div class="relative block mt-2 sm:mt-0">
               <span>Date livraison : </span>
-              <input
-                type="datetime-local"
+              <input type="datetime-local"
                 class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg-white border border-b border-gray-400 rounded-l rounded-r appearance-none sm:rounded-l-none focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                 :class="[
                   offre === ''
                     ? ' focus:bg-red-100  focus:border-red-800 '
                     : ' focus:bg-green-100  focus:border-green-800 ',
-                ]"
-                width="300px"
-                v-model="offre"
-                :min="tabledemande.idDemandeNavigation.date"
-                required
-              />
+                ]" width="300px" v-model="offre" :min="tabledemande.idDemandeNavigation.date" required />
             </div>
             <div class="relative block mt-2 sm:mt-0">
-              <input
-                type="file"
-                id="image"
-                multiple="multiple"
-                @change="FileSelected($event)"
-              />
+              <input type="file" id="image" multiple="multiple" @change="FileSelected($event)" />
             </div>
             <div class="flex justify-end mt-4">
               <button
-                class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
-              >
+                class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
                 Envoyer
               </button>
             </div>
@@ -108,6 +73,7 @@
 </template>
 <script>
 import axios from "axios";
+import url from "../../../store/Api";
 
 export default {
   props: ["demandeid", "tabledemande"],
@@ -140,14 +106,14 @@ export default {
     //get etatdemandedevis where etat=accepte
     axios
       .get(
-        "http://localhost:5000/api/EtatDemandeDevis/EtatDemandeDevis?etat=Accepte"
+        url + "EtatDemandeDevis/EtatDemandeDevis?etat=Accepte"
       )
       .then((response) => {
         this.accepte = response.data.idEtat;
       }),
       //get etatoffre where etat=en cours
       axios
-        .get("http://localhost:5000/api/EtatOffres/offre?offre=Nontraite")
+        .get(url + "EtatOffres/offre?offre=Nontraite")
         .then((response) => {
           this.encours = response.data.idEtat;
         });
@@ -166,63 +132,68 @@ export default {
       console.log(this.imageFile[1]);
     },
     ajouterOffre() {
-      if (this.description != "" && this.prix != "" && this.offre != "") {
-        this.$swal({
-          position: "top-end",
-          icon: "success",
-          toast: true,
-          title: "Offre ajouté",
-          showConfirmButton: false,
-          timer: 2000,
-        }).then(() => {
-          axios
-            .post("http://localhost:5000/api/Offres", {
-              description: this.description,
-              date: this.offre.toString().substr(0, 10),
-              heurearrive: this.offre.toString().substr(11, 16),
-              idEtat: this.encours,
-              prix: this.prix,
-              prixFinale: null,
-              idTransporteur: localStorage.getItem("idtransporteur"),
-              idDemande: this.demandeid,
-              notificationIntermediaire: 1,
-              notificationClient: null,
-              notificationTransporteur: null,
-              datecreation:
-                new Date().getFullYear() +
-                "-0" +
-                (new Date().getMonth() + 1) +
-                "-" +
-                new Date().getDate(),
-            })
-            .then((resp) => {
-              if (this.imageFile != null) {
-                for (let i = 0; i < this.imageFile.length; i++) {
-                  let file = new FormData();
-                  file.append("idOffre", resp.data.idOffre);
-                  file.append("nomFile", "");
-                  file.append("imageFile", this.imageFile[i]);
-                  file.append("srcOffreFile", "");
-                  axios.post("http://localhost:5000/api/FileOffres", file);
-                }
-              }
-              axios.put(
-                "http://localhost:5000/api/DemandeDevis/" +
-                  this.tabledemande.idDemandeDevis,
-                {
-                  idDemandeDevis: this.tabledemande.idDemandeDevis,
-                  dateEnvoit: this.tabledemande.dateEnvoit,
-                  idIntermediaire: this.tabledemande.idIntermediaire,
-                  idDemande: this.tabledemande.idDemande,
-                  idTransporteur: this.tabledemande.idTransporteur,
-                  idEtat: this.accepte,
-                }
-              );
+      axios
+        .post(url + "Offres", {
+          description: this.description,
+          date: this.offre.toString().substr(0, 10),
+          heurearrive: this.offre.toString().substr(11, 16),
+          idEtat: this.encours,
+          prix: this.prix,
+          prixFinale: null,
+          idTransporteur: localStorage.getItem("idtransporteur"),
+          idDemande: this.demandeid,
+          notificationIntermediaire: 1,
+          notificationClient: null,
+          notificationTransporteur: null,
+          datecreation:
+            new Date().getFullYear() +
+            "-0" +
+            (new Date().getMonth() + 1) +
+            "-" +
+            new Date().getDate(),
+        })
+        .then((resp) => {
+          if (this.imageFile != null) {
+            for (let i = 0; i < this.imageFile.length; i++) {
+              let file = new FormData();
+              file.append("idOffre", resp.data.idOffre);
+              file.append("nomFile", "");
+              file.append("imageFile", this.imageFile[i]);
+              file.append("srcOffreFile", "");
+              axios.post(url + "FileOffres", file).then(() => {
+                if (this.imageFile.length - 1 === i) {
+                  axios.put(
+                    url + "DemandeDevis/" +
+                    this.tabledemande.idDemandeDevis,
+                    {
+                      idDemandeDevis: this.tabledemande.idDemandeDevis,
+                      dateEnvoit: this.tabledemande.dateEnvoit,
+                      idIntermediaire: this.tabledemande.idIntermediaire,
+                      idDemande: this.tabledemande.idDemande,
+                      idTransporteur: this.tabledemande.idTransporteur,
+                      idEtat: this.accepte,
+                    }
+                  ).then(() => {
+                    this.$swal({
+                      position: "top-end",
+                      icon: "success",
+                      toast: true,
+                      title: "Offre ajouté",
+                      showConfirmButton: false,
+                      timer: 2000,
+                    })
+                    setTimeout(location.reload(), 2000)
+                  });
 
-              this.close();
-            });
+
+                }
+
+              });
+            }
+          }
+
         });
-      }
+
     },
   },
 };

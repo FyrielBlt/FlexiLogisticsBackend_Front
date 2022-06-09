@@ -382,6 +382,7 @@
 </template>
 <script>
 import axios from "axios";
+import url from "../../../store/Api";
 import PaginationVue from "/src/components/Intermediaire/pagination/PaginationVue.vue";
 import ModalLayoutCamionUpdate from "/src/views/Transporteur/Camions/ModalLayoutCamionUpdate.vue";
 import ModalLayoutTarjet from "/src/views/Transporteur/Trajets/Tarjet.vue";
@@ -419,7 +420,7 @@ export default {
     // liste camions de ce transporteur
     axios
       .get(
-        "http://localhost:5000/api/Camions/" +
+        url+"Camions/" +
           localStorage.getItem("idtransporteur") +
           "?page=" +
           this.currentPage +
@@ -432,7 +433,7 @@ export default {
       .catch((error) => console.log(error));
     axios
       .get(
-        "http://localhost:5000/api/Camions/" +
+        url+"Camions/" +
           localStorage.getItem("idtransporteur")
       )
       .then((response) => {
@@ -442,7 +443,7 @@ export default {
     // tous les typescamions
 
     axios
-      .get("http://localhost:5000/api/TypeCamions")
+      .get(url+"TypeCamions")
       .then((response) => {
         this.typecamions = response.data;
       })
@@ -451,7 +452,7 @@ export default {
     //les chauffeurs sans camion
     axios
       .get(
-        "http://localhost:5000/api/Chauffeurs/" +
+        url+"Chauffeurs/" +
           localStorage.getItem("societe") +
           "/chauffeurs"
       )
@@ -470,7 +471,7 @@ export default {
     close() {
     axios
       .get(
-        "http://localhost:5000/api/Camions/" +
+        url+"Camions/" +
           localStorage.getItem("idtransporteur") +
           "?page=" +
           this.currentPage +
@@ -483,7 +484,7 @@ export default {
       .catch((error) => console.log(error));
     axios
       .get(
-        "http://localhost:5000/api/Camions/" +
+        url+"Camions/" +
           localStorage.getItem("idtransporteur")
       )
       .then((response) => {
@@ -493,7 +494,7 @@ export default {
     // tous les typescamions
 
     axios
-      .get("http://localhost:5000/api/TypeCamions")
+      .get(url+"TypeCamions")
       .then((response) => {
         this.typecamions = response.data;
       })
@@ -502,7 +503,7 @@ export default {
     //les chauffeurs sans camion
     axios
       .get(
-        "http://localhost:5000/api/Chauffeurs/" +
+        url+"Chauffeurs/" +
           localStorage.getItem("societe") +
           "/chauffeurs"
       )
@@ -519,14 +520,14 @@ export default {
     searchfunction(mot) {
       axios
         .get(
-          "http://localhost:5000/api/Transporteurs/" +
+          url+"Transporteurs/" +
             localStorage.getItem("iduser") +
             "/iduser"
         )
         .then((response) => {
           axios
             .get(
-              "http://localhost:5000/api/Camions/" +
+              url+"Camions/" +
                 response.data.idTransporteur +
                 "?page=" +
                 this.currentPage +
@@ -548,14 +549,14 @@ export default {
       this.perPage = this.perPage;
       axios
         .get(
-          "http://localhost:5000/api/Transporteurs/" +
+          url+"Transporteurs/" +
             localStorage.getItem("iduser") +
             "/iduser"
         )
         .then((response) => {
           axios
             .get(
-              "http://localhost:5000/api/Camions/" +
+              url+"Camions/" +
                 response.data.idTransporteur +
                 "?page=" +
                 this.currentPage +
@@ -589,7 +590,7 @@ export default {
         if (result.value) {
          
               axios
-                .delete("http://localhost:5000/api/Camions/" + id)
+                .delete(url+"Camions/" + id)
                 .then(() => {
                  this.close()
                 });
@@ -605,7 +606,7 @@ export default {
         this.typecamion != ""
       ) {
         axios
-          .post("http://localhost:5000/api/Camions", {
+          .post(url+"Camions", {
             idtransporteur: localStorage.getItem("idtransporteur"),
             idchauffeur: this.cinchauffeur,
             codevehicule: this.codevehicule,

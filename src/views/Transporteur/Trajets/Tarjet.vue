@@ -202,6 +202,7 @@
 </template>
 <script>
 import axios from "axios";
+import url from "../../../store/Api";
 import PaginationVue from "/src/components/Intermediaire/pagination/PaginationVue.vue";
 import ModalTrajetUpdate from "/src/views/Transporteur/Trajets/ModalLayoutTrajetUpdate.vue";
 
@@ -234,23 +235,23 @@ export default {
   created() {
     //get etatdemandedevis where etat=accepte
     axios
-      .get("http://localhost:5000/api/EtatDemandeDevis?etat=Accepte")
+      .get(url+"EtatDemandeDevis?etat=Accepte")
       .then((response) => {
         this.accepte = response.data;
       }),
       //get etatoffre where etat=en cours
       axios
-        .get("http://localhost:5000/api/EtatOffres?offre=Nontraite")
+        .get(url+"EtatOffres?offre=Nontraite")
         .then((response) => {
           this.encours = response.data;
         }),
       axios
-        .get("http://localhost:5000/api/villes")
+        .get(url+"villes")
         .then((resp) => (this.villes = resp.data));
     // liste trajets de ce camion
     axios
       .get(
-        "http://localhost:5000/api/Trajets/" +
+        url+"Trajets/" +
           localStorage.getItem("moncamion") +
           "/camion" +
           "?page=" +
@@ -264,7 +265,7 @@ export default {
       .catch((error) => console.log(error));
     axios
       .get(
-        "http://localhost:5000/api/Trajets/" +
+        url+"Trajets/" +
           localStorage.getItem("moncamion") +
           "/camion"
       )
@@ -279,7 +280,7 @@ export default {
       this.perPage = this.perPage;
       axios
         .get(
-          "http://localhost:5000/api/Trajets/" +
+          url+"Trajets/" +
             localStorage.getItem("moncamion") +
             "/camion" +
             "?page=" +
@@ -302,23 +303,23 @@ export default {
     reload() {
       //get etatdemandedevis where etat=accepte
       axios
-        .get("http://localhost:5000/api/EtatDemandeDevis?etat=Accepte")
+        .get(url+"EtatDemandeDevis?etat=Accepte")
         .then((response) => {
           this.accepte = response.data;
         }),
         //get etatoffre where etat=en cours
         axios
-          .get("http://localhost:5000/api/EtatOffres?offre=Nontraite")
+          .get(url+"EtatOffres?offre=Nontraite")
           .then((response) => {
             this.encours = response.data;
           }),
         axios
-          .get("http://localhost:5000/api/villes")
+          .get(url+"villes")
           .then((resp) => (this.villes = resp.data));
       // liste trajets de ce camion
       axios
         .get(
-          "http://localhost:5000/api/Trajets/" +
+          url+"Trajets/" +
             localStorage.getItem("moncamion") +
             "/camion" +
             "?page=" +
@@ -332,7 +333,7 @@ export default {
         .catch((error) => console.log(error));
       axios
         .get(
-          "http://localhost:5000/api/Trajets/" +
+          url+"Trajets/" +
             localStorage.getItem("moncamion") +
             "/camion"
         )

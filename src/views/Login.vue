@@ -6,7 +6,7 @@
     right: 1px;
     top: 1px;
     width: 626px;
-     background-color: white"
+     background-color: #fffffff2;"
     >
 
   <div class="min-h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
@@ -71,8 +71,9 @@
             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
               <LockClosedIcon class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
             </span>
-            Se connecter
+            Se Connecter
           </button>
+          
         </div>
       </form>
     </div>
@@ -85,6 +86,7 @@
 
 <script>
 import { defineComponent } from "vue";
+import Url from "../store/Api";
 import axios from "axios";
 export default defineComponent({
   data() {
@@ -97,7 +99,7 @@ export default defineComponent({
   methods: {
     login() {
       axios
-        .post("http://localhost:5000/api/login", {
+        .post(Url+"login", {
           Email: this.email,
           Motdepasse: this.password,
         })

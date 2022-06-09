@@ -460,6 +460,7 @@ import BreadCrumb from "../../components/Intermediaire/BreadCrumb.vue";
 import axios from "axios";
 import PaginationVue from "../../components/Intermediaire/pagination/PaginationVue.vue";
 import FilesModal from "./FilesModaloffre.vue";
+import url from "../../store/Api";
 //import $ from "jquery";
 export default defineComponent({
   // components: { Breadcrumb },
@@ -488,38 +489,38 @@ export default defineComponent({
   created() {
      axios
       .get(
-        "http://localhost:5000/api/EtatOffres/offre?offre=attente" 
+        url+"EtatOffres/offre?offre=attente" 
           )
       .then((response) =>{
         this.att= response.data.idEtat;
       }),
        axios
       .get(
-        "http://localhost:5000/api/EtatOffres/offre?offre=Accepte" 
+        url+"EtatOffres/offre?offre=Accepte" 
           )
       .then((response) =>{
         this.acc= response.data.idEtat;
       }),
       axios
       .get(
-        "http://localhost:5000/api/EtatOffres/offre?offre=Encours" 
+        url+"EtatOffres/offre?offre=Encours" 
           )
       .then((response) =>{
         this.encdt= response.data.idEtat;
       }),
      axios
       .get(
-        "http://localhost:5000/api/EtatOffres/offre?offre=Nontraite" 
+        url+"EtatOffres/offre?offre=Nontraite" 
           )
       .then((response) =>{
         this.nt= response.data.idEtat;
       }),
     axios
-      .get("http://localhost:5000/api/villes")
+      .get(url+"villes")
       .then((resp) => (this.villes = resp.data));
     axios
       .get(
-        "http://localhost:5000/api/offres/client/" +
+        url+"offres/client/" +
           localStorage.getItem("iduser") +
           "?page=" +
           this.page +
@@ -531,7 +532,7 @@ export default defineComponent({
       });
       axios
       .get(
-        "http://localhost:5000/api/offres/client/" +
+        url+"offres/client/" +
           localStorage.getItem("iduser")
       )
       .then((resp) => {
@@ -544,7 +545,7 @@ export default defineComponent({
     search() {
       axios
         .get(
-          "http://localhost:5000/api/offres/client/" +
+          url+"offres/client/" +
             localStorage.getItem("iduser") +
             "?page=" +
             this.page +
@@ -561,7 +562,7 @@ export default defineComponent({
       this.page = NumPage;
         axios
           .get(
-            "http://localhost:5000/api/offres/client/" +
+            url+"offres/client/" +
               localStorage.getItem("iduser") +
               "?page=" +
               this.page +
@@ -582,9 +583,10 @@ export default defineComponent({
 
     accepter(offre) {
       axios
-        .put("http://localhost:5000/api/offres/" + offre.idOffre, {
+        .put(url+"offres/" + offre.idOffre, {
           idOffre: offre.idOffre,
           description: offre.description,
+          datecreation:offre.datecreation,
           date: offre.date,
           idEtat: this.att,
           prix: offre.prix,
@@ -599,7 +601,7 @@ export default defineComponent({
         })
         .then(() => {
           axios.put(
-            "http://localhost:5000/api/demandelivraisons/" + offre.idDemande,
+            url+"demandelivraisons/" + offre.idDemande,
             {
               idDemande: offre.idDemande,
               description: offre.idDemandeNavigation.description,
@@ -626,7 +628,7 @@ export default defineComponent({
           });
           axios
             .get(
-              "http://localhost:5000/api/offres/client/" +
+              url+"offres/client/" +
                 localStorage.getItem("iduser")
             )
             .then((resp) => {
@@ -636,9 +638,10 @@ export default defineComponent({
     },
     annuler(offre) {
       axios
-        .put("http://localhost:5000/api/offres/" + offre.idOffre, {
+        .put(url+"offres/" + offre.idOffre, {
           idOffre: offre.idOffre,
           description: offre.description,
+          datecreation:offre.datecreation,
           date: offre.date,
           idEtat: this.encdt,
           prix: offre.prix,
@@ -652,14 +655,14 @@ export default defineComponent({
         })
         .then(() => {
           axios.put(
-            "http://localhost:5000/api/demandelivraisons/" + offre.idDemande,
+            url+"demandelivraisons/" + offre.idDemande,
             {
               idDemande: offre.idDemande,
               description: offre.idDemandeNavigation.description,
               datecreation: offre.idDemandeNavigation.datecreation,
               adressdepart: offre.idDemandeNavigation.adressdepart,
               adressarrive: offre.idDemandeNavigation.adressarrive,
-               date: offre.idDemandeNavigation.date,
+              date: offre.idDemandeNavigation.date,
               poids: offre.idDemandeNavigation.poids,
               largeur: offre.idDemandeNavigation.largeur,
               hauteur: offre.idDemandeNavigation.hauteur,
@@ -679,7 +682,7 @@ export default defineComponent({
           });
           axios
             .get(
-              "http://localhost:5000/api/offres/client/" +
+              url+"offres/client/" +
                 localStorage.getItem("iduser")
             )
             .then((resp) => {

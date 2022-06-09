@@ -6,7 +6,7 @@
   <!-- <Breadcrumb breadcrumb="Demandes" /> -->
   <button @click="open = true"
     class="px-6 py-2 mt-3 font-medium tracking-wide text-white bg-indigo-600 hover:bg-indigo-900 focus:outline-none animate__animated animate__shakeX animate__delay-1s"
-    style="position: relative; left: 498px; top: -87px; height: 57px">
+    style="position: relative; left: 498px; top: -92px; height: 57px">
     Demande Livraison
   </button>
   <div :class="`modal ${!open && 'opacity-0 pointer-events-none'
@@ -115,7 +115,19 @@
             <button type="submit"
               class="px-2 py-3 font-medium tracking-wide text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none">
               Valider
+              <span :hidden="spinner">
+              <svg role="status" class="inline w-5 h-5 mr-2 text-gray-200 animate-spin  fill-purple-600"
+                viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                  fill="currentColor" />
+                <path
+                  d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                  fill="currentFill" />
+              </svg>
+              </span>
             </button>
+
           </div>
         </form>
 
@@ -184,13 +196,13 @@
           </thead>
           <tbody class="bg-gray-300 divide-y divide-gray-500">
 
-            <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100" v-for="(u, index) in demandes"
-              :key="index">
+            <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
+              v-for="(u, index) in demandes" :key="index">
 
               <td class=" px-6 text-sm bg-white border-b border-gray-200">
-              {{ u.idDemande }}
+                {{ u.idDemande }}
 
-              
+
               </td>
               <td class="text-sm bg-white border-b border-gray-200" style="padding: 30px 49px">
                 <div class="flex items-center">
@@ -244,11 +256,11 @@
                     </button>
                   </div>
                 </div>
-               
+
               </td>
 
             </tr>
-            
+
 
           </tbody>
         </table>
@@ -264,7 +276,7 @@
   </div>
 
 
-  
+
 
 
 
@@ -276,6 +288,7 @@ import { ref } from 'vue'
 import axios from "axios";
 import PaginationVue from "../../components/Intermediaire/pagination/PaginationVue.vue";
 import FilesModal from "./FilesModal.vue";
+import url from "../../store/Api";
 
 export default {
   components: {
@@ -309,33 +322,34 @@ export default {
       today: new Date().toISOString().split("T")[0],
       Files: [],
       total: 0,
-      acheve: ""
+      acheve: "",
+      spinner: true
     }
   },
 
   created() {
     axios
-      .get(
-        "http://localhost:5000/api/EtatDemandeLivraisons/check?etat=Encours"
+      .get(url +
+        "EtatDemandeLivraisons/check?etat=Encours"
       )
       .then((response) => {
         this.encdt = response.data.idEtatDemande;
       })
     axios
-      .get(
-        "http://localhost:5000/api/EtatDemandeLivraisons/check?etat=acheve"
+      .get(url +
+        "EtatDemandeLivraisons/check?etat=acheve"
       )
       .then((response) => {
         this.acheve = response.data.idEtatDemande;
       }),
       axios
-        .get("http://localhost:5000/api/demandelivraisons/client/" + localStorage.getItem("iduser"))
+        .get(url + "demandelivraisons/client/" + localStorage.getItem("iduser"))
         .then((response) => {
           this.demandes = response.data
           this.total = response.data.length
         })
 
-    axios.get('http://localhost:5000/api/villes').then((resp) => this.villes = resp.data)
+    axios.get(url + 'villes').then((resp) => this.villes = resp.data)
 
 
   },
@@ -349,7 +363,7 @@ export default {
 
       axios
         .get(
-          "http://localhost:5000/api/demandelivraisons/client/" +
+          url + "demandelivraisons/client/" +
           localStorage.getItem("iduser") +
           "?page=" +
           this.page +
@@ -369,7 +383,7 @@ export default {
     },
     livrer(u) {
       axios.put(
-        "http://localhost:5000/api/demandelivraisons/" + u.idDemande,
+        url + "demandelivraisons/" + u.idDemande,
         {
           idDemande: u.idDemande,
           description: u.description,
@@ -385,7 +399,7 @@ export default {
         }
       ).then(() => {
         axios
-          .get("http://localhost:5000/api/demandelivraisons/client/" + localStorage.getItem("iduser"))
+          .get(url + "demandelivraisons/client/" + localStorage.getItem("iduser"))
           .then((response) => {
             this.demandes = response.data
             this.$swal({
@@ -401,7 +415,7 @@ export default {
       });
     },
     /* updatedemande(id, index) {
-       axios.put('http://localhost:5000/api/demandelivraisons/' + id, {
+       axios.put(url+'demandelivraisons/' + id, {
          "idDemande": id,
          "description": this.demandes[index].description,
          "datecreation": this.demandes[index].datecreation,
@@ -418,6 +432,7 @@ export default {
        })
      },*/
     demandelivraisons() {
+      this.spinner = false
       const date = new Date();
       if (this.depart == this.arrive) {
         Swal.fire({
@@ -425,8 +440,9 @@ export default {
           title: 'Oops...',
           text: 'Adresse depart et arrivé doit etre different',
         })
+        this.spinner = true
       } else {
-        axios.post('http://localhost:5000/api/demandelivraisons', {
+        axios.post(url + 'demandelivraisons', {
           "description": this.description,
           "datecreation": date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
           "adressdepart": this.depart,
@@ -443,28 +459,33 @@ export default {
               let filedemande = new FormData();
               filedemande.append("idDemande", r.data.idDemande);
               filedemande.append("File", this.Files[i]);
-              axios.post("http://localhost:5000/api/filedemandelivraisons/", filedemande)
+              axios.post(url + "filedemandelivraisons/", filedemande)
+                .then(() => {
+                  if (this.Files.length - 1 === i) {
+                    this.open = false;
+                    this.$swal({
+                      position: "top-end",
+                      icon: "success",
+                      toast: true,
+                      title: "Demande Ajouté Avec Succée",
+                      showConfirmButton: false,
+                      timer: 2000,
+                    })
+                    setTimeout(location.reload(), 1000)
+                  }
+
+                })
             }
 
           }
 
-          axios
-            .get("http://localhost:5000/api/demandelivraisons/client/" + localStorage.getItem("iduser"))
-            .then((response) => {
-              this.demandes = response.data;
-              this.open = false;
-              this.$swal({
-                position: "top-end",
-                icon: "success",
-                toast: true,
-                title: "Demande Ajouté Avec Succée",
-                showConfirmButton: false,
-                timer: 2000,
-              })
-              setTimeout(location.reload(), 2000)
 
 
-            })
+
+
+
+
+
 
         })
           .catch((error) => console.log(error))
@@ -483,10 +504,10 @@ export default {
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.delete('http://localhost:5000/api/demandelivraisons/' + id)
+          axios.delete(url + 'demandelivraisons/' + id)
             .then(() => {
               axios
-                .get("http://localhost:5000/api/demandelivraisons/client/" + localStorage.getItem("iduser"))
+                .get(url + "demandelivraisons/client/" + localStorage.getItem("iduser"))
                 .then((response) => {
                   this.demandes = response.data
                 })

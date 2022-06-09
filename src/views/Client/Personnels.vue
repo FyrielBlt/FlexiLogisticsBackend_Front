@@ -84,9 +84,18 @@
           <tbody>
             <tr v-for="(u, index) in personnels" :key="index">
               <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
+            
+
                 <div class="flex items-center">
 
-
+                      <div class="flex-shrink-0 w-12 h-12 rounded-full ">
+                        <img
+                          class="w-12 h-12 rounded-full shadow-md shadow-black"
+                          :src="u.imageSrc"
+                          alt=""
+                        />
+     
+                </div>
                   <div class="ml-3">
                     <p class="text-gray-900 whitespace-nowrap">
                       {{ u.nom }}
@@ -135,6 +144,7 @@
 <script>
 import axios from "axios";
 import BreadCrumb from "../../components/Intermediaire/BreadCrumb.vue";
+import url from "../../store/Api";
 export default {
   components: {
     BreadCrumb
@@ -146,7 +156,7 @@ export default {
   },
   created() {
     axios
-      .get("http://localhost:5000/api/users/client/" + localStorage.getItem('societe'))
+      .get(url+"users/client/" + localStorage.getItem('societe'))
       .then((response) => {
         this.personnels = response.data;
       })
@@ -154,9 +164,9 @@ export default {
   },
   methods: {
     supprimer(id) {
-      axios.delete("http://localhost:5000/api/clients/" + id).then(() => {
+      axios.delete(url+"clients/" + id).then(() => {
         axios
-          .get("http://localhost:5000/api/clients/")
+          .get(url+"clients/")
           .then((response) => {
             this.personnels = response.data;
           })

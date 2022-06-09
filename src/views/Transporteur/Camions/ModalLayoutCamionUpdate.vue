@@ -174,6 +174,7 @@ class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg
 </template>
 <script>
 import axios from "axios";
+import url from "../../../store/Api";
 export default {
   props: ["camiontable"],
   data() {
@@ -196,7 +197,7 @@ export default {
   created() {
     // tous les typescamions
     axios
-      .get("http://localhost:5000/api/TypeCamions")
+      .get(url+"TypeCamions")
       .then((response) => {
         this.typecamions = response.data;
       })
@@ -205,7 +206,7 @@ export default {
     // les chauffeur disponible
     axios
       .get(
-        "http://localhost:5000/api/Chauffeurs/" +
+        url+"Chauffeurs/" +
           localStorage.getItem("societe") +
           "/chauffeurs"
       )
@@ -235,7 +236,7 @@ export default {
       ) {
         axios
           .put(
-            "http://localhost:5000/api/Camions/" + this.camiontable.idcamion,
+            url+"Camions/" + this.camiontable.idcamion,
             {
               idcamion: this.camiontable.idcamion,
               idtransporteur: this.camiontable.idtransporteur,
@@ -265,7 +266,7 @@ export default {
       ) {
         axios
           .put(
-            "http://localhost:5000/api/Camions/" + this.camiontable.idcamion,
+            url+"Camions/" + this.camiontable.idcamion,
             {
               idcamion: this.camiontable.idcamion,
               idtransporteur: this.camiontable.idtransporteur,
@@ -295,7 +296,7 @@ export default {
       ) {
         axios
           .put(
-            "http://localhost:5000/api/Camions/" + this.camiontable.idcamion,
+            url+"Camions/" + this.camiontable.idcamion,
             {
               idcamion: this.camiontable.idcamion,
               idtransporteur: this.camiontable.idtransporteur,

@@ -4,7 +4,7 @@
     <div class="grid grid-flow-col gap-3">
       <div class="row-span-3">
         <!-- <h4 class="text-gray-700">Profil</h4> -->
-        <div class="max-w-sm overflow-hidden bg-white rounded shadow-lg">
+        <div class="max-w-sm overflow-hidden bg-white rounded-full shadow-lg shadow-2xl shadow-slate-600">
           <input
             class="w-full mt-2 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
             id="image"
@@ -15,7 +15,8 @@
           />
           <label for="image" class="relative group">
             <img
-              style="border-radius: 50px"
+           
+              class="rounded-full"
               :src="this.image"
               alt="Image Profil"
             />
@@ -26,11 +27,7 @@
               Cliquez ici pour changer l'image
             </div>
           </label>
-          <div class="px-6 py-4">
-            <div class="mb-2 text-xl text-center font-bold text-gray-900">
-              {{ "Photo de Profile" }}
-            </div>
-          </div>
+    
         </div>
       </div>
 
@@ -326,6 +323,7 @@
 
 <script>
 import axios from "axios";
+import url from "../../../store/Api";
 import BreadCrumb from "/src/components/Transporteur/ProfilBridal.vue";
 export default {
   components: {
@@ -352,7 +350,7 @@ export default {
   },
   async created() {
     await axios
-      .get("http://localhost:5000/api/users/" + localStorage.getItem("iduser"))
+      .get(url+"users/" + localStorage.getItem("iduser"))
       .then((res) => {
         this.Profil = res.data;
         this.image = res.data.imageSrc;
@@ -403,7 +401,7 @@ export default {
                 user.append("ImageSrc", "");
                 axios
                   .put(
-                    "http://localhost:5000/api/Users/" + this.idUser,
+                    url+"Users/" + this.idUser,
                     user
                   )
                   .then((res) => {
@@ -464,7 +462,7 @@ export default {
               user.append("ImageFile", this.imageFile);
               user.append("ImageSrc", "");
               axios
-                .put("http://localhost:5000/api/Users/" + this.idUser, user)
+                .put(url+"Users/" + this.idUser, user)
                 .then((res) => {
                   console.log(res.data);
                   this.user = res.data;

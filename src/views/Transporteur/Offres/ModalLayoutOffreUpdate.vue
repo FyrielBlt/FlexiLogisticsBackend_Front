@@ -110,6 +110,7 @@
 </template>
 <script>
 import axios from "axios";
+import url from "../../../store/Api";
 
 
 export default {
@@ -142,7 +143,7 @@ export default {
 //get etatdemandedevis where etat=accepte
  axios
       .get(
-        "http://localhost:5000/api/EtatDemandeDevis/EtatDemandeDevis?etat=Accepte" 
+        url+"EtatDemandeDevis/EtatDemandeDevis?etat=Accepte" 
           )
       .then((response) =>{
         this.accepte= response.data;
@@ -151,7 +152,7 @@ export default {
   //get etatoffre where etat=en cours
  axios
       .get(
-        "http://localhost:5000/api/EtatOffres/offre?offre=Nontraite" 
+        url+"EtatOffres/offre?offre=Nontraite" 
           )
       .then((response) =>{
         this.encours= response.data;
@@ -177,7 +178,7 @@ export default {
           showConfirmButton: false,
           timer: 2000,
         }).then(()=>{
-         axios.put("http://localhost:5000/api/Offres/"+this.table.idOffre, {
+         axios.put(url+"Offres/"+this.table.idOffre, {
               idOffre:this.table.idOffre,
               description: this.table.description,
               date: this.table.date,
@@ -205,7 +206,7 @@ export default {
           timer: 2000,
         }).then(()=>{
 
- axios.put("http://localhost:5000/api/Offres/"+this.table.idOffre, {
+ axios.put(url+"Offres/"+this.table.idOffre, {
               idOffre:this.table.idOffre,
               description: this.table.description,
               date: this.offre.substr(0,10),

@@ -426,6 +426,7 @@
 </template>
 <script>
 import axios from "axios";
+import url from "../../../store/Api";
 import PaginationVue from "/src/components/Intermediaire/pagination/PaginationVue.vue";
 import ModalTrajetUpdate from "/src/views/Transporteur/Trajets/ModalLayoutTrajetUpdate.vue";
 export default {
@@ -459,12 +460,12 @@ export default {
   },
   created() {
     axios
-      .get("http://localhost:5000/api/villes")
+      .get(url+"villes")
       .then((resp) => (this.villes = resp.data));
 
     axios
       .get(
-        "http://localhost:5000/api/camions/" +
+        url+"camions/" +
           localStorage.getItem("idtransporteur")
       )
       .then((resp) => (this.listcamions = resp.data));
@@ -472,7 +473,7 @@ export default {
     axios;
     axios
       .get(
-        "http://localhost:5000/api/Trajets/" +
+        url+"Trajets/" +
           localStorage.getItem("idtransporteur") +
           "/idtransporteur"
       )
@@ -483,7 +484,7 @@ export default {
 
     axios
       .get(
-        "http://localhost:5000/api/Trajets/" +
+        url+"Trajets/" +
           localStorage.getItem("idtransporteur") +
           "/idtransporteur" +
           "?page=" +
@@ -504,7 +505,7 @@ export default {
 
       axios
         .get(
-          "http://localhost:5000/api/Trajets/" +
+          url+"Trajets/" +
             localStorage.getItem("idtransporteur") +
             "/idtransporteur" +
             "?page=" +
@@ -527,12 +528,12 @@ export default {
     },
     reload() {
       axios
-        .get("http://localhost:5000/api/villes")
+        .get(url+"villes")
         .then((resp) => (this.villes = resp.data));
 
       axios
         .get(
-          "http://localhost:5000/api/camions/" +
+          url+"camions/" +
             localStorage.getItem("idtransporteur")
         )
         .then((resp) => (this.listcamions = resp.data));
@@ -541,7 +542,7 @@ export default {
 
       axios
         .get(
-          "http://localhost:5000/api/Trajets/" +
+          url+"Trajets/" +
             localStorage.getItem("idtransporteur") +
             "/idtransporteur"
         )
@@ -552,7 +553,7 @@ export default {
 
       axios
         .get(
-          "http://localhost:5000/api/Trajets/" +
+          url+"Trajets/" +
             localStorage.getItem("idtransporteur") +
             "/idtransporteur" +
             "?page=" +
@@ -568,7 +569,7 @@ export default {
     ajouterTrajet() {
       axios
         .get(
-          "http://localhost:5000/api/Trajets/" +
+          url+"Trajets/" +
             this.codevehicule +
             "/camion" +
             "?date=" +
@@ -595,7 +596,7 @@ export default {
             ) {
               axios
                 .get(
-                  "http://localhost:5000/api/Villes/" +
+                  url+"Villes/" +
                     this.departadress +
                     "/ville"
                 )
@@ -603,13 +604,13 @@ export default {
                   this.iddepart = response.data.idVille;
                   axios
                     .get(
-                      "http://localhost:5000/api/Villes/" +
+                      url+"Villes/" +
                         this.Destination +
                         "/ville"
                     )
                     .then((response) => {
                       axios
-                        .post("http://localhost:5000/api/Trajets", {
+                        .post(url+"Trajets", {
                           idVille1: this.iddepart,
                           idVille2: response.data.idVille,
                           idcamion: this.codevehicule,
@@ -652,7 +653,7 @@ export default {
       axios;
       axios
         .get(
-          "http://localhost:5000/api/Trajets/" +
+          url+"Trajets/" +
             localStorage.getItem("idtransporteur") +
             "/idtransporteur" +
             "?page=" +
@@ -678,7 +679,7 @@ export default {
         cancelButtonText: "Annuler",
       }).then((result) => {
         if (result.value) {
-          axios.delete("http://localhost:5000/api/Trajets/" + id).then(() => {
+          axios.delete(url+"Trajets/" + id).then(() => {
             this.$swal({
               position: "top-end",
               icon: "success",

@@ -111,6 +111,7 @@ import axios from "axios";
 //import { ref } from "vue";
 //import Banner from "../../partials/Banner.vue";
 import BreadCrumb from "../../components/Intermediaire/BreadCrumb.vue";
+import url from "../../store/Api";
 import VCalendar from "./components/v-calendar.vue";
 export default {
   components: {
@@ -131,8 +132,8 @@ export default {
   created() {
     
     axios
-      .get(
-        "http://localhost:5000/api/FactureClients/client/" +
+      .get(url+
+        "FactureClients/client/" +
         localStorage.getItem("iduser") +
         "?etat=Payé"
       )
@@ -140,8 +141,8 @@ export default {
         this.facturesp = resp.data.length;
       });
     axios
-      .get(
-        "http://localhost:5000/api/FactureClients/client/" +
+      .get(url+
+        "FactureClients/client/" +
         localStorage.getItem("iduser") +
         "?etat=Non payé"
       )
@@ -149,8 +150,8 @@ export default {
         this.facturesnp = resp.data.length;
       });
     axios
-      .get(
-        "http://localhost:5000/api/offres/client/" +
+      .get(url+
+        "offres/client/" +
         localStorage.getItem("iduser")
       )
       .then((resp) => {
@@ -158,14 +159,14 @@ export default {
       });
 
     axios
-      .get("http://localhost:5000/api/clients/")
+      .get(url+"clients/")
       .then((response) => {
         this.personnels = response.data;
       })
       .catch((error) => console.log(error));
     axios
-      .get(
-        "http://localhost:5000/api/demandelivraisons/client/" +
+      .get(url+
+        "demandelivraisons/client/" +
         localStorage.getItem("iduser")
       )
       .then((resp) => {

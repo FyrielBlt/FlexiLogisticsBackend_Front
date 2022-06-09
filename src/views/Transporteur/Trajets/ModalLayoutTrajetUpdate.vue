@@ -115,6 +115,7 @@
 </template>
 <script>
 import axios from "axios";
+import url from "../../../store/Api";
 export default {
   props: ["trajettable"],
   data() {
@@ -131,7 +132,7 @@ export default {
     ModifierTrajet() {
       axios
         .get(
-          "http://localhost:5000/api/Trajets/" +
+          url+"Trajets/" +
             this.trajettable.idCamion +
             "/camion" +
             "?date=" +
@@ -152,7 +153,7 @@ export default {
           } else {
             axios
               .put(
-                "http://localhost:5000/api/Trajets/" +
+                url+"Trajets/" +
                   this.trajettable.idTrajet,
                 {
                   idTrajet: this.trajettable.idTrajet,

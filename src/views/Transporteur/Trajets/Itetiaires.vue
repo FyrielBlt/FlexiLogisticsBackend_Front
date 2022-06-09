@@ -231,6 +231,7 @@
 </template>
 <script>
 import axios from "axios";
+import url from "../../../store/Api";
 import PaginationVue from "/src/components/Intermediaire/pagination/PaginationVue.vue";
 
 export default {
@@ -255,7 +256,7 @@ long:'',
     // tous le villes
     axios
       .get(
-        "http://localhost:5000/api/villes/" +
+        url+"villes/" +
           localStorage.getItem("idtransporteur") +
           "/transporteur"
       )
@@ -264,7 +265,7 @@ long:'',
     // liste des villes de ce transport
     axios
       .get(
-        "http://localhost:5000/api/Itineraires/" +
+        url+"Itineraires/" +
           localStorage.getItem("idtransporteur") +
           "/transporteur"  + "?page=" +
             this.currentPage +
@@ -277,7 +278,7 @@ long:'',
     // liste des villes de ce transport
     axios
       .get(
-        "http://localhost:5000/api/Itineraires/" +
+        url+"Itineraires/" +
           localStorage.getItem("idtransporteur") +
           "/transporteur"
       )
@@ -291,7 +292,7 @@ long:'',
       this.perPage = this.perPage;
       axios
         .get(
-          "http://localhost:5000/api/Itineraires/" +
+          url+"Itineraires/" +
             localStorage.getItem("idtransporteur") +
             "/transporteur" +
             "?page=" +
@@ -317,7 +318,7 @@ long:'',
         if (result.value) {
           this.checked.forEach((element) => {
             axios
-              .delete("http://localhost:5000/api/Itineraires/" + element)
+              .delete(url+"Itineraires/" + element)
               .then(() => {
               
                 this.reload();
@@ -332,7 +333,7 @@ long:'',
       // tous le villes
       axios
         .get(
-          "http://localhost:5000/api/villes/" +
+          url+"villes/" +
             localStorage.getItem("idtransporteur") +
             "/transporteur"
         )
@@ -340,7 +341,7 @@ long:'',
       // liste des villes de ce transport
       axios
         .get(
-          "http://localhost:5000/api/Itineraires/" +
+          url+"Itineraires/" +
             localStorage.getItem("idtransporteur") +
             "/transporteur"
         )
@@ -350,7 +351,7 @@ long:'',
       // liste des villes de ce transport
       axios
         .get(
-          "http://localhost:5000/api/Itineraires/" +
+          url+"Itineraires/" +
             localStorage.getItem("idtransporteur") +
             "/transporteur"
         )
@@ -361,7 +362,7 @@ long:'',
     ajouterTrajet() {
       if (this.ville != "") {
         this.ville.forEach((element) => {
-          axios.post("http://localhost:5000/api/Itineraires", {
+          axios.post(url+"Itineraires", {
             idVille: element.idVille,
             idTransporteur: localStorage.getItem("idtransporteur"),
           })

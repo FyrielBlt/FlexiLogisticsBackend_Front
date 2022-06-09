@@ -449,7 +449,8 @@ import { ref } from "vue";
 import axios from "axios";
 import ModalLayoutOffre from "/src/views/Transporteur/Offres/ModalLayoutOffre.vue";
 import PaginationVue from "/src/components/Intermediaire/pagination/PaginationVue.vue";
-import ModalDemandeFiles from "/src/views/Transporteur/Demandes/ModalDemandeFiles.vue";;
+import ModalDemandeFiles from "/src/views/Transporteur/Demandes/ModalDemandeFiles.vue";import url from "../../../store/Api";
+;
 
 export default {
   components: {
@@ -478,11 +479,11 @@ export default {
   },
   created() {
      axios
-      .get("http://localhost:5000/api/villes")
+      .get(url+"villes")
       .then((resp) => (this.villes = resp.data));
         axios
           .get(
-            "http://localhost:5000/api/DemandeDevis/" +
+            url+"DemandeDevis/" +
               localStorage.getItem("idtransporteur") +
               "/traite"+
               "?page="+this.currentPage+"&quantityPage="+this.perPage
@@ -494,11 +495,11 @@ export default {
           })
           .catch((error) => console.log(error));
        axios
-      .get("http://localhost:5000/api/villes")
+      .get(url+"villes")
       .then((resp) => (this.villes = resp.data));
         axios
           .get(
-            "http://localhost:5000/api/DemandeDevis/" +
+            url+"DemandeDevis/" +
               localStorage.getItem("idtransporteur") +
               "/traite"
               
@@ -514,7 +515,7 @@ export default {
    searchfunction(mot) {
 axios
           .get(
-            "http://localhost:5000/api/DemandeDevis/" +
+            url+"DemandeDevis/" +
               localStorage.getItem("idtransporteur") +
               "/traite" +
               "?page="+this.currentPage+"&quantityPage="+this.perPage
@@ -534,7 +535,7 @@ axios
        
         axios
           .get(
-            "http://localhost:5000/api/DemandeDevis/" +
+            url+"DemandeDevis/" +
                localStorage.getItem("idtransporteur") +
                "/traite"+"?page="+this.currentPage+"&quantityPage="+this.perPage+"&&depart="+this.depart
               +"&arrive="+this.arrive +"&date="+this.date+"&etat="+this.etatdemande

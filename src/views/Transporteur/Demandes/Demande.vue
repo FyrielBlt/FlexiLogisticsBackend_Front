@@ -499,6 +499,7 @@ import axios from "axios";
 import ModalDemandeFiles from "/src/views/Transporteur/Demandes/ModalDemandeFiles.vue";;
 import ModalLayoutOffre from "/src/views/Transporteur/Offres/ModalLayoutOffre.vue";
 import PaginationVue from "/src/components/Intermediaire/pagination/PaginationVue.vue";
+import url from "../../../store/Api";
 export default {
   components: {
     ModalLayoutOffre,
@@ -530,18 +531,18 @@ export default {
     //get etatdemandedevis where etat=refusé
  axios
       .get(
-        "http://localhost:5000/api/EtatDemandeDevis/EtatDemandeDevis?etat=Refuse" 
+        url+"EtatDemandeDevis/EtatDemandeDevis?etat=Refuse" 
           )
       .then((response) =>{
         this.refus= response.data.idEtat;
       }),
 
      axios
-      .get("http://localhost:5000/api/villes")
+      .get(url+"villes")
       .then((resp) => (this.villes = resp.data));
         axios
           .get(
-            "http://localhost:5000/api/DemandeDevis/" +
+            url+"DemandeDevis/" +
               localStorage.getItem("idtransporteur") +
               "/transporteur"
               
@@ -555,7 +556,7 @@ export default {
        
         axios
           .get(
-            "http://localhost:5000/api/DemandeDevis/" +
+            url+"DemandeDevis/" +
               localStorage.getItem("idtransporteur") +
               "/transporteur"+"?page="+this.currentPage+"&quantityPage="+this.perPage
               
@@ -575,7 +576,7 @@ export default {
        
         axios
           .get(
-            "http://localhost:5000/api/DemandeDevis/" +
+            url+"DemandeDevis/" +
               localStorage.getItem("idtransporteur") +
               "/transporteur"+"?page="+this.currentPage+"&quantityPage="+this.perPage
                +"&search="+this.num
@@ -594,7 +595,7 @@ export default {
       searchfunction(mot) {
 axios
           .get(
-            "http://localhost:5000/api/DemandeDevis/" +
+            url+"DemandeDevis/" +
               localStorage.getItem("idtransporteur") +
               "/transporteur"+"?page="+this.currentPage+"&quantityPage="+this.perPage
                +"&search="+this.num
@@ -620,7 +621,7 @@ axios
       }).then((result) => {
         if (result.value) {
          axios
-              .put("http://localhost:5000/api/DemandeDevis/"+demande.idDemandeDevis, {
+              .put(url+"DemandeDevis/"+demande.idDemandeDevis, {
                idDemandeDevis:demande.idDemandeDevis,
                date:demande.date,
                idIntermediaire:demande.idIntermediaire,
@@ -645,18 +646,18 @@ axios
     close(){
        axios
       .get(
-        "http://localhost:5000/api/EtatDemandeDevis/EtatDemandeDevis?etat=Refuse" 
+        url+"EtatDemandeDevis/EtatDemandeDevis?etat=Refuse" 
           )
       .then((response) =>{
         this.refus= response.data.idEtat;
       }),
 
      axios
-      .get("http://localhost:5000/api/villes")
+      .get(url+"villes")
       .then((resp) => (this.villes = resp.data));
         axios
           .get(
-            "http://localhost:5000/api/DemandeDevis/" +
+            url+"DemandeDevis/" +
               localStorage.getItem("idtransporteur") +
               "/transporteur"
               
@@ -670,7 +671,7 @@ axios
        
         axios
           .get(
-            "http://localhost:5000/api/DemandeDevis/" +
+            url+"DemandeDevis/" +
               localStorage.getItem("idtransporteur") +
               "/transporteur"+"?page="+this.currentPage+"&quantityPage="+this.perPage
               

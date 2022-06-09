@@ -117,16 +117,44 @@
       <div class="flex flex-wrap -mx-6">
         <div class="w-full px-6 sm:w-1/2 xl:w-1/2">
           <div
+            class="
+              flex
+              items-center
+              px-5
+              py-6
+              bg-white
+              rounded-md
+              shadow-sm
+              text-center
+            "
+          >
+            <h1 style="margin-left:38%">Facture Transporteur</h1>
+          </div>
+          <div
             class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
           >
-            <pie-chart :data="dataa()"></pie-chart>
+            <pie-chart :donut="true" :data="factureTransporteur()"></pie-chart>
           </div>
         </div>
         <div class="w-full px-6 sm:w-1/2 xl:w-1/2">
           <div
+            class="
+              flex
+              items-center
+              px-5
+              py-6
+              bg-white
+              rounded-md
+              shadow-sm
+              text-center
+            "
+          >
+            <h1 style="margin-left:42%">Facture Client</h1>
+          </div>
+          <div
             class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
           >
-            <pie-chart :data="dataa()"></pie-chart>
+            <pie-chart :donut="true" :data="factureClient()"></pie-chart>
           </div>
         </div>
       </div>
@@ -136,6 +164,8 @@
 
 <script>
 import { mapGetters } from "vuex";
+import axios from "axios";
+import Url from "../../store/Api";
 //import Breadcrumb from "../../partials/Breadcrumb.vue";
 export default {
   components: {
@@ -147,6 +177,10 @@ export default {
       personnels: [],
       demandes: [],
       offres: [],
+      factureTransporteurPaye: "",
+      factureTransporteurNonPaye:"",
+      factureClientPaye: "",
+      factureClientNonPaye:"",
       data: [
         {
           name: "Demande Livraison par jour",
@@ -161,6 +195,41 @@ export default {
         },
       ],
     };
+  },
+  async created() {
+    await axios
+      .get(Url + `FactureTransporteurs?sortOrder=oui`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        this.factureTransporteurPaye=res.data.length;
+        //console.log(this.factureClientPaye)
+      });
+       await axios
+      .get(Url + `FactureTransporteurs?sortOrder=non`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        this.factureTransporteurNonPaye=res.data.length;
+        //console.log(this.factureClientNonPaye)
+      });
+     //facture client
+       await axios
+      .get(Url + `FactureClients`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        let liste=res.data;
+       this.factureClientPaye=liste.filter(el=>el.payementFile!=null).length;
+        this.factureClientNonPaye=liste.filter(el=>el.payementFile==null).length;
+        console.log(res.data)
+      });
   },
   methods: {
     timeFrom(X) {
@@ -190,21 +259,16 @@ export default {
 
       return dates;
     },
-    dataa() {
-      let mm = [];
+    factureTransporteur() {
       let liste = [];
-      this.timeFrom(7).forEach((element) => {
-        mm.push(element);
-        mm.push(
-          this.ListeDemandeLivraisonsAll.filter(
-            (el) => el.datecreation.substr(0, 10) == element
-          ).length
-        );
-        console.log(element);
-
-        liste.push(mm);
-        mm = [];
-      });
+      liste.push(["Payé", this.factureTransporteurPaye]);
+      liste.push(["Non Payé", this.factureTransporteurNonPaye]);
+      return liste;
+    },
+    factureClient() {
+      let liste = [];
+      liste.push(["Payé", this.factureClientPaye]);
+      liste.push(["Non Payé", this.factureClientNonPaye]);
       return liste;
     },
     web() {
@@ -245,9 +309,9 @@ export default {
         name: "Demande Livraison par jour",
         data: data,
       };
-     
+
       liste.push(ob);
-    
+
       return liste;
     },
   },

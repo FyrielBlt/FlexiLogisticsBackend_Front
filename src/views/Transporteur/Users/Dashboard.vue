@@ -7,10 +7,10 @@
       <div   class="flex flex-wrap -mx-6">
         <div class="w-full px-6 sm:w-1/2 xl:w-1/3 ">
           <div
-            class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
+            class="transition ease-in-out hover:-translate-y-1 hover:scale-110 flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
           >
             <div class="p-3 bg-indigo-600 bg-opacity-75 rounded-full">
-             <i class="bi bi-people-fill"></i>
+             <i class="bi bi-people-fill" style="color: white; font-size: large;"></i>
             </div>
 
             <div class="mx-5 animate__animated animate__fadeInDown" >
@@ -24,10 +24,10 @@
 
         <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 sm:mt-0 animate__animated animate__bounceIn">
           <div
-            class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
+            class="transition ease-in-out hover:-translate-y-1 hover:scale-110 flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
           >
             <div class="p-3 bg-blue-600 bg-opacity-75 rounded-full">
-            <i class="bi bi-truck"></i>
+            <i class="bi bi-truck" style="color: white; font-size: large;"></i>
             </div>
             
             <div class="mx-5 animate__animated animate__fadeInDown">
@@ -42,10 +42,10 @@
 
         <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 xl:mt-0 ">
           <div
-            class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
+            class="transition ease-in-out hover:-translate-y-1 hover:scale-110 flex items-center px-5 py-6 bg-white rounded-md shadow-sm"
           >
             <div class="p-3 bg-pink-600 bg-opacity-75 rounded-full">
-             <i class="bi bi-bell-fill"></i>
+             <i class="bi bi-bell-fill" style="color: white; font-size: large;"></i>
             </div>
 
             <div class="mx-5 animate__animated animate__fadeInDown">
@@ -67,9 +67,9 @@
           class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg"
         >
 
-                    <line-chart :data="web()"></line-chart>
+                    <line-chart :data="web()" style="background-color: white;"></line-chart>
 
-      <pie-chart width="580px" :donut="true" :data="pie()"></pie-chart>
+      <pie-chart width="580px"  :donut="true" :data="pie()"></pie-chart>
 
   
 
@@ -80,6 +80,7 @@
 </template>
 <script>
 import axios from "axios";
+import url from "../../../store/Api";
 
 
 export default {
@@ -100,13 +101,13 @@ export default {
     
      
     axios
-      .get("http://localhost:5000/api/offres/" +localStorage.getItem('idtransporteur')+"/offrestransporteur"
+      .get(url+"offres/" +localStorage.getItem('idtransporteur')+"/offrestransporteur"
       )
       .then((response) =>{
         this.offretotal= response.data;
       })
       axios
-      .get("http://localhost:5000/api/offres/" +localStorage.getItem('idtransporteur')+"/offrestransporteur"
+      .get(url+"offres/" +localStorage.getItem('idtransporteur')+"/offrestransporteur"
       +"?etat=Accepte"
       
       )
@@ -114,7 +115,7 @@ export default {
         this.offreaccepte= response.data;
       })
        axios
-      .get("http://localhost:5000/api/offres/" +localStorage.getItem('idtransporteur')+"/offrestransporteur"
+      .get(url+"offres/" +localStorage.getItem('idtransporteur')+"/offrestransporteur"
       +"?etat=Refuse"
       
       )
@@ -124,7 +125,7 @@ export default {
      
     axios
       .get(
-        "http://localhost:5000/api/Chauffeurs/" +
+        url+"Chauffeurs/" +
           localStorage.getItem("societe") +
           "/chauffeurs"
       )
@@ -134,14 +135,14 @@ export default {
       .catch((error) => console.log(error));
         axios
       .get(
-        "http://localhost:5000/api/Transporteurs/" +
+        url+"Transporteurs/" +
           localStorage.getItem("iduser") +
           "/iduser"
       )
       .then((response) => {
         axios
           .get(
-            "http://localhost:5000/api/Camions/" + response.data.idTransporteur
+            url+"Camions/" + response.data.idTransporteur
           )
           .then((response) => {
             this.camions = response.data;
@@ -153,7 +154,7 @@ export default {
       
         axios
           .get(
-            "http://localhost:5000/api/DemandeDevis/" +
+            url+"DemandeDevis/" +
               localStorage.getItem('idtransporteur') +
               "/transporteur"
               

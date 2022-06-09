@@ -128,6 +128,7 @@
 <script>
 import axios from "axios";
 import BreadCrumb from "../../components/Intermediaire/BreadCrumb.vue";
+import url from "../../store/Api";
 
 export default {
   components: {
@@ -145,7 +146,7 @@ export default {
     }
   },
   created() {
-    axios.get("http://localhost:5000/api/offres/details/" + this.$route.params.id)
+    axios.get(url+"offres/details/" + this.$route.params.id)
       .then((resp) => {
         this.offre = resp.data;
         this.demande = this.offre.idDemandeNavigation

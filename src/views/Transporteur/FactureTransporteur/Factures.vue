@@ -220,6 +220,7 @@ import axios from "axios";
 import PaginationVue from "/src/components/Intermediaire/pagination/PaginationVue.vue";
 import ModalLayoutOffreUpdate from "/src/views/Transporteur/Offres/ModalLayoutOffreUpdate.vue";
 import ModalOffreFichier from "/src/views/Transporteur/Offres/ModalOffreFichier.vue";
+import url from "../../../store/Api";
 export default defineComponent({
   components: {
     // Breadcrumb
@@ -248,28 +249,28 @@ export default defineComponent({
   },
   created() {
     axios
-      .get("http://localhost:5000/api/EtatOffres/offre?offre=Nontraite")
+      .get(url+"EtatOffres/offre?offre=Nontraite")
       .then((response) => {
         this.nondispo = response.data;
       });
     axios
-      .get("http://localhost:5000/api/EtatOffres/offre?offre=livre")
+      .get(url+"EtatOffres/offre?offre=livre")
       .then((response) => {
         this.valide = response.data.idEtat;
       });
     axios
-      .get("http://localhost:5000/api/villes")
+      .get(url+"villes")
       .then((resp) => (this.villes = resp.data));
     axios
       .get(
-        "http://localhost:5000/api/Transporteurs/" +
+        url+"Transporteurs/" +
           localStorage.getItem("iduser") +
           "/iduser"
       )
       .then((response) => {
         axios
           .get(
-            "http://localhost:5000/api/offres/" +
+            url+"offres/" +
               response.data.idTransporteur +
               "/offrestransporteur" +
               "?etat=Livre"
@@ -281,7 +282,7 @@ export default defineComponent({
 
     axios
       .get(
-        "http://localhost:5000/api/offres/" +
+        url+"offres/" +
           localStorage.getItem("idtransporteur") +
           "/offrestransporteur" +
           "?page=" +
@@ -305,7 +306,7 @@ export default defineComponent({
       user.append("notification", "");
       user.append("imageFile", this.imageFile);
       user.append("srcPayementFile", "");
-      axios.post("http://localhost:5000/api/FactureTransporteurs", user)
+      axios.post(url+"FactureTransporteurs", user)
       .then(()=>location.reload());
    
     },
@@ -313,7 +314,7 @@ export default defineComponent({
     searchfunction(mot) {
       axios
         .get(
-          "http://localhost:5000/api/offres/" +
+          url+"offres/" +
             localStorage.getItem("idtransporteur") +
             "/offrestransporteur" +
             "?page=" +
@@ -339,7 +340,7 @@ export default defineComponent({
       this.perPage = this.perPage;
       axios
         .get(
-          "http://localhost:5000/api/offres/" +
+          url+"offres/" +
             localStorage.getItem("idtransporteur") +
             "/offrestransporteur" +
             "?page=" +
@@ -362,7 +363,7 @@ export default defineComponent({
     valider(table) {
       if (result.value) {
         axios
-          .put("http://localhost:5000/api/Offres/" + table.idOffre, {
+          .put(url+"Offres/" + table.idOffre, {
             idOffre: table.idOffre,
             description: table.description,
             date: table.date,
