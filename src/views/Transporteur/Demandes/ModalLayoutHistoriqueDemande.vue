@@ -449,8 +449,9 @@ import { ref } from "vue";
 import axios from "axios";
 import ModalLayoutOffre from "/src/views/Transporteur/Offres/ModalLayoutOffre.vue";
 import PaginationVue from "/src/components/Intermediaire/pagination/PaginationVue.vue";
-import ModalDemandeFiles from "/src/views/Transporteur/Demandes/ModalDemandeFiles.vue";import url from "../../../store/Api";
-;
+import ModalDemandeFiles from "/src/views/Transporteur/Demandes/ModalDemandeFiles.vue";
+import url from "../../../store/Api";
+
 
 export default {
   components: {

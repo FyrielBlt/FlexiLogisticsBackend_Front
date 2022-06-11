@@ -9,6 +9,7 @@
     <div class="mt-4">
       <div v-if="type == 'client'" class="flex flex-wrap -mx-6">
         <div class="w-full px-6 sm:w-1/2 xl:w-1/3 animate__animated animate__bounceIn">
+          <router-link to="/client/clients">
           <div
             class="transition ease-in-out hover:-translate-y-1 hover:scale-110 flex items-center px-5 py-6 bg-white rounded-md shadow-sm ">
             <div class="p-3 bg-indigo-600 bg-opacity-75 rounded-full">
@@ -41,9 +42,11 @@
               <div class="text-gray-500">Personnels</div>
             </div>
           </div>
+          </router-link>
         </div>
 
         <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 sm:mt-0 animate__animated animate__bounceIn">
+          <router-link to="/client/demande">
           <div
             class="transition ease-in-out hover:-translate-y-1 hover:scale-110 flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
             <div class="p-3 bg-blue-600 bg-opacity-75 rounded-full">
@@ -67,9 +70,11 @@
               <div class="text-gray-500">Demandes</div>
             </div>
           </div>
+         </router-link>
         </div>
 
         <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 xl:mt-0 animate__animated animate__bounceIn">
+          <router-link to="/client/offres">
           <div
             class="transition ease-in-out hover:-translate-y-1 hover:scale-110 flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
             <div class="p-3 bg-pink-600 bg-opacity-75 rounded-full">
@@ -89,6 +94,7 @@
               <div class="text-gray-500">Offres Récu</div>
             </div>
           </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -96,13 +102,33 @@
     <div class="mt-8">
       <line-chart style="background-color: white;" :data="line()"></line-chart>
     </div>
-    <div class="flex flex-wrap  mx-auto mt-14 bg-white">
+    <div class="border-2" style="display: flex;
+    flex-direction: row;
+    justify-content: space-around;    font-size: 20px;
+    font-weight: 500;    position: relative;
+    top: 57px;
+    right: 0px;
+    background-color: white;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;">
+      <h2 style="background: -webkit-linear-gradient(blue, red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;">Factures</h2>
+      <h2 style="background: -webkit-linear-gradient(blue, red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;">Demandes</h2>
+
+    </div>
+
+    <div class="flex flex-wrap justify-center  mx-auto mt-14 bg-white">
+
       <pie-chart width="580px" :donut="true" :data="pie()"></pie-chart>
-      <pie-chart width="580px" :donut="true" :data="[['Payé', 44], ['Non Payé', 23]]"></pie-chart>
+
+      <pie-chart width="580px" :donut="true" :data="[['Achevé', 44], ['Non Achevé', 23]]"></pie-chart>
     </div>
 
 
-<v-calendar :demandes="demandes"></v-calendar>
+    <v-calendar :demandes="demandes"></v-calendar>
   </div>
 </template>
 
@@ -118,7 +144,7 @@ export default {
     //  Banner,
     BreadCrumb,
     VCalendar
-},
+  },
   data() {
     return {
       personnels: [],
@@ -127,12 +153,13 @@ export default {
       type: localStorage.getItem("type"),
       facturesnp: [],
       facturesp: [],
+      
     };
   },
   created() {
-    
+  
     axios
-      .get(url+
+      .get(url +
         "FactureClients/client/" +
         localStorage.getItem("iduser") +
         "?etat=Payé"
@@ -141,7 +168,7 @@ export default {
         this.facturesp = resp.data.length;
       });
     axios
-      .get(url+
+      .get(url +
         "FactureClients/client/" +
         localStorage.getItem("iduser") +
         "?etat=Non payé"
@@ -150,7 +177,7 @@ export default {
         this.facturesnp = resp.data.length;
       });
     axios
-      .get(url+
+      .get(url +
         "offres/client/" +
         localStorage.getItem("iduser")
       )
@@ -159,13 +186,13 @@ export default {
       });
 
     axios
-      .get(url+"clients/")
+      .get(url + "users/client/" + localStorage.getItem('societe'))
       .then((response) => {
         this.personnels = response.data;
       })
       .catch((error) => console.log(error));
     axios
-      .get(url+
+      .get(url +
         "demandelivraisons/client/" +
         localStorage.getItem("iduser")
       )
@@ -203,8 +230,8 @@ export default {
     },
     pie() {
       let liste = [];
-      liste.push(['Payé',this.facturesp])
-      liste.push(['Non Payé',this.facturesnp])
+      liste.push(['Payé', this.facturesp])
+      liste.push(['Non Payé', this.facturesnp])
       return liste;
     },
     line() {

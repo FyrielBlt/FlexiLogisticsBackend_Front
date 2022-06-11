@@ -342,10 +342,10 @@ export default {
       .then((response) => {
         this.acheve = response.data.idEtatDemande;
       }),
+      this.ChangePage(1);
       axios
         .get(url + "demandelivraisons/client/" + localStorage.getItem("iduser"))
         .then((response) => {
-          this.demandes = response.data
           this.total = response.data.length
         })
 
@@ -399,7 +399,11 @@ export default {
         }
       ).then(() => {
         axios
-          .get(url + "demandelivraisons/client/" + localStorage.getItem("iduser"))
+          .get(url + "demandelivraisons/client/" + localStorage.getItem("iduser")+
+          "?page=" +
+          this.page +
+          "&quantityPage=" +
+          this.perpage)
           .then((response) => {
             this.demandes = response.data
             this.$swal({
@@ -507,7 +511,11 @@ export default {
           axios.delete(url + 'demandelivraisons/' + id)
             .then(() => {
               axios
-                .get(url + "demandelivraisons/client/" + localStorage.getItem("iduser"))
+                .get(url + "demandelivraisons/client/" + localStorage.getItem("iduser")+
+          "?page=" +
+          this.page +
+          "&quantityPage=" +
+          this.perpage)
                 .then((response) => {
                   this.demandes = response.data
                 })

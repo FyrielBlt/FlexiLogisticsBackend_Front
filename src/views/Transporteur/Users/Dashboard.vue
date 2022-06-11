@@ -68,25 +68,33 @@
         >
 
                     <line-chart :data="web()" style="background-color: white;"></line-chart>
-
-      <pie-chart width="580px"  :donut="true" :data="pie()"></pie-chart>
-
-  
+<div style="background-color: white;">
+<h1 style="    font-size: 25px;
+    font-weight: 400;
+    position: absolute;
+    left: 236px;">Offres</h1>
+   <pie-chart width="580px" style="position: relative;right: 57px; top: 59px; background-color: white;"  :donut="true" :data="pie()"></pie-chart>
+<VCalendar :demandes="demandesdevis"/>
+   
+</div>
+    
 
         </div>
       </div>
     </div>
+    
   </div>
 </template>
 <script>
 import axios from "axios";
 import url from "../../../store/Api";
+import VCalendar from "./v-calendar.vue";
 
 
 export default {
   components: {
-    
-  },
+    VCalendar
+},
   data() {
     return {
       chauffeurs: [],
@@ -94,12 +102,24 @@ export default {
       demandes:[],
       offretotal:[],
       offreaccepte:[],
-       offrerefuse:[]
+       offrerefuse:[],
+       demandesdevis:[]
     };
   },
   created() {
     
-     
+       axios
+      .get(
+        url + "DemandeDevis/" +
+        localStorage.getItem("idtransporteur") +
+        "/traite?etat=Accepte"
+
+      )
+      .then((response) => {
+
+        this.demandesdevis = response.data;
+      })
+      .catch((error) => console.log(error));
     axios
       .get(url+"offres/" +localStorage.getItem('idtransporteur')+"/offrestransporteur"
       )

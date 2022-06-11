@@ -48,7 +48,9 @@
         <div @drop="dragFile">
           <label class="block text-sm font-medium text-gray-700"> Cover photo </label>
           <div @dragover.prevent @drop.prevent :class="active">
-            <div class="space-y-1 text-center">
+            <div class="space-y-1 text-center" style="display: flex;
+    flex-direction: column;
+    align-items: center;">
               <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48"
                 aria-hidden="true">
                 <path
@@ -146,7 +148,6 @@ export default {
     },
     dragFile(e) {
       this.File = e.dataTransfer.files[0];
-      this.active = 'mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md bg-gray-200'
 
     }
   }

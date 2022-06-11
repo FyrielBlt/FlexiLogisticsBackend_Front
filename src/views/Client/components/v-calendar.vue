@@ -1,6 +1,8 @@
 <template>
   <div class="text-center section">
-    <p class="text-lg font-medium text-gray-600 mb-6">
+    <p class="text-lg font-medium text-gray-600 mb-6" style="background-color: white;
+    position: relative;
+    top: 15px;">
       Calendrier des demandes
     </p>
     <v-calendar
@@ -13,7 +15,7 @@
       <template v-slot:day-content="{ day, attributes }">
         <div class="flex flex-col h-20 z-10 overflow-hidden">
           <span class="day-label text-sm text-gray-900">{{ day.day }}</span>
-          <div class="flex-grow overflow-y-auto overflow-x-auto">
+          <div class="flex-grow  overflow-y-auto overflow-x-auto">
             <p
               v-for="attr in attributes"
               :key="attr.key"
@@ -55,14 +57,27 @@ export default {
     calendardata(){
       let list = [];
       this.demandes.forEach(element => {
-        let ob = {
+        if (element.idEtatdemandeNavigation.etatDemande == "Achevé") {
+          let ob = {
         customData: {
-            title: element.description,
-            class: 'bg-purple-600 text-white',
+            title: element.idDemande,
+            class: 'bg-green-500 font-semibold text-white',
           },
           dates: element.date,
       }
       list.push(ob)
+        }else{
+           let ob = {
+        customData: {
+            title: element.idDemande,
+            class: 'bg-slate-500 font-semibold text-white',
+          },
+          dates: element.date,
+      }
+      list.push(ob)
+        }
+       
+      
       });
       
       return list

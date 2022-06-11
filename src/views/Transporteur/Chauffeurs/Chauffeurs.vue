@@ -108,7 +108,7 @@
 
             <div class="flex justify-end mt-4">
               <button type="submit"
-                class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
+                class="px-2 py-3 font-medium tracking-wide text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none">
 
                 Ajouter
                 <span :hidden="this.spinner">
@@ -210,7 +210,7 @@
                         <img v-if="u.imageSrc != null" class="w-full h-full rounded-full" :src="u.imageSrc"
                           alt="profile pic" />
                         <img v-else class="w-full h-full rounded-full"
-                          src="http://localhost:5000/File/Image/modelphoto.jpg" alt="profile pic" />
+                          :src="imageprevesoire" alt="profile pic" />
                       </div>
                       <div class="ml-3">
                         <p class="text-gray-900 whitespace-nowrap">
@@ -282,7 +282,7 @@ export default {
       chauffeurs: [],
       tel: '',
       imageFile: '',
-      imageprevesoire: "http://localhost:5000/File/Image/modelphoto.jpg",
+      imageprevesoire: "https://2398-20-225-63-138.ngrok.io/File/Image/modelphoto.jpg",
       camions: [],
       image: "",
       currentPage: 1,
@@ -385,7 +385,7 @@ export default {
         this.imageprevesoire = URL.createObjectURL(this.imageFile)
       }
       else {
-        this.imageprevesoire = "http://localhost:5000/File/Image/modelphoto.jpg"
+        this.imageprevesoire = "https://2398-20-225-63-138.ngrok.io/File/Image/modelphoto.jpg"
       }
     },
     searchfunction(mot) {
@@ -524,7 +524,7 @@ export default {
                 this.email = ''
                 this.imageFile = null
 
-                this.imageprevesoire = "http://localhost:5000/File/Image/modelphoto.jpg"
+                this.imageprevesoire = "https://2398-20-225-63-138.ngrok.io/File/Image/modelphoto.jpg"
                 this.$swal({
                   position: "top-end",
                   icon: "success",
@@ -600,7 +600,7 @@ export default {
                 this.tel = ''
                 this.email = ''
                 this.imageFile = null
-                this.imageprevesoire = "http://localhost:5000/File/Image/modelphoto.jpg"
+                this.imageprevesoire = "https://2398-20-225-63-138.ngrok.io/File/Image/modelphoto.jpg"
                 this.$swal({
                   position: "top-end",
                   icon: "success",

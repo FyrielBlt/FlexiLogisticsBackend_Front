@@ -160,7 +160,7 @@ class="block w-full py-2 pl-8 pr-6 text-xm text-gray-700 placeholder-gray-400 bg
                    
                     <div class="flex justify-end mt-4">
                       <button
-                        class="px-4 py-2 text-gray-200 bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+                        class="px-2 py-3 font-medium tracking-wide text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none"
                       >
                         Modifier
                       </button>

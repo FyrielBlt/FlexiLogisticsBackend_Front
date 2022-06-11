@@ -89,11 +89,7 @@
                 <div class="flex items-center">
 
                       <div class="flex-shrink-0 w-12 h-12 rounded-full ">
-                        <img
-                          class="w-12 h-12 rounded-full shadow-md shadow-black"
-                          :src="u.imageSrc"
-                          alt=""
-                        />
+                        <img class="object-cover w-full h-full rounded-xl" alt="Your avatar" :src="u.imageSrc" />
      
                 </div>
                   <div class="ml-3">
