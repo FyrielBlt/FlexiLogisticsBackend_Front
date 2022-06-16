@@ -75,7 +75,7 @@
                                        width="50" height="50"
 
                           class="rounded-full"
-                          src="https://2398-20-225-63-138.ngrok.io/File/Image/modelphoto.jpg"
+                          src="https://3958-20-225-63-138.ngrok.io/File/Image/modelphoto.jpg"
                           alt="profile pic"
                         />
             <div

@@ -279,7 +279,7 @@
                       text-center
                       border-gray-200
                       whitespace-nowrap
-                      text-center
+                      
                     "
                   >
                     <div class="flex justify-around">

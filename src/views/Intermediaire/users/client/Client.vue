@@ -856,6 +856,7 @@ export default {
       iduser: "",
       index: "",
       tel: "",
+      societe:""
     };
   },
   computed: {
@@ -1004,7 +1005,7 @@ export default {
       this.nom = personnelle.iduserNavigation.nom;
       this.prenom = personnelle.iduserNavigation.prenom;
       this.email = personnelle.iduserNavigation.email;
-      //  this.password = personnelle.iduserNavigation.motdepasse;
+      this.societe = personnelle.iduserNavigation.societe;
       this.tel = personnelle.iduserNavigation.tel;
       this.iduser = personnelle.iduser;
       this.idClient = personnelle.idclient;
@@ -1028,7 +1029,7 @@ export default {
           user.append("motdepasse", this.password);
           user.append("image", "");
           user.append("Tel", this.tel);
-          user.append("societe", "");
+          user.append("societe", this.societe);
           user.append("ImageFile", this.imageFile);
           user.append("ImageSrc", "");
 

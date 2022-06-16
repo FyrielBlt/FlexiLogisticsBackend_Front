@@ -282,7 +282,7 @@ export default {
       chauffeurs: [],
       tel: '',
       imageFile: '',
-      imageprevesoire: "https://2398-20-225-63-138.ngrok.io/File/Image/modelphoto.jpg",
+      imageprevesoire: "https://3958-20-225-63-138.ngrok.io/File/Image/modelphoto.jpg",
       camions: [],
       image: "",
       currentPage: 1,
@@ -385,7 +385,7 @@ export default {
         this.imageprevesoire = URL.createObjectURL(this.imageFile)
       }
       else {
-        this.imageprevesoire = "https://2398-20-225-63-138.ngrok.io/File/Image/modelphoto.jpg"
+        this.imageprevesoire = "https://3958-20-225-63-138.ngrok.io/File/Image/modelphoto.jpg"
       }
     },
     searchfunction(mot) {
@@ -524,7 +524,7 @@ export default {
                 this.email = ''
                 this.imageFile = null
 
-                this.imageprevesoire = "https://2398-20-225-63-138.ngrok.io/File/Image/modelphoto.jpg"
+                this.imageprevesoire = "https://3958-20-225-63-138.ngrok.io/File/Image/modelphoto.jpg"
                 this.$swal({
                   position: "top-end",
                   icon: "success",
@@ -600,7 +600,7 @@ export default {
                 this.tel = ''
                 this.email = ''
                 this.imageFile = null
-                this.imageprevesoire = "https://2398-20-225-63-138.ngrok.io/File/Image/modelphoto.jpg"
+                this.imageprevesoire = "https://3958-20-225-63-138.ngrok.io/File/Image/modelphoto.jpg"
                 this.$swal({
                   position: "top-end",
                   icon: "success",

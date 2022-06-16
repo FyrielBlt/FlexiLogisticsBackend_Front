@@ -11,7 +11,7 @@
     <div id="clock" class="shadow-md transition ease-in-out hover:-translate-y-1 hover:scale-110"></div>
     <div id="date" class="shadow-md transition ease-in-out hover:-translate-y-1 hover:scale-110">{{ date }}</div>
     <div class="flex items-center">
-      <button @click="isOpen = true" class="text-gray-500 focus:outline-none lg:hidden">
+      <button @click="isOpen()" class="text-gray-500 focus:outline-none lg:hidden">
         <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M4 6H20M4 12H20M4 18H11" stroke="currentColor" stroke-width="2" stroke-linecap="round"
             stroke-linejoin="round" />
@@ -92,7 +92,7 @@ export default defineComponent({
   data() {
     return {
       dropdownOpen: ref(false),
-      isOpen: true,
+     
       notificationOpen: ref(false),
       offres: [],
       name: localStorage.getItem('name'),
@@ -107,6 +107,9 @@ export default defineComponent({
 
   },
   methods: {
+    isOpen(){
+       this.$emit('openSide',true) 
+    },
     showTime() {
       let time = new Date();
       let hour = time.getHours();
@@ -166,9 +169,9 @@ export default defineComponent({
   text-align: center;
   border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 10px;
-  position: relative;
-  right: -470px;
-  background-color:rgba(250, 235, 215, 0.466);
+  position: absolute;
+  right: 802px;
+  background-color: rgba(250, 235, 215, 0.466);
   -webkit-user-select: none;
 }
 
@@ -183,9 +186,9 @@ export default defineComponent({
   text-align: center;
   border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 10px;
-  position: relative;
-  right: -236px;
-  background-color:rgba(250, 235, 215, 0.466);
+  position: absolute;
+  right: 621px;
+  background-color: rgba(250, 235, 215, 0.466);
   -webkit-user-select: none;
 }
 

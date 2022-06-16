@@ -132,13 +132,13 @@
                     focus-within:ring-indigo-500
                   "
                 >
-                  <span>Upload a file</span>
+                
                   <input
                     multiple
                     id="file-upload"
                     name="file-upload"
                     type="file"
-                    class="sr-only"
+                  style="    width: 106px;"
                     @change="uploadFile($event)"
                   />
                 </label>

@@ -312,6 +312,34 @@
                       </a>
                     </div>
                   </td>
+                       <td
+                    v-if="offre.idEtat == GetEtatLivre()"
+                    class="
+                      px-6
+                      py-4
+                      border-b
+                      text-center
+                      border-gray-200
+                      whitespace-nowrap
+                    "
+                  >
+                    <div class="text-sm leading-5 text-gray-900">
+                      <a
+                        class="
+                          inline-flex
+                          px-2
+                          text-ms
+                          font-semibold
+                          leading-5
+                          text-black-800
+                          bg-green-600
+                          rounded-full
+                        "
+                      >
+                        <a class="mx-2 px-2 rounded-md">Livré</a>
+                      </a>
+                    </div>
+                  </td>
                   <td
                     v-if="offre.idEtat == GetEtatNonTraite()"
                     class="
@@ -620,6 +648,11 @@ export default {
     },
     GetEtatAccepter() {
       return this.ListeEtatOffres.filter((el) => el.etat == "Accepté").map(
+        (el) => el.idEtat
+      )[0];
+    },
+      GetEtatLivre() {
+      return this.ListeEtatOffres.filter((el) => el.etat == "Livré").map(
         (el) => el.idEtat
       )[0];
     },

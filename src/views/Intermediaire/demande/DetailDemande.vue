@@ -6,7 +6,7 @@
       <template v-slot:bread1> Demandes </template>
       <template v-slot:bread> Détail Demande </template>
     </bread-crumb>
-    <div class="mt-10 text-center" style="margin-left: 8%">
+    <div class="mt-10 text-center mobiledetail" style="margin-left: 8%">
       <!-- <h4 class="text-gray-700">{{ demande }}</h4> -->
       <div class="w-full max-w-sm mt-6 lg:max-w-full lg:flex">
         <div
@@ -355,3 +355,12 @@ export default {
   },
 };
 </script>
+<style>
+@media only screen and (max-width: 500px) {
+.mobiledetail{
+    position: relative;
+    left: 0px;
+    bottom: 199px;
+}
+}
+</style>

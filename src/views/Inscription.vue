@@ -116,7 +116,7 @@
             <div class="relative">
               <select v-model="type"
                 class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 "
-                id="grid-state">
+                id="grid-state" required>
                 <option>Client</option>
                 <option>Transporteur</option>
               </select>

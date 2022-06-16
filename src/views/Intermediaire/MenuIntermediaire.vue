@@ -1,6 +1,6 @@
 <template>
   <div class="flex h-screen bg-gray-200 font-roboto">
-    <side-bar >
+    <side-bar :isOpen="isOpen" @open="openSideBare($event)">
       <template v-slot:menu>
         <!-- Generale -->
 
@@ -17,8 +17,8 @@
            :to="
             $route.params.id || $route.params.facture || $route.params.demande
               ? '../Intermediaire'
-              : 'Intermediaire'
-          "
+              : 'Intermediaire' 
+          "  @click="fermerSide()"
          
           ><i class="bi bi-bank2"></i>
 
@@ -34,7 +34,7 @@
             $route.params.id || $route.params.facture || $route.params.demande
               ? '../ProfilIntermediaire'
               : 'ProfilIntermediaire'
-          "
+          "  @click="fermerSide()"
           ><i class="bi bi-file-earmark-person"></i>
           <span class="mx-4">Profile</span>
         </router-link>
@@ -54,7 +54,7 @@
             $route.params.id || $route.params.facture || $route.params.demande
               ? '../personnelIntermediaire'
               : 'personnelIntermediaire'
-          "
+          "  @click="fermerSide()"
         >
           <svg
             version="1.1"
@@ -108,7 +108,7 @@
             $route.params.id || $route.params.facture || $route.params.demande
               ? '../societeIntermediaire'
               : 'societeIntermediaire'
-          "
+          "  @click="fermerSide()"
         >
          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
@@ -127,7 +127,7 @@
             $route.params.id || $route.params.facture || $route.params.demande
               ? '../clientIntermediaire'
               : 'clientIntermediaire'
-          "
+          "  @click="fermerSide()"
           ><i class="bi bi-person"></i>
           <span class="mx-4">Client</span>
         </router-link>
@@ -144,7 +144,7 @@
             $route.params.id || $route.params.facture || $route.params.demande
               ? '../transporteurIntermediaire'
               : 'transporteurIntermediaire'
-          "
+          "  @click="fermerSide()"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -170,7 +170,7 @@
             $route.params.id || $route.params.facture || $route.params.demande
               ? '../role'
               : 'role'
-          "
+          "  @click="fermerSide()"
           ><i class="bi bi-card-checklist"></i>
           <span class="mx-4">Role</span>
         </router-link>
@@ -183,7 +183,7 @@
             $route.params.id || $route.params.facture || $route.params.demande
               ? '../permission'
               : 'permission'
-          "
+          "  @click="fermerSide()"
           ><i class="bi bi-bookmark-star"></i>
           <span class="mx-4">Permision</span>
         </router-link>
@@ -209,7 +209,7 @@
             $route.params.id || $route.params.facture || $route.params.demande
               ? '../villeIntermediaire'
               : 'villeIntermediaire'
-          "
+          "  @click="fermerSide()"
           ><i class="bi bi-building"></i>
           <span class="mx-4">Ville</span>
         </router-link>
@@ -223,7 +223,7 @@
             $route.params.id || $route.params.facture || $route.params.demande
               ? '../trajetIntermediaire'
               : 'trajetIntermediaire'
-          "
+          "  @click="fermerSide()"
           ><i class="bi bi-minecart"></i>
           <span class="mx-4">Trajet</span>
         </router-link>
@@ -250,7 +250,7 @@
             $route.params.id || $route.params.facture || $route.params.demande
               ? '../demandeIntermediaire'
               : 'demandeIntermediaire'
-          "
+          "  @click="fermerSide()"
           ><svg
             width="20px"
             height="20px"
@@ -295,7 +295,7 @@
             $route.params.id || $route.params.facture || $route.params.demande
               ? '../factureClient'
               : 'factureClient'
-          "
+          "  @click="fermerSide()" 
           >   <svg version="1.1" width="24px" height="24px" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
             style="enable-background:new 0 0 512 512;" xml:space="preserve">
@@ -412,7 +412,7 @@
             $route.params.id || $route.params.facture || $route.params.demande
               ? '../factureTransporteur'
               : 'factureTransporteur'
-          "
+          "  @click="fermerSide()"
         >
              <svg version="1.1" width="24px" height="24px" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
@@ -521,7 +521,8 @@
     </side-bar>
 
     <div class="flex-1 flex flex-col overflow-hidden">
-      <Header />
+      <Header @openSide="openSideBare($event)"/>
+ 
 
       <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
         <div class="container mx-auto px-6 py-8">
@@ -553,6 +554,7 @@ export default {
       activeClass: "bg-gray-600 bg-opacity-35 text-gray-100 border-gray-100",
       inactiveClass:
         "border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100",
+         isOpen:false,
     };
   },
   async created() {
@@ -577,6 +579,12 @@ export default {
     // this.tet();
   },
   methods: {
+    fermerSide(){
+       this.isOpen=false;
+    },
+    openSideBare(e){
+        this.isOpen=e; 
+    },
     affiche() {
       if (!this.show) {
         this.show = true;

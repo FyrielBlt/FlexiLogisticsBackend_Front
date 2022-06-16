@@ -32,7 +32,7 @@
         </div>
       </div>
 
-      <div class="col-span-2">
+      <div class="col-span-2 mobile">
         <!-- <h4 class="text-gray-600">Modifier :</h4> -->
         <div>
           <div class="p-6 bg-white rounded-md shadow-md">
@@ -439,3 +439,13 @@ export default {
 
 };
 </script>
+<style>
+@media only screen and (max-width: 991px) {
+.mobile{
+  position: relative;
+    left: -384px;
+    bottom: -406px;
+    width: 421px;
+}
+}
+</style>

@@ -3,7 +3,7 @@
     <!-- Backdrop -->
     <div
       :class="isOpen ? 'block' : 'hidden'"
-      @click="isOpen = true"
+      @click="Open()"
       class="
         fixed
         inset-0
@@ -57,7 +57,7 @@
             <rect x="-288" y="-432" class="st3" width="536" height="680" />
           </svg>
 
-          <span class="mx-2 text-2xl font-semibold text-white">P F E 2022</span>
+          <span class="mx-2 text-2xl font-semibold text-white" style="text-align: -webkit-center;">Flexi Logistics</span>
         </div>
       </div>
 
@@ -86,6 +86,11 @@ export default {
     }
     
   },
+  methods:{
+    Open(){
+       this.$emit('open',false) 
+    }
+  }
  
   
 

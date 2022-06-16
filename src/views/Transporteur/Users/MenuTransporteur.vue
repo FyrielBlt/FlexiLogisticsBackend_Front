@@ -1,6 +1,6 @@
 <template>
   <div class="flex h-screen bg-gray-200 font-roboto">
-    <side-bar>
+    <side-bar :isOpen="isOpen" @open="openSideBare($event)" >
       <!--  -->
       <template v-slot:menu>
         <p class="pl-4 my-2 text-xs font-semibold mb-4 text-gray-400">
@@ -9,7 +9,7 @@
          <router-link
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'Dashboard' ? activeClass : inactiveClass]"
-          to="dashboardTransporteur"
+          to="dashboardTransporteur" @click="fermerSide()"
         >
          <i class="bi bi-bank2"></i>
           <span class="mx-4">Dashboard</span>
@@ -17,7 +17,7 @@
         <router-link
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'profil' ? activeClass : inactiveClass]"
-          to="profil"
+          to="profil" @click="fermerSide()"
         >
          <i class="bi bi-file-earmark-person"></i>
           <span class="mx-4">Profil</span>
@@ -30,7 +30,7 @@
           :class="[
             $route.name === 'Transporteurs' ? activeClass : inactiveClass,
           ]"
-          to="itetiaires"
+          to="itetiaires" @click="fermerSide()"
         
         >
          <i class="bi bi-building"></i>
@@ -41,7 +41,7 @@
           :class="[
             $route.name === 'Transporteurs' ? activeClass : inactiveClass,
           ]"
-          to="chauffeurs"
+          to="chauffeurs" @click="fermerSide()" 
         
         >
           <i class="bi bi-people-fill"></i>
@@ -50,7 +50,7 @@
         <router-link
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'Camions' ? activeClass : inactiveClass]"
-          to="camions"
+          to="camions" @click="fermerSide()"
          
         >
          <i class="bi bi-truck"></i>
@@ -59,7 +59,7 @@
           <router-link
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'Trajets' ? activeClass : inactiveClass]"
-          to="trajets"
+          to="trajets" @click="fermerSide()"
          
         >
          <i class="bi bi-minecart"></i>
@@ -74,7 +74,7 @@
           :class="[
             $route.name === 'Transporteurs' ? activeClass : inactiveClass,
           ]"
-          to="demandechauffeur"
+          to="demandechauffeur" @click="fermerSide()"
          
         >
          <i class="bi bi-bell"></i>
@@ -86,7 +86,7 @@
           :class="[
             $route.name === 'Transporteurs' ? activeClass : inactiveClass,
           ]"
-          to="offreschauffeur"
+          to="offreschauffeur" @click="fermerSide()" 
          
         >
          <i class="bi bi-box2-heart-fill"></i>
@@ -95,7 +95,7 @@
          <router-link
           class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
           :class="[$route.name === 'facturesTransporteur' ? activeClass : inactiveClass]"
-          to="facturesTransporteur"
+          to="facturesTransporteur" @click="fermerSide()"
         >
          <i class="bi bi-receipt"></i>
 
@@ -106,7 +106,7 @@
     </side-bar>
 
     <div class="flex-1 flex flex-col overflow-hidden">
-      <Header />
+      <Header @openSide="openSideBare($event)"/>
 
       <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
         <div class="container mx-auto px-6 py-8">
@@ -118,9 +118,9 @@
   </div>
 </template>
 <script>
-import SideBar from "/src/components/SideBar.vue";
-import Header from "/src/components/Header.vue";
-import Footer from "/src/components/Footer.vue";
+import SideBar from "../../../components/SideBar.vue";
+import Header from "../../../components/Header.vue";
+import Footer from "../../../components/Footer.vue";
 export default {
   name: "MenuTransporteur",
   components: {
@@ -133,7 +133,16 @@ export default {
       activeClass: "bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100",
       inactiveClass:
         "border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100",
+         isOpen:false,
     };
   },
+    methods:{
+fermerSide(){
+       this.isOpen=false;
+    },
+    openSideBare(e){
+        this.isOpen=e; 
+    },
+  }
 };
 </script>

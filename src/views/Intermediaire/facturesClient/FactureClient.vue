@@ -279,17 +279,11 @@
                       text-center
                       border-gray-200
                       whitespace-nowrap
-                      text-center
+                      
                     "
                   >
                     <div class="flex justify-around">
-                      <div class="flex-shrink-0 w-10 h-10">
-                        <img
-                          class="w-10 h-10 rounded-full"
-                          :src="demande.idclientNavigation.imageSrc"
-                          alt=""
-                        />
-                      </div>
+                  
 
                       <div class="ml-4">
                         <div
@@ -390,6 +384,7 @@
                     "
                   >
                     <!-- {{VerifPayementClient(demande.idDemande, demande.factureClient)}} -->
+                     <div class="flex justify-around">
                     <DragDrop
                       :client="
                         VerifPayementClient(
@@ -400,6 +395,7 @@
                       :id="demande.idDemande"
                       @f="ChangePage(page)"
                     ></DragDrop>
+                    </div>
                   </td>
 
                   <td

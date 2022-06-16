@@ -1,20 +1,20 @@
 <template>
   <div class="flex h-screen bg-gray-200 font-roboto">
-    <side-bar>
+    <side-bar :isOpen="isOpen" @open="openSideBare($event)" >
       <template v-slot:menu>
         <p class="pl-4 my-2 text-xs font-semibold mb-4 text-gray-400">
           GENERAL
         </p>
         <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4" :class="[
           $route.name === 'DashboardClient' ? activeClass : inactiveClass,
-        ]" to="/client/DashboardClient">
+        ]" to="/client/DashboardClient" @click="fermerSide()">
                   <i class="bi bi-bank2"></i>
 
 
           <span class="mx-4">Dashboard</span>
         </router-link>
         <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-          :class="[$route.name === 'Profile' ? activeClass : inactiveClass]" to="/client/profile">
+          :class="[$route.name === 'Profile' ? activeClass : inactiveClass]" to="/client/profile" @click="fermerSide()">
                  
          <i class="bi bi-file-earmark-person"></i>
 
@@ -24,20 +24,20 @@
           GESTION
         </p>
         <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-          :class="[$route.name === 'Client' ? activeClass : inactiveClass]" to="/client/clients">
+          :class="[$route.name === 'Client' ? activeClass : inactiveClass]" to="/client/clients" @click="fermerSide()">
                         <i class="bi bi-people-fill"></i>
 
 
           <span class="mx-4">Personnels</span>
         </router-link>
         <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-          :class="[$route.name === 'Demande' ? activeClass : inactiveClass]" to="/client/demande">
+          :class="[$route.name === 'Demande' ? activeClass : inactiveClass]" to="/client/demande" @click="fermerSide()">
                   <i class="bi bi-box2-heart-fill"></i>
 
           <span class="mx-4">Demandes</span>
         </router-link>
         <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-          :class="[$route.name === 'Offres' ? activeClass : inactiveClass]" to="/client/offres">
+          :class="[$route.name === 'Offres' ? activeClass : inactiveClass]" to="/client/offres" @click="fermerSide()">
                   <i class="bi bi-bell"></i>
 
 
@@ -47,7 +47,7 @@
           PAYEMENT
         </p>
         <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-          :class="[$route.name === 'Facture' ? activeClass : inactiveClass]" to="/client/facture">
+          :class="[$route.name === 'Facture' ? activeClass : inactiveClass]" to="/client/facture" @click="fermerSide()">
           <svg version="1.1" width="24px" height="24px" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
             style="enable-background:new 0 0 512 512;" xml:space="preserve">
@@ -156,7 +156,7 @@
     </side-bar>
 
     <div class="flex-1 flex flex-col overflow-hidden">
-      <Header />
+      <Header @openSide="openSideBare($event)" />
 
       <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
         <div class="mx-auto px-6 py-8">
@@ -185,7 +185,16 @@ export default {
       activeClass: "bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100",
       inactiveClass:
         "border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100",
+        isOpen:false,
     };
   },
+  methods:{
+fermerSide(){
+       this.isOpen=false;
+    },
+    openSideBare(e){
+        this.isOpen=e; 
+    },
+  }
 };
 </script>
