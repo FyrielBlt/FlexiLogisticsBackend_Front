@@ -49,7 +49,7 @@
               <h4 class="text-2xl font-semibold text-gray-700">
                 {{ this.demandes.length }}
               </h4>
-              <div class="text-gray-500">Demandes Non Traités</div>
+              <div class="text-gray-500">Demandes non traités</div>
             </div>
           </div>
         </div>
@@ -185,8 +185,8 @@ export default {
   methods: {
     pie() {
       let liste = [];
-      liste.push(['Offre accepté', this.offreaccepte.length])
-      liste.push(['Offre réfusé', this.offrerefuse.length])
+      liste.push(['Offres acceptées', this.offreaccepte.length])
+      liste.push(['Offres refusées', this.offrerefuse.length])
       return liste;
     },
     timeFrom(X) {
@@ -272,12 +272,12 @@ export default {
         ).length,
       };
       var ob = {
-        name: "Demande Livraison par jour",
+        name: "Demandes de livraison par jour",
         data: data,
 
       };
       var ob2 = {
-        name: "Offre envoyé par jour",
+        name: "Offres envoyées par jour",
         data: offretotal,
 
       };
