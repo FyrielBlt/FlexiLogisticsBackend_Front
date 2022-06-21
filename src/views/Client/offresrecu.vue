@@ -621,7 +621,7 @@ export default defineComponent({
           position: "top-end",
           icon: "success",
           toast: true,
-          title: "Offre accepté avec succée",
+          title: "Offre acceptée avec succés",
           showConfirmButton: false,
           timer: 2000,
         })
@@ -675,7 +675,7 @@ export default defineComponent({
           position: "top-end",
           icon: "success",
           toast: true,
-          title: "Offre annulé avec succée",
+          title: "Offre annulée avec succés",
           showConfirmButton: false,
           timer: 2000,
         })

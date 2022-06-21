@@ -1,7 +1,7 @@
 <template>
   <div>
     <bread-crumb>
-      <template v-slot:bread1> Profile </template>
+      <template v-slot:bread1> Profil </template>
     </bread-crumb>
     <!-- <Breadcrumb breadcrumb="Profil" /> -->
     <div class="grid grid-flow-col gap-3">
@@ -37,7 +37,7 @@
         <div>
           <div class="p-6 bg-white rounded-md shadow-md">
             <h2 class="text-lg font-semibold text-gray-700 capitalize">
-              Profile
+              Profil
             </h2>
             <br />
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">

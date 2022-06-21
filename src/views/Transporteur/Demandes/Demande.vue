@@ -501,7 +501,7 @@ export default {
     },
     refuserdemande(demande) {
       this.$swal({
-        title: "Voulez vous réfusé cette demande?",
+        title: "Voulez vous refuser cette demande ?",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#36c6d3",
@@ -524,7 +524,7 @@ export default {
 
           this.$swal(
             "supprimer!",
-            "Demande réfusé",
+            "Demande refusée",
             "reussi"
           );
         }

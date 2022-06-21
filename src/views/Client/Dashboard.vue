@@ -91,7 +91,7 @@
               <h4 class="text-2xl font-semibold text-gray-700">
                 {{ offres.length }}
               </h4>
-              <div class="text-gray-500">Offres Récu</div>
+              <div class="text-gray-500">Offres Récues</div>
             </div>
           </div>
           </router-link>
@@ -230,8 +230,8 @@ export default {
     },
     pie() {
       let liste = [];
-      liste.push(['Payé', this.facturesp])
-      liste.push(['Non Payé', this.facturesnp])
+      liste.push(['Payée', this.facturesp])
+      liste.push(['Non Payée', this.facturesnp])
       return liste;
     },
     line() {
@@ -292,12 +292,12 @@ export default {
         ).length,
       };
       var ob = {
-        name: "Demande Livraison par jour",
+        name: "Demandes de Livraison par jour",
         data: data,
 
       };
       var of = {
-        name: "Offre par jour",
+        name: "Offres par jour",
         data: offresdata,
 
       };

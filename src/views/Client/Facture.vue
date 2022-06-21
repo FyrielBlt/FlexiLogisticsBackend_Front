@@ -106,7 +106,7 @@
                     border-b border-gray-200
                     bg-gray-50
                   ">
-          Payement
+          Paiement
         </th>
 
       </tr>

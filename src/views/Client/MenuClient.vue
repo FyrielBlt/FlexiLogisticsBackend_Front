@@ -41,7 +41,7 @@
                   <i class="bi bi-bell"></i>
 
 
-          <span class="mx-4">Offres Récu</span>
+          <span class="mx-4">Offres Récues</span>
         </router-link>
         <p class="pl-4 my-2 text-xs font-semibold mb-4 text-gray-400">
           PAYEMENT

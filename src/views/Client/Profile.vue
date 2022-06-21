@@ -37,7 +37,7 @@
         <div>
           <div class="p-6 bg-white rounded-md shadow-md">
             <h2 class="text-lg font-semibold text-gray-700 capitalize">
-              Profile
+              Profil
             </h2>
             <br />
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">

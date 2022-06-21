@@ -67,7 +67,9 @@
 
           <div style="background-color: white; ">
             <h1 style="    text-align: center;
-    font-size: 25px;">Offres</h1>
+    font-size: 25px; background: -webkit-linear-gradient(blue, red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;">Offres</h1>
             <pie-chart
               :donut="true" :data="pie()"></pie-chart>
 
